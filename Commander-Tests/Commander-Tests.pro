@@ -14,8 +14,16 @@ TEMPLATE = app
 
 SOURCES += \
     footest.cpp \
-    main.cpp
+    main.cpp \
+    util/statusprinttest.cpp \
+    ../Commander/util/statusprint.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS += \
-    footest.h
+    footest.h \
+    util/statusprinttest.h \
+    ../Commander/util/statusprint.h
+
+INCLUDEPATH += util \
+  ../Commander \
+  ../Commander/util
