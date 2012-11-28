@@ -46,22 +46,16 @@ void FooStatusPrinter::msgErr(QString str)
 StatusPrintTest::StatusPrintTest(QObject *parent) :
     QObject(parent)
 {
-    init();
 }
 
-StatusPrintTest::~StatusPrintTest()
+StatusPrinter *StatusPrintTest::getPrinter()
 {
-    clearUp();
+    return &printer;
 }
 
-void StatusPrintTest::init()
+void StatusPrintTest::initTestCase()
 {
     STATUS_PRINT::REGISTER(&printer);
-}
-
-void StatusPrintTest::clearUp()
-{
-    STATUS_PRINT::UNREGISTER(&printer);
 }
 
 void StatusPrintTest::testLevelNone()   {testAll(StatusPrinter::NONE);}
@@ -75,30 +69,7 @@ void StatusPrintTest::testLevelTaskAndInfo() {testAll(StatusPrinter::TASKS | Sta
 void StatusPrintTest::testLevelTaskAndWarn() {testAll(StatusPrinter::TASKS | StatusPrinter::WARNING);}
 void StatusPrintTest::testLevelTaskAndErr()  {testAll(StatusPrinter::TASKS | StatusPrinter::ERROR);}
 
-void StatusPrintTest::testAll(quint8 level)
+void StatusPrintTest::cleanupTestCase()
 {
-    printer.setLevel(level);
-
-    testStatusDone();
-    testStatusFail();
-    testMsg();
-}
-
-void StatusPrintTest::testStatusDone()
-{
-    STATUS_PRINT::NEW("Task 1");
-    STATUS_PRINT::DONE();
-}
-
-void StatusPrintTest::testStatusFail()
-{
-    STATUS_PRINT::NEW("Task 2");
-    STATUS_PRINT::FAIL();
-}
-
-void StatusPrintTest::testMsg()
-{
-    STATUS_PRINT::INFO("some information");
-    STATUS_PRINT::WARN("some warning");
-    STATUS_PRINT::ERR("some error");
+    STATUS_PRINT::UNREGISTER(&printer);
 }

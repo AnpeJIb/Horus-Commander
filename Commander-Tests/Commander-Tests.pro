@@ -16,14 +16,24 @@ SOURCES += \
     footest.cpp \
     main.cpp \
     util/statusprinttest.cpp \
-    ../Commander/util/statusprint.cpp
+    ../Commander/util/statusprint.cpp \
+    util/statusfileloggertest.cpp \
+    ../Commander/util/statusfilelogger.cpp \
+    util/statustester.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS += \
     footest.h \
     util/statusprinttest.h \
-    ../Commander/util/statusprint.h
+    ../Commander/util/statusprint.h \
+    util/statusfileloggertest.h \
+    ../Commander/util/statusfilelogger.h \
+    util/statustester.h
 
 INCLUDEPATH += util \
   ../Commander \
   ../Commander/util
+
+win32 {
+    DEFINES += _WIN32_
+}

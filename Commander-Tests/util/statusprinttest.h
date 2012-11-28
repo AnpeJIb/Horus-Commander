@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "statusprint.h"
+#include "statustester.h"
 
 class FooStatusPrinter;
 
@@ -22,14 +23,17 @@ public slots:
     void msgErr(QString str);
 };
 
-class StatusPrintTest : public QObject
+class StatusPrintTest : public QObject, public StatusTester
 {
     Q_OBJECT
 public:
     explicit StatusPrintTest(QObject *parent = 0);
-    ~StatusPrintTest();
     
+protected:
+    StatusPrinter* getPrinter();
+
 private slots:
+    void initTestCase();
     void testLevelNone();
     void testLevelTasks();
     void testLevelInfo();
@@ -40,16 +44,9 @@ private slots:
     void testLevelTaskAndInfo();
     void testLevelTaskAndWarn();
     void testLevelTaskAndErr();
+    void cleanupTestCase();
 
 private:
-    void init();
-    void clearUp();
-
-    void testAll(quint8 level);
-    void testStatusDone();
-    void testStatusFail();
-    void testMsg();
-
     FooStatusPrinter printer;
 };
 

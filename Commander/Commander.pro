@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    util/statusprint.cpp
+    util/statusprint.cpp \
+    util/statusfilelogger.cpp
 
 HEADERS  += mainwindow.h \
-    util/statusprint.h
+    util/statusprint.h \
+    util/statusfilelogger.h
 
 FORMS    += mainwindow.ui
 
