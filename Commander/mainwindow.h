@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "statuswidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -16,7 +17,10 @@ public:
     ~MainWindow();
     
 private:
+    void initLogger();
+
     Ui::MainWindow *ui;
+    StatusWidget* logger;
 };
 
 #endif // MAINWINDOW_H
