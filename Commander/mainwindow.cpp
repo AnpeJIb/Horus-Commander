@@ -3,6 +3,8 @@
 #include "config.h"
 #include "logs.h"
 
+#include <QDesktopWidget>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -12,6 +14,9 @@ MainWindow::MainWindow(QWidget *parent) :
     initLogger();
     createActions();
     createTrayIcon();
+    initWindowState();
+
+    connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(onAboutToQuit()));
 }
 
 MainWindow::~MainWindow()
@@ -28,6 +33,27 @@ void MainWindow::initLogger()
 
     LOGS::SET_GUI_LOGGER(m_logger);
     LOGS::UPDATE_GUI_LOGGER();
+}
+
+void MainWindow::initWindowState()
+{
+    QRect geom = CONFIG::WINDOW.geometry();
+
+    if ((geom.x()>=0) && (geom.y()>=0))
+    {
+        setGeometry(geom);
+    } else {
+        setGeometry(QStyle::alignedRect(
+                        Qt::LeftToRight,
+                        Qt::AlignCenter,
+                        size(),
+                        QApplication::desktop()->availableGeometry()));
+    }
+
+    if (CONFIG::WINDOW.isMinimized())
+        hide();
+    else
+        showNormal();
 }
 
 void MainWindow::createActions()
@@ -76,4 +102,18 @@ void MainWindow::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
         default:
             ;
     }
+}
+
+void MainWindow::onAboutToQuit()
+{
+    CONFIG::WINDOW.setGeometry(geometry());
+    CONFIG::WINDOW.setMinimized(isMinimized() || (isVisible()==false));
+    CONFIG::SAVE();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    Q_UNUSED(event)
+    disconnect(qApp, SIGNAL(aboutToQuit()), this, SLOT(onAboutToQuit()));
+    onAboutToQuit();
 }

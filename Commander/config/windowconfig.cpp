@@ -9,8 +9,8 @@
 #define XML_ATTR_W          "w"
 #define XML_ATTR_H          "h"
 
-#define DEFAULT_GEOM_X  0
-#define DEFAULT_GEOM_Y  0
+#define DEFAULT_GEOM_X  -1
+#define DEFAULT_GEOM_Y  -1
 #define DEFAULT_GEOM_W  300
 #define DEFAULT_GEOM_H  200
 
