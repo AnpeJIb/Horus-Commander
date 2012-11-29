@@ -4,6 +4,7 @@
 #include <QLibraryInfo>
 
 #include "config.h"
+#include "logs.h"
 
 void parseArgs(int argc, char *argv[]);
 
@@ -11,11 +12,16 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    /** Init LOGS */
+    static LOGS logs;
+    Q_UNUSED(logs)
+
     /** Init CONFIG */
     static CONFIG cfg;
     Q_UNUSED(cfg)
 
     CONFIG::LOAD();
+    LOGS::UPDATE_FILE_LOGGER();
 
     /** Init language */
     QString lCode = CONFIG::GENERAL.langCode();

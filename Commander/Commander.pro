@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     config/config.cpp \
     config/generalconfig.cpp \
     config/commonlogconfig.cpp \
-    config/logconfig.cpp
+    config/logconfig.cpp \
+    util/logs.cpp
 
 HEADERS  += mainwindow.h \
     util/statusprint.h \
@@ -33,7 +34,8 @@ HEADERS  += mainwindow.h \
     config/generalconfig.h \
     util/fileext.h \
     config/commonlogconfig.h \
-    config/logconfig.h
+    config/logconfig.h \
+    util/logs.h
 
 FORMS    += mainwindow.ui
 
