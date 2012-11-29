@@ -17,8 +17,12 @@ StatusWidget::StatusWidget()
     headerNames.append(tr("Time"));
     setHeaderLabels(headerNames);
 
-    setLevel(StatusPrinter::ALL);
-    header()->resizeSection(0, width()-200);
+    setLevel(StatusPrinter::ALL);    
+
+    header()->setStretchLastSection(false);
+    header()->setResizeMode(0, QHeaderView::Stretch);
+    header()->setResizeMode(1, QHeaderView::Fixed);
+    header()->resizeSection(1, 120);
 }
 
 void StatusWidget::statusNew(QString str)
