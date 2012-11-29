@@ -23,7 +23,9 @@ SOURCES += \
     util/foostatusprinter.cpp \
     ../Commander/config/generalconfig.cpp \
     ../Commander/config/configmodule.cpp \
-    ../Commander/config/config.cpp
+    ../Commander/config/config.cpp \
+    ../Commander/config/commonlogconfig.cpp \
+    ../Commander/config/logconfig.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS += \
@@ -36,7 +38,9 @@ HEADERS += \
     util/foostatusprinter.h \
     ../Commander/config/generalconfig.h \
     ../Commander/config/configmodule.h \
-    ../Commander/config/config.h
+    ../Commander/config/config.h \
+    ../Commander/config/commonlogconfig.h \
+    ../Commander/config/logconfig.h
 
 INCLUDEPATH += util \
   config \

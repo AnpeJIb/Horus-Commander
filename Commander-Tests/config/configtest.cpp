@@ -29,6 +29,7 @@ void ConfigTest::test_general_lang()
     QVERIFY(CONFIG::GENERAL.langCode()=="en");
 
     CONFIG::GENERAL.setLangCode("ru");
+    QVERIFY(CONFIG::IS_CHANGED()==true);
     CONFIG::SAVE();
     QVERIFY(CONFIG::IS_CHANGED()==false);
     CONFIG::DEFAULTS();
@@ -48,6 +49,7 @@ void ConfigTest::test_general_daemonMode()
     QVERIFY(CONFIG::GENERAL.isDaemonMode()==false);
 
     CONFIG::GENERAL.setDaemonMode(true);
+    QVERIFY(CONFIG::IS_CHANGED()==true);
     CONFIG::SAVE();
     QVERIFY(CONFIG::IS_CHANGED()==false);
     CONFIG::DEFAULTS();
@@ -57,6 +59,51 @@ void ConfigTest::test_general_daemonMode()
     CONFIG::LOAD();
     QVERIFY(CONFIG::IS_CHANGED()==false);
     QVERIFY(CONFIG::GENERAL.isDaemonMode()==true);
+}
+
+void ConfigTest::test_log_file(){test_log(CONFIG::LOG.FILE());}
+void ConfigTest::test_log_gui() {test_log(CONFIG::LOG.GUI());}
+
+void ConfigTest::test_log(CommonLogConfig *cfg)
+{
+    test_log_enable(cfg);
+    test_log_level(cfg);
+}
+
+void ConfigTest::test_log_enable(CommonLogConfig *cfg)
+{
+    CONFIG::DEFAULTS();
+    QVERIFY(cfg->isEnable()==true);
+
+    cfg->setEnable(false);
+    QVERIFY(CONFIG::IS_CHANGED()==true);
+    CONFIG::SAVE();
+    QVERIFY(CONFIG::IS_CHANGED()==false);
+    CONFIG::DEFAULTS();
+    QVERIFY(cfg->isEnable()==true);
+
+    QVERIFY(CONFIG::IS_CHANGED()==true);
+    CONFIG::LOAD();
+    QVERIFY(CONFIG::IS_CHANGED()==false);
+    QVERIFY(cfg->isEnable()==false);
+}
+
+void ConfigTest::test_log_level(CommonLogConfig *cfg)
+{
+    CONFIG::DEFAULTS();
+    QVERIFY(cfg->level()==StatusPrinter::ALL);
+
+    cfg->setLevel(StatusPrinter::INFO);
+    QVERIFY(CONFIG::IS_CHANGED()==true);
+    CONFIG::SAVE();
+    QVERIFY(CONFIG::IS_CHANGED()==false);
+    CONFIG::DEFAULTS();
+    QVERIFY(cfg->level()==StatusPrinter::ALL);
+
+    QVERIFY(CONFIG::IS_CHANGED()==true);
+    CONFIG::LOAD();
+    QVERIFY(CONFIG::IS_CHANGED()==false);
+    QVERIFY(cfg->level()==StatusPrinter::INFO);
 }
 
 void ConfigTest::cleanupTestCase()
