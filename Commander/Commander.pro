@@ -41,3 +41,5 @@ CPPFLAGS +=	"--pedantic -Wall -Wno-error=unused-result -Werror -Wfatal-errors -s
 
 RESOURCES += \
     img.qrc
+
+TRANSLATIONS += l10n/ru.ts
