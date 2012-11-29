@@ -27,16 +27,13 @@ private slots:
     void trayIconActivated(QSystemTrayIcon::ActivationReason reason);
     void onAboutToQuit();
     
+    void on_actionQuit_triggered();
+
 private:
     void initLogger();
     void initWindowState();
 
-    void createActions();
     void createTrayIcon();
-
-    QAction *m_showAction;
-    QAction *m_minimizeAction;
-    QAction *m_quitAction;
 
     QSystemTrayIcon *m_trayIcon;
     QMenu *m_trayIconMenu;

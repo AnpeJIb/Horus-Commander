@@ -4,6 +4,8 @@
 #include "logs.h"
 
 #include <QDesktopWidget>
+#include <QMessageBox>
+#include <QCheckBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     initLogger();
-    createActions();
     createTrayIcon();
     initWindowState();
 
@@ -56,30 +57,14 @@ void MainWindow::initWindowState()
         showNormal();
 }
 
-void MainWindow::createActions()
-{
-    m_showAction = new QAction(tr("&Show"), this);
-    connect(m_showAction, SIGNAL(triggered()), this, SLOT(showNormal()));
-    m_showAction->setIcon(QIcon((":/img/show.png")));
-
-    m_minimizeAction = new QAction(tr("&Minimize"), this);
-    connect(m_minimizeAction, SIGNAL(triggered()), this, SLOT(hide()));
-    m_minimizeAction->setIcon(QIcon((":/img/minimize.png")));
-
-    m_quitAction = new QAction(tr("&Quit"), this);
-    connect(m_quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
-    m_quitAction->setIcon(QIcon((":/img/exit.png")));
-}
-
 void MainWindow::createTrayIcon()
 {
     m_trayIconMenu = new QMenu(this);
-    m_trayIconMenu->addAction(m_showAction);
-    m_trayIconMenu->addAction(m_minimizeAction);
 
+    m_trayIconMenu->addAction(ui->actionShow);
+    m_trayIconMenu->addAction(ui->actionMinimize);
     m_trayIconMenu->addSeparator();
-
-    m_trayIconMenu->addAction(m_quitAction);
+    m_trayIconMenu->addAction(ui->actionQuit);
 
     m_trayIcon = new QSystemTrayIcon(this);
     m_trayIcon->setContextMenu(m_trayIconMenu);
@@ -115,5 +100,32 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     Q_UNUSED(event)
     disconnect(qApp, SIGNAL(aboutToQuit()), this, SLOT(onAboutToQuit()));
+
+    if (CONFIG::WINDOW.promtClose())
+    {
+        QMessageBox msgBox(QMessageBox::Warning,
+                           tr("Closing window"),
+                           tr("Do you wish to quit? Otherwise window will be minimized to tray"), 0, this);
+        QCheckBox dontPrompt(tr("Do not prompt again"), &msgBox);
+        dontPrompt.blockSignals(true);
+
+        msgBox.addButton(&dontPrompt, QMessageBox::ActionRole);
+        msgBox.addButton(QMessageBox::Yes);
+        msgBox.addButton(QMessageBox::No);
+
+        int res = msgBox.exec();
+
+        CONFIG::WINDOW.setPromtClose(dontPrompt.isChecked()==false);
+        CONFIG::WINDOW.setQuitOnClose(res == 16384);
+    }
+
+    if (CONFIG::WINDOW.quitOnClose())
+        qApp->quit();
+
     onAboutToQuit();
+}
+
+void MainWindow::on_actionQuit_triggered()
+{
+    qApp->quit();
 }

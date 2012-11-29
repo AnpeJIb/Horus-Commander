@@ -58,6 +58,13 @@
      <height>20</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>&amp;Tools</string>
+    </property>
+    <addaction name="actionQuit"/>
+   </widget>
+   <addaction name="menuTools"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -68,6 +75,42 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionQuit">
+   <property name="icon">
+    <iconset resource="img.qrc">
+     <normaloff>:/img/exit.png</normaloff>:/img/exit.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionMinimize">
+   <property name="icon">
+    <iconset resource="img.qrc">
+     <normaloff>:/img/minimize.png</normaloff>:/img/minimize.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Minimize</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+M</string>
+   </property>
+  </action>
+  <action name="actionShow">
+   <property name="icon">
+    <iconset resource="img.qrc">
+     <normaloff>:/img/show.png</normaloff>:/img/show.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Show</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+S</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
