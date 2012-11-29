@@ -4,25 +4,7 @@
 #include <QObject>
 #include "statusprint.h"
 #include "statustester.h"
-
-class FooStatusPrinter;
-
-class FooStatusPrinter : public QObject, public StatusPrinter
-{
-    Q_OBJECT
-public:
-    explicit FooStatusPrinter();
-
-public slots:
-    void statusNew(QString str);
-    void statusDone();
-    void statusFail();
-
-    void msgDebug(QString str);
-    void msgInfo(QString str);
-    void msgWarn(QString str);
-    void msgError(QString str);
-};
+#include "foostatusprinter.h"
 
 class StatusPrintTest : public QObject, public StatusTester
 {

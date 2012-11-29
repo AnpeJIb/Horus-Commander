@@ -4,24 +4,32 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Horus-Commander
 TEMPLATE = app
 
+INCLUDEPATH += config util
 
 SOURCES += main.cpp\
         mainwindow.cpp \
     util/statusprint.cpp \
     util/statusfilelogger.cpp \
-    util/statuswidget.cpp
+    util/statuswidget.cpp \
+    config/configmodule.cpp \
+    config/config.cpp \
+    config/generalconfig.cpp
 
 HEADERS  += mainwindow.h \
     util/statusprint.h \
     util/statusfilelogger.h \
-    util/statuswidget.h
+    util/statuswidget.h \
+    config/configmodule.h \
+    config/config.h \
+    config/generalconfig.h \
+    util/fileext.h
 
 FORMS    += mainwindow.ui
 

@@ -19,7 +19,12 @@ SOURCES += \
     ../Commander/util/statusprint.cpp \
     util/statusfileloggertest.cpp \
     ../Commander/util/statusfilelogger.cpp \
-    util/statustester.cpp
+    util/statustester.cpp \
+    config/configtest.cpp \
+    util/foostatusprinter.cpp \
+    ../Commander/config/generalconfig.cpp \
+    ../Commander/config/configmodule.cpp \
+    ../Commander/config/config.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS += \
@@ -28,11 +33,18 @@ HEADERS += \
     ../Commander/util/statusprint.h \
     util/statusfileloggertest.h \
     ../Commander/util/statusfilelogger.h \
-    util/statustester.h
+    util/statustester.h \
+    config/configtest.h \
+    util/foostatusprinter.h \
+    ../Commander/config/generalconfig.h \
+    ../Commander/config/configmodule.h \
+    ../Commander/config/config.h
 
 INCLUDEPATH += util \
+  config \
   ../Commander \
-  ../Commander/util
+  ../Commander/util \
+  ../Commander/config
 
 win32 {
     DEFINES += _WIN32_
