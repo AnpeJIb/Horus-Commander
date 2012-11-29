@@ -13,7 +13,6 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += \
-    footest.cpp \
     main.cpp \
     util/statusprinttest.cpp \
     ../Commander/util/statusprint.cpp \
@@ -28,7 +27,6 @@ SOURCES += \
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS += \
-    footest.h \
     util/statusprinttest.h \
     ../Commander/util/statusprint.h \
     util/statusfileloggertest.h \
