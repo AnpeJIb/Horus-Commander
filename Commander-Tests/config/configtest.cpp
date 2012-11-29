@@ -21,7 +21,7 @@ void ConfigTest::initTestCase()
     Q_UNUSED(cfg);
 }
 
-void ConfigTest::testGeneralConfig()
+void ConfigTest::test_general_lang()
 {
     QVERIFY(CONFIG::IS_CHANGED()==false);
     CONFIG::DEFAULTS();
@@ -38,6 +38,25 @@ void ConfigTest::testGeneralConfig()
     CONFIG::LOAD();
     QVERIFY(CONFIG::IS_CHANGED()==false);
     QVERIFY(CONFIG::GENERAL.langCode()=="ru");
+}
+
+void ConfigTest::test_general_daemonMode()
+{
+    QVERIFY(CONFIG::IS_CHANGED()==false);
+    CONFIG::DEFAULTS();
+    QVERIFY(CONFIG::IS_CHANGED()==true);
+    QVERIFY(CONFIG::GENERAL.isDaemonMode()==false);
+
+    CONFIG::GENERAL.setDaemonMode(true);
+    CONFIG::SAVE();
+    QVERIFY(CONFIG::IS_CHANGED()==false);
+    CONFIG::DEFAULTS();
+    QVERIFY(CONFIG::GENERAL.isDaemonMode()==false);
+
+    QVERIFY(CONFIG::IS_CHANGED()==true);
+    CONFIG::LOAD();
+    QVERIFY(CONFIG::IS_CHANGED()==false);
+    QVERIFY(CONFIG::GENERAL.isDaemonMode()==true);
 }
 
 void ConfigTest::cleanupTestCase()

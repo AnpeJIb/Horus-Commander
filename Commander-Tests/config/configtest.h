@@ -12,10 +12,12 @@ public:
 
 private slots:
     void initTestCase();
-    void testGeneralConfig();
+    void test_general_lang();
+    void test_general_daemonMode();
     void cleanupTestCase();
 
 private:
+
     FooStatusPrinter printer;
 };
 

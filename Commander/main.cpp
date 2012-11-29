@@ -5,6 +5,8 @@
 
 #include "config.h"
 
+void parseArgs(int argc, char *argv[]);
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -26,8 +28,22 @@ int main(int argc, char *argv[])
     myappTranslator.load(QString("l10n/").append(lCode));
     a.installTranslator(&myappTranslator);
 
+    parseArgs(argc, argv);
+
+    if (CONFIG::GENERAL.isDaemonMode())
+    {
+        // TODO: start work here
+        return 0;
+    }
+
     MainWindow w;
     w.show();
-    
     return a.exec();
+}
+
+void parseArgs(int argc, char *argv[])
+{
+    for (int i=1; i<argc; i++)
+        if (QString(argv[i])== "-d")
+            CONFIG::GENERAL.setDaemonMode(true);
 }

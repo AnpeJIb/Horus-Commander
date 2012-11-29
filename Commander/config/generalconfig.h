@@ -14,12 +14,18 @@ public:
 
     QString langCode() const;
     void    setLangCode(QString value);
+    bool    isDaemonMode();
+    void    setDaemonMode(bool value);
 
 private:
     void saveLangCode(QDomElement* root, QDomDocument* doc);
-    void loadLangCode(QDomElement* root);
+    void saveDaemonMode(QDomElement* root, QDomDocument* doc);
+
+    bool loadLangCode(QDomElement* root);
+    bool loadDaemonMode(QDomElement* root);
 
     QString m_langCode;
+    bool m_daemonMode;
 };
 
 #endif // GENERALCONFIG_H
