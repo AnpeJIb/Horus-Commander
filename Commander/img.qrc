@@ -11,5 +11,9 @@
         <file>img/bullet_yellow.png</file>
         <file>img/log.png</file>
         <file>img/main.png</file>
+        <file>img/logo.png</file>
+        <file>img/show.png</file>
+        <file>img/minimize.png</file>
+        <file>img/exit.png</file>
     </qresource>
 </RCC>

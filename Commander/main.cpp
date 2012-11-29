@@ -1,5 +1,7 @@
 #include "mainwindow.h"
+
 #include <QApplication>
+#include <QMessageBox>
 #include <QTranslator>
 #include <QLibraryInfo>
 
@@ -41,6 +43,16 @@ int main(int argc, char *argv[])
         // TODO: start work here
         return 0;
     }
+
+    if (QSystemTrayIcon::isSystemTrayAvailable()==false)
+    {
+        QMessageBox::critical(
+                    0,
+                    QObject::tr("Systray"),
+                    QObject::tr("I couldn't detect any system tray on this system."));
+        exit(EXIT_FAILURE);
+    }
+    QApplication::setQuitOnLastWindowClosed(false);
 
     MainWindow w;
     w.show();

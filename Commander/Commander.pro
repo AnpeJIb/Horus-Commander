@@ -41,6 +41,7 @@ FORMS    += mainwindow.ui
 
 win32 {
     DEFINES += _WIN32_
+    RC_FILE = qapp.rc
 }
 
 CPPFLAGS +=	"--pedantic -Wall -Wno-error=unused-result -Werror -Wfatal-errors -std=gnu99"
