@@ -20,6 +20,9 @@ private slots:
     void test_log_file();
     void test_log_gui();
 
+    void test_window_geometry();
+    void test_window_minimized();
+
     void cleanupTestCase();
 
 private:

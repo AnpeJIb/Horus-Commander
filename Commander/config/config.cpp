@@ -9,15 +9,17 @@
 
 static QString CONFIG_PATH = XML_ROOT FILE_EXT_XML;
 
-GeneralConfig CONFIG::GENERAL;
-LogConfig CONFIG::LOG;
-QList<ConfigModule*> CONFIG::CHILDREN;
+GeneralConfig   CONFIG::GENERAL;
+LogConfig       CONFIG::LOG;
+WindowConfig    CONFIG::WINDOW;
 
+QList<ConfigModule*> CONFIG::CHILDREN;
 
 CONFIG::CONFIG()
 {
     CONFIG::CHILDREN << &(CONFIG::GENERAL);
     CONFIG::CHILDREN << &(CONFIG::LOG);
+    CONFIG::CHILDREN << &(CONFIG::WINDOW);
 }
 
 void CONFIG::SAVE()

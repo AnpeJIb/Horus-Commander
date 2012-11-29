@@ -25,7 +25,8 @@ SOURCES += \
     ../Commander/config/configmodule.cpp \
     ../Commander/config/config.cpp \
     ../Commander/config/commonlogconfig.cpp \
-    ../Commander/config/logconfig.cpp
+    ../Commander/config/logconfig.cpp \
+    ../Commander/config/windowconfig.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS += \
@@ -40,7 +41,8 @@ HEADERS += \
     ../Commander/config/configmodule.h \
     ../Commander/config/config.h \
     ../Commander/config/commonlogconfig.h \
-    ../Commander/config/logconfig.h
+    ../Commander/config/logconfig.h \
+    ../Commander/config/windowconfig.h
 
 INCLUDEPATH += util \
   config \

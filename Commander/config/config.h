@@ -3,6 +3,7 @@
 
 #include "generalconfig.h"
 #include "logconfig.h"
+#include "windowconfig.h"
 #include <QList>
 
 class CONFIG
@@ -18,6 +19,7 @@ public:
 
     static GeneralConfig    GENERAL;
     static LogConfig        LOG;
+    static WindowConfig     WINDOW;
 
 private:
     static QList<ConfigModule*> CHILDREN;
