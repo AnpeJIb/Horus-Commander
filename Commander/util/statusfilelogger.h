@@ -29,6 +29,7 @@ private:
     QFile* file;
     QTextStream* stream;
     QStack<QString> stack;
+    QString outFormat;
 };
 
 #endif // STATUSFILELOGGER_H

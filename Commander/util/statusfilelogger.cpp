@@ -5,6 +5,7 @@
 using namespace std;
 
 StatusFileLogger::StatusFileLogger(QString filename)
+    : outFormat("hh:mm:ss/d.MM.yy")
 {
     stream = NULL;
 
@@ -73,7 +74,7 @@ void StatusFileLogger::printStr(const QString &prefix, const QString &str)
     *stream << "["
             << prefix
             << " : "
-            << QDateTime::currentDateTime().toString()
+            << QDateTime::currentDateTime().toString(outFormat)
             << "] "
             << str
             << endl;
