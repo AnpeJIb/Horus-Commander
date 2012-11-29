@@ -44,6 +44,12 @@ void StatusFileLogger::statusFail()
     printStr(tr("FAIL"), stack.pop());
 }
 
+void StatusFileLogger::msgDebug(QString str)
+{
+    if ((level & StatusPrinter::DEBUG)==0) return;
+    printStr(tr("DBG "), str);
+}
+
 void StatusFileLogger::msgInfo(QString str)
 {
     if ((level & StatusPrinter::INFO)==0) return;
@@ -56,7 +62,7 @@ void StatusFileLogger::msgWarn(QString str)
     printStr(tr("WARN"), str);
 }
 
-void StatusFileLogger::msgErr(QString str)
+void StatusFileLogger::msgError(QString str)
 {
     if ((level & StatusPrinter::ERROR)==0) return;
     printStr(tr("ERR "), str);

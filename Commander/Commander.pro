@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     util/statusprint.cpp \
-    util/statusfilelogger.cpp
+    util/statusfilelogger.cpp \
+    util/statuswidget.cpp
 
 HEADERS  += mainwindow.h \
     util/statusprint.h \
-    util/statusfilelogger.h
+    util/statusfilelogger.h \
+    util/statuswidget.h
 
 FORMS    += mainwindow.ui
 
@@ -28,3 +30,6 @@ win32 {
 }
 
 CPPFLAGS +=	"--pedantic -Wall -Wno-error=unused-result -Werror -Wfatal-errors -std=gnu99"
+
+RESOURCES += \
+    img.qrc

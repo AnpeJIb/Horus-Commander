@@ -23,7 +23,8 @@ void StatusTester::testStatusFail()
 
 void StatusTester::testMsg()
 {
+    STATUS_PRINT::DEBUG("some debug");
     STATUS_PRINT::INFO("some information");
     STATUS_PRINT::WARN("some warning");
-    STATUS_PRINT::ERR("some error");
+    STATUS_PRINT::ERROR("some error");
 }

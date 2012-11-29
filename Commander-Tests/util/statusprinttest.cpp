@@ -25,22 +25,28 @@ void FooStatusPrinter::statusFail()
         cout << "Task failed" << endl;
 }
 
+void FooStatusPrinter::msgDebug(QString str)
+{
+    if (level & StatusPrinter::DEBUG)
+        cout << "DBG : " << qPrintable(str) << endl;
+}
+
 void FooStatusPrinter::msgInfo(QString str)
 {
     if (level & StatusPrinter::INFO)
-        cout << "Info: " << qPrintable(str) << endl;
+        cout << "INFO: " << qPrintable(str) << endl;
 }
 
 void FooStatusPrinter::msgWarn(QString str)
 {
     if (level & StatusPrinter::WARNING)
-        cout << "Warning: " << qPrintable(str) << endl;
+        cout << "WARN: " << qPrintable(str) << endl;
 }
 
-void FooStatusPrinter::msgErr(QString str)
+void FooStatusPrinter::msgError(QString str)
 {
     if (level & StatusPrinter::ERROR)
-        cout << "Error: " << qPrintable(str) << endl;
+        cout << "ERR : " << qPrintable(str) << endl;
 }
 
 StatusPrintTest::StatusPrintTest(QObject *parent) :
@@ -60,11 +66,13 @@ void StatusPrintTest::initTestCase()
 
 void StatusPrintTest::testLevelNone()   {testAll(StatusPrinter::NONE);}
 void StatusPrintTest::testLevelTasks()  {testAll(StatusPrinter::TASKS);}
+void StatusPrintTest::testLevelDebug()   {testAll(StatusPrinter::DEBUG);}
 void StatusPrintTest::testLevelInfo()   {testAll(StatusPrinter::INFO);}
 void StatusPrintTest::testLevelWarn()   {testAll(StatusPrinter::WARNING);}
 void StatusPrintTest::testLevelErr()    {testAll(StatusPrinter::ERROR);}
 void StatusPrintTest::testLevelAll()    {testAll(StatusPrinter::ALL);}
 
+void StatusPrintTest::testLevelTaskAndDebug() {testAll(StatusPrinter::TASKS | StatusPrinter::DEBUG);}
 void StatusPrintTest::testLevelTaskAndInfo() {testAll(StatusPrinter::TASKS | StatusPrinter::INFO);}
 void StatusPrintTest::testLevelTaskAndWarn() {testAll(StatusPrinter::TASKS | StatusPrinter::WARNING);}
 void StatusPrintTest::testLevelTaskAndErr()  {testAll(StatusPrinter::TASKS | StatusPrinter::ERROR);}

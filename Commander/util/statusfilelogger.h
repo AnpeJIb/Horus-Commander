@@ -6,7 +6,7 @@
 #include <QTextStream>
 #include <QStack>
 
-class StatusFileLogger : public StatusPrinter
+class StatusFileLogger : public QObject, public StatusPrinter
 {
     Q_OBJECT
 public:
@@ -18,9 +18,10 @@ public slots:
     void statusDone();
     void statusFail();
 
+    void msgDebug(QString str);
     void msgInfo(QString str);
     void msgWarn(QString str);
-    void msgErr(QString str);
+    void msgError(QString str);
 
 private:
     void printStr(const QString& prefix, const QString& str);

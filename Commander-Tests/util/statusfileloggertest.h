@@ -18,11 +18,13 @@ private slots:
     void initTestCase();
     void testLevelNone();
     void testLevelTasks();
+    void testLevelDebug();
     void testLevelInfo();
     void testLevelWarn();
     void testLevelErr();
     void testLevelAll();
 
+    void testLevelTaskAndDebug();
     void testLevelTaskAndInfo();
     void testLevelTaskAndWarn();
     void testLevelTaskAndErr();

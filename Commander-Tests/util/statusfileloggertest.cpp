@@ -26,11 +26,13 @@ void StatusFileLoggerTest::initTestCase()
 
 void StatusFileLoggerTest::testLevelNone()   {testAll(StatusPrinter::NONE);}
 void StatusFileLoggerTest::testLevelTasks()  {testAll(StatusPrinter::TASKS);}
+void StatusFileLoggerTest::testLevelDebug()   {testAll(StatusPrinter::DEBUG);}
 void StatusFileLoggerTest::testLevelInfo()   {testAll(StatusPrinter::INFO);}
 void StatusFileLoggerTest::testLevelWarn()   {testAll(StatusPrinter::WARNING);}
 void StatusFileLoggerTest::testLevelErr()    {testAll(StatusPrinter::ERROR);}
 void StatusFileLoggerTest::testLevelAll()    {testAll(StatusPrinter::ALL);}
 
+void StatusFileLoggerTest::testLevelTaskAndDebug() {testAll(StatusPrinter::TASKS | StatusPrinter::DEBUG);}
 void StatusFileLoggerTest::testLevelTaskAndInfo() {testAll(StatusPrinter::TASKS | StatusPrinter::INFO);}
 void StatusFileLoggerTest::testLevelTaskAndWarn() {testAll(StatusPrinter::TASKS | StatusPrinter::WARNING);}
 void StatusFileLoggerTest::testLevelTaskAndErr()  {testAll(StatusPrinter::TASKS | StatusPrinter::ERROR);}

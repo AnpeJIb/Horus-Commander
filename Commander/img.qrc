@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/save.png</file>
+        <file>img/settings.png</file>
+        <file>img/clear.png</file>
+        <file>img/bullet_blue.png</file>
+        <file>img/bullet_green.png</file>
+        <file>img/bullet_grey.png</file>
+        <file>img/bullet_orange.png</file>
+        <file>img/bullet_red.png</file>
+        <file>img/bullet_yellow.png</file>
+    </qresource>
+</RCC>

@@ -32,6 +32,12 @@ void STATUS_PRINT::FAIL()
         printer->statusFail();
 }
 
+void STATUS_PRINT::DEBUG(const QString& str)
+{
+    foreach(StatusPrinter* printer, STATUS_PRINT::printers)
+        printer->msgDebug(str);
+}
+
 void STATUS_PRINT::INFO(const QString& str)
 {
     foreach(StatusPrinter* printer, STATUS_PRINT::printers)
@@ -44,8 +50,8 @@ void STATUS_PRINT::WARN(const QString& str)
         printer->msgWarn(str);
 }
 
-void STATUS_PRINT::ERR(const QString& str)
+void STATUS_PRINT::ERROR(const QString& str)
 {
     foreach(StatusPrinter* printer, STATUS_PRINT::printers)
-        printer->msgErr(str);
+        printer->msgError(str);
 }
