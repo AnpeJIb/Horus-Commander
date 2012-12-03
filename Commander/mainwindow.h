@@ -29,6 +29,20 @@ private slots:
     
     void on_actionQuit_triggered();
 
+    void on_btnStart_clicked();
+
+    void on_btnStop_clicked();
+
+    void on_btnRestart_clicked();
+
+    void on_btnPrevious_clicked();
+
+    void on_btnNext_clicked();
+
+    void on_btnExtra_clicked();
+
+    void on_timeLeft_timeChanged(const QTime &date);
+
 private:
     void initLogger();
     void initWindowState();

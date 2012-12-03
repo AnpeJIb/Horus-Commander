@@ -7,6 +7,8 @@
 #include <QMessageBox>
 #include <QCheckBox>
 
+#include "extramissionmanagementdialog.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -128,4 +130,40 @@ void MainWindow::closeEvent(QCloseEvent *event)
 void MainWindow::on_actionQuit_triggered()
 {
     qApp->quit();
+}
+
+void MainWindow::on_btnStart_clicked()
+{
+    // TODO:
+}
+
+void MainWindow::on_btnStop_clicked()
+{
+    // TODO:
+}
+
+void MainWindow::on_btnRestart_clicked()
+{
+    // TODO:
+}
+
+void MainWindow::on_btnPrevious_clicked()
+{
+    // TODO:
+}
+
+void MainWindow::on_btnNext_clicked()
+{
+    // TODO:
+}
+
+void MainWindow::on_btnExtra_clicked()
+{
+    ExtraMissionManagementDialog d;
+    d.exec();
+}
+
+void MainWindow::on_timeLeft_timeChanged(const QTime &date)
+{
+    // TODO:
 }
