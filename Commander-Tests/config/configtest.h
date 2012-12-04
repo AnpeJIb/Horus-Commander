@@ -16,12 +16,17 @@ private slots:
 
     void test_general_lang();
     void test_general_daemonMode();
+    void test_general_serverPath();
+    void test_general_serverName();
+    void test_general_serverDescr();
 
     void test_log_file();
     void test_log_gui();
 
     void test_window_geometry();
     void test_window_minimized();
+    void test_window_quitOnClose();
+    void test_window_promptClose();
 
     void cleanupTestCase();
 

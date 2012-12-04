@@ -4,6 +4,10 @@
 #include "configmodule.h"
 #include <QRect>
 
+#define DEFAULT_MINIMIZED       false
+#define DEFAULT_PROMPT_CLOSE    true
+#define DEFAULT_QUIT_ON_CLOSE   false
+
 class WindowConfig : public ConfigModule
 {
 public:

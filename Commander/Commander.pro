@@ -11,7 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Horus-Commander
 TEMPLATE = app
 
-INCLUDEPATH += config util
+INCLUDEPATH += config util config/ui
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -27,7 +27,11 @@ SOURCES += main.cpp\
     config/windowconfig.cpp \
     extramissionmanagementdialog.cpp \
     servercommander.cpp \
-    missionmanager.cpp
+    missionmanager.cpp \
+    config/ui/configdialog.cpp \
+    config/ui/uiconfigmodule.cpp \
+    config/ui/namedpage.cpp \
+    config/ui/generalpage.cpp
 
 HEADERS  += mainwindow.h \
     util/statusprint.h \
@@ -43,10 +47,16 @@ HEADERS  += mainwindow.h \
     config/windowconfig.h \
     extramissionmanagementdialog.h \
     servercommander.h \
-    missionmanager.h
+    missionmanager.h \
+    config/ui/configdialog.h \
+    config/ui/uiconfigmodule.h \
+    config/ui/namedpage.h \
+    config/ui/generalpage.h
 
 FORMS    += mainwindow.ui \
-    extramissionmanagementdialog.ui
+    extramissionmanagementdialog.ui \
+    config/ui/configdialog.ui \
+    config/ui/generalpage.ui
 
 unix {
   DEFINES += _UNIX_

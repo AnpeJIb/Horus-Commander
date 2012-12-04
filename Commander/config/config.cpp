@@ -5,7 +5,7 @@
 #include <QFile>
 #include <QTextStream>
 
-#define XML_ROOT  "horusCONFIG"
+#define XML_ROOT  "horusConfig"
 
 static QString CONFIG_PATH = XML_ROOT FILE_EXT_XML;
 

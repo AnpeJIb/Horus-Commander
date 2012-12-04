@@ -43,6 +43,8 @@ private slots:
 
     void on_timeLeft_timeChanged(const QTime &date);
 
+    void on_actionConfiguration_triggered();
+
 private:
     void initLogger();
     void initWindowState();

@@ -29,5 +29,9 @@
         <file>img/MLE.png</file>
         <file>img/timer_clock.png</file>
         <file>img/more.png</file>
+        <file>img/searchFolder.png</file>
+        <file>img/general.png</file>
+        <file>img/langEn.png</file>
+        <file>img/langRu.png</file>
     </qresource>
 </RCC>

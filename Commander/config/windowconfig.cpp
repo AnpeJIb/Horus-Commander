@@ -16,10 +16,6 @@
 #define DEFAULT_GEOM_W  300
 #define DEFAULT_GEOM_H  200
 
-#define DEFAULT_MINIMIZED       false
-#define DEFAULT_PROMPT_CLOSE    true
-#define DEFAULT_QUIT_ON_CLOSE   false
-
 WindowConfig::WindowConfig()
 {
 }

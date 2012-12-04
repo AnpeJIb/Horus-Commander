@@ -16,9 +16,7 @@ void ConfigTest::initTestCase()
 
     QFile::remove(CONFIG::PATH());
 
-    /** init CONFIG */
-    static CONFIG cfg;
-    Q_UNUSED(cfg);
+    CONFIG::INIT();
 }
 
 void ConfigTest::test_general_lang()
@@ -46,19 +44,45 @@ void ConfigTest::test_general_daemonMode()
     QVERIFY(CONFIG::IS_CHANGED()==false);
     CONFIG::DEFAULTS();
     QVERIFY(CONFIG::IS_CHANGED()==true);
-    QVERIFY(CONFIG::GENERAL.isDaemonMode()==false);
+    QVERIFY(CONFIG::GENERAL.isDaemonMode()==DEFAULT_DEAMON_MODE);
 
-    CONFIG::GENERAL.setDaemonMode(true);
+    CONFIG::GENERAL.setDaemonMode(!DEFAULT_DEAMON_MODE);
     QVERIFY(CONFIG::IS_CHANGED()==true);
     CONFIG::SAVE();
     QVERIFY(CONFIG::IS_CHANGED()==false);
     CONFIG::DEFAULTS();
-    QVERIFY(CONFIG::GENERAL.isDaemonMode()==false);
+    QVERIFY(CONFIG::GENERAL.isDaemonMode()==DEFAULT_DEAMON_MODE);
 
     QVERIFY(CONFIG::IS_CHANGED()==true);
     CONFIG::LOAD();
     QVERIFY(CONFIG::IS_CHANGED()==false);
-    QVERIFY(CONFIG::GENERAL.isDaemonMode()==true);
+    QVERIFY(CONFIG::GENERAL.isDaemonMode()!=DEFAULT_DEAMON_MODE);
+}
+
+void ConfigTest::test_general_serverPath()
+{
+    CONFIG::DEFAULTS();
+    QVERIFY(CONFIG::GENERAL.serverPath()==DEFAULT_SERVER_PATH);
+
+    CONFIG::GENERAL.setServerPath("/some/path");
+    QVERIFY(CONFIG::IS_CHANGED()==true);
+    CONFIG::SAVE();
+    QVERIFY(CONFIG::IS_CHANGED()==false);
+    CONFIG::DEFAULTS();
+    QVERIFY(CONFIG::GENERAL.serverPath()==DEFAULT_SERVER_PATH);
+
+    QVERIFY(CONFIG::IS_CHANGED()==true);
+    CONFIG::LOAD();
+    QVERIFY(CONFIG::IS_CHANGED()==false);
+    QVERIFY(CONFIG::GENERAL.serverPath()=="/some/path");
+}
+
+void ConfigTest::test_general_serverName()
+{
+}
+
+void ConfigTest::test_general_serverDescr()
+{
 }
 
 void ConfigTest::test_log_file(){test_log(CONFIG::LOG.FILE());}
@@ -112,8 +136,8 @@ void ConfigTest::test_window_geometry()
 
     CONFIG::DEFAULTS();
     geometry = CONFIG::WINDOW.geometry();
-    QVERIFY(geometry.x()==0);
-    QVERIFY(geometry.y()==0);
+    QVERIFY(geometry.x()==-1);
+    QVERIFY(geometry.y()==-1);
     QVERIFY(geometry.height()==200);
     QVERIFY(geometry.width()==300);
 
@@ -125,8 +149,8 @@ void ConfigTest::test_window_geometry()
     CONFIG::DEFAULTS();
 
     geometry = CONFIG::WINDOW.geometry();    
-    QVERIFY(geometry.x()==0);
-    QVERIFY(geometry.y()==0);
+    QVERIFY(geometry.x()==-1);
+    QVERIFY(geometry.y()==-1);
     QVERIFY(geometry.height()==200);
     QVERIFY(geometry.width()==300);
 
@@ -144,19 +168,55 @@ void ConfigTest::test_window_geometry()
 void ConfigTest::test_window_minimized()
 {
     CONFIG::DEFAULTS();
-    QVERIFY(CONFIG::WINDOW.isMinimized()==false);
+    QVERIFY(CONFIG::WINDOW.isMinimized()==DEFAULT_MINIMIZED);
 
-    CONFIG::WINDOW.setMinimized(true);
+    CONFIG::WINDOW.setMinimized(!DEFAULT_MINIMIZED);
     QVERIFY(CONFIG::IS_CHANGED()==true);
     CONFIG::SAVE();
     QVERIFY(CONFIG::IS_CHANGED()==false);
     CONFIG::DEFAULTS();
-    QVERIFY(CONFIG::WINDOW.isMinimized()==false);
+    QVERIFY(CONFIG::WINDOW.isMinimized()==DEFAULT_MINIMIZED);
 
     QVERIFY(CONFIG::IS_CHANGED()==true);
     CONFIG::LOAD();
     QVERIFY(CONFIG::IS_CHANGED()==false);
-    QVERIFY(CONFIG::WINDOW.isMinimized()==true);
+    QVERIFY(CONFIG::WINDOW.isMinimized()!=DEFAULT_MINIMIZED);
+}
+
+void ConfigTest::test_window_quitOnClose()
+{
+    CONFIG::DEFAULTS();
+    QVERIFY(CONFIG::WINDOW.quitOnClose()==DEFAULT_QUIT_ON_CLOSE);
+
+    CONFIG::WINDOW.setQuitOnClose(!DEFAULT_QUIT_ON_CLOSE);
+    QVERIFY(CONFIG::IS_CHANGED()==true);
+    CONFIG::SAVE();
+    QVERIFY(CONFIG::IS_CHANGED()==false);
+    CONFIG::DEFAULTS();
+    QVERIFY(CONFIG::WINDOW.quitOnClose()==DEFAULT_QUIT_ON_CLOSE);
+
+    QVERIFY(CONFIG::IS_CHANGED()==true);
+    CONFIG::LOAD();
+    QVERIFY(CONFIG::IS_CHANGED()==false);
+    QVERIFY(CONFIG::WINDOW.quitOnClose()!=DEFAULT_QUIT_ON_CLOSE);
+}
+
+void ConfigTest::test_window_promptClose()
+{
+    CONFIG::DEFAULTS();
+    QVERIFY(CONFIG::WINDOW.promtClose()==DEFAULT_PROMPT_CLOSE);
+
+    CONFIG::WINDOW.setPromtClose(!DEFAULT_PROMPT_CLOSE);
+    QVERIFY(CONFIG::IS_CHANGED()==true);
+    CONFIG::SAVE();
+    QVERIFY(CONFIG::IS_CHANGED()==false);
+    CONFIG::DEFAULTS();
+    QVERIFY(CONFIG::WINDOW.promtClose()==DEFAULT_PROMPT_CLOSE);
+
+    QVERIFY(CONFIG::IS_CHANGED()==true);
+    CONFIG::LOAD();
+    QVERIFY(CONFIG::IS_CHANGED()==false);
+    QVERIFY(CONFIG::WINDOW.promtClose()!=DEFAULT_PROMPT_CLOSE);
 }
 
 void ConfigTest::cleanupTestCase()

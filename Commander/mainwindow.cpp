@@ -9,6 +9,7 @@
 #include <QCheckBox>
 
 #include "extramissionmanagementdialog.h"
+#include "configdialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -66,6 +67,8 @@ void MainWindow::createTrayIcon()
 
     m_trayIconMenu->addAction(ui->actionShow);
     m_trayIconMenu->addAction(ui->actionMinimize);
+    m_trayIconMenu->addSeparator();
+    m_trayIconMenu->addAction(ui->actionConfiguration);
     m_trayIconMenu->addSeparator();
     m_trayIconMenu->addAction(ui->actionQuit);
 
@@ -169,4 +172,10 @@ void MainWindow::on_timeLeft_timeChanged(const QTime &date)
 {
     Q_UNUSED(date)
     // TODO:
+}
+
+void MainWindow::on_actionConfiguration_triggered()
+{
+    ConfigDialog d;
+    d.exec();
 }
