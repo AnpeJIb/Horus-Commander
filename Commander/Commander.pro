@@ -11,10 +11,10 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Horus-Commander
 TEMPLATE = app
 
-INCLUDEPATH += config util config/ui
+INCLUDEPATH += config util config/ui ui
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
+        ui/mainwindow.cpp \
     util/statusprint.cpp \
     util/statusfilelogger.cpp \
     util/statuswidget.cpp \
@@ -25,7 +25,7 @@ SOURCES += main.cpp\
     config/logconfig.cpp \
     util/logs.cpp \
     config/windowconfig.cpp \
-    extramissionmanagementdialog.cpp \
+    ui/extramissionmanagementdialog.cpp \
     servercommander.cpp \
     missionmanager.cpp \
     config/ui/configdialog.cpp \
@@ -33,7 +33,7 @@ SOURCES += main.cpp\
     config/ui/namedpage.cpp \
     config/ui/generalpage.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += ui/mainwindow.h \
     util/statusprint.h \
     util/statusfilelogger.h \
     util/statuswidget.h \
@@ -45,7 +45,7 @@ HEADERS  += mainwindow.h \
     config/logconfig.h \
     util/logs.h \
     config/windowconfig.h \
-    extramissionmanagementdialog.h \
+    ui/extramissionmanagementdialog.h \
     servercommander.h \
     missionmanager.h \
     config/ui/configdialog.h \
@@ -53,8 +53,8 @@ HEADERS  += mainwindow.h \
     config/ui/namedpage.h \
     config/ui/generalpage.h
 
-FORMS    += mainwindow.ui \
-    extramissionmanagementdialog.ui \
+FORMS    += ui/mainwindow.ui \
+    ui/extramissionmanagementdialog.ui \
     config/ui/configdialog.ui \
     config/ui/generalpage.ui
 
