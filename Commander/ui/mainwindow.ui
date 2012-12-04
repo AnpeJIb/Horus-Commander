@@ -14,7 +14,7 @@
    <string>Horus Commander</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="img.qrc">
+   <iconset resource="../img.qrc">
     <normaloff>:/img/logo.png</normaloff>:/img/logo.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -35,7 +35,7 @@
       </property>
       <widget class="QWidget" name="tMain">
        <attribute name="icon">
-        <iconset resource="img.qrc">
+        <iconset resource="../img.qrc">
          <normaloff>:/img/main.png</normaloff>:/img/main.png</iconset>
        </attribute>
        <attribute name="title">
@@ -63,7 +63,7 @@
               <string>Start mission</string>
              </property>
              <property name="icon">
-              <iconset resource="img.qrc">
+              <iconset resource="../img.qrc">
                <normaloff>:/img/start.png</normaloff>:/img/start.png</iconset>
              </property>
              <property name="iconSize">
@@ -83,7 +83,7 @@
               <string>Stop mission</string>
              </property>
              <property name="icon">
-              <iconset resource="img.qrc">
+              <iconset resource="../img.qrc">
                <normaloff>:/img/stop.png</normaloff>:/img/stop.png</iconset>
              </property>
              <property name="iconSize">
@@ -103,7 +103,7 @@
               <string>Restart mission</string>
              </property>
              <property name="icon">
-              <iconset resource="img.qrc">
+              <iconset resource="../img.qrc">
                <normaloff>:/img/restart.png</normaloff>:/img/restart.png</iconset>
              </property>
              <property name="iconSize">
@@ -126,7 +126,7 @@
               <string/>
              </property>
              <property name="icon">
-              <iconset resource="img.qrc">
+              <iconset resource="../img.qrc">
                <normaloff>:/img/previous.png</normaloff>:/img/previous.png</iconset>
              </property>
              <property name="iconSize">
@@ -146,7 +146,7 @@
               <string>Next mission</string>
              </property>
              <property name="icon">
-              <iconset resource="img.qrc">
+              <iconset resource="../img.qrc">
                <normaloff>:/img/next.png</normaloff>:/img/next.png</iconset>
              </property>
              <property name="iconSize">
@@ -163,7 +163,7 @@
               <string>Extra</string>
              </property>
              <property name="icon">
-              <iconset resource="img.qrc">
+              <iconset resource="../img.qrc">
                <normaloff>:/img/more.png</normaloff>:/img/more.png</iconset>
              </property>
              <property name="iconSize">
@@ -199,7 +199,7 @@
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap resource="img.qrc">:/img/timer_clock.png</pixmap>
+              <pixmap resource="../img.qrc">:/img/timer_clock.png</pixmap>
              </property>
             </widget>
            </item>
@@ -226,7 +226,7 @@
       </widget>
       <widget class="QWidget" name="tLog">
        <attribute name="icon">
-        <iconset resource="img.qrc">
+        <iconset resource="../img.qrc">
          <normaloff>:/img/log.png</normaloff>:/img/log.png</iconset>
        </attribute>
        <attribute name="title">
@@ -256,18 +256,10 @@
    </widget>
    <addaction name="menuTools"/>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionQuit">
    <property name="icon">
-    <iconset resource="img.qrc">
+    <iconset resource="../img.qrc">
      <normaloff>:/img/exit.png</normaloff>:/img/exit.png</iconset>
    </property>
    <property name="text">
@@ -279,7 +271,7 @@
   </action>
   <action name="actionMinimize">
    <property name="icon">
-    <iconset resource="img.qrc">
+    <iconset resource="../img.qrc">
      <normaloff>:/img/minimize.png</normaloff>:/img/minimize.png</iconset>
    </property>
    <property name="text">
@@ -291,7 +283,7 @@
   </action>
   <action name="actionShow">
    <property name="icon">
-    <iconset resource="img.qrc">
+    <iconset resource="../img.qrc">
      <normaloff>:/img/show.png</normaloff>:/img/show.png</iconset>
    </property>
    <property name="text">
@@ -303,7 +295,7 @@
   </action>
   <action name="actionConfiguration">
    <property name="icon">
-    <iconset resource="img.qrc">
+    <iconset resource="../img.qrc">
      <normaloff>:/img/settings.png</normaloff>:/img/settings.png</iconset>
    </property>
    <property name="text">
@@ -316,7 +308,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="img.qrc"/>
+  <include location="../img.qrc"/>
  </resources>
  <connections/>
 </ui>

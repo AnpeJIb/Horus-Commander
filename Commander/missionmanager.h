@@ -10,6 +10,7 @@ public:
     MissionManager();
 
 public slots:
+    void start();
     void stop();
 };
 

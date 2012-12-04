@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initWindowState();
 
     connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(onAboutToQuit()));
+    connect(ui->btnStart, SIGNAL(clicked()), &(SC::MSSN), SLOT(start()));
 }
 
 MainWindow::~MainWindow()
@@ -97,7 +98,7 @@ void MainWindow::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
 
 void MainWindow::onAboutToQuit()
 {
-    SC::STOP();
+    SC::SP.stop();
     CONFIG::WINDOW.setGeometry(geometry());
     CONFIG::WINDOW.setMinimized(isMinimized() || (isVisible()==false));
     CONFIG::SAVE();
@@ -135,11 +136,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
 void MainWindow::on_actionQuit_triggered()
 {
     qApp->quit();
-}
-
-void MainWindow::on_btnStart_clicked()
-{
-    // TODO:
 }
 
 void MainWindow::on_btnStop_clicked()

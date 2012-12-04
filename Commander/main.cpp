@@ -21,7 +21,6 @@ int main(int argc, char *argv[])
 
     LOGS::INIT();
     CONFIG::INIT();
-    SC::INIT();
 
     CONFIG::LOAD();
     LOGS::UPDATE_FILE_LOGGER();
@@ -78,7 +77,7 @@ void initSignalHooks()
     STATUS_PRINT::DEBUG(QObject::tr("Setting signal hooks"));
 
 #ifdef _UNIX_
-    signal(SIGUSR1, SC::SET_LOADED);
+    SC::SP.setHook_SIGUSR();
     signal(SIGPIPE,	SIG_IGN);
 #endif
 
@@ -92,5 +91,5 @@ void terminationHandler(int sig)
     STATUS_PRINT::DEBUG(QObject::tr("Termination signal received"));
 
     Q_UNUSED(sig)
-    SC::STOP();
+    SC::SP.stop();
 }

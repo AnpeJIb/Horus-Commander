@@ -29,8 +29,6 @@ private slots:
     
     void on_actionQuit_triggered();
 
-    void on_btnStart_clicked();
-
     void on_btnStop_clicked();
 
     void on_btnRestart_clicked();

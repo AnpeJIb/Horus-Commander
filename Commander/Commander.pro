@@ -31,7 +31,12 @@ SOURCES += main.cpp\
     config/ui/configdialog.cpp \
     config/ui/uiconfigmodule.cpp \
     config/ui/namedpage.cpp \
-    config/ui/generalpage.cpp
+    config/ui/generalpage.cpp \
+    serverprocess.cpp \
+    config/gsconfig.cpp \
+    gscommand.cpp \
+    gsscripts.cpp \
+    gsconsole.cpp
 
 HEADERS  += ui/mainwindow.h \
     util/statusprint.h \
@@ -51,7 +56,12 @@ HEADERS  += ui/mainwindow.h \
     config/ui/configdialog.h \
     config/ui/uiconfigmodule.h \
     config/ui/namedpage.h \
-    config/ui/generalpage.h
+    config/ui/generalpage.h \
+    serverprocess.h \
+    config/gsconfig.h \
+    gscommand.h \
+    gsscripts.h \
+    gsconsole.h
 
 FORMS    += ui/mainwindow.ui \
     ui/extramissionmanagementdialog.ui \
@@ -59,11 +69,14 @@ FORMS    += ui/mainwindow.ui \
     config/ui/generalpage.ui
 
 unix {
-  DEFINES += _UNIX_
+    DEFINES += _UNIX_
+    DEFINES += PATH_SEP=\\\"/\\\"
 }
 
 win32 {
     DEFINES += _WIN32_
+    DEFINES += PATH_SEP=\\\"\\\\\"
+
     RC_FILE = qapp.rc
 }
 

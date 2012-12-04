@@ -14,7 +14,7 @@
    <string>Extra Mission Management</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="img.qrc">
+   <iconset resource="../img.qrc">
     <normaloff>:/img/logo.png</normaloff>:/img/logo.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -29,7 +29,7 @@
         <string>Unload mission</string>
        </property>
        <property name="icon">
-        <iconset resource="img.qrc">
+        <iconset resource="../img.qrc">
          <normaloff>:/img/unload.png</normaloff>:/img/unload.png</iconset>
        </property>
        <property name="iconSize">
@@ -49,7 +49,7 @@
         <string>Previous mission</string>
        </property>
        <property name="icon">
-        <iconset resource="img.qrc">
+        <iconset resource="../img.qrc">
          <normaloff>:/img/previous.png</normaloff>:/img/previous.png</iconset>
        </property>
        <property name="iconSize">
@@ -82,7 +82,7 @@
         <string>Reload mission</string>
        </property>
        <property name="icon">
-        <iconset resource="img.qrc">
+        <iconset resource="../img.qrc">
          <normaloff>:/img/reload.png</normaloff>:/img/reload.png</iconset>
        </property>
        <property name="iconSize">
@@ -102,7 +102,7 @@
         <string>Start mission</string>
        </property>
        <property name="icon">
-        <iconset resource="img.qrc">
+        <iconset resource="../img.qrc">
          <normaloff>:/img/start.png</normaloff>:/img/start.png</iconset>
        </property>
        <property name="iconSize">
@@ -122,7 +122,7 @@
         <string>Rerun mission</string>
        </property>
        <property name="icon">
-        <iconset resource="img.qrc">
+        <iconset resource="../img.qrc">
          <normaloff>:/img/rerun.png</normaloff>:/img/rerun.png</iconset>
        </property>
        <property name="iconSize">
@@ -142,7 +142,7 @@
         <string>Run mission</string>
        </property>
        <property name="icon">
-        <iconset resource="img.qrc">
+        <iconset resource="../img.qrc">
          <normaloff>:/img/run.png</normaloff>:/img/run.png</iconset>
        </property>
        <property name="iconSize">
@@ -162,7 +162,7 @@
         <string>Restart mission</string>
        </property>
        <property name="icon">
-        <iconset resource="img.qrc">
+        <iconset resource="../img.qrc">
          <normaloff>:/img/restart.png</normaloff>:/img/restart.png</iconset>
        </property>
        <property name="iconSize">
@@ -179,7 +179,7 @@
         <string>Map list editor</string>
        </property>
        <property name="icon">
-        <iconset resource="img.qrc">
+        <iconset resource="../img.qrc">
          <normaloff>:/img/MLE.png</normaloff>:/img/MLE.png</iconset>
        </property>
        <property name="iconSize">
@@ -202,7 +202,7 @@
         <string>End mission</string>
        </property>
        <property name="icon">
-        <iconset resource="img.qrc">
+        <iconset resource="../img.qrc">
          <normaloff>:/img/end.png</normaloff>:/img/end.png</iconset>
        </property>
        <property name="iconSize">
@@ -222,7 +222,7 @@
         <string>Stop mission</string>
        </property>
        <property name="icon">
-        <iconset resource="img.qrc">
+        <iconset resource="../img.qrc">
          <normaloff>:/img/stop.png</normaloff>:/img/stop.png</iconset>
        </property>
        <property name="iconSize">
@@ -242,7 +242,7 @@
         <string>Load mission</string>
        </property>
        <property name="icon">
-        <iconset resource="img.qrc">
+        <iconset resource="../img.qrc">
          <normaloff>:/img/load.png</normaloff>:/img/load.png</iconset>
        </property>
        <property name="iconSize">
@@ -262,7 +262,7 @@
         <string>Next mission</string>
        </property>
        <property name="icon">
-        <iconset resource="img.qrc">
+        <iconset resource="../img.qrc">
          <normaloff>:/img/next.png</normaloff>:/img/next.png</iconset>
        </property>
        <property name="iconSize">
@@ -311,7 +311,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="img.qrc"/>
+  <include location="../img.qrc"/>
  </resources>
  <connections>
   <connection>
