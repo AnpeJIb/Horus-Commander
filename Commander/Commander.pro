@@ -25,7 +25,9 @@ SOURCES += main.cpp\
     config/logconfig.cpp \
     util/logs.cpp \
     config/windowconfig.cpp \
-    extramissionmanagementdialog.cpp
+    extramissionmanagementdialog.cpp \
+    servercommander.cpp \
+    missionmanager.cpp
 
 HEADERS  += mainwindow.h \
     util/statusprint.h \
@@ -39,10 +41,16 @@ HEADERS  += mainwindow.h \
     config/logconfig.h \
     util/logs.h \
     config/windowconfig.h \
-    extramissionmanagementdialog.h
+    extramissionmanagementdialog.h \
+    servercommander.h \
+    missionmanager.h
 
 FORMS    += mainwindow.ui \
     extramissionmanagementdialog.ui
+
+unix {
+  DEFINES += _UNIX_
+}
 
 win32 {
     DEFINES += _WIN32_

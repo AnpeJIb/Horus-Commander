@@ -5,22 +5,15 @@
 #include "statuswidget.h"
 #include "commonlogconfig.h"
 
-class LOGS
+namespace LOGS
 {
-public:
-    LOGS();
+    void INIT();
 
-    static void SET_GUI_LOGGER(StatusWidget* value);
+    void SET_GUI_LOGGER(StatusWidget* value);
 
-    static void UPDATE_LOGGERS();
-    static void UPDATE_FILE_LOGGER();
-    static void UPDATE_GUI_LOGGER();
-
-private:
-    static void UPDATE_LOGGER(StatusPrinter* printer, CommonLogConfig*cfg);
-
-    static StatusFileLogger* FILE;
-    static StatusWidget* GUI;
-};
+    void UPDATE_LOGGERS();
+    void UPDATE_FILE_LOGGER();
+    void UPDATE_GUI_LOGGER();
+}
 
 #endif // LOGS_H

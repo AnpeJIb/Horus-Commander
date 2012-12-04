@@ -5,22 +5,23 @@
 #include <QTranslator>
 #include <QLibraryInfo>
 
+#include <signal.h>
+
 #include "config.h"
 #include "logs.h"
+#include "servercommander.h"
 
 void parseArgs(int argc, char *argv[]);
+void initSignalHooks();
+void terminationHandler(int sig);
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    /** Init LOGS */
-    static LOGS logs;
-    Q_UNUSED(logs)
-
-    /** Init CONFIG */
-    static CONFIG cfg;
-    Q_UNUSED(cfg)
+    LOGS::INIT();
+    CONFIG::INIT();
+    SC::INIT();
 
     CONFIG::LOAD();
     LOGS::UPDATE_FILE_LOGGER();
@@ -36,6 +37,9 @@ int main(int argc, char *argv[])
     myappTranslator.load(QString("l10n/").append(lCode));
     a.installTranslator(&myappTranslator);
 
+    initSignalHooks();
+
+    /** Check commandline arguments */
     parseArgs(argc, argv);
 
     if (CONFIG::GENERAL.isDaemonMode())
@@ -44,6 +48,7 @@ int main(int argc, char *argv[])
         return 0;
     }
 
+    /** Check system tray */
     if (QSystemTrayIcon::isSystemTrayAvailable()==false)
     {
         QMessageBox::critical(
@@ -54,7 +59,10 @@ int main(int argc, char *argv[])
     }
     QApplication::setQuitOnLastWindowClosed(false);
 
+    /** Show main window */
     MainWindow w;
+    Q_UNUSED(w)
+
     return a.exec();
 }
 
@@ -63,4 +71,26 @@ void parseArgs(int argc, char *argv[])
     for (int i=1; i<argc; i++)
         if (QString(argv[i])== "-d")
             CONFIG::GENERAL.setDaemonMode(true);
+}
+
+void initSignalHooks()
+{
+    STATUS_PRINT::DEBUG(QObject::tr("Setting signal hooks"));
+
+#ifdef _UNIX_
+    signal(SIGUSR1, SC::SET_LOADED);
+    signal(SIGPIPE,	SIG_IGN);
+#endif
+
+    signal(SIGINT,	terminationHandler);
+    signal(SIGTERM,	terminationHandler);
+    signal(SIGABRT,	terminationHandler);
+}
+
+void terminationHandler(int sig)
+{
+    STATUS_PRINT::DEBUG(QObject::tr("Termination signal received"));
+
+    Q_UNUSED(sig)
+    SC::STOP();
 }

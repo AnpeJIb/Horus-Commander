@@ -6,23 +6,19 @@
 #include "windowconfig.h"
 #include <QList>
 
-class CONFIG
+namespace CONFIG
 {
-public:
-    CONFIG();
+    void INIT();
+    void SAVE();
+    void LOAD();
+    void DEFAULTS();
+    bool IS_CHANGED();
 
-    static void SAVE();
-    static void LOAD();
-    static void DEFAULTS();
-    static bool IS_CHANGED();
-    static QString PATH();
+    QString PATH();
 
-    static GeneralConfig    GENERAL;
-    static LogConfig        LOG;
-    static WindowConfig     WINDOW;
-
-private:
-    static QList<ConfigModule*> CHILDREN;
-};
+    extern GeneralConfig    GENERAL;
+    extern LogConfig        LOG;
+    extern WindowConfig     WINDOW;
+}
 
 #endif // CONFIG_H

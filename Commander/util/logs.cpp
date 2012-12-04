@@ -3,21 +3,23 @@
 #include "config.h"
 #include "fileext.h"
 
-StatusFileLogger* LOGS::FILE;
-StatusWidget* LOGS::GUI;
+static void UPDATE_LOGGER(StatusPrinter* printer, CommonLogConfig*cfg);
 
-LOGS::LOGS()
+static StatusFileLogger* m_FILE;
+static StatusWidget* m_GUI;
+
+void LOGS::INIT()
 {
-    LOGS::GUI = NULL;
+    m_GUI = NULL;
 
-    LOGS::FILE = new StatusFileLogger("horusCommander" FILE_EXT_LOG);
-    LOGS::FILE->setLevel(StatusPrinter::ALL);
-    STATUS_PRINT::REGISTER(LOGS::FILE);
+    m_FILE = new StatusFileLogger("horusCommander" FILE_EXT_LOG);
+    m_FILE->setLevel(StatusPrinter::ALL);
+    STATUS_PRINT::REGISTER(m_FILE);
 }
 
 void LOGS::SET_GUI_LOGGER(StatusWidget *value)
 {
-    LOGS::GUI = value;
+    m_GUI = value;
 }
 
 void LOGS::UPDATE_LOGGERS()
@@ -26,10 +28,10 @@ void LOGS::UPDATE_LOGGERS()
     LOGS::UPDATE_GUI_LOGGER();
 }
 
-void LOGS::UPDATE_FILE_LOGGER() {UPDATE_LOGGER(LOGS::FILE,  CONFIG::LOG.FILE());}
-void LOGS::UPDATE_GUI_LOGGER()  {UPDATE_LOGGER(LOGS::GUI,   CONFIG::LOG.GUI());}
+void LOGS::UPDATE_FILE_LOGGER() {UPDATE_LOGGER(m_FILE,  CONFIG::LOG.FILE());}
+void LOGS::UPDATE_GUI_LOGGER()  {UPDATE_LOGGER(m_GUI,   CONFIG::LOG.GUI());}
 
-void LOGS::UPDATE_LOGGER(StatusPrinter *printer, CommonLogConfig *cfg)
+void UPDATE_LOGGER(StatusPrinter *printer, CommonLogConfig *cfg)
 {
     if (printer==NULL) return;
 

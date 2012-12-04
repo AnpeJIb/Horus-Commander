@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "config.h"
 #include "logs.h"
+#include "servercommander.h"
 
 #include <QDesktopWidget>
 #include <QMessageBox>
@@ -93,6 +94,7 @@ void MainWindow::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
 
 void MainWindow::onAboutToQuit()
 {
+    SC::STOP();
     CONFIG::WINDOW.setGeometry(geometry());
     CONFIG::WINDOW.setMinimized(isMinimized() || (isVisible()==false));
     CONFIG::SAVE();
@@ -165,5 +167,6 @@ void MainWindow::on_btnExtra_clicked()
 
 void MainWindow::on_timeLeft_timeChanged(const QTime &date)
 {
+    Q_UNUSED(date)
     // TODO:
 }

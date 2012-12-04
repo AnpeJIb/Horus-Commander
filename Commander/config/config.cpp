@@ -5,21 +5,21 @@
 #include <QFile>
 #include <QTextStream>
 
-#define XML_ROOT  "horusConfig"
+#define XML_ROOT  "horusCONFIG"
 
 static QString CONFIG_PATH = XML_ROOT FILE_EXT_XML;
 
-GeneralConfig   CONFIG::GENERAL;
-LogConfig       CONFIG::LOG;
-WindowConfig    CONFIG::WINDOW;
+GeneralConfig    CONFIG::GENERAL;
+LogConfig        CONFIG::LOG;
+WindowConfig     CONFIG::WINDOW;
 
-QList<ConfigModule*> CONFIG::CHILDREN;
+static QList<ConfigModule*> CHILDREN;
 
-CONFIG::CONFIG()
+void CONFIG::INIT()
 {
-    CONFIG::CHILDREN << &(CONFIG::GENERAL);
-    CONFIG::CHILDREN << &(CONFIG::LOG);
-    CONFIG::CHILDREN << &(CONFIG::WINDOW);
+    CHILDREN << &(CONFIG::GENERAL);
+    CHILDREN << &(CONFIG::LOG);
+    CHILDREN << &(CONFIG::WINDOW);
 }
 
 void CONFIG::SAVE()
@@ -28,7 +28,7 @@ void CONFIG::SAVE()
 
     if(file.open(QIODevice::WriteOnly) == false)
     {
-        QString str = QObject::tr("Could not open config file \"%1\" for writing");
+        QString str = QObject::tr("Could not open CONFIG file \"%1\" for writing");
         str.arg(CONFIG_PATH);
         STATUS_PRINT::ERROR(str);
 
@@ -44,7 +44,7 @@ void CONFIG::SAVE()
     QDomElement root = CONFIG_DOC.createElement(XML_ROOT);
     CONFIG_DOC.appendChild(root);
 
-    foreach (ConfigModule* ch, CONFIG::CHILDREN)
+    foreach (ConfigModule* ch, CHILDREN)
         ch->save(&root, &CONFIG_DOC);
 
     QTextStream ts(&file);
@@ -59,7 +59,7 @@ void CONFIG::LOAD()
 
     if(file.open(QIODevice::ReadWrite) == false)
     {
-        QString str = QObject::tr("Could not open config file \"%1\" for reading");
+        QString str = QObject::tr("Could not open CONFIG file \"%1\" for reading");
         str.arg(CONFIG_PATH);
         STATUS_PRINT::ERROR(str);
 
@@ -70,7 +70,7 @@ void CONFIG::LOAD()
 
     if(CONFIG_DOC.setContent(&file) == false)
     {
-        STATUS_PRINT::DEBUG(QObject::tr("Bad config file"));
+        STATUS_PRINT::DEBUG(QObject::tr("Bad CONFIG file"));
         file.close();
         CONFIG::DEFAULTS();
         CONFIG::SAVE();
@@ -83,7 +83,7 @@ void CONFIG::LOAD()
 
     if(root.tagName() != XML_ROOT)
     {
-        STATUS_PRINT::ERROR(QObject::tr("Wrong config root"));
+        STATUS_PRINT::ERROR(QObject::tr("Wrong CONFIG root"));
         return;
     }
 
@@ -95,14 +95,14 @@ void CONFIG::LOAD()
         QDomElement e = n.toElement();
         if(e.isNull()) continue;
 
-        foreach (ConfigModule* ch, CONFIG::CHILDREN)
+        foreach (ConfigModule* ch, CHILDREN)
             ch->load(&e);
     }
 }
 
 void CONFIG::DEFAULTS()
 {
-    foreach (ConfigModule* ch, CONFIG::CHILDREN)
+    foreach (ConfigModule* ch, CHILDREN)
         ch->loadDefaults();
 }
 
@@ -110,7 +110,7 @@ bool CONFIG::IS_CHANGED()
 {
     bool result = false;
 
-    foreach (ConfigModule* ch, CONFIG::CHILDREN)
+    foreach (ConfigModule* ch, CHILDREN)
         result |= ch->isChanged();
 
     return result;
