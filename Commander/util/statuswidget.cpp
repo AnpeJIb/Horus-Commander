@@ -17,7 +17,7 @@ StatusWidget::StatusWidget()
     headerNames.append(tr("Time"));
     setHeaderLabels(headerNames);
 
-    setLevel(StatusPrinter::ALL);    
+    setLevel(StatusPrinter::LEVEL_ALL);    
 
     header()->setStretchLastSection(false);
     header()->setResizeMode(0, QHeaderView::Stretch);
@@ -27,7 +27,7 @@ StatusWidget::StatusWidget()
 
 void StatusWidget::statusNew(QString str)
 {
-    if ((level & StatusPrinter::TASKS)==0) return;
+    if ((level & StatusPrinter::LEVEL_TASKS)==0) return;
 
     QTreeWidgetItem* item;
 
@@ -54,7 +54,7 @@ void StatusWidget::statusFail() {statusFinish(iconFail);}
 
 void StatusWidget::statusFinish(QIcon *icon)
 {
-    if (((level & StatusPrinter::TASKS)==0) || (last==NULL)) return;
+    if (((level & StatusPrinter::LEVEL_TASKS)==0) || (last==NULL)) return;
 
     if (last->data(1, Qt::UserRole).toInt()==0) // no messages
         last->setExpanded(false);
@@ -66,25 +66,25 @@ void StatusWidget::statusFinish(QIcon *icon)
 
 void StatusWidget::msgDebug(QString str)
 {
-    if ((level & StatusPrinter::DEBUG)==0) return;
+    if ((level & StatusPrinter::LEVEL_DEBUG)==0) return;
     msg(str, iconDbg);
 }
 
 void StatusWidget::msgInfo(QString str)
 {
-    if ((level & StatusPrinter::INFO)==0) return;
+    if ((level & StatusPrinter::LEVEL_INFO)==0) return;
     msg(str, iconInfo);
 }
 
 void StatusWidget::msgWarn(QString str)
 {
-    if ((level & StatusPrinter::WARNING)==0) return;
+    if ((level & StatusPrinter::LEVEL_WARNING)==0) return;
     msg(str, iconWarn);
 }
 
 void StatusWidget::msgError(QString str)
 {
-    if ((level & StatusPrinter::ERROR)==0) return;
+    if ((level & StatusPrinter::LEVEL_ERROR)==0) return;
     msg(str, iconErr);
 }
 

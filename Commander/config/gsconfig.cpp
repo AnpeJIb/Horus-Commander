@@ -46,7 +46,7 @@ bool SC::GS::CFG::checkConfigPath()
     {
         STATUS_PRINT::DONE();
     } else {
-        STATUS_PRINT::ERROR(QObject::tr("Could not find server's config at path \"%1\"").arg(p));
+        STATUS_PRINT::ERROR_(QObject::tr("Could not find server's config at path \"%1\"").arg(p));
         STATUS_PRINT::FAIL();
         return false;
     }
@@ -54,7 +54,7 @@ bool SC::GS::CFG::checkConfigPath()
     if (file.open(QIODevice::ReadWrite))
         file.close();
     else {
-        STATUS_PRINT::ERROR(QObject::tr("Server config file \"%1\" cannot be opened.").arg(p));
+        STATUS_PRINT::ERROR_(QObject::tr("Server config file \"%1\" cannot be opened.").arg(p));
         STATUS_PRINT::FAIL();
         return false;
     }

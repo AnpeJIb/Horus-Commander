@@ -36,7 +36,8 @@ SOURCES += main.cpp\
     config/gsconfig.cpp \
     gscommand.cpp \
     gsscripts.cpp \
-    gsconsole.cpp
+    gsconsole.cpp \
+    util/file.cpp
 
 HEADERS  += ui/mainwindow.h \
     util/statusprint.h \
@@ -61,23 +62,31 @@ HEADERS  += ui/mainwindow.h \
     config/gsconfig.h \
     gscommand.h \
     gsscripts.h \
-    gsconsole.h
+    gsconsole.h \
+    util/file.h
 
 FORMS    += ui/mainwindow.ui \
     ui/extramissionmanagementdialog.ui \
     config/ui/configdialog.ui \
     config/ui/generalpage.ui
 
+DEFINES += PATH_SEP=\\\"/\\\"
+
 unix {
     DEFINES += _UNIX_
-    DEFINES += PATH_SEP=\\\"/\\\"
+    DEFINES += DEV_NULL=\\\"/dev/null\\\"
+
+    LIBS    += -lpthread
 }
 
 win32 {
     DEFINES += _WIN32_
-    DEFINES += PATH_SEP=\\\"\\\\\"
+    DEFINES += DEV_NULL=\\\"NUL\\\"
 
     RC_FILE = qapp.rc
+
+    SOURCES += util/winproc.cpp
+    HEADERS += util/winproc.h
 }
 
 CPPFLAGS +=	"--pedantic -Wall -Wno-error=unused-result -Werror -Wfatal-errors -std=gnu99"

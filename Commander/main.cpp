@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QTranslator>
 #include <QLibraryInfo>
+#include <QSystemTrayIcon>
 
 #include <signal.h>
 
@@ -43,7 +44,8 @@ int main(int argc, char *argv[])
 
     if (CONFIG::GENERAL.isDaemonMode())
     {
-        // TODO: start work here
+        SC::MSSN.start();
+        SC::SP.wait();
         return 0;
     }
 
@@ -74,7 +76,7 @@ void parseArgs(int argc, char *argv[])
 
 void initSignalHooks()
 {
-    STATUS_PRINT::DEBUG(QObject::tr("Setting signal hooks"));
+    STATUS_PRINT::DEBUG_(QObject::tr("Setting signal hooks"));
 
 #ifdef _UNIX_
     SC::SP.setHook_SIGUSR();
@@ -88,7 +90,7 @@ void initSignalHooks()
 
 void terminationHandler(int sig)
 {
-    STATUS_PRINT::DEBUG(QObject::tr("Termination signal received"));
+    STATUS_PRINT::DEBUG_(QObject::tr("Termination signal received"));
 
     Q_UNUSED(sig)
     SC::SP.stop();

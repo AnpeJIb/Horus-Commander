@@ -13,7 +13,7 @@ void LOGS::INIT()
     m_GUI = NULL;
 
     m_FILE = new StatusFileLogger("horusCommander" FILE_EXT_LOG);
-    m_FILE->setLevel(StatusPrinter::ALL);
+    m_FILE->setLevel(StatusPrinter::LEVEL_ALL);
     STATUS_PRINT::REGISTER(m_FILE);
 }
 

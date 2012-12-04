@@ -9,13 +9,13 @@ class StatusPrinter
 public:
     enum Level
     {
-        ALL     = (1 << 0),
-        TASKS   = (1 << 1),
-        DEBUG   = (1 << 2),
-        INFO    = (1 << 3),
-        WARNING = (1 << 4),
-        ERROR   = (1 << 5),
-        NONE    = (1 << 6)
+        LEVEL_ALL     = (1 << 0),
+        LEVEL_TASKS   = (1 << 1),
+        LEVEL_DEBUG   = (1 << 2),
+        LEVEL_INFO    = (1 << 3),
+        LEVEL_WARNING = (1 << 4),
+        LEVEL_ERROR   = (1 << 5),
+        LEVEL_NONE    = (1 << 6)
     };
 
 public:
@@ -28,7 +28,7 @@ public:
     virtual void msgWarn(QString str) = 0;
     virtual void msgError(QString str) = 0;
 
-    void setLevel(quint8 value){this->level = (value==ALL)?0x7F:value;}
+    void setLevel(quint8 value){this->level = (value==LEVEL_ALL)?0x7F:value;}
 
 protected:
     quint8 level;
@@ -44,10 +44,10 @@ public:
     static void DONE();
     static void FAIL();
 
-    static void DEBUG(const QString& str);
-    static void INFO(const QString& str);
-    static void WARN(const QString& str);
-    static void ERROR(const QString& str);
+    static void DEBUG_(const QString& str);
+    static void INFO_ (const QString& str);
+    static void WARN_ (const QString& str);
+    static void ERROR_(const QString& str);
 
 private:
     static QList<StatusPrinter*> printers;

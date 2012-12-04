@@ -2,7 +2,7 @@
 #include "statusprint.h"
 
 #define DEFAULT_ENABLE  true
-#define DEFAULT_LEVEL   StatusPrinter::ALL
+#define DEFAULT_LEVEL   StatusPrinter::LEVEL_ALL
 
 #define XML_ATTR_ENABLE "enable"
 #define XML_ATTR_LEVEL  "level"

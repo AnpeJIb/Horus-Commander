@@ -1,5 +1,6 @@
 #include "gsscripts.h"
 #include "servercommander.h"
+#include "config.h"
 #include "statusprint.h"
 #include "fileext.h"
 
@@ -36,13 +37,13 @@ bool SC::GS::SCRIPTS::generate()
 
 bool generateGC()
 {
-    QString fPath = GC_SCRIPT_PATH;
+    QString fPath = CONFIG::GENERAL.serverPath().append(PATH_SEP).append(GC_SCRIPT_PATH);
 
     QFile f(fPath);
 
     if(f.open(QIODevice::ReadWrite)==false)
     {
-        STATUS_PRINT::ERROR(QObject::tr("GC script cannot be created"));
+        STATUS_PRINT::ERROR_(QObject::tr("GC script cannot be created"));
         return false;
     }
 
@@ -52,8 +53,9 @@ bool generateGC()
     ts << SC::CMD.get_GC() << endl;
     ts << SC::CMD.get_GC() << endl;
 
-    ts << SC::CMD.get_TIMEOUT(3600000, SC::CMD.get_RUN_FILE(fPath)) << endl;
+    ts << SC::CMD.get_TIMEOUT(3600000, SC::CMD.get_RUN_FILE(GC_SCRIPT_PATH)) << endl;
 
+    ts.flush();
     f.close();
 
     return true;
@@ -61,17 +63,17 @@ bool generateGC()
 
 bool generateMain()
 {
-    QString fPath = MAIN_SCRIPT_PATH;
+    QString fPath = CONFIG::GENERAL.serverPath().append(PATH_SEP).append(MAIN_SCRIPT_PATH);
 
     QFile f(fPath);
 
     if(f.open(QIODevice::ReadWrite)==false)
     {
-        STATUS_PRINT::ERROR(QObject::tr("Main script cannot be created"));
+        STATUS_PRINT::ERROR_(QObject::tr("Main script cannot be created"));
         return false;
     }
 
-    QFile userF(USER_SCRIPT_PATH);
+    QFile userF(CONFIG::GENERAL.serverPath().append(PATH_SEP).append(USER_SCRIPT_PATH));
 
     QTextStream ts(&f);
 
@@ -80,6 +82,7 @@ bool generateMain()
     if (userF.exists())
         ts << SC::CMD.get_RUN_FILE(USER_SCRIPT_PATH) << endl;
 
+    ts.flush();
     f.close();
 
     return true;
