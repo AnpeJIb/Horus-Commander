@@ -28,7 +28,7 @@ void CONFIG::SAVE()
 
     if(file.open(QIODevice::WriteOnly) == false)
     {
-        QString str = QObject::tr("Could not open CONFIG file \"%1\" for writing");
+        QString str = QObject::tr("Could not open config file \"%1\" for writing");
         str.arg(CONFIG_PATH);
         STATUS_PRINT::ERROR(str);
 
@@ -59,7 +59,7 @@ void CONFIG::LOAD()
 
     if(file.open(QIODevice::ReadWrite) == false)
     {
-        QString str = QObject::tr("Could not open CONFIG file \"%1\" for reading");
+        QString str = QObject::tr("Could not open config file \"%1\" for reading");
         str.arg(CONFIG_PATH);
         STATUS_PRINT::ERROR(str);
 
@@ -70,7 +70,7 @@ void CONFIG::LOAD()
 
     if(CONFIG_DOC.setContent(&file) == false)
     {
-        STATUS_PRINT::DEBUG(QObject::tr("Bad CONFIG file"));
+        STATUS_PRINT::DEBUG(QObject::tr("Bad config file"));
         file.close();
         CONFIG::DEFAULTS();
         CONFIG::SAVE();
@@ -83,7 +83,7 @@ void CONFIG::LOAD()
 
     if(root.tagName() != XML_ROOT)
     {
-        STATUS_PRINT::ERROR(QObject::tr("Wrong CONFIG root"));
+        STATUS_PRINT::ERROR(QObject::tr("Wrong config root"));
         return;
     }
 
