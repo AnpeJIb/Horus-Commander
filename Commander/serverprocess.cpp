@@ -2,6 +2,7 @@
 #include "servercommander.h"
 #include "gsconfig.h"
 #include "gsscripts.h"
+#include "gspath.h"
 #include "config.h"
 #include "statusprint.h"
 #include "file.h"
@@ -10,23 +11,6 @@
 #include <QFile>
 
 static bool m_loaded;
-
-static QString exePath()
-{
-    return CONFIG::GENERAL.serverPath().append(PATH_SEP).append(SERVER_EXE);
-}
-
-#ifdef _UNIX_
-static QString pathGsStdOut()
-{
-    return SC::GS::logsDirPath().append(PATH_SEP).append("serverOut");
-}
-
-static QString pathGsStdErr()
-{
-    return SC::GS::logsDirPath().append(PATH_SEP).append("serverErr");
-}
-#endif
 
 ServerProcess::ServerProcess(QObject *parent)
     :   QThread(parent),
@@ -84,7 +68,7 @@ bool ServerProcess::checkRootPath()
 {
     STATUS_PRINT::NEW(tr("Checking root path"));
 
-    QString path = CONFIG::GENERAL.serverPath() + PATH_SEP + SERVER_EXE;
+    QString path = SC::GS::PATH::exePath();
     QFile file(path);
 
     bool exists = file.exists();
@@ -138,9 +122,9 @@ static void* processCreateRaw(void *)
 
     if (pid==0)
     {
-        QString cmd = QString("wine ").append(exePath())
-                .append(">").append(pathGsStdOut())
-                .append(" 2>").append(pathGsStdErr());
+        QString cmd = QString("wine ").append(SC::GS::PATH::exePath())
+                .append(">").append(SC::GS::PATH::stdOutPath())
+                .append(" 2>").append(SC::GS::PATH::stdErrPath());
 
         execl("/bin/sh", "sh", "-c", cmd.toStdString().c_str(), (char*) 0);
         _exit(127);
@@ -248,7 +232,7 @@ void ServerProcess::childWaitLoaded()
 
 #ifdef _UNIX_
     int o_flags = O_RDONLY | O_NONBLOCK;
-    int stream = open(pathGsStdOut().toStdString().c_str(), o_flags);
+    int stream = open(SC::GS::PATH::stdOutPath().toStdString().c_str(), o_flags);
 #endif
 
     while(1)
@@ -288,7 +272,7 @@ void ServerProcess::childWaitLoaded()
 
 #ifdef _UNIX_
     close(stream);
-    unlink(pathGsStdOut().toStdString().c_str());
+    QFile::remove(SC::GS::PATH::stdOutPath());
 #endif
 }
 

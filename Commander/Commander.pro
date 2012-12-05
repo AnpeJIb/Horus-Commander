@@ -37,7 +37,9 @@ SOURCES += main.cpp\
     gscommand.cpp \
     gsscripts.cpp \
     gsconsole.cpp \
-    util/file.cpp
+    util/file.cpp \
+    gspath.cpp \
+    util/str.cpp
 
 HEADERS  += ui/mainwindow.h \
     util/statusprint.h \
@@ -63,7 +65,11 @@ HEADERS  += ui/mainwindow.h \
     gscommand.h \
     gsscripts.h \
     gsconsole.h \
-    util/file.h
+    util/file.h \
+    config/gsconfigkey.h \
+    config/gsconfiggroup.h \
+    gspath.h \
+    util/str.h
 
 FORMS    += ui/mainwindow.ui \
     ui/extramissionmanagementdialog.ui \

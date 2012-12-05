@@ -15,8 +15,6 @@
     #include <time.h>
 #endif
 
-#define SERVER_EXE  "il2server" FILE_EXT_EXE
-
 class ServerProcess : public QThread
 {
     Q_OBJECT

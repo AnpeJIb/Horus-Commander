@@ -1,4 +1,6 @@
 #include "statusfileloggertest.h"
+#include "file_util.h"
+
 #include <QFile>
 #include <QFileInfo>
 
@@ -24,35 +26,24 @@ void StatusFileLoggerTest::initTestCase()
     STATUS_PRINT::REGISTER(logger);
 }
 
-void StatusFileLoggerTest::testLevelNone()   {testAll(StatusPrinter::NONE);}
-void StatusFileLoggerTest::testLevelTasks()  {testAll(StatusPrinter::TASKS);}
-void StatusFileLoggerTest::testLevelDebug()   {testAll(StatusPrinter::DEBUG);}
-void StatusFileLoggerTest::testLevelInfo()   {testAll(StatusPrinter::INFO);}
-void StatusFileLoggerTest::testLevelWarn()   {testAll(StatusPrinter::WARNING);}
-void StatusFileLoggerTest::testLevelErr()    {testAll(StatusPrinter::ERROR);}
-void StatusFileLoggerTest::testLevelAll()    {testAll(StatusPrinter::ALL);}
+void StatusFileLoggerTest::testLevelNone()   {testAll(StatusPrinter::LEVEL_NONE);}
+void StatusFileLoggerTest::testLevelTasks()  {testAll(StatusPrinter::LEVEL_TASKS);}
+void StatusFileLoggerTest::testLevelDebug()   {testAll(StatusPrinter::LEVEL_DEBUG);}
+void StatusFileLoggerTest::testLevelInfo()   {testAll(StatusPrinter::LEVEL_INFO);}
+void StatusFileLoggerTest::testLevelWarn()   {testAll(StatusPrinter::LEVEL_WARNING);}
+void StatusFileLoggerTest::testLevelErr()    {testAll(StatusPrinter::LEVEL_ERROR);}
+void StatusFileLoggerTest::testLevelAll()    {testAll(StatusPrinter::LEVEL_ALL);}
 
-void StatusFileLoggerTest::testLevelTaskAndDebug() {testAll(StatusPrinter::TASKS | StatusPrinter::DEBUG);}
-void StatusFileLoggerTest::testLevelTaskAndInfo() {testAll(StatusPrinter::TASKS | StatusPrinter::INFO);}
-void StatusFileLoggerTest::testLevelTaskAndWarn() {testAll(StatusPrinter::TASKS | StatusPrinter::WARNING);}
-void StatusFileLoggerTest::testLevelTaskAndErr()  {testAll(StatusPrinter::TASKS | StatusPrinter::ERROR);}
+void StatusFileLoggerTest::testLevelTaskAndDebug() {testAll(StatusPrinter::LEVEL_TASKS | StatusPrinter::LEVEL_DEBUG);}
+void StatusFileLoggerTest::testLevelTaskAndInfo() {testAll(StatusPrinter::LEVEL_TASKS | StatusPrinter::LEVEL_INFO);}
+void StatusFileLoggerTest::testLevelTaskAndWarn() {testAll(StatusPrinter::LEVEL_TASKS | StatusPrinter::LEVEL_WARNING);}
+void StatusFileLoggerTest::testLevelTaskAndErr()  {testAll(StatusPrinter::LEVEL_TASKS | StatusPrinter::LEVEL_ERROR);}
 
 void StatusFileLoggerTest::cleanupTestCase()
 {
     STATUS_PRINT::UNREGISTER(logger);
     delete logger;
 
-    QString cmd;
-
-#ifdef _WIN32_
-    cmd = "type";
-#else
-    cmd = "cat";
-#endif
-    cmd.append(" \"").append(filepath).append("\"");
-
-    int i = system(cmd.toStdString().c_str());
-    Q_UNUSED(i)
-
+    printFile(filepath);
     QFile::remove(filepath);
 }

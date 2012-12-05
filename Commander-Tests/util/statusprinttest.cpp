@@ -15,18 +15,18 @@ void StatusPrintTest::initTestCase()
     STATUS_PRINT::REGISTER(&printer);
 }
 
-void StatusPrintTest::testLevelNone()   {testAll(StatusPrinter::NONE);}
-void StatusPrintTest::testLevelTasks()  {testAll(StatusPrinter::TASKS);}
-void StatusPrintTest::testLevelDebug()   {testAll(StatusPrinter::DEBUG);}
-void StatusPrintTest::testLevelInfo()   {testAll(StatusPrinter::INFO);}
-void StatusPrintTest::testLevelWarn()   {testAll(StatusPrinter::WARNING);}
-void StatusPrintTest::testLevelErr()    {testAll(StatusPrinter::ERROR);}
-void StatusPrintTest::testLevelAll()    {testAll(StatusPrinter::ALL);}
+void StatusPrintTest::testLevelNone()   {testAll(StatusPrinter::LEVEL_NONE);}
+void StatusPrintTest::testLevelTasks()  {testAll(StatusPrinter::LEVEL_TASKS);}
+void StatusPrintTest::testLevelDebug()   {testAll(StatusPrinter::LEVEL_DEBUG);}
+void StatusPrintTest::testLevelInfo()   {testAll(StatusPrinter::LEVEL_INFO);}
+void StatusPrintTest::testLevelWarn()   {testAll(StatusPrinter::LEVEL_WARNING);}
+void StatusPrintTest::testLevelErr()    {testAll(StatusPrinter::LEVEL_ERROR);}
+void StatusPrintTest::testLevelAll()    {testAll(StatusPrinter::LEVEL_ALL);}
 
-void StatusPrintTest::testLevelTaskAndDebug() {testAll(StatusPrinter::TASKS | StatusPrinter::DEBUG);}
-void StatusPrintTest::testLevelTaskAndInfo() {testAll(StatusPrinter::TASKS | StatusPrinter::INFO);}
-void StatusPrintTest::testLevelTaskAndWarn() {testAll(StatusPrinter::TASKS | StatusPrinter::WARNING);}
-void StatusPrintTest::testLevelTaskAndErr()  {testAll(StatusPrinter::TASKS | StatusPrinter::ERROR);}
+void StatusPrintTest::testLevelTaskAndDebug() {testAll(StatusPrinter::LEVEL_TASKS | StatusPrinter::LEVEL_DEBUG);}
+void StatusPrintTest::testLevelTaskAndInfo() {testAll(StatusPrinter::LEVEL_TASKS | StatusPrinter::LEVEL_INFO);}
+void StatusPrintTest::testLevelTaskAndWarn() {testAll(StatusPrinter::LEVEL_TASKS | StatusPrinter::LEVEL_WARNING);}
+void StatusPrintTest::testLevelTaskAndErr()  {testAll(StatusPrinter::LEVEL_TASKS | StatusPrinter::LEVEL_ERROR);}
 
 void StatusPrintTest::cleanupTestCase()
 {

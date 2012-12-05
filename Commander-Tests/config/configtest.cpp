@@ -11,7 +11,7 @@ ConfigTest::ConfigTest(QObject *parent)
 
 void ConfigTest::initTestCase()
 {
-    printer.setLevel(StatusPrinter::ALL);
+    printer.setLevel(StatusPrinter::LEVEL_ALL);
     STATUS_PRINT::REGISTER(&printer);
 
     QFile::remove(CONFIG::PATH());
@@ -115,19 +115,19 @@ void ConfigTest::test_log_enable(CommonLogConfig *cfg)
 void ConfigTest::test_log_level(CommonLogConfig *cfg)
 {
     CONFIG::DEFAULTS();
-    QVERIFY(cfg->level()==StatusPrinter::ALL);
+    QVERIFY(cfg->level()==StatusPrinter::LEVEL_ALL);
 
-    cfg->setLevel(StatusPrinter::INFO);
+    cfg->setLevel(StatusPrinter::LEVEL_INFO);
     QVERIFY(CONFIG::IS_CHANGED()==true);
     CONFIG::SAVE();
     QVERIFY(CONFIG::IS_CHANGED()==false);
     CONFIG::DEFAULTS();
-    QVERIFY(cfg->level()==StatusPrinter::ALL);
+    QVERIFY(cfg->level()==StatusPrinter::LEVEL_ALL);
 
     QVERIFY(CONFIG::IS_CHANGED()==true);
     CONFIG::LOAD();
     QVERIFY(CONFIG::IS_CHANGED()==false);
-    QVERIFY(cfg->level()==StatusPrinter::INFO);
+    QVERIFY(cfg->level()==StatusPrinter::LEVEL_INFO);
 }
 
 void ConfigTest::test_window_geometry()

@@ -5,12 +5,10 @@
 
 #include "fileext.h"
 
-#define GS_CFG_FILE     "confs" FILE_EXT_INI
-
 namespace SC { namespace GS { namespace CFG {
-    bool init();
-    bool checkConfigPath();
-    QString path();
+
+bool init();
+
 }}}
 
 #endif // GSCONFIG_H
