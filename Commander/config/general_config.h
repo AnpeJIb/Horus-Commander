@@ -34,12 +34,7 @@ public:
     void setServerDescr(QString value)      {CFG_SET_VALUE(m_serverDescr,   value)}
 
 private:
-    void saveLangCode(QDomElement* root, QDomDocument* doc);
-    void saveDaemonMode(QDomElement* root, QDomDocument* doc);
     void saveServer(QDomElement* root, QDomDocument* doc);
-
-    bool loadLangCode(QDomElement* root);
-    bool loadDaemonMode(QDomElement* root);
     bool loadServer(QDomElement* root);
 
     QString m_langCode;

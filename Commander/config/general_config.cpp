@@ -17,30 +17,12 @@ void GeneralConfig::save(QDomElement *root, QDomDocument* doc)
 {
     QDomElement elem = doc->createElement(XML_ELEM);
 
-    saveLangCode(&elem, doc);
-    saveDaemonMode(&elem, doc);
+    appendTextNode(&elem, doc, LANG_ELEM,           m_langCode);
+    appendTextNode(&elem, doc, DAEMON_MODE_ELEM,    QString::number(m_daemonMode));
     saveServer(&elem, doc);
 
     root->appendChild(elem);
     notChanged();
-}
-
-void GeneralConfig::saveLangCode(QDomElement *root, QDomDocument *doc)
-{
-    QDomElement elem = doc->createElement(LANG_ELEM);
-    root->appendChild(elem);
-
-    QDomText t = doc->createTextNode(m_langCode);
-    elem.appendChild(t);
-}
-
-void GeneralConfig::saveDaemonMode(QDomElement *root, QDomDocument *doc)
-{
-    QDomElement elem = doc->createElement(DAEMON_MODE_ELEM);
-    root->appendChild(elem);
-
-    QDomText t = doc->createTextNode(QString::number(m_daemonMode));
-    elem.appendChild(t);
 }
 
 void GeneralConfig::saveServer(QDomElement *root, QDomDocument *doc)
@@ -48,26 +30,9 @@ void GeneralConfig::saveServer(QDomElement *root, QDomDocument *doc)
     QDomElement elem = doc->createElement(SERVER_ELEM);
     root->appendChild(elem);
 
-    /** Save Server path */
-    QDomElement path = doc->createElement(SERVER_PATH_ELEM);
-    elem.appendChild(path);
-
-    QDomText pathValue = doc->createTextNode(m_serverPath);
-    path.appendChild(pathValue);
-
-    /** Save Server name */
-    QDomElement name = doc->createElement(SERVER_NAME_ELEM);
-    elem.appendChild(name);
-
-    QDomText nameValue = doc->createTextNode(m_serverName);
-    name.appendChild(nameValue);
-
-    /** Save Server name */
-    QDomElement descr = doc->createElement(SERVER_DESCR_ELEM);
-    elem.appendChild(descr);
-
-    QDomText descrValue = doc->createTextNode(m_serverDescr);
-    descr.appendChild(descrValue);
+    appendTextNode(&elem, doc, SERVER_PATH_ELEM,    m_serverPath);
+    appendTextNode(&elem, doc, SERVER_NAME_ELEM,    m_serverName);
+    appendTextNode(&elem, doc, SERVER_DESCR_ELEM,   m_serverDescr);
 }
 
 void GeneralConfig::load(QDomElement *root)
@@ -82,26 +47,14 @@ void GeneralConfig::load(QDomElement *root)
         QDomElement e = n.toElement();
         if(e.isNull()) continue;
 
-        if (loadLangCode(&e)) continue;
-        if (loadDaemonMode(&e)) continue;
+        if (e.tagName() == LANG_ELEM)
+            {setLangCode(e.text());             continue;}
+        if (e.tagName() == DAEMON_MODE_ELEM)
+            {setDaemonMode(e.text().toInt()>0); continue;}
         loadServer(&e);
     }
 
     notChanged();
-}
-
-bool GeneralConfig::loadLangCode(QDomElement *root)
-{
-    if(root->tagName() != LANG_ELEM) return false;
-    setLangCode(root->text());
-    return true;
-}
-
-bool GeneralConfig::loadDaemonMode(QDomElement *root)
-{
-    if(root->tagName() != DAEMON_MODE_ELEM) return false;
-    setDaemonMode(root->text().toInt()>0);
-    return true;
 }
 
 bool GeneralConfig::loadServer(QDomElement *root)
@@ -117,11 +70,11 @@ bool GeneralConfig::loadServer(QDomElement *root)
         if(e.isNull()) continue;
 
         if (e.tagName()==SERVER_PATH_ELEM)
-            setServerPath(e.text());
-        else if (e.tagName()==SERVER_NAME_ELEM)
-            setServerName(e.text());
+            {setServerPath(e.text());    continue;}
+        if (e.tagName()==SERVER_NAME_ELEM)
+            {setServerName(e.text());    continue;}
         if (e.tagName()==SERVER_DESCR_ELEM)
-            setServerDescr(e.text());
+            {setServerDescr(e.text());   continue;}
     }
 
     return true;
