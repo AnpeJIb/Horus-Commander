@@ -1,6 +1,6 @@
 #include "config.h"
-#include "fileext.h"
-#include "statusprint.h"
+#include "file_ext.h"
+#include "status_print.h"
 
 #include <QFile>
 #include <QTextStream>

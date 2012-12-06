@@ -4,11 +4,11 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include "statusprinttest.h"
-#include "statusfileloggertest.h"
-#include "configtest.h"
-#include "strtest.h"
-#include "filetest.h"
+#include "status_print_test.h"
+#include "status_file_logger_test.h"
+#include "config_test.h"
+#include "str_test.h"
+#include "file_test.h"
 
 using namespace std;
 

@@ -14,45 +14,45 @@ TEMPLATE = app
 
 SOURCES += \
     main.cpp \
-    util/statusprinttest.cpp \
-    ../Commander/util/statusprint.cpp \
-    util/statusfileloggertest.cpp \
-    ../Commander/util/statusfilelogger.cpp \
-    util/statustester.cpp \
-    config/configtest.cpp \
-    util/foostatusprinter.cpp \
-    ../Commander/config/generalconfig.cpp \
-    ../Commander/config/configmodule.cpp \
+    ../Commander/util/status_print.cpp \
+    ../Commander/util/status_file_logger.cpp \
+    ../Commander/config/general_config.cpp \
+    ../Commander/config/config_module.cpp \
     ../Commander/config/config.cpp \
-    ../Commander/config/commonlogconfig.cpp \
-    ../Commander/config/logconfig.cpp \
-    ../Commander/config/windowconfig.cpp \
-    util/strtest.cpp \
+    ../Commander/config/common_log_config.cpp \
+    ../Commander/config/log_config.cpp \
+    ../Commander/config/window_config.cpp \
     ../Commander/util/str.cpp \
     util/file_util.cpp \
     ../Commander/util/file.cpp \
-    util/filetest.cpp
+    config/config_test.cpp \
+    util/file_test.cpp \
+    util/foo_status_printer.cpp \
+    util/status_file_logger_test.cpp \
+    util/status_print_test.cpp \
+    util/status_tester.cpp \
+    util/str_test.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS += \
-    util/statusprinttest.h \
-    ../Commander/util/statusprint.h \
-    util/statusfileloggertest.h \
-    ../Commander/util/statusfilelogger.h \
-    util/statustester.h \
-    config/configtest.h \
-    util/foostatusprinter.h \
-    ../Commander/config/generalconfig.h \
-    ../Commander/config/configmodule.h \
+    ../Commander/util/status_print.h \
+    ../Commander/util/status_file_logger.h \
+    ../Commander/config/general_config.h \
+    ../Commander/config/config_module.h \
     ../Commander/config/config.h \
-    ../Commander/config/commonlogconfig.h \
-    ../Commander/config/logconfig.h \
-    ../Commander/config/windowconfig.h \
-    util/strtest.h \
+    ../Commander/config/common_log_config.h \
+    ../Commander/config/log_config.h \
+    ../Commander/config/window_config.h \
     ../Commander/util/str.h \
     util/file_util.h \
     ../Commander/util/file.h \
-    util/filetest.h
+    config/config_test.h \
+    util/file_test.h \
+    util/foo_status_printer.h \
+    util/status_file_logger_test.h \
+    util/status_print_test.h \
+    util/status_tester.h \
+    util/str_test.h
 
 INCLUDEPATH += util \
   config \

@@ -1,7 +1,7 @@
 #include "logs.h"
-#include "statusprint.h"
+#include "status_print.h"
 #include "config.h"
-#include "fileext.h"
+#include "file_ext.h"
 
 static void UPDATE_LOGGER(StatusPrinter* printer, CommonLogConfig*cfg);
 

@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "main_window.h"
 
 #include <QApplication>
 #include <QMessageBox>
@@ -10,7 +10,7 @@
 
 #include "config.h"
 #include "logs.h"
-#include "servercommander.h"
+#include "server_commander.h"
 
 void parseArgs(int argc, char *argv[]);
 void initSignalHooks();

@@ -14,67 +14,69 @@ TEMPLATE = app
 INCLUDEPATH += config util config/ui ui
 
 SOURCES += main.cpp\
-        ui/mainwindow.cpp \
-    util/statusprint.cpp \
-    util/statusfilelogger.cpp \
-    util/statuswidget.cpp \
-    config/configmodule.cpp \
     config/config.cpp \
-    config/generalconfig.cpp \
-    config/commonlogconfig.cpp \
-    config/logconfig.cpp \
     util/logs.cpp \
-    config/windowconfig.cpp \
-    ui/extramissionmanagementdialog.cpp \
-    servercommander.cpp \
-    missionmanager.cpp \
-    config/ui/configdialog.cpp \
-    config/ui/uiconfigmodule.cpp \
-    config/ui/namedpage.cpp \
-    config/ui/generalpage.cpp \
-    serverprocess.cpp \
-    config/gsconfig.cpp \
-    gscommand.cpp \
-    gsscripts.cpp \
-    gsconsole.cpp \
     util/file.cpp \
-    gspath.cpp \
-    util/str.cpp
+    util/str.cpp \
+    config/ui/config_dialog.cpp \
+    config/ui/general_page.cpp \
+    config/ui/named_page.cpp \
+    config/ui/uiconfig_module.cpp \
+    config/common_log_config.cpp \
+    config/config_module.cpp \
+    config/general_config.cpp \
+    config/gs_config.cpp \
+    config/log_config.cpp \
+    config/window_config.cpp \
+    ui/extra_mission_management_dialog.cpp \
+    ui/main_window.cpp \
+    util/status_file_logger.cpp \
+    util/status_print.cpp \
+    util/status_widget.cpp \
+    gs_command.cpp \
+    gs_console.cpp \
+    gs_path.cpp \
+    gs_scripts.cpp \
+    mission_manager.cpp \
+    server_commander.cpp \
+    server_process.cpp
 
-HEADERS  += ui/mainwindow.h \
-    util/statusprint.h \
-    util/statusfilelogger.h \
-    util/statuswidget.h \
-    config/configmodule.h \
+HEADERS  += \
     config/config.h \
-    config/generalconfig.h \
-    util/fileext.h \
-    config/commonlogconfig.h \
-    config/logconfig.h \
     util/logs.h \
-    config/windowconfig.h \
-    ui/extramissionmanagementdialog.h \
-    servercommander.h \
-    missionmanager.h \
-    config/ui/configdialog.h \
-    config/ui/uiconfigmodule.h \
-    config/ui/namedpage.h \
-    config/ui/generalpage.h \
-    serverprocess.h \
-    config/gsconfig.h \
-    gscommand.h \
-    gsscripts.h \
-    gsconsole.h \
     util/file.h \
-    config/gsconfigkey.h \
-    config/gsconfiggroup.h \
-    gspath.h \
-    util/str.h
+    util/str.h \
+    config/ui/config_dialog.h \
+    config/ui/general_page.h \
+    config/ui/named_page.h \
+    config/ui/uiconfig_module.h \
+    config/common_log_config.h \
+    config/config_module.h \
+    config/general_config.h \
+    config/gs_config.h \
+    config/log_config.h \
+    config/window_config.h \
+    ui/extra_mission_management_dialog.h \
+    ui/main_window.h \
+    util/file_ext.h \
+    util/status_file_logger.h \
+    util/status_print.h \
+    util/status_widget.h \
+    gs_command.h \
+    gs_console.h \
+    gs_path.h \
+    gs_scripts.h \
+    mission_manager.h \
+    server_commander.h \
+    server_process.h \
+    config/gs_config_group.h \
+    config/gs_config_key.h
 
-FORMS    += ui/mainwindow.ui \
-    ui/extramissionmanagementdialog.ui \
-    config/ui/configdialog.ui \
-    config/ui/generalpage.ui
+FORMS    += \
+    config/ui/config_dialog.ui \
+    config/ui/general_page.ui \
+    ui/extra_mission_management_dialog.ui \
+    ui/main_window.ui
 
 DEFINES += PATH_SEP=\\\"/\\\"
 
@@ -91,8 +93,8 @@ win32 {
 
     RC_FILE = qapp.rc
 
-    SOURCES += util/winproc.cpp
-    HEADERS += util/winproc.h
+    SOURCES += util/win_proc.h
+    HEADERS += util/win_proc.cpp
 }
 
 CPPFLAGS +=	"--pedantic -Wall -Wno-error=unused-result -Werror -Wfatal-errors -std=gnu99"

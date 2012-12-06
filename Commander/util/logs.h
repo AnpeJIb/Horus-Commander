@@ -1,9 +1,9 @@
 #ifndef LOGS_H
 #define LOGS_H
 
-#include "statusfilelogger.h"
-#include "statuswidget.h"
-#include "commonlogconfig.h"
+#include "status_file_logger.h"
+#include "status_widget.h"
+#include "common_log_config.h"
 
 namespace LOGS
 {
