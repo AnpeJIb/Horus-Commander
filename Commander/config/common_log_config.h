@@ -13,11 +13,11 @@ public:
     void load(QDomElement* root);
     void loadDefaults();
 
-    bool isEnable();
-    quint8 level();
+    bool isEnable() {return m_enable;}
+    quint8 level()  {return m_level;}
 
-    void setEnable(bool value);
-    void setLevel(quint8 value);
+    void setEnable(bool value)  {CFG_SET_VALUE(m_enable, value)}
+    void setLevel(quint8 value) {CFG_SET_VALUE(m_level, value)}
 
 private:
     QString m_XML_ELEM;

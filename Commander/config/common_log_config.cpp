@@ -36,25 +36,3 @@ void CommonLogConfig::loadDefaults()
     setEnable(DEFAULT_ENABLE);
     setLevel(DEFAULT_LEVEL);
 }
-
-bool CommonLogConfig::isEnable() {return m_enable;}
-quint8 CommonLogConfig::level(){return m_level;}
-
-
-void CommonLogConfig::setEnable(bool value)
-{
-    if (m_enable != value)
-    {
-        m_enable = value;
-        changed();
-    }
-}
-
-void CommonLogConfig::setLevel(quint8 value)
-{
-    if (m_level != value)
-    {
-        m_level = value;
-        changed();
-    }
-}
