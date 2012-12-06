@@ -12,22 +12,12 @@
 
 static bool checkConfigPath();
 static bool checkPathLogs();
-
-static void setLogging();
-static void setLoggingChat();
-static void setLoggingConsole();
-static void setLoggingFile();
-
-static void setConsoleConnection();
-static void setVersionChecking();
-static void setServerInfo();
+static void setValues();
 static void setEscapedValue(const char *key, char* value);
-
-static void fixBackslashes();
 
 static QSettings* m_settings;
 
-bool SC::GS::CFG::init()
+bool SC::GS::CFG::applyToServer()
 {
     STATUS_PRINT::NEW(QObject::tr("Initializing game server's config"));
 
@@ -43,17 +33,14 @@ bool SC::GS::CFG::init()
         return false;
     }
 
-    m_settings = new QSettings(SC::GS::PATH::confsPath(), QSettings::IniFormat);
+    QString fPath = SC::GS::PATH::confsPath();
 
-    setLogging();
-    setConsoleConnection();
-    setVersionChecking();
-    setServerInfo();
-
+    m_settings = new QSettings(fPath, QSettings::IniFormat);
+    setValues();
     m_settings->sync();
     delete m_settings;
 
-    fixBackslashes();
+    rmDoubleSymbInFile(fPath, '\\');
 
     STATUS_PRINT::DONE();
     return true;
@@ -108,27 +95,14 @@ bool checkPathLogs()
     return true;
 }
 
-void setLogging()
-{
-    setLoggingChat();
-    setLoggingConsole();
-    setLoggingFile();
-}
-
-void setLoggingChat()
+void setValues()
 {
     STATUS_PRINT::DEBUG_(QObject::tr("Suppressing logging to chat"));
-    m_settings->setValue(GS_CFG_KEY_AUTO_LOG_DETAIL, "0");
-}
+    m_settings->setValue(GS_CFG_KEY_AUTO_LOG_DETAIL, QString::number(0));
 
-void setLoggingConsole()
-{
     STATUS_PRINT::DEBUG_(QObject::tr("Disabling saving console output to file"));
     m_settings->setValue(GS_CFG_KEY_LOG, GS_CFG_FALSE);
-}
 
-void setLoggingFile()
-{
     STATUS_PRINT::DEBUG_(QObject::tr("Setting logging output file"));
     m_settings->setValue(GS_CFG_KEY_EVENTLOG, SC::GS::PATH::eventsLogRelativePath());
 
@@ -137,29 +111,63 @@ void setLoggingFile()
 
     STATUS_PRINT::DEBUG_(QObject::tr("Enabling buildings destruction logging"));
     m_settings->setValue(GS_CFG_KEY_EVENTLOG_HOUSE, GS_CFG_TRUE);
-}
-
-void setConsoleConnection()
-{
-    // TODO:
-    // STATUS_PRINT::DEBUG_(QObject::tr("Enabling server's console"));
-    // m_settings->setValue(GS_CFG_KEY_IP, GS_CONSOLE_PORT);
 
     STATUS_PRINT::DEBUG_(QObject::tr("Setting console allowed clients list"));
     m_settings->setValue(GS_CFG_KEY_IPS, "127.0.0.1");
-}
 
-void setVersionChecking()
-{
+    STATUS_PRINT::DEBUG_(QObject::tr("Enabling server's console"));
+    m_settings->setValue(GS_CFG_KEY_IP,
+                         QString::number(CONFIG::NET.localPort()));
+
+    STATUS_PRINT::DEBUG_(QObject::tr("Setting client port"));
+    m_settings->setValue(GS_CFG_KEY_LOCAL_PORT,
+                         QString::number(CONFIG::NET.clientPort()));
+
+    STATUS_PRINT::DEBUG_(QObject::tr("Setting maximum channels count"));
+    m_settings->setValue(GS_CFG_KEY_SERVER_CHANNELS,
+                         QString::number(CONFIG::NET.channelsCount()));
+
+    STATUS_PRINT::DEBUG_(QObject::tr("Setting custom skins parameter"));
+    m_settings->setValue(GS_CFG_KEY_SKIN,
+                         CONFIG::NET.allowCustomSkins()?GS_CFG_TRUE:GS_CFG_FALSE);
+
+    STATUS_PRINT::DEBUG_(QObject::tr("Setting client time speed check"));
+    m_settings->setValue(GS_CFG_KEY_CHECK_CLIENT_TIME_SPEED,
+                         CONFIG::NET.checkClientTimeSpeed()?GS_CFG_TRUE:GS_CFG_FALSE);
+
+    STATUS_PRINT::DEBUG_(QObject::tr("Setting server time speed check"));
+    m_settings->setValue(GS_CFG_KEY_CHECK_SERVER_TIME_SPEED,
+                         CONFIG::NET.checkServerTimeSpeed()?GS_CFG_TRUE:GS_CFG_FALSE);
+
+    STATUS_PRINT::DEBUG_(QObject::tr("Setting time speed differense"));
+    m_settings->setValue(GS_CFG_KEY_CHECK_TIME_SPEED_DIFF,
+                         QString::number(CONFIG::NET.checkTimeSpeedDifferense()));
+
+    STATUS_PRINT::DEBUG_(QObject::tr("Setting time speed interval"));
+    m_settings->setValue(GS_CFG_KEY_CHECK_TIME_SPEED_INTV,
+                         QString::number(CONFIG::NET.checkTimeSpeedInterval()));
+
+    STATUS_PRINT::DEBUG_(QObject::tr("Setting cheater warning delay"));
+    m_settings->setValue(GS_CFG_KEY_CHEAT_WARN_DELAY,
+                         QString::number(CONFIG::NET.cheaterWarningDelay()));
+
+    STATUS_PRINT::DEBUG_(QObject::tr("Setting cheater warnings number"));
+    m_settings->setValue(GS_CFG_KEY_CHEAT_WARN_NUM,
+                         QString::number(CONFIG::NET.cheaterWarningNum()));
+
+    STATUS_PRINT::DEBUG_(QObject::tr("Setting far max lag time"));
+    m_settings->setValue(GS_CFG_KEY_CHEAT_FAR_MAX_LAG_TIME,
+                         QString::number(CONFIG::NET.farMaxLagTime()));
+
+    STATUS_PRINT::DEBUG_(QObject::tr("Setting near max lag time"));
+    m_settings->setValue(GS_CFG_KEY_CHEAT_NEAR_MAX_LAG_TIME,
+                         QString::number(CONFIG::NET.nearMaxLagTime()));
+
     STATUS_PRINT::DEBUG_(QObject::tr("Setting client version checking"));
-    m_settings->setValue(GS_CFG_KEY_CHECK_RUNTIME, "1");
-}
+    m_settings->setValue(GS_CFG_KEY_CHECK_RUNTIME, QString::number(1));
 
-void setServerInfo()
-{
     STATUS_PRINT::DEBUG_(QObject::tr("Setting server's name"));
     setEscapedValue(GS_CFG_KEY_SERVER_NAME, CONFIG::GENERAL.serverName().toUtf8().data());
-
 
     STATUS_PRINT::DEBUG_(QObject::tr("Setting server's description"));
     setEscapedValue(GS_CFG_KEY_SERVER_DESCR, CONFIG::GENERAL.serverDescr().toUtf8().data());
@@ -174,9 +182,4 @@ void setEscapedValue(const char* key, char* value)
 
     STR::escapeUnicode(value, strlen(value), dst, dst_len);
     m_settings->setValue(key, dst);
-}
-
-void fixBackslashes()
-{
-    rmDoubleSymbInFile(SC::GS::PATH::confsPath(), '\\');
 }

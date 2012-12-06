@@ -7,7 +7,7 @@
 
 namespace SC { namespace GS { namespace CFG {
 
-bool init();
+bool applyToServer();
 
 }}}
 

@@ -102,7 +102,7 @@ void ServerProcess::checkLaunchedBefore()
 
 bool ServerProcess::prepare()
 {
-    if (SC::GS::CFG::init()         == false) return false;
+    if (SC::GS::CFG::applyToServer()         == false) return false;
     if (SC::GS::SCRIPTS::generate() == false) return false;
 
 #ifdef _WIN32_

@@ -36,7 +36,7 @@ public:
     float   cheaterWarningDelay()       {return m_cheaterWarningDelay;}
     quint8  cheaterWarningNum()         {return m_cheaterWarningNum;}
     float   farMaxLagTime()             {return m_farMaxLagTime;}
-    float   nearMaxLagTime()            {return m_farMaxLagTime;}
+    float   nearMaxLagTime()            {return m_nearMaxLagTime;}
     uint    clientPort()                {return m_clientPort;}
     uint    localPort()                 {return m_localPort;}
     QString localIP() const             {return m_localIP;}
