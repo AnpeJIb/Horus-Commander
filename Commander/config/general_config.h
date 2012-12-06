@@ -21,16 +21,17 @@ public:
     void load(QDomElement* root);
     void loadDefaults();
 
-    QString langCode() const;
-    void    setLangCode(QString value);
-    bool    isDaemonMode();
-    void    setDaemonMode(bool value);
-    QString serverPath();
-    void setServerPath(QString value);
-    QString serverName();
-    void setServerName(QString value);
-    QString serverDescr();
-    void setServerDescr(QString value);
+    QString langCode() const    {return m_langCode;}
+    bool    isDaemonMode()      {return m_daemonMode;}
+    QString serverPath() const  {return m_serverPath;}
+    QString serverName() const  {return m_serverName;}
+    QString serverDescr() const {return m_serverDescr;}
+
+    void setLangCode(const QString &value)  {CFG_SET_VALUE(m_langCode,      value)}
+    void setDaemonMode(bool value)          {CFG_SET_VALUE(m_daemonMode,    value)}
+    void setServerPath(QString value)       {CFG_SET_VALUE(m_serverPath,    value)}
+    void setServerName(QString value)       {CFG_SET_VALUE(m_serverName,    value)}
+    void setServerDescr(QString value)      {CFG_SET_VALUE(m_serverDescr,   value)}
 
 private:
     void saveLangCode(QDomElement* root, QDomDocument* doc);
@@ -45,7 +46,7 @@ private:
     QString m_serverPath;
     QString m_serverName;
     QString m_serverDescr;
-    bool m_daemonMode;
+    bool    m_daemonMode;
 };
 
 #endif // GENERALCONFIG_H

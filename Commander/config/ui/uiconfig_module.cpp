@@ -18,10 +18,10 @@ void UIConfigModule::rmChild(UIConfigModule *child)
 
 bool UIConfigModule::saveChildren()
 {
-    bool result = false;
+    bool result = true;
 
     foreach (UIConfigModule * ch, children)
-        result |= ch->save();
+        result &= ch->save();
 
     return result;
 }

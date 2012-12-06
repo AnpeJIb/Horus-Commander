@@ -4,6 +4,9 @@
 #include <QList>
 #include <QDomElement>
 
+#define CFG_SET_VALUE(oldValue, newValue) \
+            do { if(oldValue!=newValue){oldValue=newValue; changed();} } while(0);
+
 class ConfigModule;
 
 class ConfigModule
@@ -24,6 +27,8 @@ protected:
     void loadChildren(QDomElement* root);
     void loadChildrenDefaults();
     bool areChildrenChanged();
+
+    void appendTextNode(QDomElement* root, QDomDocument* doc, const QString& name, const QString& value);
 
     void changed();
     void notChanged();

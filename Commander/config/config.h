@@ -4,6 +4,8 @@
 #include "general_config.h"
 #include "log_config.h"
 #include "window_config.h"
+#include "net_config.h"
+
 #include <QList>
 
 namespace CONFIG
@@ -18,6 +20,7 @@ namespace CONFIG
 
     extern GeneralConfig    GENERAL;
     extern LogConfig        LOG;
+    extern NetConfig        NET;
     extern WindowConfig     WINDOW;
 }
 

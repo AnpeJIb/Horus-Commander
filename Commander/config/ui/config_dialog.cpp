@@ -2,6 +2,7 @@
 #include "ui_config_dialog.h"
 #include "config.h"
 #include "general_page.h"
+#include "net_page.h"
 
 ConfigDialog::ConfigDialog(QWidget *parent) :
     QDialog(parent),
@@ -37,6 +38,15 @@ void ConfigDialog::addPages()
                 QListWidgetItem::UserType);
     ui->stack->addWidget(general);
     addChild(general);
+
+    NetPage* net = new NetPage;
+    new QListWidgetItem(
+                QIcon(":/img/net.png"),
+                net->pageName(),
+                ui->list,
+                QListWidgetItem::UserType);
+    ui->stack->addWidget(net);
+    addChild(net);
 }
 
 void ConfigDialog::on_list_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)

@@ -33,5 +33,6 @@
         <file>img/general.png</file>
         <file>img/langEn.png</file>
         <file>img/langRu.png</file>
+        <file>img/net.png</file>
     </qresource>
 </RCC>

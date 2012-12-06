@@ -9,9 +9,10 @@
 
 static QString CONFIG_PATH = XML_ROOT FILE_EXT_XML;
 
-GeneralConfig    CONFIG::GENERAL;
-LogConfig        CONFIG::LOG;
-WindowConfig     CONFIG::WINDOW;
+GeneralConfig   CONFIG::GENERAL;
+LogConfig       CONFIG::LOG;
+NetConfig       CONFIG::NET;
+WindowConfig    CONFIG::WINDOW;
 
 static QList<ConfigModule*> CHILDREN;
 
@@ -19,6 +20,7 @@ void CONFIG::INIT()
 {
     CHILDREN << &(CONFIG::GENERAL);
     CHILDREN << &(CONFIG::LOG);
+    CHILDREN << &(CONFIG::NET);
     CHILDREN << &(CONFIG::WINDOW);
 }
 

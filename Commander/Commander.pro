@@ -39,7 +39,9 @@ SOURCES += main.cpp\
     gs_scripts.cpp \
     mission_manager.cpp \
     server_commander.cpp \
-    server_process.cpp
+    server_process.cpp \
+    config/ui/net_page.cpp \
+    config/net_config.cpp
 
 HEADERS  += \
     config/config.h \
@@ -70,13 +72,16 @@ HEADERS  += \
     server_commander.h \
     server_process.h \
     config/gs_config_group.h \
-    config/gs_config_key.h
+    config/gs_config_key.h \
+    config/ui/net_page.h \
+    config/net_config.h
 
 FORMS    += \
     config/ui/config_dialog.ui \
     config/ui/general_page.ui \
     ui/extra_mission_management_dialog.ui \
-    ui/main_window.ui
+    ui/main_window.ui \
+    config/ui/net_page.ui
 
 DEFINES += PATH_SEP=\\\"/\\\"
 

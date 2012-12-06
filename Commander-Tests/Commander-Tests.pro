@@ -31,7 +31,8 @@ SOURCES += \
     util/status_file_logger_test.cpp \
     util/status_print_test.cpp \
     util/status_tester.cpp \
-    util/str_test.cpp
+    util/str_test.cpp \
+    ../Commander/config/net_config.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS += \
@@ -52,7 +53,8 @@ HEADERS += \
     util/status_file_logger_test.h \
     util/status_print_test.h \
     util/status_tester.h \
-    util/str_test.h
+    util/str_test.h \
+    ../Commander/config/net_config.h
 
 INCLUDEPATH += util \
   config \

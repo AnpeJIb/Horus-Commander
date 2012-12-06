@@ -45,6 +45,15 @@ bool ConfigModule::areChildrenChanged()
     return result;
 }
 
+void ConfigModule::appendTextNode(QDomElement *root, QDomDocument *doc, const QString &name, const QString &value)
+{
+    QDomElement elem = doc->createElement(name);
+    root->appendChild(elem);
+
+    QDomText t = doc->createTextNode(value);
+    elem.appendChild(t);
+}
+
 bool ConfigModule::isChanged()
 {
     return m_changed | areChildrenChanged();
