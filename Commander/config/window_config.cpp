@@ -136,34 +136,3 @@ void WindowConfig::setGeometry(const QRect &value)
         changed();
     }
 }
-QRect WindowConfig::geometry() const {return m_geometry;}
-
-void WindowConfig::setMinimized(bool value)
-{
-    if (m_minimized != value)
-    {
-        m_minimized = value;
-        changed();
-    }
-}
-bool WindowConfig::isMinimized() {return m_minimized;}
-
-void WindowConfig::setPromtClose(bool value)
-{
-    if (m_promtClose != value)
-    {
-        m_promtClose = value;
-        changed();
-    }
-}
-bool WindowConfig::promtClose(){return m_promtClose;}
-
-void WindowConfig::setQuitOnClose(bool value)
-{
-    if (m_quitOnClose != value)
-    {
-        m_quitOnClose = value;
-        changed();
-    }
-}
-bool WindowConfig::quitOnClose(){return m_quitOnClose;}

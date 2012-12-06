@@ -17,15 +17,15 @@ public:
     void load(QDomElement* root);
     void loadDefaults();
 
-    QRect geometry() const;
-    bool isMinimized();
-    bool promtClose();
-    bool quitOnClose();
+    QRect geometry() const  {return m_geometry;}
+    bool isMinimized()      {return m_minimized;}
+    bool promtClose()       {return m_promtClose;}
+    bool quitOnClose()      {return m_quitOnClose;}
 
     void setGeometry(const QRect& value);
-    void setMinimized(bool value);
-    void setPromtClose(bool value);
-    void setQuitOnClose(bool value);
+    void setMinimized(bool value)           {CFG_SET_VALUE(m_minimized,     value)}
+    void setPromtClose(bool value)          {CFG_SET_VALUE(m_promtClose,    value)}
+    void setQuitOnClose(bool value)         {CFG_SET_VALUE(m_quitOnClose,   value)}
 
 private:
     void saveGeometry(QDomElement *root, QDomDocument *doc);
