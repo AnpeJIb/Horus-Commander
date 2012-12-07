@@ -3,20 +3,21 @@
 
 #include "config_module.h"
 #include <QtCore>
+#include <QList>
+#include <QHostAddress>
 
-#define DEFAULT_ALLOW_CUSTOM_SKINS            true
-#define DEFAULT_CHECK_CLIENT_TIME_SPEED       false
-#define DEFAULT_CHECK_SERVER_TIME_SPEED       false
-#define DEFAULT_CHECK_TIME_SPEED_DIFFERENSE   0.3f
-#define DEFAULT_CHECK_TIME_SPEED_INTERVAL     10.0f
-#define DEFAULT_CHANNELS_COUNT                32
-#define DEFAULT_CHEATER_WARNING_DELAY         10.0f
-#define DEFAULT_CHEATER_WARNING_NUM           3
-#define DEFAULT_FAR_MAX_LAG_TIME              2.0f
-#define DEFAULT_NEAR_MAX_LAG_TIME             1.0f
-#define DEFAULT_CLIENT_PORT                   21000
-#define DEFAULT_LOCAL_PORT                    20001
-#define DEFAULT_LOCAL_IP                      "127.0.0.1"
+#define DEFAULT_ALLOW_CUSTOM_SKINS              true
+#define DEFAULT_CHECK_CLIENT_TIME_SPEED         false
+#define DEFAULT_CHECK_SERVER_TIME_SPEED         false
+#define DEFAULT_CHECK_TIME_SPEED_DIFFERENSE     0.3f
+#define DEFAULT_CHECK_TIME_SPEED_INTERVAL       10.0f
+#define DEFAULT_CHANNELS_COUNT                  32
+#define DEFAULT_CHEATER_WARNING_DELAY           10.0f
+#define DEFAULT_CHEATER_WARNING_NUM             3
+#define DEFAULT_FAR_MAX_LAG_TIME                2.0f
+#define DEFAULT_NEAR_MAX_LAG_TIME               1.0f
+#define DEFAULT_CLIENT_PORT                     21000
+#define DEFAULT_LOCAL_PORT                      20001
 
 class NetConfig : public ConfigModule
 {
@@ -40,6 +41,8 @@ public:
     uint    clientPort()                {return m_clientPort;}
     uint    localPort()                 {return m_localPort;}
     QString localIP() const             {return m_localIP;}
+    QString defaultLocalIP() const;
+    QList<QHostAddress> availableAddresses() const;
 
     void setAllowCustomSkins(bool value)            {CFG_SET_VALUE(m_allowCustomSkins,          value)}
     void setCheckClientTimeSpeed(bool value)        {CFG_SET_VALUE(m_checkClientTimeSpeed,      value)}

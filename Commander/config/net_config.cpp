@@ -1,4 +1,5 @@
 #include "net_config.h"
+#include <QNetworkInterface>
 
 #define XML_ELEM                            "net"
 #define ALLOW_CUSTOM_SKINS_ELEM             "allowCustomSkins"
@@ -14,6 +15,8 @@
 #define CLIENT_PORT_ELEM                    "clientPort"
 #define LOCAL_PORT_ELEM                     "localPort"
 #define LOCAL_IP_ELEM                       "localIP"
+
+#define DEFAULT_LOCAL_IP                    "127.0.0.1"
 
 NetConfig::NetConfig()
 {
@@ -98,5 +101,16 @@ void NetConfig::loadDefaults()
     setNearMaxLagTime(              DEFAULT_NEAR_MAX_LAG_TIME);
     setClientPort(                  DEFAULT_CLIENT_PORT);
     setLocalPort(                   DEFAULT_LOCAL_PORT);
-    setLocalIP(                     DEFAULT_LOCAL_IP);
+    setLocalIP(                     defaultLocalIP());
+}
+
+QString NetConfig::defaultLocalIP() const
+{
+    QList<QHostAddress> list = availableAddresses();
+    return (list.count()>0)?list.at(0).toString():DEFAULT_LOCAL_IP;
+}
+
+QList<QHostAddress> NetConfig::availableAddresses() const
+{
+    return QNetworkInterface::allAddresses();
 }

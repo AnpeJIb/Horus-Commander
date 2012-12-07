@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += network xml gui testlib
+QT += network xml gui network testlib
 
 TARGET = Horus-Commander-Tests
 CONFIG += console

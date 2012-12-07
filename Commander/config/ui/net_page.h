@@ -26,6 +26,7 @@ public:
 
 private slots:
     void on_ChannelsCount_valueChanged(int value);
+    void selectIP(const QString& value);
 
 private:
     Ui::NetPage *ui;

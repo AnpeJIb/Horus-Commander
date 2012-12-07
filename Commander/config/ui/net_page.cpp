@@ -3,12 +3,18 @@
 #include "config.h"
 
 #include <QMessageBox>
+#include <QList>
+#include <QHostAddress>
+#include <QNetworkInterface>
 
 NetPage::NetPage(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::NetPage)
 {
     ui->setupUi(this);
+
+    foreach (QHostAddress addr, CONFIG::NET.availableAddresses())
+        ui->IPbox->addItem(addr.toString());
 }
 
 NetPage::~NetPage()
@@ -23,7 +29,7 @@ QString NetPage::pageName()
 
 bool NetPage::save()
 {
-    QString localIP = ui->LocalIP->text();
+    QString localIP = ui->IPbox->currentText();
 
     if (localIP.isEmpty())
     {
@@ -68,7 +74,8 @@ void NetPage::load()
 
     ui->ClientPort->setValue(               CONFIG::NET.clientPort());
     ui->LocalPort->setValue(                CONFIG::NET.localPort());
-    ui->LocalIP->setText(                   CONFIG::NET.localIP());
+
+    selectIP(                               CONFIG::NET.localIP());
     ui->ChannelsCount->setValue(            CONFIG::NET.channelsCount());
 
     ui->CheaterWarningDelay->setValue(      CONFIG::NET.cheaterWarningDelay());
@@ -92,7 +99,8 @@ void NetPage::loadDefaults()
 
     ui->ClientPort->setValue(               DEFAULT_CLIENT_PORT);
     ui->LocalPort->setValue(                DEFAULT_LOCAL_PORT);
-    ui->LocalIP->setText(                   DEFAULT_LOCAL_IP);
+
+    selectIP(                               CONFIG::NET.defaultLocalIP());
     ui->ChannelsCount->setValue(            DEFAULT_CHANNELS_COUNT);
 
     ui->CheaterWarningDelay->setValue(      DEFAULT_CHEATER_WARNING_DELAY);
@@ -107,4 +115,10 @@ void NetPage::loadDefaults()
 void NetPage::on_ChannelsCount_valueChanged(int value)
 {
     ui->ChannelsLb->setText(QString::number(value));
+}
+
+void NetPage::selectIP(const QString &value)
+{
+    int id = ui->IPbox->findText(value);
+    ui->IPbox->setCurrentIndex((id)?id:0);
 }
