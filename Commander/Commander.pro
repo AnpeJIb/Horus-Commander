@@ -41,7 +41,8 @@ SOURCES += main.cpp\
     server_commander.cpp \
     server_process.cpp \
     config/ui/net_page.cpp \
-    config/net_config.cpp
+    config/net_config.cpp \
+    parser/common_parser.cpp
 
 HEADERS  += \
     config/config.h \
@@ -74,7 +75,8 @@ HEADERS  += \
     config/gs_config_group.h \
     config/gs_config_key.h \
     config/ui/net_page.h \
-    config/net_config.h
+    config/net_config.h \
+    parser/common_parser.h
 
 FORMS    += \
     config/ui/config_dialog.ui \
