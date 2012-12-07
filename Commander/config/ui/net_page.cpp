@@ -112,11 +112,6 @@ void NetPage::loadDefaults()
     loadChildrenDefaults();
 }
 
-void NetPage::on_ChannelsCount_valueChanged(int value)
-{
-    ui->ChannelsLb->setText(QString::number(value));
-}
-
 void NetPage::selectIP(const QString &value)
 {
     int id = ui->IPbox->findText(value);
