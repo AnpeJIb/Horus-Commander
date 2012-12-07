@@ -94,12 +94,13 @@ unix {
 
 win32 {
     DEFINES += _WIN32_
-    DEFINES += DEV_NULL=\\\"NUL\\\"
+
+    LIBS    += -lws2_32
 
     RC_FILE = qapp.rc
 
-    SOURCES += util/win_proc.h
-    HEADERS += util/win_proc.cpp
+    HEADERS += util/win_proc.h util/winsock_helper.h
+    SOURCES += util/win_proc.cpp util/winsock_helper.cpp
 }
 
 CPPFLAGS +=	"--pedantic -Wall -Wno-error=unused-result -Werror -Wfatal-errors -std=gnu99"

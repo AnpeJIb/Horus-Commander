@@ -290,7 +290,7 @@ void ServerProcess::suppressStdout()
 
 void ServerProcess::onProcessStop()
 {
-    // TODO:
+    SC::CONSOLE.clearUp();
     m_launchedBefore = true;
 }
 
