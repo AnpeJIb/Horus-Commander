@@ -39,6 +39,12 @@
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QCheckBox" name="AllowCustomSkins">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Allow custom skins</string>
         </property>
@@ -148,6 +154,12 @@
         </item>
         <item row="6" column="0">
          <widget class="QLabel" name="label_4">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>Server channels:</string>
           </property>
@@ -155,6 +167,12 @@
         </item>
         <item row="7" column="0">
          <widget class="QLabel" name="label_9">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>Local IP:</string>
           </property>
@@ -182,6 +200,12 @@
         </item>
         <item row="9" column="0">
          <widget class="QLabel" name="label_5">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>Client port:</string>
           </property>
