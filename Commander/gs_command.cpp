@@ -30,7 +30,7 @@ QString GsCommands::get_EXIT()
     return "exit";
 }
 
-GsCommands::GsCommands()
+void GsCommands::init()
 {
     m_greetingFormat = tr("Hello, %1! ")
             .append(QString(tr("Welcome to '%1' server!")).arg(CONFIG::GENERAL.serverName()));
@@ -41,7 +41,7 @@ GsCommands::GsCommands()
 
 void GsCommands::exit()
 {
-    cmdSend(GsCommands::get_EXIT().toStdString().c_str());
+    cmdSend(GsCommands::get_EXIT().toUtf8().constData());
 }
 
 void GsCommands::chatAll(const char* msg)
@@ -103,7 +103,7 @@ void GsCommands::kickAll()
 
     for(quint8 i=0; i<3; i++)
     {
-        chatAll(m_kickingAll.toStdString().c_str());
+        chatAll(m_kickingAll.toUtf8().constData());
 
 #ifdef _WIN32_
         Sleep(2000);

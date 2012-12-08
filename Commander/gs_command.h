@@ -26,7 +26,9 @@ public:
     static QString get_TIMEOUT(int secondsDelay, QString cmd);
     static QString get_EXIT();
 
-    GsCommands();
+    GsCommands(){}
+
+    void init();
 
     void exit();
 

@@ -303,6 +303,7 @@ void ServerProcess::onProcessStart()
     if (isServerRunning() && SC::CONSOLE.isConnected())
     {
         SC::CONSOLE.startParsing();
+        SC::CMD.init();
         SC::CMD.kickAll();
         processWait();
     } else {
