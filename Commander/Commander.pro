@@ -111,3 +111,6 @@ RESOURCES += \
     img.qrc
 
 TRANSLATIONS += l10n/ru.ts
+
+VERSION = 0.1.0
+DEFINES += APP_VERSION=\\\"$$VERSION\\\"
