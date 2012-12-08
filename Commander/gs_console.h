@@ -33,7 +33,7 @@ public:
     bool isConnected() {return m_connected;}
 
     void console_line_rd(char* line, int size, int offset, RL_STAT* stat);
-    void console_line_wr(char* line, int size);
+    void console_line_wr(const char *line, int size);
 
     int socketDescriptor(){return m_socketFD;}
 

@@ -14,6 +14,34 @@ void STR::nullTermitate(char* str)
         str[last_char_id-1] = '\0';
 }
 
+int STR::copySymbols(char* src, int src_len, int max_count, int offset, char* dst, int dst_len)
+{
+    char* s_end = src+src_len;
+    char* d_end = dst+dst_len;
+
+    char* start = src;
+    src += offset;
+
+    int count = 0;
+
+    while((src < s_end) && (dst < d_end) && (count < max_count))
+    {
+        if ((unsigned char)*src < 0x80)
+        {
+            *(dst++) = *(src++);
+        } else if ((src < s_end-1) && (dst < d_end-1) && (count < max_count))
+        {
+            *(dst++) = *(src++);
+            *(dst++) = *(src++);
+        } else {
+            break;
+        }
+        count++;
+    }
+
+    return (int) (src - start);
+}
+
 void STR::escapeUnicode(char* src, int src_len, char* dst, int dst_len)
 {
     char* s_end = src+src_len;

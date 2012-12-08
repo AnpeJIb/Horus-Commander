@@ -303,6 +303,7 @@ void ServerProcess::onProcessStart()
     if (isServerRunning() && SC::CONSOLE.isConnected())
     {
         SC::CONSOLE.startParsing();
+        SC::CMD.kickAll();
         processWait();
     } else {
         processKill();
@@ -367,7 +368,7 @@ void ServerProcess::stop()
     if (SC::CONSOLE.isConnected())
     {
         STATUS_PRINT::DEBUG_(tr("Exiting game server"));
-        // TODO: call exit command
+        SC::CMD.exit();
     } else {
         STATUS_PRINT::DEBUG_(tr("Killing game server"));
         processKill();

@@ -169,7 +169,7 @@ void GsConsole::console_line_rd(char *line, int size, int offset, RL_STAT *stat)
 #endif
 }
 
-void GsConsole::console_line_wr(char *line, int size)
+void GsConsole::console_line_wr(const char *line, int size)
 {
 #ifdef _WIN32_
     sock_line_wr(m_socketFD, line, size);

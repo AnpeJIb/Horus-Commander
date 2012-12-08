@@ -59,7 +59,7 @@ void line_rd(int fd, char* line, int size, int offset, RL_STAT* stat)
     *line=0;
 }
 
-void line_wr(int fd, char* line, int size)
+void line_wr(int fd, const char* line, int size)
 {
 	int done = 0;
 	int tx;

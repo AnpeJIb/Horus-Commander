@@ -16,7 +16,7 @@ typedef struct
 #endif
 
 void line_rd(int fd, char* line, int size, int offset, RL_STAT* stat);
-void line_wr(int fd, char* line, int size);
+void line_wr(int fd, const char *line, int size);
 
 void rmDoubleSymbInFile(QString fPath, char symb);
 
