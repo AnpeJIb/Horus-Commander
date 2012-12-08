@@ -298,10 +298,11 @@ void ServerProcess::onProcessStop()
 void ServerProcess::onProcessStart()
 {
     parentWaitLoaded();
+    SC::CONSOLE.init();
 
-    if (isServerRunning() && SC::CONSOLE.init())
+    if (isServerRunning() && SC::CONSOLE.isConnected())
     {
-        // TODO:
+        SC::CONSOLE.startParsing();
         processWait();
     } else {
         processKill();
@@ -359,8 +360,18 @@ void ServerProcess::processKill()
 
 void ServerProcess::stop()
 {
+    if (isServerRunning()==false) return;
+
     m_doRun = false;
     SC::MSSN.stop();
+    if (SC::CONSOLE.isConnected())
+    {
+        STATUS_PRINT::DEBUG_(tr("Exiting game server"));
+        // TODO: call exit command
+    } else {
+        STATUS_PRINT::DEBUG_(tr("Killing game server"));
+        processKill();
+    }
     // TODO:
 }
 

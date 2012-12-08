@@ -11,7 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Horus-Commander
 TEMPLATE = app
 
-INCLUDEPATH += config util config/ui ui
+INCLUDEPATH += config util config/ui ui parser
 
 SOURCES += main.cpp\
     config/config.cpp \
@@ -42,7 +42,8 @@ SOURCES += main.cpp\
     server_process.cpp \
     config/ui/net_page.cpp \
     config/net_config.cpp \
-    parser/common_parser.cpp
+    parser/common_parser.cpp \
+    parser/console_parser.cpp
 
 HEADERS  += \
     config/config.h \
@@ -76,7 +77,8 @@ HEADERS  += \
     config/gs_config_key.h \
     config/ui/net_page.h \
     config/net_config.h \
-    parser/common_parser.h
+    parser/common_parser.h \
+    parser/console_parser.h
 
 FORMS    += \
     config/ui/config_dialog.ui \

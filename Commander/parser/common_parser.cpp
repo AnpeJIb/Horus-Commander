@@ -1,4 +1,5 @@
 #include "common_parser.h"
+#include "str.h"
 
 #include <time.h>
 #include <unistd.h>
@@ -23,6 +24,7 @@ void CommonParser::run()
     QString qline;
 
     int fd = fileDescriptor();
+    m_doRun=true;
 
     while(m_doRun)
     {
@@ -33,6 +35,7 @@ void CommonParser::run()
             usleep(300*1000);
         } else {
             offset = 0;
+            STR::nullTermitate(line);
             qline = QString(line);
             parseString(qline);
         }

@@ -2,6 +2,7 @@
 #define GSCONSOLE_H
 
 #include "file.h"
+#include "console_parser.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -25,8 +26,11 @@ class GsConsole
 public:
     GsConsole();
 
-    bool init();
+    void init();
+    void startParsing();
     void clearUp();
+
+    bool isConnected() {return m_connected;}
 
     void console_line_rd(char* line, int size, int offset, RL_STAT* stat);
     void console_line_wr(char* line, int size);
@@ -48,6 +52,8 @@ private:
 
     struct timeval m_waitd;
     fd_set m_flagsRD, m_flagsWR;
+    ConsoleParser m_parser;
+    bool m_connected;
 };
 
 #endif // GSCONSOLE_H

@@ -11,13 +11,14 @@ GsConsole::GsConsole()
 #elif _UNIX_
     m_socketFD = 0;
 #endif
+    m_connected = false;
 }
 
-bool GsConsole::init()
+void GsConsole::init()
 {
     STATUS_PRINT::NEW(QObject::tr("Initializing console socket"));
 
-    bool result = true;
+    m_connected = true;
 
     while (1)
     {
@@ -27,7 +28,7 @@ bool GsConsole::init()
         WSADATA wsadata;
         if (WSAStartup(MAKEWORD(2, 2), &wsadata))
         {
-            result = false;
+            m_connected = false;
             break;
         }
 #elif _UNIX_
@@ -43,7 +44,7 @@ bool GsConsole::init()
 #endif
         {
             STATUS_PRINT::ERROR_(QObject::tr("Socket not created"));
-            result = false;
+            m_connected = false;
             break;
         }
 
@@ -59,7 +60,7 @@ bool GsConsole::init()
 #endif
         {
             STATUS_PRINT::ERROR_(QObject::tr("Connection failed"));
-            result = false;
+            m_connected = false;
             break;
         }
 
@@ -74,25 +75,29 @@ bool GsConsole::init()
 
         int res = select(m_socketFD+1, &m_flagsRD, &m_flagsWR, (fd_set*)0, &m_waitd);
 
-#if defined(_WIN_)
+#ifdef _WIN32_
         if (res  == SOCKET_ERROR)
-#else
+#elif _UNIX_
         if (res < 0)
 #endif
         {
             STATUS_PRINT::ERROR_(QObject::tr("Select failed"));
-            result = false;
+            m_connected = false;
         }
 
         break;
     }
 
-    if	(result)
+    if	(m_connected)
         STATUS_PRINT::DONE();
     else
         STATUS_PRINT::FAIL();
+}
 
-    return result;
+void GsConsole::startParsing()
+{
+    if (m_connected)
+        m_parser.start();
 }
 
 void GsConsole::clearUp()
@@ -100,6 +105,9 @@ void GsConsole::clearUp()
     if (m_socketFD == 0) return;
 
     STATUS_PRINT::NEW(QObject::tr("Closing console socket"));
+
+    m_parser.stop();
+    m_parser.wait();
 
 #ifdef _WIN32_
     closesocket(m_socketFD);
@@ -109,6 +117,7 @@ void GsConsole::clearUp()
     close(m_socketFD);
     m_socketFD = 0;
 #endif
+    m_connected = false;
 
     STATUS_PRINT::DONE();
 }

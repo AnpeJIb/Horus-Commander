@@ -3,6 +3,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+void STR::nullTermitate(char* str)
+{
+    int last_char_id = strlen(str);
+    if ((str[last_char_id]==13) || (str[last_char_id]==10))
+        str[last_char_id] = '\0';
+    if (str[last_char_id-1]==10)
+        str[last_char_id-1] = '\0';
+    if (str[last_char_id-1]==13)
+        str[last_char_id-1] = '\0';
+}
+
 void STR::escapeUnicode(char* src, int src_len, char* dst, int dst_len)
 {
     char* s_end = src+src_len;
