@@ -58,7 +58,8 @@ SOURCES += main.cpp\
     domain/type_carrier.cpp \
     domain/territory/battleground.cpp \
     domain/territory/node_carrier.cpp \
-    domain/gameflow/missions_cycle.cpp
+    domain/gameflow/missions_cycle.cpp \
+    domain/gameflow/weather_report.cpp
 
 HEADERS  += \
     config/config.h \
@@ -103,7 +104,8 @@ HEADERS  += \
     domain/territory/battleground.h \
     domain/territory/node_carrier.h \
     domain/gameflow/missions_cycle.h \
-    util/bitwise.h
+    util/bitwise.h \
+    domain/gameflow/weather_report.h
 
 FORMS    += \
     config/ui/config_dialog.ui \
