@@ -8,7 +8,7 @@
 #include "type_carrier.h"
 #include "bitwise.h"
 
-namespace Domain { namespace Territory {
+namespace Domain { namespace Gameflow {
 
 class MissionsCycle: public GenericDomain, public TypeCarrier
 {

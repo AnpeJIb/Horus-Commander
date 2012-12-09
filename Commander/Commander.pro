@@ -17,7 +17,8 @@ INCLUDEPATH += config \
   ui \
   parser \
   domain \
-  domain/territory
+  domain/territory \
+  gameflow/territory
 
 SOURCES += main.cpp\
     config/config.cpp \
@@ -57,7 +58,7 @@ SOURCES += main.cpp\
     domain/type_carrier.cpp \
     domain/territory/battleground.cpp \
     domain/territory/node_carrier.cpp \
-    domain/territory/missions_cycle.cpp
+    domain/gameflow/missions_cycle.cpp
 
 HEADERS  += \
     config/config.h \
@@ -101,7 +102,7 @@ HEADERS  += \
     domain/point2d.h \
     domain/territory/battleground.h \
     domain/territory/node_carrier.h \
-    domain/territory/missions_cycle.h \
+    domain/gameflow/missions_cycle.h \
     util/bitwise.h
 
 FORMS    += \
