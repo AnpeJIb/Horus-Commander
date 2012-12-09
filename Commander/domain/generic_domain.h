@@ -12,11 +12,11 @@ public:
     GenericDomain();
     GenericDomain(quint64 id);
 
-    quint64 id(){return m_id;}
-    void    setId(quint64 value){m_id = value;}
+    qlonglong id(){return m_id;}
+    void setId(qlonglong value){m_id = value;}
 
 protected:
-    quint64 m_id;
+    qlonglong m_id;
 };
 
 }
