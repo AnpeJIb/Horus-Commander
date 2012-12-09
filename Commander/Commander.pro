@@ -61,7 +61,8 @@ SOURCES += main.cpp\
     domain/gameflow/missions_cycle.cpp \
     domain/gameflow/weather_report.cpp \
     domain/gameflow/mission.cpp \
-    domain/serverCommander/config/config_scheme.cpp
+    domain/serverCommander/config/config_scheme.cpp \
+    domain/serverCommander/config/config_parameter.cpp
 
 HEADERS  += \
     config/config.h \
@@ -109,7 +110,8 @@ HEADERS  += \
     util/bitwise.h \
     domain/gameflow/weather_report.h \
     domain/gameflow/mission.h \
-    domain/serverCommander/config/config_scheme.h
+    domain/serverCommander/config/config_scheme.h \
+    domain/serverCommander/config/config_parameter.h
 
 FORMS    += \
     config/ui/config_dialog.ui \
