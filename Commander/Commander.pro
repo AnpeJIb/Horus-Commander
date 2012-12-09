@@ -11,7 +11,13 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Horus-Commander
 TEMPLATE = app
 
-INCLUDEPATH += config util config/ui ui parser
+INCLUDEPATH += config \
+  util \
+  config/ui \
+  ui \
+  parser \
+  domain \
+  domain/territory
 
 SOURCES += main.cpp\
     config/config.cpp \
@@ -46,7 +52,10 @@ SOURCES += main.cpp\
     parser/console_parser.cpp \
     domain/generic_domain.cpp \
     domain/titled_domain.cpp \
-    domain/belligerent.cpp
+    domain/belligerent.cpp \
+    domain/territory/node.cpp \
+    domain/type_carrier.cpp \
+    domain/point2d.cpp
 
 HEADERS  += \
     config/config.h \
@@ -84,7 +93,10 @@ HEADERS  += \
     parser/console_parser.h \
     domain/generic_domain.h \
     domain/titled_domain.h \
-    domain/belligerent.h
+    domain/belligerent.h \
+    domain/territory/node.h \
+    domain/type_carrier.h \
+    domain/point2d.h
 
 FORMS    += \
     config/ui/config_dialog.ui \
