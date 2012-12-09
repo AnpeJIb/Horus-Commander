@@ -67,7 +67,8 @@ SOURCES += main.cpp\
     domain/serverCommander/config/config_parameter.cpp \
     domain/serverCommander/config/config_scheme_carrier.cpp \
     domain/serverCommander/config/config_parameter_value.cpp \
-    domain/serverCommander/d_server_commander.cpp
+    domain/serverCommander/d_server_commander.cpp \
+    domain/gameflow/mission_set_element.cpp
 
 HEADERS  += \
     config/config.h \
@@ -119,7 +120,8 @@ HEADERS  += \
     domain/serverCommander/config/config_parameter.h \
     domain/serverCommander/config/config_scheme_carrier.h \
     domain/serverCommander/config/config_parameter_value.h \
-    domain/serverCommander/d_server_commander.h
+    domain/serverCommander/d_server_commander.h \
+    domain/gameflow/mission_set_element.h
 
 FORMS    += \
     config/ui/config_dialog.ui \
