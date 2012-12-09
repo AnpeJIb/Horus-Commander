@@ -10,11 +10,7 @@ class NodeCarrier
 public:
     NodeCarrier();
 
-    Node* node(){return m_node;}
-    void setNode(Node* value){m_node = value;}
-
-protected:
-    Node* m_node;
+    Node* node;
 };
 
 }}

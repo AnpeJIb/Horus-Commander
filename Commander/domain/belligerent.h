@@ -23,18 +23,9 @@ public:
 
     Belligerent();
 
-    quint8  armyCode() {return m_armyCode;}
-    bool    selectable() {return m_selectable;}
-    QString colorHexCode() const {return m_colorHexCode;}
-
-    void setArmyCode(quint8 value) {m_armyCode = value;}
-    void setSelectable(bool value) {m_selectable = value;}
-    void setColorHexCode(const QString& value) {m_colorHexCode = value;}
-
-private:
-    quint8  m_armyCode;
-    bool    m_selectable;
-    QString m_colorHexCode;
+    quint8  armyCode;
+    bool    selectable;
+    QString colorHexCode;
 };
 
 }

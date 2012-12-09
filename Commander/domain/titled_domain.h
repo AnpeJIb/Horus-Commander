@@ -10,13 +10,8 @@ class TitledDomain
 {
 public:
     TitledDomain();
-    TitledDomain(const QString& title);
 
-    QString title() const {return m_title;}
-    void    setTitle(const QString& value){m_title = value;}
-
-protected:
-    QString m_title;
+    QString title;
 };
 
 }

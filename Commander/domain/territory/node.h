@@ -25,34 +25,14 @@ public:
 
     Node();
 
-private:
-    Belligerent* belligerent(){return m_belligerent;}
-    Node* parent(){return m_parent;}
-    Node* parentDefault(){return m_parentDefault;}
-    Point2D pos(){return m_pos;}
+    Belligerent* belligerent;
+    Node* parent;
+    Node* parentDefault;
+    PointF2D pos;
 
-    bool isNearEdge(){return m_nearEdge;}
-    bool isExplored(){return m_explored;}
-    bool isConstant(){return m_constant;}
-
-    void setBelligerent(Belligerent* value){m_belligerent = value;}
-    void setParent(Node* value){m_parent = value;}
-    void setParentDefault(Node* value){m_parentDefault = value;}
-    void setPos(const Point2D& value){m_pos = value;}
-
-    void setNearEdge(bool value){m_nearEdge = value;}
-    void setExplored(bool value){m_explored = value;}
-    void setConstant(bool value){m_constant = value;}
-
-private:
-    Belligerent* m_belligerent;
-    Node* m_parent;
-    Node* m_parentDefault;
-    Point2D m_pos;
-
-    bool m_nearEdge;
-    bool m_explored;
-    bool m_constant;
+    bool nearEdge;
+    bool explored;
+    bool constant;
 };
 
 }}

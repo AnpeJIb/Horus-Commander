@@ -10,13 +10,8 @@ class GenericDomain
 {
 public:
     GenericDomain();
-    GenericDomain(quint64 id);
 
-    qlonglong id(){return m_id;}
-    void setId(qlonglong value){m_id = value;}
-
-protected:
-    qlonglong m_id;
+    qlonglong id;
 };
 
 }

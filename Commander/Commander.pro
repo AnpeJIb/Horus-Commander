@@ -55,7 +55,6 @@ SOURCES += main.cpp\
     domain/belligerent.cpp \
     domain/territory/node.cpp \
     domain/type_carrier.cpp \
-    domain/point2d.cpp \
     domain/territory/battleground.cpp \
     domain/territory/node_carrier.cpp
 
