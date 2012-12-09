@@ -12,10 +12,10 @@ namespace Domain { namespace ServerCommander {
 
 using namespace Config;
 
-class ServerCommander: public GenericDomain, public ConfigSchemeCarrier, public TitledDomain
+class ServerCommanderD: public GenericDomain, public ConfigSchemeCarrier, public TitledDomain
 {
 public:
-    ServerCommander();
+    ServerCommanderD();
 
     QString address;
 };

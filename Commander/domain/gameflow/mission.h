@@ -7,10 +7,12 @@
 #include "battleground.h"
 #include "weather_report.h"
 #include "missions_cycle.h"
+#include "d_server_commander.h"
 
 namespace Domain { namespace Gameflow {
 
 using namespace Territory;
+using namespace Domain::ServerCommander;
 
 class Mission: public GenericDomain
 {
@@ -27,10 +29,21 @@ public:
     QString filePath;
     quint8 state;
 
+    Battleground* battleground();
+    WeatherReport* weatherReport();
+    MissionsCycle* cycle();
+    ServerCommanderD* commander();
+
+    void setBattleground(Battleground* value);
+    void setWeatherReport(WeatherReport* value);
+    void setCycle(MissionsCycle* value);
+    void setCommander(ServerCommanderD* value);
+
 private:
     Battleground* m_battleground;
     WeatherReport* m_weatherReport;
     MissionsCycle* m_cycle;
+    ServerCommanderD* m_commander;
 };
 
 }}
