@@ -25,14 +25,24 @@ public:
 
     Node();
 
-    Belligerent* belligerent;
-    Node* parent;
-    Node* parentDefault;
+    Belligerent* belligerent();
+    Node* parent();
+    Node* parentDefault();
+
+    void setBelligerent(Belligerent* value);
+    void parent(Node* value);
+    void parentDefault(Node* value);
+
     PointF2D pos;
 
     bool nearEdge;
     bool explored;
     bool constant;
+
+private:
+    Belligerent* m_belligerent;
+    Node* m_parent;
+    Node* m_parentDefault;
 };
 
 }}

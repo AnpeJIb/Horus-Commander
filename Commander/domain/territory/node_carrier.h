@@ -10,7 +10,11 @@ class NodeCarrier
 public:
     NodeCarrier();
 
-    Node* node;
+    Node* node();
+    void setNode(Node* value);
+
+protected:
+    Node* m_node;
 };
 
 }}
