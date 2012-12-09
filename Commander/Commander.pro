@@ -18,7 +18,9 @@ INCLUDEPATH += config \
   parser \
   domain \
   domain/territory \
-  gameflow/territory
+  domain/gameflow \
+  domain/serverCommander \
+  domain/serverCommander/config \
 
 SOURCES += main.cpp\
     config/config.cpp \
@@ -64,7 +66,8 @@ SOURCES += main.cpp\
     domain/serverCommander/config/config_scheme.cpp \
     domain/serverCommander/config/config_parameter.cpp \
     domain/serverCommander/config/config_scheme_carrier.cpp \
-    domain/serverCommander/config/config_parameter_value.cpp
+    domain/serverCommander/config/config_parameter_value.cpp \
+    domain/serverCommander/d_server_commander.cpp
 
 HEADERS  += \
     config/config.h \
@@ -115,7 +118,8 @@ HEADERS  += \
     domain/serverCommander/config/config_scheme.h \
     domain/serverCommander/config/config_parameter.h \
     domain/serverCommander/config/config_scheme_carrier.h \
-    domain/serverCommander/config/config_parameter_value.h
+    domain/serverCommander/config/config_parameter_value.h \
+    domain/serverCommander/d_server_commander.h
 
 FORMS    += \
     config/ui/config_dialog.ui \
