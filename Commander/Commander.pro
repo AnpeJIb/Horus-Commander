@@ -56,7 +56,8 @@ SOURCES += main.cpp\
     domain/territory/node.cpp \
     domain/type_carrier.cpp \
     domain/territory/battleground.cpp \
-    domain/territory/node_carrier.cpp
+    domain/territory/node_carrier.cpp \
+    domain/territory/missions_cycle.cpp
 
 HEADERS  += \
     config/config.h \
@@ -99,7 +100,9 @@ HEADERS  += \
     domain/type_carrier.h \
     domain/point2d.h \
     domain/territory/battleground.h \
-    domain/territory/node_carrier.h
+    domain/territory/node_carrier.h \
+    domain/territory/missions_cycle.h \
+    util/bitwise.h
 
 FORMS    += \
     config/ui/config_dialog.ui \
