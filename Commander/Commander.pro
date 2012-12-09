@@ -55,7 +55,9 @@ SOURCES += main.cpp\
     domain/belligerent.cpp \
     domain/territory/node.cpp \
     domain/type_carrier.cpp \
-    domain/point2d.cpp
+    domain/point2d.cpp \
+    domain/territory/battleground.cpp \
+    domain/territory/node_carrier.cpp
 
 HEADERS  += \
     config/config.h \
@@ -96,7 +98,9 @@ HEADERS  += \
     domain/belligerent.h \
     domain/territory/node.h \
     domain/type_carrier.h \
-    domain/point2d.h
+    domain/point2d.h \
+    domain/territory/battleground.h \
+    domain/territory/node_carrier.h
 
 FORMS    += \
     config/ui/config_dialog.ui \
