@@ -44,7 +44,8 @@ SOURCES += main.cpp\
     config/net_config.cpp \
     parser/common_parser.cpp \
     parser/console_parser.cpp \
-    domain/generic_domain.cpp
+    domain/generic_domain.cpp \
+    domain/titled_domain.cpp
 
 HEADERS  += \
     config/config.h \
@@ -80,7 +81,8 @@ HEADERS  += \
     config/net_config.h \
     parser/common_parser.h \
     parser/console_parser.h \
-    domain/generic_domain.h
+    domain/generic_domain.h \
+    domain/titled_domain.h
 
 FORMS    += \
     config/ui/config_dialog.ui \
