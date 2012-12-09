@@ -45,7 +45,8 @@ SOURCES += main.cpp\
     parser/common_parser.cpp \
     parser/console_parser.cpp \
     domain/generic_domain.cpp \
-    domain/titled_domain.cpp
+    domain/titled_domain.cpp \
+    domain/belligerent.cpp
 
 HEADERS  += \
     config/config.h \
@@ -82,7 +83,8 @@ HEADERS  += \
     parser/common_parser.h \
     parser/console_parser.h \
     domain/generic_domain.h \
-    domain/titled_domain.h
+    domain/titled_domain.h \
+    domain/belligerent.h
 
 FORMS    += \
     config/ui/config_dialog.ui \
