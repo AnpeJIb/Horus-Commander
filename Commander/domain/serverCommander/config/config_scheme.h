@@ -14,6 +14,7 @@ public:
     QString title;
     QString description;
     bool trainingModeOnly;
+    bool isEditable;
 };
 
 }}}

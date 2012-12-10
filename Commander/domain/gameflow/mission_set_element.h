@@ -39,6 +39,8 @@ public:
 
     QString parameter;
 
+    bool isCurrent;
+
     QString nextNone;
     QString nextRed;
     QString nextBlue;
