@@ -5,6 +5,6 @@
 #include <winsock2.h>
 
 void sock_line_rd(SOCKET sock, char* line, int size, int offset, RL_STAT* stat);
-void sock_line_wr(SOCKET sock, char* line, int size);
+void sock_line_wr(SOCKET sock, const char* line, int size);
 
 #endif // WINSOCK_HELPER_H

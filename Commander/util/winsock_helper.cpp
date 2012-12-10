@@ -23,7 +23,7 @@ void sock_line_rd(SOCKET sock, char* line, int size, int offset, RL_STAT* stat)
     *line=0;
 }
 
-void sock_line_wr(SOCKET sock, char* line, int size)
+void sock_line_wr(SOCKET sock, const char* line, int size)
 {
     int done = 0;
     int tx;
