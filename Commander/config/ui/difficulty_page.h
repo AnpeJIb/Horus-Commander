@@ -36,6 +36,8 @@ private:
     void setSplitterPos();
     void addPages();
 
+    void loadCode(quint64 code);
+
     Ui::DifficultyPage *ui;
     QList<DifficultySubpage*> subpages;
 };

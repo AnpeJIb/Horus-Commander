@@ -97,19 +97,25 @@ void DifficultyPage::addPages()
     ui->list->setCurrentRow(0);
 }
 
+void DifficultyPage::loadCode(quint64 code)
+{
+    foreach (DifficultySubpage* sp, subpages)
+        sp->setDifficultyCode(code);
+}
+
 void DifficultyPage::on_easyButton_clicked()
 {
-
+    loadCode(1090682880LL);
 }
 
 void DifficultyPage::on_normalButton_clicked()
 {
-
+    loadCode(6704004351LL);
 }
 
 void DifficultyPage::on_realButton_clicked()
 {
-
+    loadCode(549755813887LL);
 }
 
 void DifficultyPage::on_list_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
