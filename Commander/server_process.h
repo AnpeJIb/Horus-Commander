@@ -6,7 +6,7 @@
 
 #ifdef _WIN32_
     #include <windows.h>
-    #include "winproc.h"
+    #include "win_proc.h"
 #elif _UNIX_
     #include <sys/wait.h>
     #include <unistd.h>

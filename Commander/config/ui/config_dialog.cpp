@@ -3,6 +3,7 @@
 #include "config.h"
 #include "general_page.h"
 #include "net_page.h"
+#include "difficulty_page.h"
 
 ConfigDialog::ConfigDialog(QWidget *parent) :
     QDialog(parent),
@@ -47,6 +48,15 @@ void ConfigDialog::addPages()
                 QListWidgetItem::UserType);
     ui->stack->addWidget(net);
     addChild(net);
+
+    DifficultyPage* diff = new DifficultyPage;
+    new QListWidgetItem(
+                QIcon(":/img/diff.png"),
+                diff->pageName(),
+                ui->list,
+                QListWidgetItem::UserType);
+    ui->stack->addWidget(diff);
+    addChild(diff);
 }
 
 void ConfigDialog::on_list_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)

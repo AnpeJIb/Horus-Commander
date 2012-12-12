@@ -68,7 +68,15 @@ SOURCES += main.cpp\
     domain/serverCommander/config/config_scheme_carrier.cpp \
     domain/serverCommander/config/config_parameter_value.cpp \
     domain/serverCommander/d_server_commander.cpp \
-    domain/gameflow/mission_set_element.cpp
+    domain/gameflow/mission_set_element.cpp \
+    config/ui/difficulty_page.cpp \
+    config/ui/difficulty_subpage.cpp \
+    config/ui/difficulty_flight_model_page.cpp \
+    config/ui/difficulty_weapons_page.cpp \
+    config/ui/difficulty_view_page.cpp \
+    config/ui/difficulty_map_icons_page.cpp \
+    config/ui/difficulty_var_page.cpp \
+    config/ui/difficulty_weapons_page.cpp
 
 HEADERS  += \
     config/config.h \
@@ -121,14 +129,29 @@ HEADERS  += \
     domain/serverCommander/config/config_scheme_carrier.h \
     domain/serverCommander/config/config_parameter_value.h \
     domain/serverCommander/d_server_commander.h \
-    domain/gameflow/mission_set_element.h
+    domain/gameflow/mission_set_element.h \
+    config/ui/difficulty_page.h \
+    config/ui/difficulty_subpage.h \
+    config/ui/difficulty_flight_model_page.h \
+    config/ui/difficulty_weapons_page.h \
+    config/ui/difficulty_view_page.h \
+    config/ui/difficulty_map_icons_page.h \
+    config/ui/difficulty_var_page.h \
+    config/ui/difficulty_weapons_page.h
 
 FORMS    += \
     config/ui/config_dialog.ui \
     config/ui/general_page.ui \
     ui/extra_mission_management_dialog.ui \
     ui/main_window.ui \
-    config/ui/net_page.ui
+    config/ui/net_page.ui \
+    config/ui/difficulty_page.ui \
+    config/ui/difficulty_flight_model_page.ui \
+    config/ui/difficulty_weapons_page.ui \
+    config/ui/difficulty_view_page.ui \
+    config/ui/difficulty_map_icons_page.ui \
+    config/ui/difficulty_var_page.ui \
+    config/ui/difficulty_weapons_page.ui
 
 DEFINES += PATH_SEP=\\\"/\\\"
 

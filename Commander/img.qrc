@@ -34,5 +34,6 @@
         <file>img/langEn.png</file>
         <file>img/langRu.png</file>
         <file>img/net.png</file>
+        <file>img/diff.png</file>
     </qresource>
 </RCC>
