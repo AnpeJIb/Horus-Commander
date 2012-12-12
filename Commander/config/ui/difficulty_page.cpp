@@ -24,17 +24,30 @@ DifficultyPage::~DifficultyPage()
 
 bool DifficultyPage::save()
 {
+    quint64 code = 0;
+
+    foreach (DifficultySubpage* sp, subpages)
+        code += sp->getDifficultyCode();
+
+    // TODO: save "code" to settings
+
     return saveChildren();
 }
 
 void DifficultyPage::load()
 {
-    return loadChildren();
+    quint64 code = 0;
+
+    // TODO: load "code" from settings
+
+    loadCode(code);
+    loadChildren();
 }
 
 void DifficultyPage::loadDefaults()
 {
-    return loadChildrenDefaults();
+    on_realButton_clicked();
+    loadChildrenDefaults();
 }
 
 QString DifficultyPage::pageName()
