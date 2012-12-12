@@ -72,7 +72,6 @@ SOURCES += main.cpp\
     config/ui/difficulty_page.cpp \
     config/ui/difficulty_subpage.cpp \
     config/ui/difficulty_flight_model_page.cpp \
-    config/ui/difficulty_weapons_page.cpp \
     config/ui/difficulty_view_page.cpp \
     config/ui/difficulty_map_icons_page.cpp \
     config/ui/difficulty_var_page.cpp \
@@ -133,7 +132,6 @@ HEADERS  += \
     config/ui/difficulty_page.h \
     config/ui/difficulty_subpage.h \
     config/ui/difficulty_flight_model_page.h \
-    config/ui/difficulty_weapons_page.h \
     config/ui/difficulty_view_page.h \
     config/ui/difficulty_map_icons_page.h \
     config/ui/difficulty_var_page.h \

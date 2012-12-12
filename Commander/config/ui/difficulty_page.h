@@ -28,12 +28,9 @@ public:
     
 private slots:
     void on_easyButton_clicked();
-
     void on_normalButton_clicked();
-
     void on_realButton_clicked();
-
-    void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+    void on_list_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
 private:
     void setSplitterPos();
