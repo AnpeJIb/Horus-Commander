@@ -3,11 +3,14 @@
 #include "status_print.h"
 
 #include <QFile>
+#include <QDir>
 #include <QTextStream>
 
 #define XML_ROOT  "horusConfig"
 
-static QString CONFIG_PATH = XML_ROOT FILE_EXT_XML;
+static QString m_CONFIG_DIR_PATH = QDir::homePath().append(PATH_SEP).append(".horusCommander");
+static QString CONFIG_NAME = QString("config").append(FILE_EXT_XML);
+static QString m_CONFIG_PATH = QString(m_CONFIG_DIR_PATH).append(PATH_SEP).append(CONFIG_NAME);
 
 GeneralConfig   CONFIG::GENERAL;
 LogConfig       CONFIG::LOG;
@@ -18,6 +21,10 @@ static QList<ConfigModule*> CHILDREN;
 
 void CONFIG::INIT()
 {
+    QDir d;
+    if (d.exists(m_CONFIG_DIR_PATH)==false)
+        d.mkpath(m_CONFIG_DIR_PATH);
+
     CHILDREN << &(CONFIG::GENERAL);
     CHILDREN << &(CONFIG::LOG);
     CHILDREN << &(CONFIG::NET);
@@ -26,12 +33,12 @@ void CONFIG::INIT()
 
 void CONFIG::SAVE()
 {
-    QFile file(CONFIG_PATH);
+    QFile file(m_CONFIG_PATH);
 
     if(file.open(QIODevice::WriteOnly) == false)
     {
         QString str = QObject::tr("Could not open config file \"%1\" for writing");
-        str.arg(CONFIG_PATH);
+        str.arg(m_CONFIG_PATH);
         STATUS_PRINT::ERROR_(str);
 
         return;
@@ -57,12 +64,12 @@ void CONFIG::SAVE()
 
 void CONFIG::LOAD()
 {
-    QFile file(CONFIG_PATH);
+    QFile file(m_CONFIG_PATH);
 
     if(file.open(QIODevice::ReadWrite) == false)
     {
         QString str = QObject::tr("Could not open config file \"%1\" for reading");
-        str.arg(CONFIG_PATH);
+        str.arg(m_CONFIG_PATH);
         STATUS_PRINT::ERROR_(str);
 
         return;
@@ -118,7 +125,12 @@ bool CONFIG::IS_CHANGED()
     return result;
 }
 
-QString CONFIG::PATH()
+QString CONFIG::DIR_PATH()
 {
-    return CONFIG_PATH;
+    return m_CONFIG_DIR_PATH;
+}
+
+QString CONFIG::FILE_PATH()
+{
+    return m_CONFIG_PATH;
 }

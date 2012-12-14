@@ -12,7 +12,9 @@ void LOGS::INIT()
 {
     m_GUI = NULL;
 
-    m_FILE = new StatusFileLogger("horusCommander" FILE_EXT_LOG);
+    QString logPath = CONFIG::DIR_PATH().append(PATH_SEP).append("system").append(FILE_EXT_LOG);
+
+    m_FILE = new StatusFileLogger(logPath);
     m_FILE->setLevel(StatusPrinter::LEVEL_ALL);
     STATUS_PRINT::REGISTER(m_FILE);
 }

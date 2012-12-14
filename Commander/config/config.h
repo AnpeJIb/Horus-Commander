@@ -16,7 +16,8 @@ namespace CONFIG
     void DEFAULTS();
     bool IS_CHANGED();
 
-    QString PATH();
+    QString DIR_PATH();
+    QString FILE_PATH();
 
     extern GeneralConfig    GENERAL;
     extern LogConfig        LOG;

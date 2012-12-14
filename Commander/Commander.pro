@@ -145,7 +145,6 @@ FORMS    += \
     config/ui/net_page.ui \
     config/ui/difficulty_page.ui \
     config/ui/difficulty_flight_model_page.ui \
-    config/ui/difficulty_weapons_page.ui \
     config/ui/difficulty_view_page.ui \
     config/ui/difficulty_map_icons_page.ui \
     config/ui/difficulty_var_page.ui \
