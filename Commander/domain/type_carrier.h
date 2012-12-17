@@ -3,16 +3,17 @@
 
 #include <QtCore>
 
-namespace Domain
-{
+namespace Domain {
 
 class TypeCarrier
 {
 public:
-    TypeCarrier();
+    virtual ~TypeCarrier() = 0;
 
-    quint8 type;
+    uint type;
 };
+
+inline TypeCarrier::~TypeCarrier(){}
 
 }
 

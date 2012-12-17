@@ -3,16 +3,17 @@
 
 #include <QtCore>
 
-namespace Domain
-{
+namespace Domain {
 
 class GenericDomain
 {
 public:
-    GenericDomain();
+    virtual ~GenericDomain() = 0;
 
     qlonglong id;
 };
+
+inline GenericDomain::~GenericDomain(){}
 
 }
 

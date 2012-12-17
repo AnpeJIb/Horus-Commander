@@ -3,14 +3,14 @@
 
 #include "generic_domain.h"
 #include "type_carrier.h"
-#include "belligerent.h"
-#include "point2d.h"
+#include "belligerent_carrier.h"
+#include "pointF2D.h"
 
 namespace Domain { namespace Territory {
 
 class Node;
 
-class Node: public GenericDomain, public TypeCarrier
+class Node: public GenericDomain, public TypeCarrier, public BelligerentCarrier
 {
 public:
     enum NodeType
@@ -24,6 +24,7 @@ public:
     };
 
     Node();
+    ~Node();
 
     Belligerent* belligerent();
     Node* parent();
@@ -35,12 +36,10 @@ public:
 
     PointF2D pos;
 
-    bool nearEdge;
-    bool explored;
-    bool constant;
+    bool isExplored;
+    bool isConstant;
 
 private:
-    Belligerent* m_belligerent;
     Node* m_parent;
     Node* m_parentDefault;
 };

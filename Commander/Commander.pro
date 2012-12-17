@@ -19,8 +19,7 @@ INCLUDEPATH += config \
   domain \
   domain/territory \
   domain/gameflow \
-  domain/serverCommander \
-  domain/serverCommander/config \
+  domain/parameters
 
 SOURCES += main.cpp\
     config/config.cpp \
@@ -53,29 +52,26 @@ SOURCES += main.cpp\
     config/net_config.cpp \
     parser/common_parser.cpp \
     parser/console_parser.cpp \
-    domain/generic_domain.cpp \
-    domain/titled_domain.cpp \
     domain/belligerent.cpp \
     domain/territory/node.cpp \
-    domain/type_carrier.cpp \
     domain/territory/battleground.cpp \
-    domain/territory/node_carrier.cpp \
-    domain/gameflow/missions_cycle.cpp \
     domain/gameflow/weather_report.cpp \
-    domain/gameflow/mission.cpp \
-    domain/serverCommander/config/config_scheme.cpp \
-    domain/serverCommander/config/config_parameter.cpp \
-    domain/serverCommander/config/config_scheme_carrier.cpp \
-    domain/serverCommander/config/config_parameter_value.cpp \
-    domain/serverCommander/d_server_commander.cpp \
-    domain/gameflow/mission_set_element.cpp \
     config/ui/difficulty_page.cpp \
     config/ui/difficulty_subpage.cpp \
     config/ui/difficulty_flight_model_page.cpp \
     config/ui/difficulty_view_page.cpp \
     config/ui/difficulty_map_icons_page.cpp \
     config/ui/difficulty_var_page.cpp \
-    config/ui/difficulty_weapons_page.cpp
+    config/ui/difficulty_weapons_page.cpp \
+    domain/parameters/model.cpp \
+    domain/parameters/parameter.cpp \
+    domain/parameters/scheme.cpp \
+    domain/parameters/parameter_value.cpp \
+    domain/commander_info.cpp \
+    domain/gameflow/mission_set.cpp \
+    domain/gameflow/mission_definition.cpp \
+    domain/gameflow/mission_cycle.cpp \
+    domain/gameflow/mission_execution.cpp
 
 HEADERS  += \
     config/config.h \
@@ -112,30 +108,37 @@ HEADERS  += \
     parser/common_parser.h \
     parser/console_parser.h \
     domain/generic_domain.h \
-    domain/titled_domain.h \
     domain/belligerent.h \
-    domain/territory/node.h \
     domain/type_carrier.h \
-    domain/point2d.h \
-    domain/territory/battleground.h \
+    domain/territory/node.h \
     domain/territory/node_carrier.h \
-    domain/gameflow/missions_cycle.h \
+    domain/territory/battleground.h \
     util/bitwise.h \
     domain/gameflow/weather_report.h \
-    domain/gameflow/mission.h \
-    domain/serverCommander/config/config_scheme.h \
-    domain/serverCommander/config/config_parameter.h \
-    domain/serverCommander/config/config_scheme_carrier.h \
-    domain/serverCommander/config/config_parameter_value.h \
-    domain/serverCommander/d_server_commander.h \
-    domain/gameflow/mission_set_element.h \
     config/ui/difficulty_page.h \
     config/ui/difficulty_subpage.h \
     config/ui/difficulty_flight_model_page.h \
     config/ui/difficulty_view_page.h \
     config/ui/difficulty_map_icons_page.h \
     config/ui/difficulty_var_page.h \
-    config/ui/difficulty_weapons_page.h
+    config/ui/difficulty_weapons_page.h \
+    domain/pointF2D.h \
+    domain/belligerent_carrier.h \
+    domain/title_carrier.h \
+    domain/description_carrier.h \
+    domain/code_name_carrier.h \
+    domain/parameters/model.h \
+    domain/parameters/parameter.h \
+    domain/logical_operation_types.h \
+    domain/parameters/scheme.h \
+    domain/parameters/scheme_carrier.h \
+    domain/parameters/parameter_value.h \
+    domain/commander_info.h \
+    domain/gameflow/mission_set.h \
+    domain/gameflow/mission_definition.h \
+    domain/territory/battleground_carrier.h \
+    domain/gameflow/mission_cycle.h \
+    domain/gameflow/mission_execution.h
 
 FORMS    += \
     config/ui/config_dialog.ui \

@@ -41,6 +41,7 @@ public:
     };
 
     WeatherReport();
+    ~WeatherReport();
 
     /** Clouds height in meters */
     quint16 cloudsHeightM;

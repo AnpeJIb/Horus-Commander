@@ -8,10 +8,8 @@ namespace Domain { namespace Territory {
 class NodeCarrier
 {
 public:
-    NodeCarrier();
-
-    Node* node();
-    void setNode(Node* value);
+    virtual Node* node() = 0;
+    virtual void setNode(Node* value) = 0;
 
 protected:
     Node* m_node;

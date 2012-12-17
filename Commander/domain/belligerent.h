@@ -5,12 +5,11 @@
 #include <QString>
 
 #include "generic_domain.h"
-#include "titled_domain.h"
+#include "title_carrier.h"
 
-namespace Domain
-{
+namespace Domain {
 
-class Belligerent: public GenericDomain, public TitledDomain
+class Belligerent: public GenericDomain, public TitleCarrier
 {
 public:
 
@@ -22,9 +21,10 @@ public:
     };
 
     Belligerent();
+    ~Belligerent();
 
     quint8  armyCode;
-    bool    selectable;
+    bool    isSelectable;
     QString colorHexCode;
 };
 

@@ -1,0 +1,14 @@
+#ifndef LOGICAL_OPERATION_TYPES_H
+#define LOGICAL_OPERATION_TYPES_H
+
+namespace Domain {
+
+enum LOGICAL_OPERATION_TYPE
+{
+    LOGICAL_OR  = 0,
+    LOGICAL_AND = 1
+};
+
+}
+
+#endif // LOGICAL_OPERATION_TYPES_H

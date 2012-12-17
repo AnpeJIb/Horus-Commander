@@ -1,37 +1,42 @@
 #include "node.h"
 
-Domain::Belligerent *Domain::Territory::Node::belligerent()
+using namespace Domain;
+using namespace Domain::Territory;
+
+Node::Node()
 {
-    // TODO: NULL-CHECK
+}
+
+Node::~Node()
+{
+}
+
+Belligerent *Node::belligerent()
+{
     return m_belligerent;
 }
 
-Domain::Territory::Node *Domain::Territory::Node::parent()
+Node *Node::parent()
 {
-    // TODO: NULL-CHECK
     return m_parent;
 }
 
-Domain::Territory::Node *Domain::Territory::Node::parentDefault()
+Node *Node::parentDefault()
 {
-    // TODO: NULL-CHECK
     return m_parentDefault;
 }
 
-void Domain::Territory::Node::setBelligerent(Domain::Belligerent *value)
+void Node::setBelligerent(Belligerent *value)
 {
-    // TODO: NULL-CHECK
     m_belligerent = value;
 }
 
-void Domain::Territory::Node::parent(Domain::Territory::Node *value)
+void Node::parent(Node *value)
 {
-    // TODO: NULL-CHECK
     m_parent = value;
 }
 
-void Domain::Territory::Node::parentDefault(Domain::Territory::Node *value)
+void Node::parentDefault(Node *value)
 {
-    // TODO: NULL-CHECK
     m_parentDefault = value;
 }
