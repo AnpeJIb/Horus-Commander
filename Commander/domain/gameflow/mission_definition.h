@@ -4,7 +4,7 @@
 #include <QString>
 
 #include "generic_domain.h"
-#include "type_carrier.h"
+#include "kind_carrier.h"
 #include "battleground_carrier.h"
 #include "scheme_carrier.h"
 #include "mission_set.h"
@@ -16,7 +16,7 @@ using namespace Parameters;
 
 class MissionDefinition;
 
-class MissionDefinition: public GenericDomain, public TypeCarrier,
+class MissionDefinition: public GenericDomain, public KindCarrier,
         public BattlegroundCarrier, public SchemeCarrier
 {
 public:

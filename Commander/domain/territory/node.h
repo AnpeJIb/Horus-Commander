@@ -2,7 +2,7 @@
 #define NODE_H
 
 #include "generic_domain.h"
-#include "type_carrier.h"
+#include "kind_carrier.h"
 #include "belligerent_carrier.h"
 #include "pointF2D.h"
 
@@ -10,7 +10,7 @@ namespace Domain { namespace Territory {
 
 class Node;
 
-class Node: public GenericDomain, public TypeCarrier, public BelligerentCarrier
+class Node: public GenericDomain, public KindCarrier, public BelligerentCarrier
 {
 public:
     enum NodeType

@@ -4,7 +4,7 @@
 #include "generic_domain.h"
 #include "title_carrier.h"
 #include "code_name_carrier.h"
-#include "type_carrier.h"
+#include "kind_carrier.h"
 #include "logical_operation_types.h"
 #include "model.h"
 
@@ -12,7 +12,7 @@ namespace Domain { namespace Parameters {
 
 class Parameter;
 
-class Parameter: public GenericDomain, public TitleCarrier, public CodeNameCarrier, public TypeCarrier
+class Parameter: public GenericDomain, public TitleCarrier, public CodeNameCarrier, public KindCarrier
 {
 public:
     Parameter();

@@ -109,7 +109,6 @@ HEADERS  += \
     parser/console_parser.h \
     domain/generic_domain.h \
     domain/belligerent.h \
-    domain/type_carrier.h \
     domain/territory/node.h \
     domain/territory/node_carrier.h \
     domain/territory/battleground.h \
@@ -138,7 +137,8 @@ HEADERS  += \
     domain/gameflow/mission_definition.h \
     domain/territory/battleground_carrier.h \
     domain/gameflow/mission_cycle.h \
-    domain/gameflow/mission_execution.h
+    domain/gameflow/mission_execution.h \
+    domain/kind_carrier.h
 
 FORMS    += \
     config/ui/config_dialog.ui \
