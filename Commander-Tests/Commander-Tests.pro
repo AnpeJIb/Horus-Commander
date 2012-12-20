@@ -16,23 +16,17 @@ SOURCES += \
     main.cpp \
     ../Commander/util/status_print.cpp \
     ../Commander/util/status_file_logger.cpp \
-    ../Commander/config/general_config.cpp \
-    ../Commander/config/config_module.cpp \
-    ../Commander/config/config.cpp \
-    ../Commander/config/common_log_config.cpp \
-    ../Commander/config/log_config.cpp \
-    ../Commander/config/window_config.cpp \
     ../Commander/util/str.cpp \
     util/file_util.cpp \
     ../Commander/util/file.cpp \
-    config/config_test.cpp \
     util/file_test.cpp \
     util/foo_status_printer.cpp \
     util/status_file_logger_test.cpp \
     util/status_print_test.cpp \
     util/status_tester.cpp \
     util/str_test.cpp \
-    ../Commander/config/net_config.cpp
+    config/general_config_test.cpp \
+    ../Commander/config/config.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS += \
@@ -47,14 +41,14 @@ HEADERS += \
     ../Commander/util/str.h \
     util/file_util.h \
     ../Commander/util/file.h \
-    config/config_test.h \
     util/file_test.h \
     util/foo_status_printer.h \
     util/status_file_logger_test.h \
     util/status_print_test.h \
     util/status_tester.h \
     util/str_test.h \
-    ../Commander/config/net_config.h
+    ../Commander/config/net_config.h \
+    config/general_config_test.h
 
 INCLUDEPATH += util \
   config \

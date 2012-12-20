@@ -1,10 +1,10 @@
 #ifndef GENERALCONFIG_H
 #define GENERALCONFIG_H
 
-#include "config_module.h"
+#include <QString>
 
-#define LANG_CODE_EN        "en"
-#define LANG_CODE_RU        "ru"
+#define LANG_CODE_EN "en"
+#define LANG_CODE_RU "ru"
 
 #define DEFAULT_LANG_CODE       LANG_CODE_EN
 #define DEFAULT_DEAMON_MODE     false
@@ -12,14 +12,10 @@
 #define DEFAULT_SERVER_NAME     "My nice server"
 #define DEFAULT_SERVER_DESCR    "This server is really nice"
 
-class GeneralConfig : public ConfigModule
+class GeneralConfig
 {
 public:
-    GeneralConfig();
-
-    void save(QDomElement* root, QDomDocument* doc);
-    void load(QDomElement* root);
-    void loadDefaults();
+    GeneralConfig(){}
 
     QString langCode() const    {return m_langCode;}
     bool    isDaemonMode()      {return m_daemonMode;}
@@ -27,16 +23,13 @@ public:
     QString serverName() const  {return m_serverName;}
     QString serverDescr() const {return m_serverDescr;}
 
-    void setLangCode(const QString &value)  {CFG_SET_VALUE(m_langCode,      value)}
-    void setDaemonMode(bool value)          {CFG_SET_VALUE(m_daemonMode,    value)}
-    void setServerPath(QString value)       {CFG_SET_VALUE(m_serverPath,    value)}
-    void setServerName(QString value)       {CFG_SET_VALUE(m_serverName,    value)}
-    void setServerDescr(QString value)      {CFG_SET_VALUE(m_serverDescr,   value)}
+    void setLangCode(const QString &value)      {m_langCode     = value;}
+    void setDaemonMode(bool value)              {m_daemonMode   = value;}
+    void setServerPath(const QString &value)    {m_serverPath   = value;}
+    void setServerName(const QString &value)    {m_serverName   = value;}
+    void setServerDescr(const QString &value)   {m_serverDescr  = value;}
 
 private:
-    void saveServer(QDomElement* root, QDomDocument* doc);
-    bool loadServer(QDomElement* root);
-
     QString m_langCode;
     QString m_serverPath;
     QString m_serverName;

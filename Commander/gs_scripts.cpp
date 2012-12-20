@@ -37,7 +37,7 @@ bool SC::GS::SCRIPTS::generate()
 
 bool generateGC()
 {
-    QString fPath = CONFIG::GENERAL.serverPath().append(PATH_SEP).append(GC_SCRIPT_PATH);
+    QString fPath = CONFIG::GENERAL.serverPath().append(QDir::separator ()).append(GC_SCRIPT_PATH);
 
     QFile f(fPath);
 
@@ -63,7 +63,7 @@ bool generateGC()
 
 bool generateMain()
 {
-    QString fPath = CONFIG::GENERAL.serverPath().append(PATH_SEP).append(MAIN_SCRIPT_PATH);
+    QString fPath = CONFIG::GENERAL.serverPath().append(QDir::separator ()).append(MAIN_SCRIPT_PATH);
 
     QFile f(fPath);
 
@@ -73,7 +73,7 @@ bool generateMain()
         return false;
     }
 
-    QFile userF(CONFIG::GENERAL.serverPath().append(PATH_SEP).append(USER_SCRIPT_PATH));
+    QFile userF(CONFIG::GENERAL.serverPath().append(QDir::separator ()).append(USER_SCRIPT_PATH));
 
     QTextStream ts(&f);
 

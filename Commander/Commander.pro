@@ -30,12 +30,7 @@ SOURCES += main.cpp\
     config/ui/general_page.cpp \
     config/ui/named_page.cpp \
     config/ui/uiconfig_module.cpp \
-    config/common_log_config.cpp \
-    config/config_module.cpp \
-    config/general_config.cpp \
     config/gs_config.cpp \
-    config/log_config.cpp \
-    config/window_config.cpp \
     ui/extra_mission_management_dialog.cpp \
     ui/main_window.cpp \
     util/status_file_logger.cpp \
@@ -49,7 +44,6 @@ SOURCES += main.cpp\
     server_commander.cpp \
     server_process.cpp \
     config/ui/net_page.cpp \
-    config/net_config.cpp \
     parser/common_parser.cpp \
     parser/console_parser.cpp \
     domain/belligerent.cpp \
@@ -83,7 +77,6 @@ HEADERS  += \
     config/ui/named_page.h \
     config/ui/uiconfig_module.h \
     config/common_log_config.h \
-    config/config_module.h \
     config/general_config.h \
     config/gs_config.h \
     config/log_config.h \
@@ -152,8 +145,6 @@ FORMS    += \
     config/ui/difficulty_map_icons_page.ui \
     config/ui/difficulty_var_page.ui \
     config/ui/difficulty_weapons_page.ui
-
-DEFINES += PATH_SEP=\\\"/\\\"
 
 unix {
     DEFINES += _UNIX_

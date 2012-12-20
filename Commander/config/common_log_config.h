@@ -1,28 +1,22 @@
-#ifndef COMMONLOGCONFIG_H
-#define COMMONLOGCONFIG_H
+#ifndef COMMON_LOG_CONFIG_H
+#define COMMON_LOG_CONFIG_H
 
-#include "config_module.h"
 #include <QString>
 
-class CommonLogConfig : public ConfigModule
+class CommonLogConfig
 {
 public:
-    CommonLogConfig(const QString& XML_ELEM);
-
-    void save(QDomElement* root, QDomDocument* doc);
-    void load(QDomElement* root);
-    void loadDefaults();
+    CommonLogConfig(){}
 
     bool isEnable() {return m_enable;}
     quint8 level()  {return m_level;}
 
-    void setEnable(bool value)  {CFG_SET_VALUE(m_enable, value)}
-    void setLevel(quint8 value) {CFG_SET_VALUE(m_level, value)}
+    void setEnable(bool value)  {m_enable   = value;}
+    void setLevel(quint8 value) {m_level    = value;}
 
 private:
-    QString m_XML_ELEM;
     bool    m_enable;
     quint8  m_level;
 };
 
-#endif // COMMONLOGCONFIG_H
+#endif // COMMON_LOG_CONFIG_H

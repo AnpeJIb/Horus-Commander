@@ -1,10 +1,10 @@
 #ifndef NET_CONFIG_H
 #define NET_CONFIG_H
 
-#include "config_module.h"
 #include <QtCore>
 #include <QList>
 #include <QHostAddress>
+#include <QNetworkInterface>
 
 #define DEFAULT_ALLOW_CUSTOM_SKINS              true
 #define DEFAULT_CHECK_CLIENT_TIME_SPEED         false
@@ -18,15 +18,12 @@
 #define DEFAULT_NEAR_MAX_LAG_TIME               1.0f
 #define DEFAULT_CLIENT_PORT                     21000
 #define DEFAULT_LOCAL_PORT                      20001
+#define DEFAULT_LOCAL_IP                        "127.0.0.1"
 
-class NetConfig : public ConfigModule
+class NetConfig
 {
 public:
-    NetConfig();
-
-    void save(QDomElement* root, QDomDocument* doc);
-    void load(QDomElement* root);
-    void loadDefaults();
+    NetConfig(){}
 
     bool    allowCustomSkins()          {return m_allowCustomSkins;}
     bool    checkClientTimeSpeed()      {return m_checkClientTimeSpeed;}
@@ -41,22 +38,28 @@ public:
     uint    clientPort()                {return m_clientPort;}
     uint    localPort()                 {return m_localPort;}
     QString localIP() const             {return m_localIP;}
-    QString defaultLocalIP() const;
-    QList<QHostAddress> availableAddresses() const;
 
-    void setAllowCustomSkins(bool value)            {CFG_SET_VALUE(m_allowCustomSkins,          value)}
-    void setCheckClientTimeSpeed(bool value)        {CFG_SET_VALUE(m_checkClientTimeSpeed,      value)}
-    void setCheckServerTimeSpeed(bool value)        {CFG_SET_VALUE(m_checkServerTimeSpeed,      value)}
-    void setCheckTimeSpeedDifferense(float value)   {CFG_SET_VALUE(m_checkTimeSpeedDifferense,  value)}
-    void setCheckTimeSpeedInterval(float value)     {CFG_SET_VALUE(m_checkTimeSpeedInterval,    value)}
-    void setChannelsCount(quint8 value)             {CFG_SET_VALUE(m_channelsCount,             value)}
-    void setCheaterWarningDelay(float value)        {CFG_SET_VALUE(m_cheaterWarningDelay,       value)}
-    void setCheaterWarningNum(quint8 value)         {CFG_SET_VALUE(m_cheaterWarningNum,         value)}
-    void setFarMaxLagTime(float value)              {CFG_SET_VALUE(m_farMaxLagTime,             value)}
-    void setNearMaxLagTime(float value)             {CFG_SET_VALUE(m_nearMaxLagTime,            value)}
-    void setClientPort(uint value)                  {CFG_SET_VALUE(m_clientPort,                value)}
-    void setLocalPort(uint value)                   {CFG_SET_VALUE(m_localPort,                 value)}
-    void setLocalIP(const QString& value)           {CFG_SET_VALUE(m_localIP,                   value)}
+    QList<QHostAddress> availableAddresses() const {return QNetworkInterface::allAddresses();}
+
+    QString defaultLocalIP() const
+    {
+        QList<QHostAddress> list = availableAddresses();
+        return (list.count()>0)?list.at(0).toString():DEFAULT_LOCAL_IP;
+    }
+
+    void setAllowCustomSkins(bool value)            {m_allowCustomSkins=value;}
+    void setCheckClientTimeSpeed(bool value)        {m_checkClientTimeSpeed=value;}
+    void setCheckServerTimeSpeed(bool value)        {m_checkServerTimeSpeed=value;}
+    void setCheckTimeSpeedDifferense(float value)   {m_checkTimeSpeedDifferense=value;}
+    void setCheckTimeSpeedInterval(float value)     {m_checkTimeSpeedInterval=value;}
+    void setChannelsCount(quint8 value)             {m_channelsCount=value;}
+    void setCheaterWarningDelay(float value)        {m_cheaterWarningDelay=value;}
+    void setCheaterWarningNum(quint8 value)         {m_cheaterWarningNum=value;}
+    void setFarMaxLagTime(float value)              {m_farMaxLagTime=value;}
+    void setNearMaxLagTime(float value)             {m_nearMaxLagTime=value;}
+    void setClientPort(uint value)                  {m_clientPort=value;}
+    void setLocalPort(uint value)                   {m_localPort=value;}
+    void setLocalIP(const QString& value)           {m_localIP=value;}
 
 private:
     bool    m_allowCustomSkins;

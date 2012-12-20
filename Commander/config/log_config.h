@@ -1,24 +1,23 @@
-#ifndef LOGCONFIG_H
-#define LOGCONFIG_H
+#ifndef LOG_CONFIG_H
+#define LOG_CONFIG_H
 
-#include "config_module.h"
 #include "common_log_config.h"
 
-class LogConfig : public ConfigModule
+class LogConfig
 {
 public:
-    LogConfig();
+    LogConfig()
+    {
+        m_FILE = new CommonLogConfig;
+        m_GUI = new CommonLogConfig;
+    }
 
-    void save(QDomElement* root, QDomDocument* doc);
-    void load(QDomElement* root);
-    void loadDefaults();
-
-    CommonLogConfig* FILE();
-    CommonLogConfig* GUI();
+    CommonLogConfig* FILE() {return m_FILE;}
+    CommonLogConfig* GUI() {return m_GUI;}
 
 private:
     CommonLogConfig* m_FILE;
     CommonLogConfig* m_GUI;
 };
 
-#endif // LOGCONFIG_H
+#endif // LOG_CONFIG_H

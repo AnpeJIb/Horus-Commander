@@ -3,6 +3,8 @@
 #include "config.h"
 #include "file_ext.h"
 
+#include <QDir>
+
 static void UPDATE_LOGGER(StatusPrinter* printer, CommonLogConfig*cfg);
 
 static StatusFileLogger* m_FILE;
@@ -12,7 +14,7 @@ void LOGS::INIT()
 {
     m_GUI = NULL;
 
-    QString logPath = CONFIG::DIR_PATH().append(PATH_SEP).append("system").append(FILE_EXT_LOG);
+    QString logPath = CONFIG::DIR_PATH().append(QDir::separator ()).append("system").append(FILE_EXT_LOG);
 
     m_FILE = new StatusFileLogger(logPath);
     m_FILE->setLevel(StatusPrinter::LEVEL_ALL);

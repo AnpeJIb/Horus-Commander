@@ -11,10 +11,11 @@
 namespace CONFIG
 {
     void INIT();
+    void CLEAN_UP();
+
     void SAVE();
     void LOAD();
     void DEFAULTS();
-    bool IS_CHANGED();
 
     QString DIR_PATH();
     QString FILE_PATH();
