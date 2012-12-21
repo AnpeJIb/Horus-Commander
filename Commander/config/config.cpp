@@ -1,4 +1,5 @@
 #include "config.h"
+#include "sc_path.h"
 #include "file_ext.h"
 #include "status_print.h"
 
@@ -8,10 +9,6 @@
 
 #define XML_ROOT  "horusConfig"
 
-static QString m_CONFIG_DIR_PATH = QDir::homePath().append(QDir::separator()).append(".horusCommander");
-static QString CONFIG_NAME = QString("config").append(FILE_EXT_XML);
-static QString m_CONFIG_PATH = QString(m_CONFIG_DIR_PATH).append(QDir::separator()).append(CONFIG_NAME);
-
 GeneralConfig   CONFIG::GENERAL;
 LogConfig       CONFIG::LOG;
 NetConfig       CONFIG::NET;
@@ -19,9 +16,10 @@ WindowConfig    CONFIG::WINDOW;
 
 void CONFIG::INIT()
 {
+    QString path = SC::PATH::CONFIG_PATH();
     QDir d;
-    if (d.exists(m_CONFIG_DIR_PATH)==false)
-        d.mkpath(m_CONFIG_DIR_PATH);
+    if (d.exists(path)==false)
+        d.mkpath(path);
 }
 
 void CONFIG::CLEAN_UP()
@@ -42,14 +40,4 @@ void CONFIG::LOAD()
 void CONFIG::DEFAULTS()
 {
     // TODO:
-}
-
-QString CONFIG::DIR_PATH()
-{
-    return m_CONFIG_DIR_PATH;
-}
-
-QString CONFIG::FILE_PATH()
-{
-    return m_CONFIG_PATH;
 }

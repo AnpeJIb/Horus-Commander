@@ -41,7 +41,6 @@ SOURCES += main.cpp\
     gs_path.cpp \
     gs_scripts.cpp \
     mission_manager.cpp \
-    server_commander.cpp \
     server_process.cpp \
     config/ui/net_page.cpp \
     parser/common_parser.cpp \
@@ -65,7 +64,9 @@ SOURCES += main.cpp\
     domain/gameflow/mission_set.cpp \
     domain/gameflow/mission_definition.cpp \
     domain/gameflow/mission_cycle.cpp \
-    domain/gameflow/mission_execution.cpp
+    domain/gameflow/mission_execution.cpp \
+    sc.cpp \
+    sc_path.cpp
 
 HEADERS  += \
     config/config.h \
@@ -92,7 +93,6 @@ HEADERS  += \
     gs_path.h \
     gs_scripts.h \
     mission_manager.h \
-    server_commander.h \
     server_process.h \
     config/gs_config_group.h \
     config/gs_config_key.h \
@@ -131,7 +131,9 @@ HEADERS  += \
     domain/territory/battleground_carrier.h \
     domain/gameflow/mission_cycle.h \
     domain/gameflow/mission_execution.h \
-    domain/kind_carrier.h
+    domain/kind_carrier.h \
+    sc.h \
+    sc_path.h
 
 FORMS    += \
     config/ui/config_dialog.ui \

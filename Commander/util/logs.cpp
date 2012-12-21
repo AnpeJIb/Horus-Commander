@@ -1,6 +1,8 @@
 #include "logs.h"
 #include "status_print.h"
 #include "config.h"
+#include "sc_path.h"
+#include "gs_path.h"
 #include "file_ext.h"
 
 #include <QDir>
@@ -14,9 +16,9 @@ void LOGS::INIT()
 {
     m_GUI = NULL;
 
-    QString logPath = CONFIG::DIR_PATH().append(QDir::separator ()).append("system").append(FILE_EXT_LOG);
+    QString path = SC::PATH::LOG_PATH();
 
-    m_FILE = new StatusFileLogger(logPath);
+    m_FILE = new StatusFileLogger(path);
     m_FILE->setLevel(StatusPrinter::LEVEL_ALL);
     STATUS_PRINT::REGISTER(m_FILE);
 }

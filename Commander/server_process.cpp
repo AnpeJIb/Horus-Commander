@@ -1,5 +1,5 @@
 #include "server_process.h"
-#include "server_commander.h"
+#include "sc.h"
 #include "gs_config.h"
 #include "gs_scripts.h"
 #include "gs_path.h"

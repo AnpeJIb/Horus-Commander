@@ -26,7 +26,9 @@ SOURCES += \
     util/status_tester.cpp \
     util/str_test.cpp \
     config/general_config_test.cpp \
-    ../Commander/config/config.cpp
+    ../Commander/config/config.cpp \
+    ../Commander/gs_path.cpp \
+    ../Commander/sc_path.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS += \
@@ -48,7 +50,9 @@ HEADERS += \
     util/status_tester.h \
     util/str_test.h \
     ../Commander/config/net_config.h \
-    config/general_config_test.h
+    config/general_config_test.h \
+    ../Commander/gs_path.h \
+    ../Commander/sc_path.h
 
 INCLUDEPATH += util \
   config \

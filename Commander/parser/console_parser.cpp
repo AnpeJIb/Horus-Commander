@@ -1,6 +1,6 @@
 #include "console_parser.h"
 #include "status_print.h"
-#include "server_commander.h"
+#include "sc.h"
 
 ConsoleParser::ConsoleParser()
 {

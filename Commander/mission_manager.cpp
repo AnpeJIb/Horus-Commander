@@ -1,5 +1,5 @@
 #include "mission_manager.h"
-#include "server_commander.h"
+#include "sc.h"
 
 MissionManager::MissionManager()
 {

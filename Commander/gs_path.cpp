@@ -2,21 +2,21 @@
 #include "config.h"
 #include <QDir>
 
-static QString logsDir();
+static QString serverLogsDir();
 
-QString logsDir()
+QString serverLogsDir()
 {
     return CONFIG::GENERAL.serverPath().append(QDir::separator ()).append(GS_LOGS_SUBDIR_PATH);
 }
 
 QString SC::GS::PATH::stdOutPath()
 {
-    return logsDir().append(QDir::separator ()).append(GS_STDOUT_FILE);
+    return serverLogsDir().append(QDir::separator ()).append(GS_STDOUT_FILE);
 }
 
 QString SC::GS::PATH::stdErrPath()
 {
-    return logsDir().append(QDir::separator ()).append(GS_STDERR_FILE);
+    return serverLogsDir().append(QDir::separator ()).append(GS_STDERR_FILE);
 }
 
 QString SC::GS::PATH::exePath()

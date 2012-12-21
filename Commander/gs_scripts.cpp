@@ -1,5 +1,5 @@
 #include "gs_scripts.h"
-#include "server_commander.h"
+#include "sc.h"
 #include "config.h"
 #include "status_print.h"
 #include "file_ext.h"

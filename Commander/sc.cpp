@@ -1,4 +1,4 @@
-#include "server_commander.h"
+#include "sc.h"
 
 MissionManager  SC::MSSN;
 ServerProcess   SC::SP;

@@ -17,9 +17,6 @@ namespace CONFIG
     void LOAD();
     void DEFAULTS();
 
-    QString DIR_PATH();
-    QString FILE_PATH();
-
     extern GeneralConfig    GENERAL;
     extern LogConfig        LOG;
     extern NetConfig        NET;

@@ -1,5 +1,5 @@
-#ifndef GSPATH_H
-#define GSPATH_H
+#ifndef GS_PATH_H
+#define GS_PATH_H
 
 #include <QString>
 #include "file_ext.h"
@@ -26,4 +26,4 @@ QString eventsLogAbsolutePath();
 
 }}}
 
-#endif // GSPATH_H
+#endif // GS_PATH_H

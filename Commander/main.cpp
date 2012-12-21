@@ -10,7 +10,7 @@
 
 #include "config.h"
 #include "logs.h"
-#include "server_commander.h"
+#include "sc.h"
 
 void parseArgs(int argc, char *argv[]);
 void initSignalHooks();

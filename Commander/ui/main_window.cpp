@@ -2,7 +2,7 @@
 #include "ui_main_window.h"
 #include "config.h"
 #include "logs.h"
-#include "server_commander.h"
+#include "sc.h"
 
 #include <QDesktopWidget>
 #include <QMessageBox>

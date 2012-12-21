@@ -1,7 +1,7 @@
 #include "gs_command.h"
 #include "config.h"
 #include "str.h"
-#include "server_commander.h"
+#include "sc.h"
 #include "status_print.h"
 
 #ifdef _WIN32_

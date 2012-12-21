@@ -1,5 +1,5 @@
-#ifndef SERVERCOMMANDER_H
-#define SERVERCOMMANDER_H
+#ifndef SERVER_COMMANDER_H
+#define SERVER_COMMANDER_H
 
 #include "mission_manager.h"
 #include "server_process.h"
@@ -15,4 +15,4 @@ namespace SC
     extern GsConsole        CONSOLE;
 }
 
-#endif // SERVERCOMMANDER_H
+#endif // SERVER_COMMANDER_H
