@@ -3,6 +3,8 @@
 
 #include <QtCore>
 
+typedef quint64 domain_id_t;
+
 namespace Domain {
 
 class GenericDomain
@@ -10,7 +12,7 @@ class GenericDomain
 public:
     virtual ~GenericDomain() = 0;
 
-    qlonglong id;
+    domain_id_t id;
 };
 
 inline GenericDomain::~GenericDomain(){}

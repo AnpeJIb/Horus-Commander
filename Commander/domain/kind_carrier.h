@@ -3,6 +3,8 @@
 
 #include <QtCore>
 
+typedef uint domain_kind_t;
+
 namespace Domain {
 
 class KindCarrier
@@ -10,7 +12,7 @@ class KindCarrier
 public:
     virtual ~KindCarrier() = 0;
 
-    uint kind;
+    domain_kind_t kind;
 };
 
 inline KindCarrier::~KindCarrier(){}

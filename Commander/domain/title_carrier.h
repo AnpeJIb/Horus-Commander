@@ -3,6 +3,8 @@
 
 #include <QString>
 
+typedef QString domain_title_t;
+
 namespace Domain {
 
 class TitleCarrier
@@ -10,7 +12,7 @@ class TitleCarrier
 public:
     virtual ~TitleCarrier() = 0;
 
-    QString title;
+    domain_title_t title;
 };
 
 inline TitleCarrier::~TitleCarrier(){}

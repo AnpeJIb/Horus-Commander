@@ -19,7 +19,10 @@ INCLUDEPATH += config \
   domain \
   domain/territory \
   domain/gameflow \
-  domain/parameters
+  domain/parameters \
+  dao \
+  dao/parameters \
+  dao/xml
 
 SOURCES += main.cpp\
     config/config.cpp \
@@ -66,7 +69,9 @@ SOURCES += main.cpp\
     domain/gameflow/mission_cycle.cpp \
     domain/gameflow/mission_execution.cpp \
     sc.cpp \
-    sc_path.cpp
+    sc_path.cpp \
+    dao/xml/xml_dao.cpp \
+    dao/xml/parameters/model_xml_dao.cpp
 
 HEADERS  += \
     config/config.h \
@@ -133,7 +138,13 @@ HEADERS  += \
     domain/gameflow/mission_execution.h \
     domain/kind_carrier.h \
     sc.h \
-    sc_path.h
+    sc_path.h \
+    dao/generic_dao.h \
+    dao/xml/xml_dao.h \
+    dao/title_carrier_dao.h \
+    dao/parameters/model_dao.h \
+    dao/kind_carrier_dao.h \
+    dao/xml/parameters/model_xml_dao.h
 
 FORMS    += \
     config/ui/config_dialog.ui \
