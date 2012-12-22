@@ -1,6 +1,7 @@
 #ifndef XML_DAO_H
 #define XML_DAO_H
 
+#include "generic_domain.h"
 #include "generic_dao.h"
 #include <QString>
 
@@ -8,10 +9,12 @@
 
 namespace Dao {
 
-template<class T> class XmlDao: public GenericDao<T>
+class XmlDao
 {
 public:
-    static void init(const QString& dsPath);
+    virtual ~XmlDao() = 0;
+
+    static void init(const QString& path);
     static void clearUp();
     static void sync();
 
@@ -19,8 +22,11 @@ protected:
     static QDomDocument dsDoc;
 
 private:
+    static void createNew();
     static QString dsPath;
 };
+
+inline XmlDao::~XmlDao(){}
 
 }
 

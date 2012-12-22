@@ -6,13 +6,16 @@
 #include <QFileInfo>
 #include <QTextStream>
 
+#define XML_ROOT  "root"
+
 using namespace Dao;
 
-template <class T> QDomDocument XmlDao<T>::dsDoc;
-template <class T> QString XmlDao<T>::dsPath;
+QDomDocument XmlDao::dsDoc;
+QString XmlDao::dsPath;
 
-template <class T> void XmlDao<T>::init(const QString& dsPath)
+void XmlDao::init(const QString& path)
 {
+    dsPath = path;
 
     QFileInfo dsFileInfo(dsPath);
 
@@ -30,19 +33,46 @@ template <class T> void XmlDao<T>::init(const QString& dsPath)
     }
 
     dsDoc.clear();
-    if (dsDoc.setContent(&file) == false)
-        STATUS_PRINT::DEBUG_(QObject::tr("Bad data source file"));
 
+    bool loadOk = dsDoc.setContent(&file);
     file.close();
+
+    if (loadOk)
+    {
+        QDomElement root = dsDoc.documentElement();
+
+        if(root.tagName() != XML_ROOT)
+        {
+            STATUS_PRINT::ERROR_(QObject::tr("Wrong config root"));
+            loadOk = false;
+        }
+    }
+
+    if (loadOk == false)
+    {
+        STATUS_PRINT::DEBUG_(QObject::tr("Creating data source file"));
+        createNew();
+        sync();
+    }
 }
 
-template <class T> void XmlDao<T>::clearUp()
+void XmlDao::createNew()
+{
+    QDomProcessingInstruction pi =
+            dsDoc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\"");
+    dsDoc.insertBefore(pi, QDomNode());
+
+    QDomElement root = dsDoc.createElement(XML_ROOT);
+    dsDoc.appendChild(root);
+}
+
+void XmlDao::clearUp()
 {
     dsDoc.clear();
     QFile::remove(dsPath);
 }
 
-template <class T> void XmlDao<T>::sync()
+void XmlDao::sync()
 {
     QFile file(dsPath);
 

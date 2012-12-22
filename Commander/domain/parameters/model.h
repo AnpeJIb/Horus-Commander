@@ -10,6 +10,13 @@ namespace Domain { namespace Parameters {
 class Model: public GenericDomain, public TitleCarrier, public KindCarrier
 {
 public:
+    enum MODEL_TYPE
+    {
+        MODEL_SETTINGS          = 0,
+        MODEL_MISSION_FINISH    = 1,
+        MODEL_AWARD_ASSIGN      = 2
+    };
+
     Model();
     ~Model();
 };

@@ -3,7 +3,7 @@
 
 #include <QtCore>
 
-typedef quint64 domain_id_t;
+typedef qulonglong domain_id_t;
 
 namespace Domain {
 

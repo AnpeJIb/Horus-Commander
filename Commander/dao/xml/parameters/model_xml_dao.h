@@ -1,24 +1,35 @@
 #ifndef MODEL_XML_DAO_H
 #define MODEL_XML_DAO_H
 
+#include "model.h"
 #include "xml_dao.h"
 #include "model_dao.h"
 
 namespace Dao { namespace Parameters {
 
-class ModelXmlDao: public XmlDao<Model>, public ModelDao
+using namespace Domain::Parameters;
+
+class ModelXmlDao: public XmlDao, public ModelDao
 {
 public:
     ModelXmlDao();
 
-    domain_id_t save(Model* domain);
+    void save(Model *domain);
 
-    Model* find(domain_id_t id);
-    Model* findByTitle(const domain_title_t& value);
-    Model* findByKind(const domain_kind_t& value);
+    bool find(domain_id_t id, Model *result);
+    void findByTitle(const domain_title_t& title, QList<Model*>* result);
+    void findByKind(domain_kind_t kind, QList< Model* >* result);
 
-    void update(Model* domain);
-    void remove(Model* domain);
+    void update(const Model& domain);
+    void remove(const Model &domain);
+
+protected:
+    static domain_id_t newId();
+
+private:
+    static void initId();
+    static domain_id_t currentId;
+    static QString tagName;
 };
 
 }}
