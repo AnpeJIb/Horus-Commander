@@ -4,6 +4,7 @@ using namespace Domain;
 using namespace Domain::Parameters;
 
 ModelParameter::ModelParameter()
+    : m_simpleParameter(NULL)
 {
 }
 
@@ -21,6 +22,11 @@ Model *ModelParameter::model()
     return m_model;
 }
 
+SimpleParameter *ModelParameter::simpleParameter()
+{
+    return m_simpleParameter;
+}
+
 void ModelParameter::setParent(ModelParameter *parent)
 {
     if (parent != NULL)
@@ -32,4 +38,9 @@ void ModelParameter::setParent(ModelParameter *parent)
 void ModelParameter::setModel(Model *model)
 {
     m_model = model;
+}
+
+void ModelParameter::setSimpleParameter(SimpleParameter *parameter)
+{
+    m_simpleParameter = parameter;
 }

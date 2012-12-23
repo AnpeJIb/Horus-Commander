@@ -7,5 +7,6 @@
 #define XML_ATTR_CODE_NAME "codeName"
 #define XML_ATTR_PARENT_ID "parent_id"
 #define XML_ATTR_MODEL_ID  "model_id"
+#define XML_ATTR_SIMPLE_PARAMETER_ID "simple_parameter_id"
 
 #endif // XML_DAO_HELPER_H

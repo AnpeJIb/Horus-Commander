@@ -22,6 +22,10 @@ void ModelParameterXmlDao::save(ModelParameter *domain)
     if (cache[domain->id] != NULL) return;
 
     Model* model = domain->model();
+    if (model == NULL) return;
+
+    SimpleParameter* parameter = domain->simpleParameter();
+    if (parameter == NULL) return;
 
     QDomNode root;
 
@@ -60,10 +64,10 @@ void ModelParameterXmlDao::save(ModelParameter *domain)
 
     elem.setAttribute(XML_ATTR_ID,        QString::number(domain->id));
     elem.setAttribute(XML_ATTR_TITLE,     domain->title);
-    elem.setAttribute(XML_ATTR_CODE_NAME, domain->codeName);
     elem.setAttribute(XML_ATTR_KIND,      QString::number(domain->kind));
     elem.setAttribute(XML_ATTR_PARENT_ID, QString::number(parent_id));
     elem.setAttribute(XML_ATTR_MODEL_ID,  QString::number(model->id));
+    elem.setAttribute(XML_ATTR_MODEL_ID,  QString::number(parameter->id));
 
     root.appendChild(elem);
 
