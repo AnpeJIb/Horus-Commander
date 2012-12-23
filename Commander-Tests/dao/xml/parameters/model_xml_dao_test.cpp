@@ -8,7 +8,7 @@ using namespace Domain::Parameters;
 ModelXmlDaoTest::ModelXmlDaoTest(QObject *parent)
     : QObject(parent)
 {
-    m_path = "modelTest.xml";
+    m_path = "modelDaoTest.xml";
 }
 
 void ModelXmlDaoTest::initTestCase()
@@ -27,19 +27,21 @@ void ModelXmlDaoTest::testFindNone()
 
 void ModelXmlDaoTest::testSave()
 {
+    domain_id_t nullId = Q_UINT64_C(0);
+
     Model* m1 = new Model;
-    m1->kind = Model::MODEL_SETTINGS;
+    m1->kind  = Model::MODEL_SETTINGS;
     m1->title = "Foo settings model";
     dao->save(m1);
-    QVERIFY(m1->id > 0);
+    QVERIFY(m1->id > nullId);
 
     Model* m2 = new Model;
-    m2->kind = Model::MODEL_AWARD_ASSIGN;
+    m2->kind  = Model::MODEL_AWARD_ASSIGN;
     m2->title = "Foo assignment model";
     dao->save(m2);
-    QVERIFY(m2->id > 0);
 
-    QVERIFY(m1->id != m2->id);
+    QVERIFY(m2->id > nullId);
+    QVERIFY(m2->id != m1->id);
 
     XmlDao::sync();
 }
@@ -54,8 +56,8 @@ void ModelXmlDaoTest::testAll()
 void ModelXmlDaoTest::testFindById()
 {
     Model* m = dao->find(Q_UINT64_C(1));
-    QVERIFY(m != NULL);
 
+    QVERIFY(m != NULL);
     QVERIFY(m->id    == Q_UINT64_C(1));
     QVERIFY(m->kind  == Model::MODEL_SETTINGS);
     QVERIFY(m->title == "Foo settings model");
@@ -110,6 +112,20 @@ void ModelXmlDaoTest::testFindByTitle()
     QVERIFY(m1 == m2);
 }
 
+void ModelXmlDaoTest::testFindXmlNode()
+{
+    QDomNode node;
+
+    node = ((ModelXmlDao*) dao)->findXmlNode(Q_UINT64_C(0));
+    QVERIFY(node.isNull());
+
+    node = ((ModelXmlDao*) dao)->findXmlNode(Q_UINT64_C(1));
+    QVERIFY(node.isNull()==false);
+
+    node = ((ModelXmlDao*) dao)->findXmlNode(Q_UINT64_C(2));
+    QVERIFY(node.isNull()==false);
+}
+
 void ModelXmlDaoTest::testUpdate()
 {
     domain_id_t id = Q_UINT64_C(1);
@@ -123,8 +139,8 @@ void ModelXmlDaoTest::testUpdate()
     XmlDao::sync();
 
     Model* m2 = dao->find(id);
-    QVERIFY(m2 != NULL);
 
+    QVERIFY(m2 != NULL);
     QVERIFY(m1->id    == m2->id);
     QVERIFY(m1->kind  == m2->kind);
     QVERIFY(m1->title == m2->title);

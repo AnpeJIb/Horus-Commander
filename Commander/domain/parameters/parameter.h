@@ -5,14 +5,20 @@
 #include "title_carrier.h"
 #include "code_name_carrier.h"
 #include "kind_carrier.h"
-#include "logical_operation_types.h"
+#include "parent_carrier.h"
 #include "model.h"
+#include "logical_operation_types.h"
 
 namespace Domain { namespace Parameters {
 
 class Parameter;
 
-class Parameter: public GenericDomain, public TitleCarrier, public CodeNameCarrier, public KindCarrier
+class Parameter:
+        public GenericDomain,
+        public TitleCarrier,
+        public CodeNameCarrier,
+        public KindCarrier,
+        public ParentCarrier<Parameter>
 {
 public:
     Parameter();
@@ -21,11 +27,10 @@ public:
     Parameter* parent();
     Model* model();
 
-    void setParent(Parameter* value);
-    void setModel(Model* value);
+    void setParent(Parameter* parent);
+    void setModel(Model* model);
 
 private:
-    Parameter* m_parent;
     Model* m_model;
 };
 

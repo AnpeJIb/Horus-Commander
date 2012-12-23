@@ -17,6 +17,7 @@ ModelXmlDao::~ModelXmlDao()
 
 void ModelXmlDao::all(QList<Model *> *result)
 {
+    result->clear();
     QDomNodeList lst = ModelXmlDao::dsDoc.elementsByTagName(tagName);
 
     QDomElement elem;
@@ -59,7 +60,7 @@ void ModelXmlDao::save(Model* domain)
     QDomElement root = dsDoc.documentElement();
     QDomElement elem = dsDoc.createElement(tagName);
 
-    elem.setAttribute(XML_ATTR_ID,    domain->id);
+    elem.setAttribute(XML_ATTR_ID,    QString::number(domain->id));
     elem.setAttribute(XML_ATTR_TITLE, domain->title);
     elem.setAttribute(XML_ATTR_KIND,  QString::number(domain->kind));
 
@@ -73,28 +74,13 @@ Model* ModelXmlDao::find(domain_id_t id)
 
     if (result != NULL) return result;
 
-    QDomNodeList lst = ModelXmlDao::dsDoc.elementsByTagName(tagName);
-
-    QDomElement elem;
-    domain_id_t tmp_id;
-
-    bool found = false;
-
-    for (int i = 0; i < lst.count(); ++i)
+    QDomNode node = findXmlNode(id);
+    if (node.isNull() == false)
     {
-        elem = lst.at(i).toElement();
-        tmp_id = elem.attribute(XML_ATTR_ID, "0").toULongLong();
-        if (tmp_id == id)
-        {
-            found = true;
-            break;
-        }
-    }
+        QDomElement elem = node.toElement();
 
-    if (found)
-    {
         result = new Model;
-        result->id    = tmp_id;
+        result->id    = id;
         result->kind  = elem.attribute(XML_ATTR_KIND,  "0").toInt();
         result->title = elem.attribute(XML_ATTR_TITLE, "");
 
@@ -107,6 +93,7 @@ Model* ModelXmlDao::find(domain_id_t id)
 
 void ModelXmlDao::findByTitle(const domain_title_t& title, QList<Model *> *result)
 {
+    result->clear();
     QDomNodeList lst = ModelXmlDao::dsDoc.elementsByTagName(tagName);
 
     QDomElement elem;
@@ -145,6 +132,7 @@ void ModelXmlDao::findByTitle(const domain_title_t& title, QList<Model *> *resul
 
 void ModelXmlDao::findByKind(domain_kind_t kind, QList<Model *> *result)
 {
+    result->clear();
     QDomNodeList lst = ModelXmlDao::dsDoc.elementsByTagName(tagName);
 
     QDomElement elem;
@@ -184,26 +172,11 @@ void ModelXmlDao::findByKind(domain_kind_t kind, QList<Model *> *result)
 
 void ModelXmlDao::update(const Model *domain)
 {
-    bool found = false;
-
-    QDomNodeList lst = ModelXmlDao::dsDoc.elementsByTagName(tagName);
-
-    QDomElement elem;
-    domain_id_t tmp_id;
-
-    for (int i = 0; i < lst.count(); ++i)
+    QDomNode node = findXmlNode(domain->id);
+    if (node.isNull() == false)
     {
-        elem = lst.at(i).toElement();
-        tmp_id = elem.attribute(XML_ATTR_ID, "0").toULongLong();
-        if (tmp_id == domain->id)
-        {
-            found = true;
-            break;
-        }
-    }
+        QDomElement elem = node.toElement();
 
-    if (found)
-    {
         elem.setAttribute(XML_ATTR_TITLE, domain->title);
         elem.setAttribute(XML_ATTR_KIND,  QString::number(domain->kind));
     }
@@ -211,27 +184,8 @@ void ModelXmlDao::update(const Model *domain)
 
 void ModelXmlDao::remove(const Model *domain)
 {
-    bool found = false;
-
-    QDomNodeList lst = ModelXmlDao::dsDoc.elementsByTagName(tagName);
-
-    QDomNode node;
-    QDomElement elem;
-    domain_id_t tmp_id;
-
-    for (int i = 0; i < lst.count(); ++i)
-    {
-        node = lst.at(i);
-        elem = node.toElement();
-        tmp_id = elem.attribute(XML_ATTR_ID, "0").toULongLong();
-        if (tmp_id == domain->id)
-        {
-            found = true;
-            break;
-        }
-    }
-
-    if (found)
+    QDomNode node = findXmlNode(domain->id);
+    if (node.isNull() == false)
     {
         node.parentNode().removeChild(node);
 
@@ -245,6 +199,32 @@ void ModelXmlDao::remove(const Model *domain)
     }
 }
 
+QDomNode ModelXmlDao::findXmlNode(domain_id_t id)
+{
+    domain_id_t tmp_id;
+    QDomElement elem;
+    QDomNode node;
+
+    QDomNode result;
+    result.clear();
+
+    QDomNodeList lst = ModelXmlDao::dsDoc.elementsByTagName(tagName);
+
+    for (int i = 0; i < lst.count(); ++i)
+    {
+        node = lst.at(i);
+        elem = node.toElement();
+        tmp_id = elem.attribute(XML_ATTR_ID, "0").toULongLong();
+        if (tmp_id == id)
+        {
+            result = node;
+            break;
+        }
+    }
+
+    return result;
+}
+
 domain_id_t ModelXmlDao::newId()
 {
     if (currentId==0)
@@ -255,7 +235,7 @@ domain_id_t ModelXmlDao::newId()
 
 void ModelXmlDao::initId()
 {
-    QDomNodeList lst = ModelXmlDao::dsDoc.elementsByTagName(tagName);
+    QDomNodeList lst = dsDoc.elementsByTagName(tagName);
 
     domain_id_t tmp_id;
 

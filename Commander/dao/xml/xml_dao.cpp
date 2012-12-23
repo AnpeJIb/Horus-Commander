@@ -1,31 +1,30 @@
 #include "xml_dao.h"
-#include "status_print.h"
 
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
 #include <QTextStream>
 
+#include "status_print.h"
+
 #define XML_ROOT  "root"
 
-using namespace Dao;
+QDomDocument Dao::XmlDao::dsDoc;
+QString Dao::XmlDao::dsPath;
 
-QDomDocument XmlDao::dsDoc;
-QString XmlDao::dsPath;
-
-void XmlDao::init(const QString& path)
+void Dao::XmlDao::init(const QString& path)
 {
     dsPath = path;
 
     QFileInfo dsFileInfo(dsPath);
 
     QDir d = dsFileInfo.dir();
-    if (d.exists()==false)
+    if (d.exists() == false)
         d.mkpath(d.path());
 
     QFile file(dsPath);
 
-    if(file.open(QIODevice::ReadWrite) == false)
+    if(file.open (QIODevice::ReadWrite) == false)
     {
         QString str = QObject::tr("Could not open config file \"%1\" for reading").arg(dsPath);
         STATUS_PRINT::ERROR_(str);
@@ -56,7 +55,7 @@ void XmlDao::init(const QString& path)
     }
 }
 
-void XmlDao::createNew()
+void Dao::XmlDao::createNew()
 {
     QDomProcessingInstruction pi =
             dsDoc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\"");
@@ -66,13 +65,13 @@ void XmlDao::createNew()
     dsDoc.appendChild(root);
 }
 
-void XmlDao::clearUp()
+void Dao::XmlDao::clearUp()
 {
     dsDoc.clear();
     QFile::remove(dsPath);
 }
 
-void XmlDao::sync()
+void Dao::XmlDao::sync()
 {
     QFile file(dsPath);
 

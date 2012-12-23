@@ -5,8 +5,9 @@ namespace Domain {
 
 enum LOGICAL_OPERATION_TYPE
 {
-    LOGICAL_OR  = 0,
-    LOGICAL_AND = 1
+    LOGICAL_NONE = 0,
+    LOGICAL_OR   = 1,
+    LOGICAL_AND  = 2
 };
 
 }

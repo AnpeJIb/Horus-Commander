@@ -27,14 +27,14 @@ public:
     void update(const Model* domain);
     void remove(const Model* domain);
 
-protected:
-    static domain_id_t newId();
+    QDomNode findXmlNode(domain_id_t id);
 
 private:
+    static domain_id_t newId();
     static void initId();
     static domain_id_t currentId;
-    static QString tagName;
 
+    static QString tagName;
     static QMap<domain_id_t, Model*> cache;
 };
 

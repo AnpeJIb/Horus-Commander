@@ -4,6 +4,7 @@ using namespace Domain;
 using namespace Domain::Parameters;
 
 Parameter::Parameter()
+    : m_model(NULL)
 {
 }
 
@@ -21,12 +22,15 @@ Model *Parameter::model()
     return m_model;
 }
 
-void Parameter::setParent(Parameter *value)
+void Parameter::setParent(Parameter *parent)
 {
-    m_parent = value;
+    if (parent != NULL)
+        m_model = parent->model();
+
+    m_parent = parent;
 }
 
-void Parameter::setModel(Model *value)
+void Parameter::setModel(Model *model)
 {
-    m_model = value;
+    m_model = model;
 }
