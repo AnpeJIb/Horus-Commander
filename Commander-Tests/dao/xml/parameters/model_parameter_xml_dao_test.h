@@ -3,17 +3,17 @@
 
 #include <QObject>
 #include <QString>
-#include "parameter_xml_dao.h"
+#include "model_parameter_xml_dao.h"
 #include "model_xml_dao.h"
 
 using namespace Dao;
 using namespace Dao::Parameters;
 
-class ParameterXmlDaoTest: public QObject
+class ModelParameterXmlDaoTest: public QObject
 {
     Q_OBJECT
 public:
-    explicit ParameterXmlDaoTest(QObject *parent = 0);
+    explicit ModelParameterXmlDaoTest(QObject *parent = 0);
 
 private slots:
     void initTestCase();
@@ -23,7 +23,7 @@ private slots:
 
 private:
     QString m_path;
-    ParameterDao* parameterDao;
+    ModelParameterDao* modelParameterDao;
     ModelDao* modelDao;
 };
 

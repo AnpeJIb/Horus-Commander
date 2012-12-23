@@ -1,30 +1,30 @@
-#include "parameter_xml_dao_test.h"
+#include "model_parameter_xml_dao_test.h"
 
 #include <QFile>
 #include <QtTest/QtTest>
 
-ParameterXmlDaoTest::ParameterXmlDaoTest(QObject *parent)
+ModelParameterXmlDaoTest::ModelParameterXmlDaoTest(QObject *parent)
     : QObject(parent)
 {
     m_path = "parameterDaoTest.xml";
 }
 
-void ParameterXmlDaoTest::initTestCase()
+void ModelParameterXmlDaoTest::initTestCase()
 {
     XmlDao::init(m_path);
     QVERIFY(QFile::exists(m_path));
 
     modelDao = new ModelXmlDao;
-    parameterDao = new ParameterXmlDao;
+    modelParameterDao = new ModelParameterXmlDao;
 }
 
-void ParameterXmlDaoTest::testFindNone()
+void ModelParameterXmlDaoTest::testFindNone()
 {
-    Parameter* p = parameterDao->find(Q_UINT64_C(1));
+    ModelParameter* p = modelParameterDao->find(Q_UINT64_C(1));
     QVERIFY(p == NULL);
 }
 
-void ParameterXmlDaoTest::testSave()
+void ModelParameterXmlDaoTest::testSave()
 {
     domain_id_t nullId = Q_UINT64_C(0);
 
@@ -44,56 +44,56 @@ void ParameterXmlDaoTest::testSave()
 
     /** Save parameters */
 
-    Parameter* p1 = new Parameter;
+    ModelParameter* p1 = new ModelParameter;
     p1->kind  = Domain::LOGICAL_NONE;
     p1->title = "Server name";
     p1->codeName = "SERV_NAME";
     p1->setModel(m1);
-    parameterDao->save(p1);
+    modelParameterDao->save(p1);
     QVERIFY(p1->id > nullId);
 
-    Parameter* p2 = new Parameter;
+    ModelParameter* p2 = new ModelParameter;
     p2->id    = nullId;
     p2->kind  = Domain::LOGICAL_NONE;
     p2->title = "Server description";
     p2->codeName = "SERV_DESCR";
     p2->setModel(m1);
-    parameterDao->save(p2);
+    modelParameterDao->save(p2);
     QVERIFY(p2->id > nullId);
 
-    Parameter* p3 = new Parameter;
+    ModelParameter* p3 = new ModelParameter;
     p3->id    = nullId;
     p3->kind  = Domain::LOGICAL_NONE;
     p3->title = "Foo medal";
     p3->codeName = "FOO_MEDAL";
     p3->setModel(m2);
-    parameterDao->save(p3);
+    modelParameterDao->save(p3);
     QVERIFY(p3->id > nullId);
 
-    Parameter* p4 = new Parameter;
+    ModelParameter* p4 = new ModelParameter;
     p4->id    = nullId;
     p4->kind  = Domain::LOGICAL_OR;
     p4->title = "Kill enemy aircrafts";
     p4->codeName = "KILL_ENEMY_AIR";
     p4->setParent(p3);
-    parameterDao->save(p4);
+    modelParameterDao->save(p4);
     QVERIFY(p4->id > nullId);
 
-    Parameter* p5 = new Parameter;
+    ModelParameter* p5 = new ModelParameter;
     p5->id    = nullId;
     p5->kind  = Domain::LOGICAL_OR;
     p5->title = "Kill enemy cars";
     p5->codeName = "KILL_ENEMY_CAR";
     p5->setParent(p3);
-    parameterDao->save(p5);
+    modelParameterDao->save(p5);
     QVERIFY(p5->id > nullId);
 
     XmlDao::sync();
 }
 
-void ParameterXmlDaoTest::cleanupTestCase()
+void ModelParameterXmlDaoTest::cleanupTestCase()
 {
-    delete (ParameterXmlDao*) parameterDao;
+    delete (ModelParameterXmlDao*) modelParameterDao;
     delete (ModelXmlDao*) modelDao;
 
     XmlDao::clearUp();

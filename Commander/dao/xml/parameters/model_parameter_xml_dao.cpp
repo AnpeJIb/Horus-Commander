@@ -1,22 +1,22 @@
-#include "parameter_xml_dao.h"
+#include "model_parameter_xml_dao.h"
 #include "model_xml_dao.h"
 #include "xml_dao_helper.h"
 
 using namespace Dao::Parameters;
 
-domain_id_t ParameterXmlDao::currentId = 0;
-QString ParameterXmlDao::tagName       = "Parameter";
-QMap<domain_id_t, Parameter*> ParameterXmlDao::cache;
+domain_id_t ModelParameterXmlDao::currentId = 0;
+QString ModelParameterXmlDao::tagName       = "Parameter";
+QMap<domain_id_t, ModelParameter*> ModelParameterXmlDao::cache;
 
-ParameterXmlDao::ParameterXmlDao()
+ModelParameterXmlDao::ModelParameterXmlDao()
 {
 }
 
-ParameterXmlDao::~ParameterXmlDao()
+ModelParameterXmlDao::~ModelParameterXmlDao()
 {
 }
 
-void ParameterXmlDao::save(Parameter *domain)
+void ModelParameterXmlDao::save(ModelParameter *domain)
 {
     /** Check existance in cache */
     if (cache[domain->id] != NULL) return;
@@ -28,7 +28,7 @@ void ParameterXmlDao::save(Parameter *domain)
     QDomNode modelNode = modelDao.findXmlNode(model->id);
     if (modelNode.isNull()) return;
 
-    Parameter* parent = domain->parent();
+    ModelParameter* parent = domain->parent();
     domain_id_t parent_id = (parent == NULL) ? Q_UINT64_C(0) : parent->id;
 
     if (parent == NULL)
@@ -71,14 +71,14 @@ void ParameterXmlDao::save(Parameter *domain)
     cache[domain->id] = domain;
 }
 
-void ParameterXmlDao::all(QList<Parameter *> *result)
+void ModelParameterXmlDao::all(QList<ModelParameter *> *result)
 {
 }
 
-Parameter *ParameterXmlDao::find(domain_id_t id)
+ModelParameter *ModelParameterXmlDao::find(domain_id_t id)
 {
     /** Try to get from cache at first */
-    Parameter* result = cache[id];
+    ModelParameter* result = cache[id];
 
     if (result != NULL) return result;
 
@@ -87,35 +87,35 @@ Parameter *ParameterXmlDao::find(domain_id_t id)
     return result;
 }
 
-void ParameterXmlDao::findByTitle(const domain_title_t &title, QList<Parameter *> *result)
+void ModelParameterXmlDao::findByTitle(const domain_title_t &title, QList<ModelParameter *> *result)
 {
 }
 
-void ParameterXmlDao::findByKind(domain_kind_t kind, QList<Parameter *> *result)
+void ModelParameterXmlDao::findByKind(domain_kind_t kind, QList<ModelParameter *> *result)
 {
 }
 
-void ParameterXmlDao::findByCodeName(domain_codeName_t codeName, QList<Parameter *> *result)
+void ModelParameterXmlDao::findByCodeName(domain_codeName_t codeName, QList<ModelParameter *> *result)
 {
 }
 
-void ParameterXmlDao::findByParent(const Parameter *parent, QList<Parameter *> *result)
+void ModelParameterXmlDao::findByParent(const ModelParameter *parent, QList<ModelParameter *> *result)
 {
 }
 
-void ParameterXmlDao::findByModel(const Model *model, QList<Parameter *> *result)
+void ModelParameterXmlDao::findByModel(const Model *model, QList<ModelParameter *> *result)
 {
 }
 
-void ParameterXmlDao::update(const Parameter *domain)
+void ModelParameterXmlDao::update(const ModelParameter *domain)
 {
 }
 
-void ParameterXmlDao::remove(const Parameter *domain)
+void ModelParameterXmlDao::remove(const ModelParameter *domain)
 {
 }
 
-domain_id_t ParameterXmlDao::newId()
+domain_id_t ModelParameterXmlDao::newId()
 {
     if (currentId==0)
         initId();
@@ -123,7 +123,7 @@ domain_id_t ParameterXmlDao::newId()
     return ++currentId;
 }
 
-void ParameterXmlDao::initId()
+void ModelParameterXmlDao::initId()
 {
     QDomNodeList lst = dsDoc.elementsByTagName(tagName);
 

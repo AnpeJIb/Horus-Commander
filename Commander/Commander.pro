@@ -60,7 +60,6 @@ SOURCES += main.cpp\
     config/ui/difficulty_var_page.cpp \
     config/ui/difficulty_weapons_page.cpp \
     domain/parameters/model.cpp \
-    domain/parameters/parameter.cpp \
     domain/parameters/scheme.cpp \
     domain/parameters/parameter_value.cpp \
     domain/commander_info.cpp \
@@ -72,7 +71,8 @@ SOURCES += main.cpp\
     sc_path.cpp \
     dao/xml/xml_dao.cpp \
     dao/xml/parameters/model_xml_dao.cpp \
-    dao/xml/parameters/parameter_xml_dao.cpp
+    dao/xml/parameters/model_parameter_xml_dao.cpp \
+    domain/parameters/model_parameter.cpp
 
 HEADERS  += \
     config/config.h \
@@ -126,7 +126,6 @@ HEADERS  += \
     domain/description_carrier.h \
     domain/code_name_carrier.h \
     domain/parameters/model.h \
-    domain/parameters/parameter.h \
     domain/logical_operation_types.h \
     domain/parameters/scheme.h \
     domain/parameters/scheme_carrier.h \
@@ -146,9 +145,11 @@ HEADERS  += \
     dao/parameters/model_dao.h \
     dao/kind_carrier_dao.h \
     dao/xml/parameters/model_xml_dao.h \
-    dao/xml/parameters/parameter_xml_dao.h \
     domain/parent_carrier.h \
-    dao/parent_carrier_dao.h
+    dao/parent_carrier_dao.h \
+    domain/parameters/model_parameter.h \
+    dao/parameters/model_parameter_dao.h \
+    dao/xml/parameters/model_parameter_xml_dao.h
 
 FORMS    += \
     config/ui/config_dialog.ui \

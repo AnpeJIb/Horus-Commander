@@ -16,7 +16,7 @@ Scheme *ParameterValue::scheme()
     return m_scheme;
 }
 
-Parameter *ParameterValue::parameter()
+ModelParameter *ParameterValue::parameter()
 {
     return m_parameter;
 }
@@ -26,7 +26,7 @@ void ParameterValue::setScheme(Scheme *value)
     m_scheme = value;
 }
 
-void ParameterValue::setParameter(Parameter *value)
+void ParameterValue::setParameter(ModelParameter *value)
 {
     m_parameter = value;
 }

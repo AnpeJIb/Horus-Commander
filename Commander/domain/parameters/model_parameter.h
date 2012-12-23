@@ -11,23 +11,23 @@
 
 namespace Domain { namespace Parameters {
 
-class Parameter;
+class ModelParameter;
 
-class Parameter:
+class ModelParameter:
         public GenericDomain,
         public TitleCarrier,
         public CodeNameCarrier,
         public KindCarrier,
-        public ParentCarrier<Parameter>
+        public ParentCarrier<ModelParameter>
 {
 public:
-    Parameter();
-    ~Parameter();
+    ModelParameter();
+    ~ModelParameter();
 
-    Parameter* parent();
+    ModelParameter* parent();
     Model* model();
 
-    void setParent(Parameter* parent);
+    void setParent(ModelParameter* parent);
     void setModel(Model* model);
 
 private:

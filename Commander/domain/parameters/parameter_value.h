@@ -3,7 +3,7 @@
 
 #include <QString>
 #include "generic_domain.h"
-#include "parameter.h"
+#include "model_parameter.h"
 #include "scheme_carrier.h"
 
 namespace Domain { namespace Parameters {
@@ -15,15 +15,15 @@ public:
     ~ParameterValue();
 
     Scheme* scheme();
-    Parameter* parameter();
+    ModelParameter* parameter();
 
     void setScheme(Scheme* value);
-    void setParameter(Parameter* value);
+    void setParameter(ModelParameter* value);
 
     QString value;
 
 private:
-    Parameter* m_parameter;
+    ModelParameter* m_parameter;
 };
 
 }}
