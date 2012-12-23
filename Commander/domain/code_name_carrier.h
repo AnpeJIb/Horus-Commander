@@ -3,6 +3,8 @@
 
 #include <QString>
 
+typedef QString domain_codeName_t;
+
 namespace Domain {
 
 class CodeNameCarrier
@@ -10,7 +12,7 @@ class CodeNameCarrier
 public:
     virtual ~CodeNameCarrier() = 0;
 
-    QString codeName;
+    domain_codeName_t codeName;
 };
 
 inline CodeNameCarrier::~CodeNameCarrier(){}
