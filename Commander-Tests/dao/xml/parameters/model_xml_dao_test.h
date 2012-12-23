@@ -20,6 +20,7 @@ private slots:
     void testSave();
     void testAll();
     void testFindById();
+    void testReferentialIntegrity();
     void testFindByKind();
     void testFindByTitle();
     void testUpdate();
@@ -28,7 +29,7 @@ private slots:
 
 private:
     QString m_path;
-    ModelXmlDao m_dao;
+    ModelXmlDao dao;
 };
 
 #endif // MODEL_XML_DAO_TEST_H

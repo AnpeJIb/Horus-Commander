@@ -19,25 +19,25 @@ void ModelXmlDaoTest::initTestCase()
 
 void ModelXmlDaoTest::testFindNone()
 {
-    Model m;
-    QVERIFY(m_dao.find(Q_UINT64_C(1), &m) == false);
+    Model* m = dao.find(Q_UINT64_C(1));
+    QVERIFY(m == NULL);
 }
 
 void ModelXmlDaoTest::testSave()
 {
-    Model m1;
-    m1.kind = Model::MODEL_SETTINGS;
-    m1.title = "Foo settings model";
-    m_dao.save(&m1);
-    QVERIFY(m1.id > 0);
+    Model* m1 = new Model;
+    m1->kind = Model::MODEL_SETTINGS;
+    m1->title = "Foo settings model";
+    dao.save(m1);
+    QVERIFY(m1->id > 0);
 
-    Model m2;
-    m2.kind = Model::MODEL_AWARD_ASSIGN;
-    m2.title = "Foo assignment model";
-    m_dao.save(&m2);
-    QVERIFY(m2.id > 0);
+    Model* m2 = new Model;
+    m2->kind = Model::MODEL_AWARD_ASSIGN;
+    m2->title = "Foo assignment model";
+    dao.save(m2);
+    QVERIFY(m2->id > 0);
 
-    QVERIFY(m1.id != m2.id);
+    QVERIFY(m1->id != m2->id);
 
     XmlDao::sync();
 }
@@ -45,81 +45,101 @@ void ModelXmlDaoTest::testSave()
 void ModelXmlDaoTest::testAll()
 {
     QList< Model* > lst;
-    m_dao.all(&lst);
+    dao.all(&lst);
     QVERIFY(lst.count() == 2);
-
-    m_dao.dispose(&lst);
-    QVERIFY(lst.count() == 0);
 }
 
 void ModelXmlDaoTest::testFindById()
 {
-    Model m;
-    QVERIFY(m_dao.find(Q_UINT64_C(1), &m));
-
-    QVERIFY(m.id    == Q_UINT64_C(1));
-    QVERIFY(m.kind  == Model::MODEL_SETTINGS);
-    QVERIFY(m.title == "Foo settings model");
-}
-
-void ModelXmlDaoTest::testFindByKind()
-{
-    QList< Model* > lst;
-    m_dao.findByKind(Model::MODEL_SETTINGS, &lst);
-    QVERIFY(lst.count() == 1);
-
-    Model* m = lst.at(0);
+    Model* m = dao.find(Q_UINT64_C(1));
+    QVERIFY(m != NULL);
 
     QVERIFY(m->id    == Q_UINT64_C(1));
     QVERIFY(m->kind  == Model::MODEL_SETTINGS);
     QVERIFY(m->title == "Foo settings model");
+}
 
-    m_dao.dispose(&lst);
+void ModelXmlDaoTest::testReferentialIntegrity()
+{
+    domain_id_t id = Q_UINT64_C(1);
+
+    Model* m1;
+    m1 = dao.find(id);
+
+    Model* m2;
+    m2 = dao.find(id);
+
+    QVERIFY(m1 == m2);
+}
+
+void ModelXmlDaoTest::testFindByKind()
+{
+    domain_id_t id = Q_UINT64_C(1);
+    QList< Model* > lst;
+
+    dao.findByKind(Model::MODEL_SETTINGS, &lst);
+    QVERIFY(lst.count() == 1);
+
+    Model* m1 = lst.at(0);
+
+    QVERIFY(m1->id    == id);
+    QVERIFY(m1->kind  == Model::MODEL_SETTINGS);
+    QVERIFY(m1->title == "Foo settings model");
+
+    Model* m2 = dao.find(id);
+    QVERIFY(m1 == m2);
 }
 
 void ModelXmlDaoTest::testFindByTitle()
 {
+    domain_id_t id = Q_UINT64_C(2);
     QList< Model* > lst;
-    m_dao.findByTitle("Foo assignment model", &lst);
+
+    dao.findByTitle("Foo assignment model", &lst);
     QVERIFY(lst.count() == 1);
 
-    Model* m = lst.at(0);
+    Model* m1 = lst.at(0);
 
-    QVERIFY(m->id    == Q_UINT64_C(2));
-    QVERIFY(m->kind  == Model::MODEL_AWARD_ASSIGN);
-    QVERIFY(m->title == "Foo assignment model");
+    QVERIFY(m1->id    == id);
+    QVERIFY(m1->kind  == Model::MODEL_AWARD_ASSIGN);
+    QVERIFY(m1->title == "Foo assignment model");
 
-    m_dao.dispose(&lst);
+    Model* m2 = dao.find(id);
+    QVERIFY(m1 == m2);
 }
 
 void ModelXmlDaoTest::testUpdate()
 {
-    Model m1;
-    QVERIFY(m_dao.find(Q_UINT64_C(1), &m1));
+    domain_id_t id = Q_UINT64_C(1);
 
-    m1.title = "Modified foo settings model";
+    Model* m1 = dao.find(id);
+    QVERIFY(m1 != NULL);
 
-    m_dao.update(m1);
+    m1->title = "Modified foo settings model";
+
+    dao.update(m1);
     XmlDao::sync();
 
-    Model m2;
-    QVERIFY(m_dao.find(Q_UINT64_C(1), &m2));
+    Model* m2 = dao.find(id);
+    QVERIFY(m2 != NULL);
 
-    QVERIFY(m1.id    == m2.id);
-    QVERIFY(m1.kind  == m2.kind);
-    QVERIFY(m1.title == m2.title);
+    QVERIFY(m1->id    == m2->id);
+    QVERIFY(m1->kind  == m2->kind);
+    QVERIFY(m1->title == m2->title);
 }
 
 void ModelXmlDaoTest::testRemove()
 {
-    Model m1;
-    QVERIFY(m_dao.find(Q_UINT64_C(2), &m1));
+    domain_id_t id = Q_UINT64_C(2);
 
-    m_dao.remove(m1);
+    Model* m1 = dao.find(id);
+    QVERIFY(m1 != NULL);
+
+    dao.remove(m1);
     XmlDao::sync();
 
-    Model m2;
-    QVERIFY(m_dao.find(Q_UINT64_C(2), &m2) == false);
+    Model* m2 = dao.find(id);
+    QVERIFY(m2 == NULL);
 }
 
 void ModelXmlDaoTest::cleanupTestCase()

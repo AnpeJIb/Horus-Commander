@@ -5,6 +5,7 @@ using namespace Dao::Parameters;
 
 domain_id_t ModelXmlDao::currentId  = 0;
 QString ModelXmlDao::tagName        = "ParameterModel";
+QMap<domain_id_t, Model*> ModelXmlDao::cache;
 
 ModelXmlDao::ModelXmlDao()
 {
@@ -16,52 +17,64 @@ void ModelXmlDao::all(QList<Model *> *result)
 
     QDomElement elem;
     Model* model;
+    domain_id_t id;
 
     for (int i = 0; i < lst.count(); ++i)
     {
         elem = lst.at(i).toElement();
+        id = elem.attribute(XML_ATTR_ID, "0").toULongLong();
 
-        model = new Model;
+        /** Try to get from cache at first */
+        model = cache[id];
 
-        model->id      = elem.attribute(XML_ATTR_ID,    "0").toULongLong();
-        model->kind    = elem.attribute(XML_ATTR_KIND,  "0").toInt();
-        model->title   = elem.attribute(XML_ATTR_TITLE, "");
+        if (model == NULL)
+        {
+            model = new Model;
+            model->id    = id;
+            model->kind  = elem.attribute(XML_ATTR_KIND,  "0").toInt();
+            model->title = elem.attribute(XML_ATTR_TITLE, "");
+
+            /** Put to cache */
+            cache[id] = model;
+        }
 
         (*result) << model;
     }
 }
 
-void ModelXmlDao::dispose(QList<Model *> *domains)
-{
-    foreach (Model* m, *domains)
-    {
-        domains->removeOne(m);
-        delete m;
-    }
-}
-
 void ModelXmlDao::save(Model* domain)
 {
+    /** Check existance in cache */
+    if (cache[domain->id] != NULL) return;
+
     domain->id = newId();
+
+    /** Put to cache */
+    cache[domain->id] = domain;
 
     QDomElement root = dsDoc.documentElement();
     QDomElement elem = dsDoc.createElement(tagName);
 
-    elem.setAttribute(XML_ATTR_ID,      domain->id);
-    elem.setAttribute(XML_ATTR_TITLE,   domain->title);
-    elem.setAttribute(XML_ATTR_KIND,    QString::number(domain->kind));
+    elem.setAttribute(XML_ATTR_ID,    domain->id);
+    elem.setAttribute(XML_ATTR_TITLE, domain->title);
+    elem.setAttribute(XML_ATTR_KIND,  QString::number(domain->kind));
 
     root.appendChild(elem);
 }
 
-bool ModelXmlDao::find(domain_id_t id, Model* result)
+Model* ModelXmlDao::find(domain_id_t id)
 {
-    bool found = false;
+    /** Try to get from cache at first */
+    Model* result = cache[id];
+
+    if (result != NULL) return result;
 
     QDomNodeList lst = ModelXmlDao::dsDoc.elementsByTagName(tagName);
 
     QDomElement elem;
     domain_id_t tmp_id;
+
+    bool found = false;
 
     for (int i = 0; i < lst.count(); ++i)
     {
@@ -76,12 +89,16 @@ bool ModelXmlDao::find(domain_id_t id, Model* result)
 
     if (found)
     {
-        result->id      = tmp_id;
-        result->kind    = elem.attribute(XML_ATTR_KIND,  "0").toInt();
-        result->title   = elem.attribute(XML_ATTR_TITLE, "");
+        result = new Model;
+        result->id    = tmp_id;
+        result->kind  = elem.attribute(XML_ATTR_KIND,  "0").toInt();
+        result->title = elem.attribute(XML_ATTR_TITLE, "");
+
+        /** Put to cache */
+        cache[id] = result;
     }
 
-    return found;
+    return result;
 }
 
 void ModelXmlDao::findByTitle(const domain_title_t& title, QList<Model *> *result)
@@ -89,7 +106,8 @@ void ModelXmlDao::findByTitle(const domain_title_t& title, QList<Model *> *resul
     QDomNodeList lst = ModelXmlDao::dsDoc.elementsByTagName(tagName);
 
     QDomElement elem;
-    domain_title_t tmp_title;
+    domain_id_t id;
+    domain_title_t tmp_title;    
 
     Model* model;
 
@@ -99,11 +117,22 @@ void ModelXmlDao::findByTitle(const domain_title_t& title, QList<Model *> *resul
         tmp_title = elem.attribute(XML_ATTR_TITLE, "");
         if (tmp_title == title)
         {
-            model = new Model;
+            id = elem.attribute(XML_ATTR_ID, "0").toULongLong();
 
-            model->id      = elem.attribute(XML_ATTR_ID, "0").toULongLong();
-            model->kind    = elem.attribute(XML_ATTR_KIND,  "0").toInt();
-            model->title   = tmp_title;
+            /** Try to get from cache at first */
+            model = cache[id];
+
+            if (model == NULL)
+            {
+                model = new Model;
+
+                model->id    = id;
+                model->kind  = elem.attribute(XML_ATTR_KIND,  "0").toInt();
+                model->title = tmp_title;
+
+                /** Put to cache */
+                cache[id] = model;
+            }
 
             (*result) << model;
         }
@@ -115,6 +144,7 @@ void ModelXmlDao::findByKind(domain_kind_t kind, QList<Model *> *result)
     QDomNodeList lst = ModelXmlDao::dsDoc.elementsByTagName(tagName);
 
     QDomElement elem;
+    domain_id_t id;
     domain_kind_t tmp_kind;
 
     Model* model;
@@ -123,20 +153,32 @@ void ModelXmlDao::findByKind(domain_kind_t kind, QList<Model *> *result)
     {
         elem = lst.at(i).toElement();
         tmp_kind = elem.attribute(XML_ATTR_KIND, "0").toInt();
+
         if (tmp_kind == kind)
         {
-            model = new Model;
+            id = elem.attribute(XML_ATTR_ID, "0").toULongLong();
 
-            model->id      = elem.attribute(XML_ATTR_ID, "0").toULongLong();
-            model->kind    = tmp_kind;
-            model->title   = elem.attribute(XML_ATTR_TITLE, "");
+            /** Try to get from cache at first */
+            model = cache[id];
+
+            if (model == NULL)
+            {
+                model = new Model;
+
+                model->id    = id;
+                model->kind  = kind;
+                model->title = elem.attribute(XML_ATTR_TITLE, "");
+
+                /** Put to cache */
+                cache[id] = model;
+            }
 
             (*result) << model;
         }
     }
 }
 
-void ModelXmlDao::update(const Model &domain)
+void ModelXmlDao::update(const Model *domain)
 {
     bool found = false;
 
@@ -149,7 +191,7 @@ void ModelXmlDao::update(const Model &domain)
     {
         elem = lst.at(i).toElement();
         tmp_id = elem.attribute(XML_ATTR_ID, "0").toULongLong();
-        if (tmp_id == domain.id)
+        if (tmp_id == domain->id)
         {
             found = true;
             break;
@@ -158,12 +200,12 @@ void ModelXmlDao::update(const Model &domain)
 
     if (found)
     {
-        elem.setAttribute(XML_ATTR_TITLE,   domain.title);
-        elem.setAttribute(XML_ATTR_KIND,    QString::number(domain.kind));
+        elem.setAttribute(XML_ATTR_TITLE, domain->title);
+        elem.setAttribute(XML_ATTR_KIND,  QString::number(domain->kind));
     }
 }
 
-void ModelXmlDao::remove(const Model& domain)
+void ModelXmlDao::remove(const Model *domain)
 {
     bool found = false;
 
@@ -178,7 +220,7 @@ void ModelXmlDao::remove(const Model& domain)
         node = lst.at(i);
         elem = node.toElement();
         tmp_id = elem.attribute(XML_ATTR_ID, "0").toULongLong();
-        if (tmp_id == domain.id)
+        if (tmp_id == domain->id)
         {
             found = true;
             break;
@@ -188,6 +230,14 @@ void ModelXmlDao::remove(const Model& domain)
     if (found)
     {
         node.parentNode().removeChild(node);
+
+        /** Remove from cache */
+        Model* cached = cache[domain->id];
+        if (cached != NULL)
+        {
+            cache.remove(domain->id);
+            delete cached;
+        }
     }
 }
 
