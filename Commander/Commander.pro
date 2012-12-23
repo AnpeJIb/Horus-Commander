@@ -149,7 +149,8 @@ HEADERS  += \
     dao/parent_carrier_dao.h \
     domain/parameters/model_parameter.h \
     dao/parameters/model_parameter_dao.h \
-    dao/xml/parameters/model_parameter_xml_dao.h
+    dao/xml/parameters/model_parameter_xml_dao.h \
+    domain/parameters/model_carrier.h
 
 FORMS    += \
     config/ui/config_dialog.ui \

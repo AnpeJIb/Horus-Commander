@@ -4,7 +4,6 @@ using namespace Domain;
 using namespace Domain::Parameters;
 
 ModelParameter::ModelParameter()
-    : m_model(NULL)
 {
 }
 

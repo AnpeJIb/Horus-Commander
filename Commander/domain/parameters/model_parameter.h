@@ -6,7 +6,7 @@
 #include "code_name_carrier.h"
 #include "kind_carrier.h"
 #include "parent_carrier.h"
-#include "model.h"
+#include "model_carrier.h"
 #include "logical_operation_types.h"
 
 namespace Domain { namespace Parameters {
@@ -18,6 +18,7 @@ class ModelParameter:
         public TitleCarrier,
         public CodeNameCarrier,
         public KindCarrier,
+        public ModelCarrier,
         public ParentCarrier<ModelParameter>
 {
 public:
@@ -29,9 +30,6 @@ public:
 
     void setParent(ModelParameter* parent);
     void setModel(Model* model);
-
-private:
-    Model* m_model;
 };
 
 }}

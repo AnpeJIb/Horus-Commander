@@ -90,7 +90,8 @@ HEADERS += \
     ../Commander/dao/xml/parameters/model_parameter_xml_dao.h \
     ../Commander/domain/parent_carrier.h \
     ../Commander/dao/parameters/model_parameter_dao.h \
-    dao/xml/parameters/model_parameter_xml_dao_test.h
+    dao/xml/parameters/model_parameter_xml_dao_test.h \
+    ../Commander/domain/parameters/model_carrier.h
 
 INCLUDEPATH += util \
   config \
