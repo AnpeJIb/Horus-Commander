@@ -29,7 +29,7 @@ private slots:
 
 private:
     QString m_path;
-    ModelXmlDao dao;
+    ModelDao* dao;
 };
 
 #endif // MODEL_XML_DAO_TEST_H

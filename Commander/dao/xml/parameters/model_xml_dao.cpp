@@ -11,6 +11,10 @@ ModelXmlDao::ModelXmlDao()
 {
 }
 
+ModelXmlDao::~ModelXmlDao()
+{
+}
+
 void ModelXmlDao::all(QList<Model *> *result)
 {
     QDomNodeList lst = ModelXmlDao::dsDoc.elementsByTagName(tagName);

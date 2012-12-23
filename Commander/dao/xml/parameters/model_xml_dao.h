@@ -15,6 +15,7 @@ class ModelXmlDao: public XmlDao, public ModelDao
 {
 public:
     ModelXmlDao();
+    ~ModelXmlDao();
 
     void save(Model *domain);
 
