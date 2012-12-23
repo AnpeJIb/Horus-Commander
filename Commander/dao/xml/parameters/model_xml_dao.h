@@ -14,11 +14,14 @@ class ModelXmlDao: public XmlDao, public ModelDao
 public:
     ModelXmlDao();
 
+    void all(QList<Model *> *result);
+    void dispose(QList<Model *> *domains);
+
     void save(Model *domain);
 
     bool find(domain_id_t id, Model *result);
-    void findByTitle(const domain_title_t& title, QList<Model*>* result);
-    void findByKind(domain_kind_t kind, QList< Model* >* result);
+    void findByTitle(const domain_title_t& title, QList<Model *> *result);
+    void findByKind(domain_kind_t kind, QList<Model *> *result);
 
     void update(const Model& domain);
     void remove(const Model &domain);

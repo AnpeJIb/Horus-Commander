@@ -2,12 +2,20 @@
 #define GENERIC_DAO_H
 
 #include "generic_domain.h"
+#include <QList>
 
 namespace Dao {
 
 template <class T> class GenericDao
 {
 public:
+
+    /** Get all existing domain objects */
+    virtual void all(QList<T *> *result) = 0;
+
+    /** Delete domain objects from memory */
+    virtual void dispose(QList<T *> *domains) = 0;
+
     /** Save new domain object to data source and get id */
     virtual void save(T* domain) = 0;
 

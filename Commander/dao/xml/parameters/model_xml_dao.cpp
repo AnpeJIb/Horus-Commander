@@ -10,6 +10,36 @@ ModelXmlDao::ModelXmlDao()
 {
 }
 
+void ModelXmlDao::all(QList<Model *> *result)
+{
+    QDomNodeList lst = ModelXmlDao::dsDoc.elementsByTagName(tagName);
+
+    QDomElement elem;
+    Model* model;
+
+    for (int i = 0; i < lst.count(); ++i)
+    {
+        elem = lst.at(i).toElement();
+
+        model = new Model;
+
+        model->id      = elem.attribute(XML_ATTR_ID,    "0").toULongLong();
+        model->kind    = elem.attribute(XML_ATTR_KIND,  "0").toInt();
+        model->title   = elem.attribute(XML_ATTR_TITLE, "");
+
+        (*result) << model;
+    }
+}
+
+void ModelXmlDao::dispose(QList<Model *> *domains)
+{
+    foreach (Model* m, *domains)
+    {
+        domains->removeOne(m);
+        delete m;
+    }
+}
+
 void ModelXmlDao::save(Model* domain)
 {
     domain->id = newId();

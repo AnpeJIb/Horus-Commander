@@ -18,6 +18,7 @@ private slots:
     void initTestCase();
     void testFindNone();
     void testSave();
+    void testAll();
     void testFindById();
     void testFindByKind();
     void testFindByTitle();

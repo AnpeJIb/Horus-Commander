@@ -42,6 +42,16 @@ void ModelXmlDaoTest::testSave()
     XmlDao::sync();
 }
 
+void ModelXmlDaoTest::testAll()
+{
+    QList< Model* > lst;
+    m_dao.all(&lst);
+    QVERIFY(lst.count() == 2);
+
+    m_dao.dispose(&lst);
+    QVERIFY(lst.count() == 0);
+}
+
 void ModelXmlDaoTest::testFindById()
 {
     Model m;
@@ -63,6 +73,8 @@ void ModelXmlDaoTest::testFindByKind()
     QVERIFY(m->id    == Q_UINT64_C(1));
     QVERIFY(m->kind  == Model::MODEL_SETTINGS);
     QVERIFY(m->title == "Foo settings model");
+
+    m_dao.dispose(&lst);
 }
 
 void ModelXmlDaoTest::testFindByTitle()
@@ -76,6 +88,8 @@ void ModelXmlDaoTest::testFindByTitle()
     QVERIFY(m->id    == Q_UINT64_C(2));
     QVERIFY(m->kind  == Model::MODEL_AWARD_ASSIGN);
     QVERIFY(m->title == "Foo assignment model");
+
+    m_dao.dispose(&lst);
 }
 
 void ModelXmlDaoTest::testUpdate()
