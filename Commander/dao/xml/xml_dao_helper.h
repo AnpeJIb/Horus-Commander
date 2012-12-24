@@ -63,4 +63,16 @@ inline void codeNameToXmlElement(const domain_title_t& codeName, QDomElement* el
     element->setAttribute(XML_ATTR_CODE_NAME, codeName);
 }
 
+/** Parent ID helpers */
+
+inline domain_id_t parentIdFromXmlElement(const QDomElement& element)
+{
+    return element.attribute(XML_ATTR_PARENT_ID, "0").toULongLong();
+}
+
+inline void parentIdToXmlElement(domain_id_t id, QDomElement* element)
+{
+    element->setAttribute(XML_ATTR_PARENT_ID, QString::number(id));
+}
+
 #endif // XML_DAO_HELPER_H
