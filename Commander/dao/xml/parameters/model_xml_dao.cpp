@@ -36,7 +36,7 @@ void ModelXmlDao::all(QList<Model *> *result)
         {
             model = new Model;
             model->id    = id;
-            model->kind  = elem.attribute(XML_ATTR_KIND,  "0").toInt();
+            model->kind  = kindFromXmlElement(elem);
             model->title = titleFromXmlElement(elem);
 
             /** Put to cache */
@@ -62,7 +62,7 @@ void ModelXmlDao::save(Model* domain)
 
     idToXmlElement(domain->id, &elem);
     titleToXmlElement(domain->title, &elem);
-    elem.setAttribute(XML_ATTR_KIND,  QString::number(domain->kind));
+    kindToXmlElement(domain->kind, &elem);
 
     root.appendChild(elem);
 }
@@ -81,7 +81,7 @@ Model* ModelXmlDao::find(domain_id_t id)
 
         result = new Model;
         result->id    = id;
-        result->kind  = elem.attribute(XML_ATTR_KIND,  "0").toInt();
+        result->kind  = kindFromXmlElement(elem);
         result->title = titleFromXmlElement(elem);
 
         /** Put to cache */
@@ -118,7 +118,7 @@ void ModelXmlDao::findByTitle(const domain_title_t& title, QList<Model *> *resul
                 model = new Model;
 
                 model->id    = id;
-                model->kind  = elem.attribute(XML_ATTR_KIND,  "0").toInt();
+                model->kind  = kindFromXmlElement(elem);
                 model->title = title;
 
                 /** Put to cache */
@@ -144,7 +144,7 @@ void ModelXmlDao::findByKind(domain_kind_t kind, QList<Model *> *result)
     for (int i = 0; i < lst.count(); ++i)
     {
         elem = lst.at(i).toElement();
-        tmp_kind = elem.attribute(XML_ATTR_KIND, "0").toInt();
+        tmp_kind = kindFromXmlElement(elem);
 
         if (tmp_kind == kind)
         {
@@ -178,7 +178,7 @@ void ModelXmlDao::update(const Model *domain)
         QDomElement elem = node.toElement();
 
         titleToXmlElement(domain->title, &elem);
-        elem.setAttribute(XML_ATTR_KIND,  QString::number(domain->kind));
+        kindToXmlElement(domain->kind, &elem);
     }
 }
 
