@@ -29,9 +29,9 @@ void SimpleParameterXmlDao::save(SimpleParameter *domain)
     QDomElement root = dsDoc.documentElement();
     QDomElement elem = dsDoc.createElement(tagName);
 
-    idToXmlElement(domain->id, &elem);
-    titleToXmlElement(domain->title, &elem);
-    elem.setAttribute(XML_ATTR_CODE_NAME, domain->codeName);
+    idToXmlElement(       domain->id,       &elem);
+    titleToXmlElement(    domain->title,    &elem);
+    codeNameToXmlElement( domain->codeName, &elem);
 
     root.appendChild(elem);
 }
@@ -58,7 +58,7 @@ void SimpleParameterXmlDao::all(QList<SimpleParameter *> *result)
             parameter = new SimpleParameter;
             parameter->id       = id;
             parameter->title    = titleFromXmlElement(elem);
-            parameter->codeName = elem.attribute(XML_ATTR_CODE_NAME, "");
+            parameter->codeName = codeNameFromXmlElement(elem);
 
             /** Put to cache */
             cache[id] = parameter;
@@ -83,7 +83,7 @@ SimpleParameter *SimpleParameterXmlDao::find(domain_id_t id)
         result = new SimpleParameter;
         result->id       = id;
         result->title    = titleFromXmlElement(elem);
-        result->codeName = elem.attribute(XML_ATTR_CODE_NAME, "");
+        result->codeName = codeNameFromXmlElement(elem);
 
         /** Put to cache */
         cache[id] = result;
@@ -120,7 +120,7 @@ void SimpleParameterXmlDao::findByTitle(const domain_title_t &title, QList<Simpl
 
                 parameter->id       = id;
                 parameter->title    = QString(title);
-                parameter->codeName = elem.attribute(XML_ATTR_CODE_NAME, "");
+                parameter->codeName = codeNameFromXmlElement(elem);
 
                 /** Put to cache */
                 cache[id] = parameter;
@@ -145,7 +145,7 @@ void SimpleParameterXmlDao::findByCodeName(const domain_codeName_t &codeName, QL
     for (int i = 0; i < lst.count(); ++i)
     {
         elem = lst.at(i).toElement();
-        tmp_codeName = elem.attribute(XML_ATTR_CODE_NAME, "");
+        tmp_codeName = codeNameFromXmlElement(elem);
 
         if (tmp_codeName == codeName)
         {
@@ -178,8 +178,8 @@ void SimpleParameterXmlDao::update(const SimpleParameter *domain)
     {
         QDomElement elem = node.toElement();
 
-        titleToXmlElement(domain->title, &elem);
-        elem.setAttribute(XML_ATTR_CODE_NAME, domain->codeName);
+        titleToXmlElement(   domain->title,    &elem);
+        codeNameToXmlElement(domain->codeName, &elem);
     }
 }
 

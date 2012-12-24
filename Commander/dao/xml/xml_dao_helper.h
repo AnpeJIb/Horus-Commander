@@ -5,6 +5,7 @@
 #include "generic_domain.h"
 #include "title_carrier.h"
 #include "kind_carrier.h"
+#include "code_name_carrier.h"
 
 #define XML_ATTR_ID        "id"
 #define XML_ATTR_TITLE     "title"
@@ -48,6 +49,18 @@ inline domain_kind_t kindFromXmlElement(const QDomElement& element)
 inline void kindToXmlElement(domain_kind_t kind, QDomElement* element)
 {
     element->setAttribute(XML_ATTR_KIND, QString::number(kind));
+}
+
+/** Code name helpers */
+
+inline domain_codeName_t codeNameFromXmlElement(const QDomElement& element)
+{
+    return element.attribute(XML_ATTR_CODE_NAME, "0");
+}
+
+inline void codeNameToXmlElement(const domain_title_t& codeName, QDomElement* element)
+{
+    element->setAttribute(XML_ATTR_CODE_NAME, codeName);
 }
 
 #endif // XML_DAO_HELPER_H
