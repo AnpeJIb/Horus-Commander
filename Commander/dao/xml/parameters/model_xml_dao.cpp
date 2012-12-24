@@ -27,7 +27,7 @@ void ModelXmlDao::all(QList<Model *> *result)
     for (int i = 0; i < lst.count(); ++i)
     {
         elem = lst.at(i).toElement();
-        id = elem.attribute(XML_ATTR_ID, "0").toULongLong();
+        id = idFromXmlElement(elem);
 
         /** Try to get from cache at first */
         model = cache[id];
@@ -60,7 +60,7 @@ void ModelXmlDao::save(Model* domain)
     QDomElement root = dsDoc.documentElement();
     QDomElement elem = dsDoc.createElement(tagName);
 
-    elem.setAttribute(XML_ATTR_ID,    QString::number(domain->id));
+    idToXmlElement(domain->id, &elem);
     elem.setAttribute(XML_ATTR_TITLE, domain->title);
     elem.setAttribute(XML_ATTR_KIND,  QString::number(domain->kind));
 
@@ -108,7 +108,7 @@ void ModelXmlDao::findByTitle(const domain_title_t& title, QList<Model *> *resul
         tmp_title = elem.attribute(XML_ATTR_TITLE, "");
         if (tmp_title == title)
         {
-            id = elem.attribute(XML_ATTR_ID, "0").toULongLong();
+            id = idFromXmlElement(elem);
 
             /** Try to get from cache at first */
             model = cache[id];
@@ -148,7 +148,7 @@ void ModelXmlDao::findByKind(domain_kind_t kind, QList<Model *> *result)
 
         if (tmp_kind == kind)
         {
-            id = elem.attribute(XML_ATTR_ID, "0").toULongLong();
+            id = idFromXmlElement(elem);
 
             /** Try to get from cache at first */
             model = cache[id];
@@ -214,7 +214,7 @@ QDomNode ModelXmlDao::findXmlNode(domain_id_t id)
     {
         node = lst.at(i);
         elem = node.toElement();
-        tmp_id = elem.attribute(XML_ATTR_ID, "0").toULongLong();
+        tmp_id = idFromXmlElement(elem);
         if (tmp_id == id)
         {
             result = node;
@@ -246,7 +246,7 @@ void ModelXmlDao::initId()
 
     for (int i = 0; i < lst.count(); ++i)
     {
-        tmp_id = lst.at(i).toElement().attribute(XML_ATTR_ID, "0").toULongLong();
+        tmp_id = idFromXmlElement(lst.at(i).toElement());
         currentId = qMax(tmp_id, currentId);
     }
 }

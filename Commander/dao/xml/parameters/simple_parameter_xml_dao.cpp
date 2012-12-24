@@ -29,7 +29,7 @@ void SimpleParameterXmlDao::save(SimpleParameter *domain)
     QDomElement root = dsDoc.documentElement();
     QDomElement elem = dsDoc.createElement(tagName);
 
-    elem.setAttribute(XML_ATTR_ID,        QString::number(domain->id));
+    idToXmlElement(domain->id, &elem);
     elem.setAttribute(XML_ATTR_TITLE,     domain->title);
     elem.setAttribute(XML_ATTR_CODE_NAME, domain->codeName);
 
@@ -48,7 +48,7 @@ void SimpleParameterXmlDao::all(QList<SimpleParameter *> *result)
     for (int i = 0; i < lst.count(); ++i)
     {
         elem = lst.at(i).toElement();
-        id = elem.attribute(XML_ATTR_ID, "0").toULongLong();
+        id = idFromXmlElement(elem);
 
         /** Try to get from cache at first */
         parameter = cache[id];
@@ -109,7 +109,7 @@ void SimpleParameterXmlDao::findByTitle(const domain_title_t &title, QList<Simpl
         tmp_title = elem.attribute(XML_ATTR_TITLE, "");
         if (tmp_title == title)
         {
-            id = elem.attribute(XML_ATTR_ID, "0").toULongLong();
+            id = idFromXmlElement(elem);
 
             /** Try to get from cache at first */
             parameter = cache[id];
@@ -149,7 +149,7 @@ void SimpleParameterXmlDao::findByCodeName(const domain_codeName_t &codeName, QL
 
         if (tmp_codeName == codeName)
         {
-            id = elem.attribute(XML_ATTR_ID, "0").toULongLong();
+            id = idFromXmlElement(elem);
 
             /** Try to get from cache at first */
             parameter = cache[id];
@@ -215,7 +215,7 @@ QDomNode SimpleParameterXmlDao::findXmlNode(domain_id_t id)
     {
         node = lst.at(i);
         elem = node.toElement();
-        tmp_id = elem.attribute(XML_ATTR_ID, "0").toULongLong();
+        tmp_id = idFromXmlElement(elem);
         if (tmp_id == id)
         {
             result = node;
@@ -247,7 +247,7 @@ void SimpleParameterXmlDao::initId()
 
     for (int i = 0; i < lst.count(); ++i)
     {
-        tmp_id = lst.at(i).toElement().attribute(XML_ATTR_ID, "0").toULongLong();
+        tmp_id = idFromXmlElement(lst.at(i).toElement());
         currentId = qMax(tmp_id, currentId);
     }
 }

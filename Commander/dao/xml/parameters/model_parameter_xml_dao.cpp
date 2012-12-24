@@ -46,7 +46,7 @@ void ModelParameterXmlDao::save(ModelParameter *domain)
         for (int i = 0; i < lst.count(); ++i)
         {
             parentNode = lst.at(i);
-            if (parentNode.toElement().attribute(XML_ATTR_ID, "0").toULongLong() == parent_id)
+            if (idFromXmlElement(parentNode.toElement()) == parent_id)
             {
                 root = parentNode;
                 found = true;
@@ -62,7 +62,7 @@ void ModelParameterXmlDao::save(ModelParameter *domain)
 
     domain->id = newId();
 
-    elem.setAttribute(XML_ATTR_ID,        QString::number(domain->id));
+    idToXmlElement(domain->id, &elem);
     elem.setAttribute(XML_ATTR_TITLE,     domain->title);
     elem.setAttribute(XML_ATTR_KIND,      QString::number(domain->kind));
     elem.setAttribute(XML_ATTR_PARENT_ID, QString::number(parent_id));
@@ -131,7 +131,7 @@ void ModelParameterXmlDao::initId()
 
     for (int i = 0; i < lst.count(); ++i)
     {
-        tmp_id = lst.at(i).toElement().attribute(XML_ATTR_ID, "0").toULongLong();
+        tmp_id = idFromXmlElement(lst.at(i).toElement());
         currentId = qMax(tmp_id, currentId);
     }
 }
