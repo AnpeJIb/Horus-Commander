@@ -62,11 +62,11 @@ void ModelParameterXmlDao::save(ModelParameter *domain)
 
     domain->id = newId();
 
-    idToXmlElement(domain->id, &elem);
-    titleToXmlElement(domain->title, &elem);
-    kindToXmlElement(domain->kind, &elem);
-    parentIdToXmlElement(parent_id, &elem);
-    elem.setAttribute(XML_ATTR_MODEL_ID,  QString::number(model->id));
+    idToXmlElement(      domain->id,    &elem);
+    titleToXmlElement(   domain->title, &elem);
+    kindToXmlElement(    domain->kind,  &elem);
+    parentIdToXmlElement(parent_id,     &elem);
+    modelIdToXmlElement( model->id,     &elem);
     elem.setAttribute(XML_ATTR_SIMPLE_PARAMETER_ID, QString::number(parameter->id));
 
     root.appendChild(elem);
