@@ -10,7 +10,7 @@ namespace Domain { namespace Parameters {
 class SimpleParameter: public GenericDomain, public TitleCarrier, public CodeNameCarrier
 {
 public:
-    SimpleParameter();
+    SimpleParameter(){}
 };
 
 }}

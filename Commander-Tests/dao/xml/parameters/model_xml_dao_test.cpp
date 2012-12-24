@@ -134,9 +134,12 @@ void ModelXmlDaoTest::testUpdate()
     QVERIFY(m1 != NULL);
 
     m1->title = "Modified foo settings model";
-
     dao->update(m1);
+
     XmlDao::sync();
+    ModelXmlDao::clearCache();
+    QList< Model* > lst;
+    dao->all(&lst);
 
     Model* m2 = dao->find(id);
 

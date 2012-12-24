@@ -10,7 +10,7 @@ template <class T> class CodeNameCarrierDao
 {
 public:
     /** Find domain object in data source by code name */
-    virtual void findByCodeName(domain_codeName_t codeName, QList< T* >* result) = 0;
+    virtual void findByCodeName(const domain_codeName_t& codeName, QList< T* >* result) = 0;
 };
 
 }

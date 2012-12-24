@@ -1,8 +1,8 @@
 #ifndef MODEL_XML_DAO_H
 #define MODEL_XML_DAO_H
 
-#include "model.h"
 #include "xml_dao.h"
+#include "model.h"
 #include "model_dao.h"
 
 #include <QMap>
@@ -28,6 +28,7 @@ public:
     void remove(const Model* domain);
 
     QDomNode findXmlNode(domain_id_t id);
+    static void clearCache();
 
 private:
     static domain_id_t newId();

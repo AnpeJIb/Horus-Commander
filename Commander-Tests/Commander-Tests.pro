@@ -39,7 +39,9 @@ SOURCES += \
     ../Commander/domain/parameters/model_parameter.cpp \
     ../Commander/domain/parameters/model.cpp \
     ../Commander/dao/xml/parameters/model_parameter_xml_dao.cpp \
-    dao/xml/parameters/model_parameter_xml_dao_test.cpp
+    dao/xml/parameters/model_parameter_xml_dao_test.cpp \
+    ../Commander/dao/xml/parameters/simple_parameter_xml_dao.cpp \
+    dao/xml/parameters/simple_parameter_xml_dao_test.cpp
 
 HEADERS += \
     ../Commander/util/status_print.h \
@@ -92,7 +94,11 @@ HEADERS += \
     ../Commander/dao/parameters/model_parameter_dao.h \
     dao/xml/parameters/model_parameter_xml_dao_test.h \
     ../Commander/domain/parameters/model_carrier.h \
-    ../Commander/domain/parameters/simple_parameter.h
+    ../Commander/domain/parameters/simple_parameter.h \
+    ../Commander/dao/parameters/model_carrier_dao.h \
+    ../Commander/dao/parameters/simple_parameter_dao.h \
+    ../Commander/dao/xml/parameters/simple_parameter_xml_dao.h \
+    dao/xml/parameters/simple_parameter_xml_dao_test.h
 
 INCLUDEPATH += util \
   config \

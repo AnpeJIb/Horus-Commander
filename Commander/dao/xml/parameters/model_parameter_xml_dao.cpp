@@ -99,10 +99,6 @@ void ModelParameterXmlDao::findByKind(domain_kind_t kind, QList<ModelParameter *
 {
 }
 
-void ModelParameterXmlDao::findByCodeName(domain_codeName_t codeName, QList<ModelParameter *> *result)
-{
-}
-
 void ModelParameterXmlDao::findByParent(const ModelParameter *parent, QList<ModelParameter *> *result)
 {
 }

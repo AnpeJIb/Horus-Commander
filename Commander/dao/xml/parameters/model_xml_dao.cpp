@@ -18,7 +18,7 @@ ModelXmlDao::~ModelXmlDao()
 void ModelXmlDao::all(QList<Model *> *result)
 {
     result->clear();
-    QDomNodeList lst = ModelXmlDao::dsDoc.elementsByTagName(tagName);
+    QDomNodeList lst = dsDoc.elementsByTagName(tagName);
 
     QDomElement elem;
     Model* model;
@@ -94,11 +94,11 @@ Model* ModelXmlDao::find(domain_id_t id)
 void ModelXmlDao::findByTitle(const domain_title_t& title, QList<Model *> *result)
 {
     result->clear();
-    QDomNodeList lst = ModelXmlDao::dsDoc.elementsByTagName(tagName);
+    QDomNodeList lst = dsDoc.elementsByTagName(tagName);
 
     QDomElement elem;
     domain_id_t id;
-    domain_title_t tmp_title;    
+    domain_title_t tmp_title;
 
     Model* model;
 
@@ -119,7 +119,7 @@ void ModelXmlDao::findByTitle(const domain_title_t& title, QList<Model *> *resul
 
                 model->id    = id;
                 model->kind  = elem.attribute(XML_ATTR_KIND,  "0").toInt();
-                model->title = tmp_title;
+                model->title = title;
 
                 /** Put to cache */
                 cache[id] = model;
@@ -133,7 +133,7 @@ void ModelXmlDao::findByTitle(const domain_title_t& title, QList<Model *> *resul
 void ModelXmlDao::findByKind(domain_kind_t kind, QList<Model *> *result)
 {
     result->clear();
-    QDomNodeList lst = ModelXmlDao::dsDoc.elementsByTagName(tagName);
+    QDomNodeList lst = dsDoc.elementsByTagName(tagName);
 
     QDomElement elem;
     domain_id_t id;
@@ -208,7 +208,7 @@ QDomNode ModelXmlDao::findXmlNode(domain_id_t id)
     QDomNode result;
     result.clear();
 
-    QDomNodeList lst = ModelXmlDao::dsDoc.elementsByTagName(tagName);
+    QDomNodeList lst = dsDoc.elementsByTagName(tagName);
 
     for (int i = 0; i < lst.count(); ++i)
     {
@@ -223,6 +223,11 @@ QDomNode ModelXmlDao::findXmlNode(domain_id_t id)
     }
 
     return result;
+}
+
+void ModelXmlDao::clearCache()
+{
+    cache.clear();
 }
 
 domain_id_t ModelXmlDao::newId()

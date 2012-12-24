@@ -72,7 +72,8 @@ SOURCES += main.cpp\
     dao/xml/xml_dao.cpp \
     dao/xml/parameters/model_xml_dao.cpp \
     dao/xml/parameters/model_parameter_xml_dao.cpp \
-    domain/parameters/model_parameter.cpp
+    domain/parameters/model_parameter.cpp \
+    dao/xml/parameters/simple_parameter_xml_dao.cpp
 
 HEADERS  += \
     config/config.h \
@@ -151,7 +152,10 @@ HEADERS  += \
     dao/parameters/model_parameter_dao.h \
     dao/xml/parameters/model_parameter_xml_dao.h \
     domain/parameters/model_carrier.h \
-    domain/parameters/simple_parameter.h
+    domain/parameters/simple_parameter.h \
+    dao/parameters/simple_parameter_dao.h \
+    dao/parameters/model_carrier_dao.h \
+    dao/xml/parameters/simple_parameter_xml_dao.h
 
 FORMS    += \
     config/ui/config_dialog.ui \
