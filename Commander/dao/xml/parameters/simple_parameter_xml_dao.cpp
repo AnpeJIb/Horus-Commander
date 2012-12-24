@@ -30,7 +30,7 @@ void SimpleParameterXmlDao::save(SimpleParameter *domain)
     QDomElement elem = dsDoc.createElement(tagName);
 
     idToXmlElement(domain->id, &elem);
-    elem.setAttribute(XML_ATTR_TITLE,     domain->title);
+    titleToXmlElement(domain->title, &elem);
     elem.setAttribute(XML_ATTR_CODE_NAME, domain->codeName);
 
     root.appendChild(elem);
@@ -57,7 +57,7 @@ void SimpleParameterXmlDao::all(QList<SimpleParameter *> *result)
         {
             parameter = new SimpleParameter;
             parameter->id       = id;
-            parameter->title    = elem.attribute(XML_ATTR_TITLE, "");
+            parameter->title    = titleFromXmlElement(elem);
             parameter->codeName = elem.attribute(XML_ATTR_CODE_NAME, "");
 
             /** Put to cache */
@@ -82,7 +82,7 @@ SimpleParameter *SimpleParameterXmlDao::find(domain_id_t id)
 
         result = new SimpleParameter;
         result->id       = id;
-        result->title    = elem.attribute(XML_ATTR_TITLE, "");
+        result->title    = titleFromXmlElement(elem);
         result->codeName = elem.attribute(XML_ATTR_CODE_NAME, "");
 
         /** Put to cache */
@@ -106,7 +106,7 @@ void SimpleParameterXmlDao::findByTitle(const domain_title_t &title, QList<Simpl
     for (int i = 0; i < lst.count(); ++i)
     {
         elem = lst.at(i).toElement();
-        tmp_title = elem.attribute(XML_ATTR_TITLE, "");
+        tmp_title = titleFromXmlElement(elem);
         if (tmp_title == title)
         {
             id = idFromXmlElement(elem);
@@ -159,7 +159,7 @@ void SimpleParameterXmlDao::findByCodeName(const domain_codeName_t &codeName, QL
                 parameter = new SimpleParameter;
 
                 parameter->id        = id;
-                parameter->title     = elem.attribute(XML_ATTR_TITLE, "");
+                parameter->title     = titleFromXmlElement(elem);
                 parameter->codeName  = codeName;
 
                 /** Put to cache */
@@ -178,7 +178,7 @@ void SimpleParameterXmlDao::update(const SimpleParameter *domain)
     {
         QDomElement elem = node.toElement();
 
-        elem.setAttribute(XML_ATTR_TITLE,     domain->title);
+        titleToXmlElement(domain->title, &elem);
         elem.setAttribute(XML_ATTR_CODE_NAME, domain->codeName);
     }
 }

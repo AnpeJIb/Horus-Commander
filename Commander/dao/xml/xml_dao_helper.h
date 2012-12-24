@@ -3,6 +3,7 @@
 
 #include <QDomElement>
 #include "generic_domain.h"
+#include "title_carrier.h"
 
 #define XML_ATTR_ID        "id"
 #define XML_ATTR_TITLE     "title"
@@ -20,6 +21,16 @@ inline domain_id_t idFromXmlElement(const QDomElement& element)
 inline void idToXmlElement(domain_id_t id, QDomElement* element)
 {
     element->setAttribute(XML_ATTR_ID, QString::number(id));
+}
+
+inline domain_title_t titleFromXmlElement(const QDomElement& element)
+{
+    return element.attribute(XML_ATTR_TITLE, "No title");
+}
+
+inline void titleToXmlElement(const domain_title_t& title, QDomElement* element)
+{
+    element->setAttribute(XML_ATTR_TITLE, title);
 }
 
 #endif // XML_DAO_HELPER_H

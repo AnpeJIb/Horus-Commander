@@ -37,7 +37,7 @@ void ModelXmlDao::all(QList<Model *> *result)
             model = new Model;
             model->id    = id;
             model->kind  = elem.attribute(XML_ATTR_KIND,  "0").toInt();
-            model->title = elem.attribute(XML_ATTR_TITLE, "");
+            model->title = titleFromXmlElement(elem);
 
             /** Put to cache */
             cache[id] = model;
@@ -61,7 +61,7 @@ void ModelXmlDao::save(Model* domain)
     QDomElement elem = dsDoc.createElement(tagName);
 
     idToXmlElement(domain->id, &elem);
-    elem.setAttribute(XML_ATTR_TITLE, domain->title);
+    titleToXmlElement(domain->title, &elem);
     elem.setAttribute(XML_ATTR_KIND,  QString::number(domain->kind));
 
     root.appendChild(elem);
@@ -82,7 +82,7 @@ Model* ModelXmlDao::find(domain_id_t id)
         result = new Model;
         result->id    = id;
         result->kind  = elem.attribute(XML_ATTR_KIND,  "0").toInt();
-        result->title = elem.attribute(XML_ATTR_TITLE, "");
+        result->title = titleFromXmlElement(elem);
 
         /** Put to cache */
         cache[id] = result;
@@ -105,7 +105,7 @@ void ModelXmlDao::findByTitle(const domain_title_t& title, QList<Model *> *resul
     for (int i = 0; i < lst.count(); ++i)
     {
         elem = lst.at(i).toElement();
-        tmp_title = elem.attribute(XML_ATTR_TITLE, "");
+        tmp_title = titleFromXmlElement(elem);
         if (tmp_title == title)
         {
             id = idFromXmlElement(elem);
@@ -159,7 +159,7 @@ void ModelXmlDao::findByKind(domain_kind_t kind, QList<Model *> *result)
 
                 model->id    = id;
                 model->kind  = kind;
-                model->title = elem.attribute(XML_ATTR_TITLE, "");
+                model->title = titleFromXmlElement(elem);
 
                 /** Put to cache */
                 cache[id] = model;
@@ -177,7 +177,7 @@ void ModelXmlDao::update(const Model *domain)
     {
         QDomElement elem = node.toElement();
 
-        elem.setAttribute(XML_ATTR_TITLE, domain->title);
+        titleToXmlElement(domain->title, &elem);
         elem.setAttribute(XML_ATTR_KIND,  QString::number(domain->kind));
     }
 }
