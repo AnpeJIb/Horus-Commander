@@ -28,7 +28,6 @@ public:
     void remove(const SimpleParameter* domain);
 
     QDomNode findXmlNode(domain_id_t id);
-    static void clearCache();
 
 private:
     static domain_id_t newId();
@@ -36,7 +35,6 @@ private:
     static domain_id_t currentId;
 
     static QString tagName;
-    static QMap<domain_id_t, SimpleParameter*> cache;
 };
 
 }}

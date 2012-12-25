@@ -36,8 +36,6 @@ private:
     static domain_id_t currentId;
     static QString tagName;
 
-    static QMap<domain_id_t, ModelParameter*> cache;
-
     ModelXmlDao modelDao;
 };
 

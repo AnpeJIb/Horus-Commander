@@ -6,8 +6,6 @@ using namespace Dao::Parameters;
 domain_id_t SimpleParameterXmlDao::currentId = 0;
 QString SimpleParameterXmlDao::tagName       = "SimpleParameter";
 
-QMap<domain_id_t, SimpleParameter*> SimpleParameterXmlDao::cache;
-
 SimpleParameterXmlDao::SimpleParameterXmlDao()
 {
 }
@@ -224,11 +222,6 @@ QDomNode SimpleParameterXmlDao::findXmlNode(domain_id_t id)
     }
 
     return result;
-}
-
-void SimpleParameterXmlDao::clearCache()
-{
-    cache.clear();
 }
 
 domain_id_t SimpleParameterXmlDao::newId()

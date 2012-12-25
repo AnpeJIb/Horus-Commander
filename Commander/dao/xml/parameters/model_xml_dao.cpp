@@ -5,7 +5,6 @@ using namespace Dao::Parameters;
 
 domain_id_t ModelXmlDao::currentId  = 0;
 QString ModelXmlDao::tagName        = "ParameterModel";
-QMap<domain_id_t, Model*> ModelXmlDao::cache;
 
 ModelXmlDao::ModelXmlDao()
 {
@@ -223,11 +222,6 @@ QDomNode ModelXmlDao::findXmlNode(domain_id_t id)
     }
 
     return result;
-}
-
-void ModelXmlDao::clearCache()
-{
-    cache.clear();
 }
 
 domain_id_t ModelXmlDao::newId()

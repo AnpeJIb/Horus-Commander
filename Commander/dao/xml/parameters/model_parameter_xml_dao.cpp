@@ -6,7 +6,6 @@ using namespace Dao::Parameters;
 
 domain_id_t ModelParameterXmlDao::currentId = 0;
 QString ModelParameterXmlDao::tagName       = "Parameter";
-QMap<domain_id_t, ModelParameter*> ModelParameterXmlDao::cache;
 
 ModelParameterXmlDao::ModelParameterXmlDao()
 {
