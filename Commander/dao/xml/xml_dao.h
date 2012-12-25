@@ -34,11 +34,14 @@ template <class T, class D> class XmlDao: public XmlDaoBase
 public:
     virtual ~XmlDao() = 0;
 
+    QDomNode findXmlNode(domain_id_t id);
+
 protected:
     static QString tagName() { return D::tagNameRaw(); }
 
     static domain_id_t newId();
     static void initId();
+
     static domain_id_t currentId;
 };
 
@@ -65,6 +68,32 @@ template <class T, class D> void XmlDao<T, D>::initId()
         tmp_id = idFromXmlElement(lst.at(i).toElement());
         currentId = qMax(tmp_id, currentId);
     }
+}
+
+template <class T, class D> QDomNode XmlDao<T, D>::findXmlNode(domain_id_t id)
+{
+    domain_id_t tmp_id;
+    QDomElement elem;
+    QDomNode node;
+
+    QDomNode result;
+    result.clear();
+
+    QDomNodeList lst = dsDoc.elementsByTagName(tagName());
+
+    for (int i = 0; i < lst.count(); ++i)
+    {
+        node = lst.at(i);
+        elem = node.toElement();
+        tmp_id = idFromXmlElement(elem);
+        if (tmp_id == id)
+        {
+            result = node;
+            break;
+        }
+    }
+
+    return result;
 }
 
 }

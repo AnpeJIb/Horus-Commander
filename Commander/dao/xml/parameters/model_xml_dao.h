@@ -27,8 +27,6 @@ public:
     void update(const Model* domain);
     void remove(const Model* domain);
 
-    QDomNode findXmlNode(domain_id_t id);
-
     static QString tagNameRaw();
 
 private:

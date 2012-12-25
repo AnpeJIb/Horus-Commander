@@ -197,32 +197,6 @@ void ModelXmlDao::remove(const Model *domain)
     }
 }
 
-QDomNode ModelXmlDao::findXmlNode(domain_id_t id)
-{
-    domain_id_t tmp_id;
-    QDomElement elem;
-    QDomNode node;
-
-    QDomNode result;
-    result.clear();
-
-    QDomNodeList lst = dsDoc.elementsByTagName(m_tagName);
-
-    for (int i = 0; i < lst.count(); ++i)
-    {
-        node = lst.at(i);
-        elem = node.toElement();
-        tmp_id = idFromXmlElement(elem);
-        if (tmp_id == id)
-        {
-            result = node;
-            break;
-        }
-    }
-
-    return result;
-}
-
 QString ModelXmlDao::tagNameRaw()
 {
     return m_tagName;
