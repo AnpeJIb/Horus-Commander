@@ -6,6 +6,7 @@
 #include "title_carrier.h"
 #include "kind_carrier.h"
 #include "code_name_carrier.h"
+#include "xml_dao.h"
 
 #define XML_ATTR_ID_DEFAULT "0"
 
@@ -19,12 +20,12 @@
 
 /** ID helpers */
 
-inline domain_id_t idFromXmlElement(const QDomElement& element)
+inline domain_id_t idFromXmlElement(const QDomElement &element)
 {
     return element.attribute(XML_ATTR_ID, XML_ATTR_ID_DEFAULT).toULongLong();
 }
 
-inline void idToXmlElement(domain_id_t id, QDomElement* element)
+inline void idToXmlElement(domain_id_t id, QDomElement *element)
 {
     element->setAttribute(XML_ATTR_ID, QString::number(id));
 }

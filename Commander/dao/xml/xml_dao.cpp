@@ -6,13 +6,14 @@
 #include <QTextStream>
 
 #include "status_print.h"
+#include "xml_dao_helper.h"
 
-#define XML_ROOT  "root"
+#define XML_ROOT    "root"
 
-QDomDocument Dao::XmlDao::dsDoc;
-QString Dao::XmlDao::dsPath;
+QDomDocument Dao::XmlDaoBase::dsDoc;
+QString Dao::XmlDaoBase::dsPath;
 
-void Dao::XmlDao::init(const QString& path)
+void Dao::XmlDaoBase::init(const QString& path)
 {
     dsPath = path;
 
@@ -55,7 +56,7 @@ void Dao::XmlDao::init(const QString& path)
     }
 }
 
-void Dao::XmlDao::createNew()
+void Dao::XmlDaoBase::createNew()
 {
     QDomProcessingInstruction pi =
             dsDoc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\"");
@@ -65,13 +66,13 @@ void Dao::XmlDao::createNew()
     dsDoc.appendChild(root);
 }
 
-void Dao::XmlDao::clearUp()
+void Dao::XmlDaoBase::clearUp()
 {
     dsDoc.clear();
     QFile::remove(dsPath);
 }
 
-void Dao::XmlDao::sync()
+void Dao::XmlDaoBase::sync()
 {
     QFile file(dsPath);
 

@@ -9,7 +9,9 @@ namespace Dao { namespace Parameters {
 
 using namespace Domain::Parameters;
 
-class ModelXmlDao: public XmlDao, public ModelDao
+class ModelXmlDao;
+
+class ModelXmlDao: public XmlDao<Model, ModelXmlDao>, public ModelDao
 {
 public:
     ModelXmlDao();
@@ -27,12 +29,10 @@ public:
 
     QDomNode findXmlNode(domain_id_t id);
 
-private:
-    static domain_id_t newId();
-    static void initId();
-    static domain_id_t currentId;
+    static QString tagNameRaw();
 
-    static QString tagName;
+private:
+    static QString m_tagName;
 };
 
 }}

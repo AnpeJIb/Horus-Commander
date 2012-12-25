@@ -1,5 +1,5 @@
-#ifndef PARAMETER_XML_DAO_H
-#define PARAMETER_XML_DAO_H
+#ifndef MODEL_PARAMETER_XML_DAO_H
+#define MODEL_PARAMETER_XML_DAO_H
 
 #include "xml_dao.h"
 #include "model_xml_dao.h"
@@ -12,7 +12,9 @@ namespace Dao { namespace Parameters {
 
 using namespace Domain::Parameters;
 
-class ModelParameterXmlDao: public XmlDao, public ModelParameterDao
+class ModelParameterXmlDao;
+
+class ModelParameterXmlDao: public XmlDao<ModelParameter, ModelParameterXmlDao>, public ModelParameterDao
 {
 public:
     ModelParameterXmlDao();
@@ -30,15 +32,14 @@ public:
     void update(const ModelParameter* domain);
     void remove(const ModelParameter* domain);
 
+    static QString tagNameRaw();
+
 private:
-    static domain_id_t newId();
-    static void initId();
-    static domain_id_t currentId;
-    static QString tagName;
+    static QString m_tagName;
 
     ModelXmlDao modelDao;
 };
 
 }}
 
-#endif // PARAMETER_XML_DAO_H
+#endif // MODEL_PARAMETER_XML_DAO_H

@@ -1,18 +1,19 @@
 #ifndef XML_DAO_H
 #define XML_DAO_H
 
+#include <QString>
+#include <QDomDocument>
+
 #include "generic_domain.h"
 #include "generic_dao.h"
-#include <QString>
-
-#include <QDomDocument>
+#include "xml_dao_helper.h"
 
 namespace Dao {
 
-class XmlDao
+class XmlDaoBase
 {
 public:
-    virtual ~XmlDao() = 0;
+    virtual ~XmlDaoBase() = 0;
 
     static void init(const QString& path);
     static void clearUp();
@@ -26,7 +27,45 @@ private:
     static QString dsPath;
 };
 
-inline XmlDao::~XmlDao(){}
+inline XmlDaoBase::~XmlDaoBase(){}
+
+template <class T, class D> class XmlDao: public XmlDaoBase
+{
+public:
+    virtual ~XmlDao() = 0;
+
+protected:
+    static QString tagName() { return D::tagNameRaw(); }
+
+    static domain_id_t newId();
+    static void initId();
+    static domain_id_t currentId;
+};
+
+template <class T, class D> inline XmlDao<T, D>::~XmlDao(){}
+
+template <class T, class D> domain_id_t XmlDao<T, D>::currentId = 0;
+
+template <class T, class D> domain_id_t XmlDao<T, D>::newId()
+{
+    if (currentId==0)
+        initId();
+
+    return ++currentId;
+}
+
+template <class T, class D> void XmlDao<T, D>::initId()
+{
+    QDomNodeList lst = dsDoc.elementsByTagName(tagName());
+
+    domain_id_t tmp_id;
+
+    for (int i = 0; i < lst.count(); ++i)
+    {
+        tmp_id = idFromXmlElement(lst.at(i).toElement());
+        currentId = qMax(tmp_id, currentId);
+    }
+}
 
 }
 

@@ -3,8 +3,7 @@
 
 using namespace Dao::Parameters;
 
-domain_id_t ModelXmlDao::currentId  = 0;
-QString ModelXmlDao::tagName        = "ParameterModel";
+QString ModelXmlDao::m_tagName = "ParameterModel";
 
 ModelXmlDao::ModelXmlDao()
 {
@@ -17,7 +16,7 @@ ModelXmlDao::~ModelXmlDao()
 void ModelXmlDao::all(QList<Model *> *result)
 {
     result->clear();
-    QDomNodeList lst = dsDoc.elementsByTagName(tagName);
+    QDomNodeList lst = dsDoc.elementsByTagName(m_tagName);
 
     QDomElement elem;
     Model* model;
@@ -57,7 +56,7 @@ void ModelXmlDao::save(Model* domain)
     cache[domain->id] = domain;
 
     QDomElement root = dsDoc.documentElement();
-    QDomElement elem = dsDoc.createElement(tagName);
+    QDomElement elem = dsDoc.createElement(m_tagName);
 
     idToXmlElement(domain->id, &elem);
     titleToXmlElement(domain->title, &elem);
@@ -93,7 +92,7 @@ Model* ModelXmlDao::find(domain_id_t id)
 void ModelXmlDao::findByTitle(const domain_title_t& title, QList<Model *> *result)
 {
     result->clear();
-    QDomNodeList lst = dsDoc.elementsByTagName(tagName);
+    QDomNodeList lst = dsDoc.elementsByTagName(m_tagName);
 
     QDomElement elem;
     domain_id_t id;
@@ -132,7 +131,7 @@ void ModelXmlDao::findByTitle(const domain_title_t& title, QList<Model *> *resul
 void ModelXmlDao::findByKind(domain_kind_t kind, QList<Model *> *result)
 {
     result->clear();
-    QDomNodeList lst = dsDoc.elementsByTagName(tagName);
+    QDomNodeList lst = dsDoc.elementsByTagName(m_tagName);
 
     QDomElement elem;
     domain_id_t id;
@@ -207,7 +206,7 @@ QDomNode ModelXmlDao::findXmlNode(domain_id_t id)
     QDomNode result;
     result.clear();
 
-    QDomNodeList lst = dsDoc.elementsByTagName(tagName);
+    QDomNodeList lst = dsDoc.elementsByTagName(m_tagName);
 
     for (int i = 0; i < lst.count(); ++i)
     {
@@ -224,23 +223,7 @@ QDomNode ModelXmlDao::findXmlNode(domain_id_t id)
     return result;
 }
 
-domain_id_t ModelXmlDao::newId()
+QString ModelXmlDao::tagNameRaw()
 {
-    if (currentId==0)
-        initId();
-
-    return ++currentId;
-}
-
-void ModelXmlDao::initId()
-{
-    QDomNodeList lst = dsDoc.elementsByTagName(tagName);
-
-    domain_id_t tmp_id;
-
-    for (int i = 0; i < lst.count(); ++i)
-    {
-        tmp_id = idFromXmlElement(lst.at(i).toElement());
-        currentId = qMax(tmp_id, currentId);
-    }
+    return m_tagName;
 }

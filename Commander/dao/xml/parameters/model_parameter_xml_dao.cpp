@@ -4,8 +4,7 @@
 
 using namespace Dao::Parameters;
 
-domain_id_t ModelParameterXmlDao::currentId = 0;
-QString ModelParameterXmlDao::tagName       = "Parameter";
+QString ModelParameterXmlDao::m_tagName = "Parameter";
 
 ModelParameterXmlDao::ModelParameterXmlDao()
 {
@@ -57,7 +56,7 @@ void ModelParameterXmlDao::save(ModelParameter *domain)
             return;
     }
 
-    QDomElement elem = dsDoc.createElement(tagName);
+    QDomElement elem = dsDoc.createElement(m_tagName);
 
     domain->id = newId();
 
@@ -114,23 +113,7 @@ void ModelParameterXmlDao::remove(const ModelParameter *domain)
 {
 }
 
-domain_id_t ModelParameterXmlDao::newId()
+QString ModelParameterXmlDao::tagNameRaw()
 {
-    if (currentId==0)
-        initId();
-
-    return ++currentId;
-}
-
-void ModelParameterXmlDao::initId()
-{
-    QDomNodeList lst = dsDoc.elementsByTagName(tagName);
-
-    domain_id_t tmp_id;
-
-    for (int i = 0; i < lst.count(); ++i)
-    {
-        tmp_id = idFromXmlElement(lst.at(i).toElement());
-        currentId = qMax(tmp_id, currentId);
-    }
+    return m_tagName;
 }

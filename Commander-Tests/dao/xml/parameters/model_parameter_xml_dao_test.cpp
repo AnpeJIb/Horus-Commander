@@ -11,7 +11,7 @@ ModelParameterXmlDaoTest::ModelParameterXmlDaoTest(QObject *parent)
 
 void ModelParameterXmlDaoTest::initTestCase()
 {
-    XmlDao::init(m_path);
+    XmlDaoBase::init(m_path);
     QVERIFY(QFile::exists(m_path));
 
     modelDao = new ModelXmlDao;
@@ -83,7 +83,7 @@ void ModelParameterXmlDaoTest::testSave()
     modelParameterDao->save(p5);
     QVERIFY(p5->id > nullId);
 
-    XmlDao::sync();
+    XmlDaoBase::sync();
 }
 
 void ModelParameterXmlDaoTest::cleanupTestCase()
@@ -91,6 +91,6 @@ void ModelParameterXmlDaoTest::cleanupTestCase()
     delete (ModelParameterXmlDao*) modelParameterDao;
     delete (ModelXmlDao*) modelDao;
 
-    XmlDao::clearUp();
+    XmlDaoBase::clearUp();
     QVERIFY(QFile::exists(m_path)==false);
 }

@@ -3,8 +3,7 @@
 
 using namespace Dao::Parameters;
 
-domain_id_t SimpleParameterXmlDao::currentId = 0;
-QString SimpleParameterXmlDao::tagName       = "SimpleParameter";
+QString SimpleParameterXmlDao::m_tagName = "SimpleParameter";
 
 SimpleParameterXmlDao::SimpleParameterXmlDao()
 {
@@ -25,7 +24,7 @@ void SimpleParameterXmlDao::save(SimpleParameter *domain)
     cache[domain->id] = domain;
 
     QDomElement root = dsDoc.documentElement();
-    QDomElement elem = dsDoc.createElement(tagName);
+    QDomElement elem = dsDoc.createElement(m_tagName);
 
     idToXmlElement(       domain->id,       &elem);
     titleToXmlElement(    domain->title,    &elem);
@@ -37,7 +36,7 @@ void SimpleParameterXmlDao::save(SimpleParameter *domain)
 void SimpleParameterXmlDao::all(QList<SimpleParameter *> *result)
 {
     result->clear();
-    QDomNodeList lst = dsDoc.elementsByTagName(tagName);
+    QDomNodeList lst = dsDoc.elementsByTagName(m_tagName);
 
     QDomElement elem;
     SimpleParameter* parameter;
@@ -93,7 +92,7 @@ SimpleParameter *SimpleParameterXmlDao::find(domain_id_t id)
 void SimpleParameterXmlDao::findByTitle(const domain_title_t &title, QList<SimpleParameter *> *result)
 {
     result->clear();
-    QDomNodeList lst = dsDoc.elementsByTagName(tagName);
+    QDomNodeList lst = dsDoc.elementsByTagName(m_tagName);
 
     QDomElement elem;
     domain_id_t id;
@@ -132,7 +131,7 @@ void SimpleParameterXmlDao::findByTitle(const domain_title_t &title, QList<Simpl
 void SimpleParameterXmlDao::findByCodeName(const domain_codeName_t &codeName, QList<SimpleParameter *> *result)
 {
     result->clear();
-    QDomNodeList lst = dsDoc.elementsByTagName(tagName);
+    QDomNodeList lst = dsDoc.elementsByTagName(m_tagName);
 
     QDomElement elem;
     domain_id_t id;
@@ -207,7 +206,7 @@ QDomNode SimpleParameterXmlDao::findXmlNode(domain_id_t id)
     QDomNode result;
     result.clear();
 
-    QDomNodeList lst = dsDoc.elementsByTagName(tagName);
+    QDomNodeList lst = dsDoc.elementsByTagName(m_tagName);
 
     for (int i = 0; i < lst.count(); ++i)
     {
@@ -224,23 +223,7 @@ QDomNode SimpleParameterXmlDao::findXmlNode(domain_id_t id)
     return result;
 }
 
-domain_id_t SimpleParameterXmlDao::newId()
+QString SimpleParameterXmlDao::tagNameRaw()
 {
-    if (currentId==0)
-        initId();
-
-    return ++currentId;
-}
-
-void SimpleParameterXmlDao::initId()
-{
-    QDomNodeList lst = dsDoc.elementsByTagName(tagName);
-
-    domain_id_t tmp_id;
-
-    for (int i = 0; i < lst.count(); ++i)
-    {
-        tmp_id = idFromXmlElement(lst.at(i).toElement());
-        currentId = qMax(tmp_id, currentId);
-    }
+    return m_tagName;
 }

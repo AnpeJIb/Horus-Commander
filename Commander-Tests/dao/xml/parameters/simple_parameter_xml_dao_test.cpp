@@ -11,7 +11,7 @@ SimpleParameterXmlDaoTest::SimpleParameterXmlDaoTest(QObject *parent)
 
 void SimpleParameterXmlDaoTest::initTestCase()
 {
-    XmlDao::init(m_path);
+    XmlDaoBase::init(m_path);
     QVERIFY(QFile::exists(m_path));
 
     dao = new SimpleParameterXmlDao;
@@ -41,7 +41,7 @@ void SimpleParameterXmlDaoTest::testSave()
     QVERIFY(p2->id > nullId);
     QVERIFY(p2->id != p1->id);
 
-    XmlDao::sync();
+    XmlDaoBase::sync();
 }
 
 void SimpleParameterXmlDaoTest::testAll()
@@ -124,9 +124,6 @@ void SimpleParameterXmlDaoTest::testFindXmlNode()
     QVERIFY(node.isNull()==false);
 }
 
-#include <iostream>
-using namespace std;
-
 void SimpleParameterXmlDaoTest::testUpdate()
 {
     domain_id_t id = Q_UINT64_C(1);
@@ -137,7 +134,7 @@ void SimpleParameterXmlDaoTest::testUpdate()
     p1->title = "Modified fly time";
     dao->update(p1);
 
-    XmlDao::sync();
+    XmlDaoBase::sync();
     SimpleParameterXmlDao::clearCache();
     QList< SimpleParameter* > lst;
     dao->all(&lst);
@@ -159,7 +156,7 @@ void SimpleParameterXmlDaoTest::testRemove()
     QVERIFY(p1 != NULL);
 
     dao->remove(p1);
-    XmlDao::sync();
+    XmlDaoBase::sync();
 
     SimpleParameter* p2 = dao->find(id);
     QVERIFY(p2 == NULL);
@@ -169,6 +166,6 @@ void SimpleParameterXmlDaoTest::cleanupTestCase()
 {
     delete (SimpleParameterXmlDao*) dao;
 
-    XmlDao::clearUp();
+    XmlDaoBase::clearUp();
     QVERIFY(QFile::exists(m_path)==false);
 }

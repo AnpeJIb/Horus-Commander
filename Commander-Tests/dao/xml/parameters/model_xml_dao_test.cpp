@@ -13,7 +13,7 @@ ModelXmlDaoTest::ModelXmlDaoTest(QObject *parent)
 
 void ModelXmlDaoTest::initTestCase()
 {
-    XmlDao::init(m_path);
+    XmlDaoBase::init(m_path);
     QVERIFY(QFile::exists(m_path));
 
     dao = new ModelXmlDao;
@@ -43,7 +43,7 @@ void ModelXmlDaoTest::testSave()
     QVERIFY(m2->id > nullId);
     QVERIFY(m2->id != m1->id);
 
-    XmlDao::sync();
+    XmlDaoBase::sync();
 }
 
 void ModelXmlDaoTest::testAll()
@@ -136,7 +136,7 @@ void ModelXmlDaoTest::testUpdate()
     m1->title = "Modified foo settings model";
     dao->update(m1);
 
-    XmlDao::sync();
+    XmlDaoBase::sync();
     ModelXmlDao::clearCache();
     QList< Model* > lst;
     dao->all(&lst);
@@ -157,7 +157,7 @@ void ModelXmlDaoTest::testRemove()
     QVERIFY(m1 != NULL);
 
     dao->remove(m1);
-    XmlDao::sync();
+    XmlDaoBase::sync();
 
     Model* m2 = dao->find(id);
     QVERIFY(m2 == NULL);
@@ -167,6 +167,6 @@ void ModelXmlDaoTest::cleanupTestCase()
 {
     delete (ModelXmlDao*) dao;
 
-    XmlDao::clearUp();
+    XmlDaoBase::clearUp();
     QVERIFY(QFile::exists(m_path)==false);
 }
