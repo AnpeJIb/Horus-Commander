@@ -6,7 +6,7 @@
 ModelParameterXmlDaoTest::ModelParameterXmlDaoTest(QObject *parent)
     : QObject(parent)
 {
-    m_path = "parameterDaoTest.xml";
+    m_path = "modelParameterDaoTest.xml";
 }
 
 void ModelParameterXmlDaoTest::initTestCase()
@@ -16,6 +16,7 @@ void ModelParameterXmlDaoTest::initTestCase()
 
     modelDao = new ModelXmlDao;
     modelParameterDao = new ModelParameterXmlDao;
+    simpleParameterDao = new SimpleParameterXmlDao;
 }
 
 void ModelParameterXmlDaoTest::testFindNone()
@@ -42,53 +43,80 @@ void ModelParameterXmlDaoTest::testSave()
     modelDao->save(m2);
     QVERIFY(m2->id > nullId);
 
-    /** Save parameters */
+    /** Save simple parameters */
 
-    ModelParameter* p1 = new ModelParameter;
-    p1->kind  = Domain::LOGICAL_NONE;
-    p1->title = "Server name";
-    p1->setModel(m1);
-    modelParameterDao->save(p1);
-    QVERIFY(p1->id > nullId);
+    SimpleParameter* sp1 = new SimpleParameter;
+    sp1->codeName = "SRV_NAME";
+    sp1->title = "Server name";
+    simpleParameterDao->save(sp1);
+    QVERIFY(sp1->id > nullId);
 
-    ModelParameter* p2 = new ModelParameter;
-    p2->id    = nullId;
-    p2->kind  = Domain::LOGICAL_NONE;
-    p2->title = "Server description";
-    p2->setModel(m1);
-    modelParameterDao->save(p2);
-    QVERIFY(p2->id > nullId);
+    SimpleParameter* sp2 = new SimpleParameter;
+    sp2->codeName = "SRV_DESCR";
+    sp2->title = "Server description";
+    simpleParameterDao->save(sp2);
+    QVERIFY(sp2->id > nullId);
 
-    ModelParameter* p3 = new ModelParameter;
-    p3->id    = nullId;
-    p3->kind  = Domain::LOGICAL_OR;
-    p3->title = "Foo medal";
-    p3->setModel(m2);
-    modelParameterDao->save(p3);
-    QVERIFY(p3->id > nullId);
+    SimpleParameter* sp3 = new SimpleParameter;
+    sp3->codeName = "KILL_EAIR";
+    sp3->title = "Kill enemy aircrafts";
+    simpleParameterDao->save(sp3);
+    QVERIFY(sp3->id > nullId);
 
-    ModelParameter* p4 = new ModelParameter;
-    p4->id    = nullId;
-    p4->kind  = Domain::LOGICAL_NONE;
-    p4->title = "Kill enemy aircrafts";
-    p4->setParent(p3);
-    modelParameterDao->save(p4);
-    QVERIFY(p4->id > nullId);
+    SimpleParameter* sp4 = new SimpleParameter;
+    sp4->codeName = "KILL_ECAR";
+    sp4->title = "Kill enemy cars";
+    simpleParameterDao->save(sp4);
+    QVERIFY(sp4->id > nullId);
 
-    ModelParameter* p5 = new ModelParameter;
-    p5->id    = nullId;
-    p5->kind  = Domain::LOGICAL_NONE;
-    p5->title = "Kill enemy cars";
-    p5->setParent(p3);
-    modelParameterDao->save(p5);
-    QVERIFY(p5->id > nullId);
+    /** Save model parameters */
+
+    ModelParameter* mp1 = new ModelParameter;
+    mp1->kind  = Domain::LOGICAL_NONE;
+    mp1->title = "Server name";
+    mp1->setModel(m1);
+    mp1->setSimpleParameter(sp1);
+    modelParameterDao->save(mp1);
+    QVERIFY(mp1->id > nullId);
+
+    ModelParameter* mp2 = new ModelParameter;
+    mp2->kind  = Domain::LOGICAL_NONE;
+    mp2->title = "Server description";
+    mp2->setModel(m1);
+    mp2->setSimpleParameter(sp2);
+    modelParameterDao->save(mp2);
+    QVERIFY(mp2->id > nullId);
+
+    ModelParameter* mp3 = new ModelParameter;
+    mp3->kind  = Domain::LOGICAL_OR;
+    mp3->title = "Kill enemy aircrafts or cars";
+    mp3->setModel(m2);
+    modelParameterDao->save(mp3);
+    QVERIFY(mp3->id > nullId);
+
+    ModelParameter* mp4 = new ModelParameter;
+    mp4->kind  = Domain::LOGICAL_NONE;
+    mp4->title = "Kill enemy aircrafts";
+    mp4->setParent(mp3);
+    mp4->setSimpleParameter(sp3);
+    modelParameterDao->save(mp4);
+    QVERIFY(mp4->id > nullId);
+
+    ModelParameter* mp5 = new ModelParameter;
+    mp5->kind  = Domain::LOGICAL_NONE;
+    mp5->title = "Kill enemy cars";
+    mp5->setParent(mp3);
+    mp5->setSimpleParameter(sp4);
+    modelParameterDao->save(mp5);
+    QVERIFY(mp5->id > nullId);
 
     XmlDaoBase::sync();
 }
 
 void ModelParameterXmlDaoTest::cleanupTestCase()
 {
-    delete (ModelParameterXmlDao*) modelParameterDao;
+    delete (SimpleParameterXmlDao*) simpleParameterDao;
+    delete (ModelParameterXmlDao*)  modelParameterDao;
     delete (ModelXmlDao*) modelDao;
 
     XmlDaoBase::clearUp();

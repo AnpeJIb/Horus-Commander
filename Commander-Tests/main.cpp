@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     QTest::qExec(new FileTest, argc, argv);
     QTest::qExec(new ModelXmlDaoTest, argc, argv);
     QTest::qExec(new SimpleParameterXmlDaoTest, argc, argv);
-    //QTest::qExec(new ModelParameterXmlDaoTest, argc, argv);
+    QTest::qExec(new ModelParameterXmlDaoTest, argc, argv);
     //QTest::qExec(new GeneralConfigTest, argc, argv);
 
     Q_UNUSED(a)

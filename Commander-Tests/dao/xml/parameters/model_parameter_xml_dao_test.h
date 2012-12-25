@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QString>
+
+#include "simple_parameter_xml_dao.h"
 #include "model_parameter_xml_dao.h"
 #include "model_xml_dao.h"
 
@@ -23,6 +25,8 @@ private slots:
 
 private:
     QString m_path;
+
+    SimpleParameterDao* simpleParameterDao;
     ModelParameterDao* modelParameterDao;
     ModelDao* modelDao;
 };

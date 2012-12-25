@@ -22,16 +22,17 @@ void ModelParameterXmlDao::save(ModelParameter *domain)
     Model* model = domain->model();
     if (model == NULL) return;
 
+    ModelParameter* parent = domain->parent();
+    domain_id_t parent_id = (parent == NULL) ? Q_UINT64_C(0) : parent->id;
+
     SimpleParameter* parameter = domain->simpleParameter();
-    if (parameter == NULL) return;
+    if ((parameter == NULL) && (domain->kind == Domain::LOGICAL_NONE)) return;
+    domain_id_t parameter_id = (parameter == NULL) ? Q_UINT64_C(0) : parameter->id;
 
     QDomNode root;
 
     QDomNode modelNode = modelDao.findXmlNode(model->id);
     if (modelNode.isNull()) return;
-
-    ModelParameter* parent = domain->parent();
-    domain_id_t parent_id = (parent == NULL) ? Q_UINT64_C(0) : parent->id;
 
     if (parent == NULL)
     {
@@ -65,7 +66,7 @@ void ModelParameterXmlDao::save(ModelParameter *domain)
     kindToXmlElement(    domain->kind,  &elem);
     parentIdToXmlElement(parent_id,     &elem);
     modelIdToXmlElement( model->id,     &elem);
-    simpleParameterIdToXmlElement(parameter->id, &elem);
+    simpleParameterIdToXmlElement(parameter_id, &elem);
 
     root.appendChild(elem);
 
