@@ -40,14 +40,14 @@ public:
     ModelParameter* cachedOrNewDomain(const QDomElement &element);
     ModelParameter* newCachedDomain(const QDomElement& element);
     void domainToXmlElement(ModelParameter *domain, QDomElement* element);
-    void removeFromCachedAndDispose(domain_id_t id);
 
     static QString tagNameRaw();
 
+protected:
+    QDomNode parentNode(ModelParameter *domain);
+
 private:
     static QString m_tagName;
-
-    QDomNode parentNode(ModelParameter *domain);
 
     ModelXmlDao modelDao;
     SimpleParameterXmlDao simpleParameterDao;

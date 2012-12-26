@@ -86,7 +86,6 @@ HEADERS += \
     ../Commander/domain/belligerent.h \
     ../Commander/domain/parameters/scheme_carrier.h \
     ../Commander/domain/parameters/scheme.h \
-    ../Commander/domain/parameters/parameter_value.h \
     ../Commander/domain/parameters/model_parameter.h \
     ../Commander/domain/parameters/model.h \
     ../Commander/dao/xml/xml_dao_helper.h \
@@ -106,7 +105,8 @@ HEADERS += \
     ../Commander/dao/description_carrier_dao.h \
     ../Commander/domain/parameters/scheme_helper.h \
     ../Commander/dao/xml/parameters/scheme_xml_dao.h \
-    dao/xml/parameters/scheme_xml_dao_test.h
+    dao/xml/parameters/scheme_xml_dao_test.h \
+    ../Commander/domain/parameters/model_parameter_value.h
 
 INCLUDEPATH += util \
   config \

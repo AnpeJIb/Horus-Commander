@@ -15,19 +15,17 @@ SimpleParameterXmlDao::~SimpleParameterXmlDao()
 
 void SimpleParameterXmlDao::save(SimpleParameter *domain)
 {
-    /** Check existance in cache */
-    if (cache[domain->id] != NULL) return;
+    if (cacheGet(domain->id) != NULL) return;
 
     domain->id = newId();
 
-    QDomElement root = dsDoc.documentElement();
+    QDomElement root = parentNode(domain).toElement();
     QDomElement elem = dsDoc.createElement(m_tagName);
 
     domainToXmlElement(domain, &elem);
     root.appendChild(elem);
 
-    /** Put to cache */
-    cache[domain->id] = domain;
+    cachePut(domain);
 }
 
 void SimpleParameterXmlDao::all(QList<SimpleParameter *> *result)
@@ -41,8 +39,7 @@ void SimpleParameterXmlDao::all(QList<SimpleParameter *> *result)
 
 SimpleParameter *SimpleParameterXmlDao::find(domain_id_t id)
 {
-    /** Try to get from cache at first */
-    SimpleParameter* result = cache[id];
+    SimpleParameter* result = cacheGet(id);
 
     if (result != NULL) return result;
 
@@ -104,14 +101,14 @@ void SimpleParameterXmlDao::remove(SimpleParameter *domain)
     if (node.isNull() == false)
     {
         node.parentNode().removeChild(node);
-        removeFromCachedAndDispose(domain->id);
+        cacheRemoveAndDispose(domain->id);
     }
 }
 
 SimpleParameter *SimpleParameterXmlDao::cachedOrNewDomain(const QDomElement &element)
 {
     domain_id_t id = idFromXmlElement(element);
-    SimpleParameter* result = cache[id];
+    SimpleParameter* result = cacheGet(id);
 
     if (result == NULL)
         result = newCachedDomain(element);
@@ -127,7 +124,7 @@ SimpleParameter *SimpleParameterXmlDao::newCachedDomain(const QDomElement &eleme
     result->title    = titleFromXmlElement(element);
     result->codeName = codeNameFromXmlElement(element);
 
-    cache[result->id] = result;
+    cachePut(result);
 
     return result;
 }
@@ -139,17 +136,13 @@ void SimpleParameterXmlDao::domainToXmlElement(SimpleParameter *domain, QDomElem
     codeNameToXmlElement(domain->codeName, element);
 }
 
-void SimpleParameterXmlDao::removeFromCachedAndDispose(domain_id_t id)
-{
-    SimpleParameter* cached = cache[id];
-    if (cached != NULL)
-    {
-        cache.remove(id);
-        delete cached;
-    }
-}
-
 QString SimpleParameterXmlDao::tagNameRaw()
 {
     return m_tagName;
+}
+
+QDomNode SimpleParameterXmlDao::parentNode(SimpleParameter *domain)
+{
+    Q_UNUSED(domain)
+    return dsDoc.documentElement();
 }

@@ -15,19 +15,17 @@ ModelXmlDao::~ModelXmlDao()
 
 void ModelXmlDao::save(Model* domain)
 {
-    /** Check existance in cache */
-    if (cache[domain->id] != NULL) return;
+    if (cacheGet(domain->id) != NULL) return;
 
     domain->id = newId();
 
-    QDomElement root = dsDoc.documentElement();
+    QDomElement root = parentNode(domain).toElement();
     QDomElement elem = dsDoc.createElement(m_tagName);
 
     domainToXmlElement(domain, &elem);
     root.appendChild(elem);
 
-    /** Put to cache */
-    cache[domain->id] = domain;
+    cachePut(domain);
 }
 
 void ModelXmlDao::all(QList<Model *> *result)
@@ -41,8 +39,7 @@ void ModelXmlDao::all(QList<Model *> *result)
 
 Model* ModelXmlDao::find(domain_id_t id)
 {
-    /** Try to get from cache at first */
-    Model* result = cache[id];
+    Model* result = cacheGet(id);
 
     if (result != NULL) return result;
 
@@ -104,14 +101,14 @@ void ModelXmlDao::remove(Model *domain)
     if (node.isNull() == false)
     {
         node.parentNode().removeChild(node);
-        removeFromCachedAndDispose(domain->id);
+        cacheRemoveAndDispose(domain->id);
     }
 }
 
 Model *ModelXmlDao::cachedOrNewDomain(const QDomElement &element)
 {
     domain_id_t id = idFromXmlElement(element);
-    Model* result = cache[id];
+    Model* result = cacheGet(id);
 
     if (result == NULL)
         result = newCachedDomain(element);
@@ -127,7 +124,7 @@ Model *ModelXmlDao::newCachedDomain(const QDomElement& element)
     result->kind  = kindFromXmlElement(element);
     result->title = titleFromXmlElement(element);
 
-    cache[result->id] = result;
+    cachePut(result);
 
     return result;
 }
@@ -139,17 +136,13 @@ void ModelXmlDao::domainToXmlElement(Model *domain, QDomElement *element)
     kindToXmlElement(domain->kind, element);
 }
 
-void ModelXmlDao::removeFromCachedAndDispose(domain_id_t id)
-{
-    Model* cached = cache[id];
-    if (cached != NULL)
-    {
-        cache.remove(id);
-        delete cached;
-    }
-}
-
 QString ModelXmlDao::tagNameRaw()
 {
     return m_tagName;
+}
+
+QDomNode ModelXmlDao::parentNode(Model *domain)
+{
+    Q_UNUSED(domain)
+    return dsDoc.documentElement();
 }

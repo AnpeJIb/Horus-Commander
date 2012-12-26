@@ -1,5 +1,5 @@
-#ifndef PARAMETER_VALUE_H
-#define PARAMETER_VALUE_H
+#ifndef MODEL_PARAMETER_VALUE_H
+#define MODEL_PARAMETER_VALUE_H
 
 #include <QString>
 #include "generic_domain.h"
@@ -8,11 +8,11 @@
 
 namespace Domain { namespace Parameters {
 
-class ParameterValue: public GenericDomain, public SchemeCarrier
+class ModelParameterValue: public GenericDomain, public SchemeCarrier
 {
 public:
-    ParameterValue();
-    ~ParameterValue();
+    ModelParameterValue();
+    ~ModelParameterValue();
 
     Scheme* scheme();
     ModelParameter* parameter();
@@ -28,4 +28,4 @@ private:
 
 }}
 
-#endif // PARAMETER_VALUE_H
+#endif // MODEL_PARAMETER_VALUE_H

@@ -27,29 +27,46 @@ public:
     /** Remove existing domain object from data source */
     virtual void remove(T* domain) = 0;
 
-    static void clearCache();
-    static void clearCacheAndDisposeDomains();
+    static void cachePut(T* domain)
+    {
+        cache[domain->id] = domain;
+    }
 
-protected:
+    static T* cacheGet(domain_id_t id)
+    {
+        return cache[id];
+    }
+
+    static void cacheRemoveAndDispose(domain_id_t id)
+    {
+        T* cached = cache[id];
+        if (cached != NULL)
+        {
+            cache.remove(id);
+            delete cached;
+        }
+    }
+
+    static void clearCache()
+    {
+        cache.clear();
+    }
+
+    static void clearCacheAndDisposeDomains()
+    {
+        QList< T* > lst = cache.values();
+
+        foreach (T* domain, lst)
+            delete domain;
+
+        clearCache();
+    }
+
+private:
     static QMap<domain_id_t, T*> cache;
 };
 
 template <class T> QMap<domain_id_t, T*> GenericDao<T>::cache;
-
-template <class T> void GenericDao<T>::clearCache()
-{
-    cache.clear();
-}
-
-template <class T> void GenericDao<T>::clearCacheAndDisposeDomains()
-{
-    QList< T* > lst = cache.values();
-
-    foreach (T* domain, lst)
-        delete domain;
-
-    clearCache();
-}
 
 }
 

@@ -1,32 +1,32 @@
-#include "parameter_value.h"
+#include "model_parameter_value.h"
 
 using namespace Domain;
 using namespace Domain::Parameters;
 
-ParameterValue::ParameterValue()
+ModelParameterValue::ModelParameterValue()
 {
 }
 
-ParameterValue::~ParameterValue()
+ModelParameterValue::~ModelParameterValue()
 {
 }
 
-Scheme *ParameterValue::scheme()
+Scheme *ModelParameterValue::scheme()
 {
     return m_scheme;
 }
 
-ModelParameter *ParameterValue::parameter()
+ModelParameter *ModelParameterValue::parameter()
 {
     return m_parameter;
 }
 
-void ParameterValue::setScheme(Scheme *value)
+void ModelParameterValue::setScheme(Scheme *value)
 {
     m_scheme = value;
 }
 
-void ParameterValue::setParameter(ModelParameter *value)
+void ModelParameterValue::setParameter(ModelParameter *value)
 {
     m_parameter = value;
 }

@@ -30,9 +30,11 @@ public:
     SimpleParameter* cachedOrNewDomain(const QDomElement &element);
     SimpleParameter* newCachedDomain(const QDomElement& element);
     void domainToXmlElement(SimpleParameter* domain, QDomElement* element);
-    void removeFromCachedAndDispose(domain_id_t id);
 
     static QString tagNameRaw();
+
+protected:
+    QDomNode parentNode(SimpleParameter *domain);
 
 private:
     static QString m_tagName;

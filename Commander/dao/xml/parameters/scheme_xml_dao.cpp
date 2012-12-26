@@ -15,8 +15,7 @@ SchemeXmlDao::~SchemeXmlDao()
 
 void SchemeXmlDao::save(Scheme *domain)
 {
-    /** Check existance in cache */
-    if (cache[domain->id] != NULL) return;
+    if (cacheGet(domain->id) != NULL) return;
 
     QDomNode root = parentNode(domain);
     if (root.isNull()) return;
@@ -28,8 +27,7 @@ void SchemeXmlDao::save(Scheme *domain)
 
     root.appendChild(elem);
 
-    /** Put to cache */
-    cache[domain->id] = domain;
+    cachePut(domain);
 }
 
 void SchemeXmlDao::all(QList<Scheme *> *result)
@@ -43,8 +41,7 @@ void SchemeXmlDao::all(QList<Scheme *> *result)
 
 Scheme *SchemeXmlDao::find(domain_id_t id)
 {
-    /** Try to get from cache at first */
-    Scheme* result = cache[id];
+    Scheme* result = cacheGet(id);
 
     if (result != NULL) return result;
 
@@ -133,7 +130,7 @@ void SchemeXmlDao::remove(Scheme *domain)
     if (node.isNull() == false)
     {
         node.parentNode().removeChild(node);
-        removeFromCachedAndDispose(domain->id);
+        cacheRemoveAndDispose(domain->id);
     }
 }
 
@@ -154,7 +151,7 @@ void SchemeXmlDao::loadModel(Scheme *domain)
 Scheme *SchemeXmlDao::cachedOrNewDomain(const QDomElement &element)
 {
     domain_id_t id = idFromXmlElement(element);
-    Scheme* result = cache[id];
+    Scheme* result = cacheGet(id);
 
     if (result == NULL)
         result = newCachedDomain(element);
@@ -170,7 +167,7 @@ Scheme *SchemeXmlDao::newCachedDomain(const QDomElement &element)
     result->title = titleFromXmlElement(element);
     result->description = descriptionFromXmlElement(element);
 
-    cache[result->id] = result;
+    cachePut(result);
 
     return result;
 }
@@ -181,16 +178,6 @@ void SchemeXmlDao::domainToXmlElement(Scheme *domain, QDomElement *element)
     titleToXmlElement(domain->title, element);
     descriptionToXmlElement(domain->description, element);
     modelIdToXmlElement(domain->model()->id, element);
-}
-
-void SchemeXmlDao::removeFromCachedAndDispose(domain_id_t id)
-{
-    Scheme* cached = cache[id];
-    if (cached != NULL)
-    {
-        cache.remove(id);
-        delete cached;
-    }
 }
 
 QDomNode SchemeXmlDao::parentNode(Scheme *domain)
