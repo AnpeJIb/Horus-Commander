@@ -39,6 +39,10 @@ public:
     void loadModel(ModelParameter* domain);
     void loadSimpleParameter(ModelParameter* domain);
 
+    ModelParameter* cachedOrNewDomain(const QDomElement &element);
+    ModelParameter* newCachedDomain(const QDomElement& element);
+    void removeFromCachedAndDispose(domain_id_t id);
+
     static QString tagNameRaw();
 
 private:

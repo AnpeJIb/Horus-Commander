@@ -27,6 +27,10 @@ public:
     void update(const Model* domain);
     void remove(const Model* domain);
 
+    Model* cachedOrNewDomain(const QDomElement& element);
+    Model* newCachedDomain(const QDomElement& element);
+    void removeFromCachedAndDispose(domain_id_t id);
+
     static QString tagNameRaw();
 
 private:

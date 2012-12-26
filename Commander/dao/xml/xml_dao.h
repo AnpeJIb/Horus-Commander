@@ -32,10 +32,11 @@ inline XmlDaoBase::~XmlDaoBase(){}
 template <class T, class D> class XmlDao: public XmlDaoBase
 {
 public:
-    virtual ~XmlDao() = 0;
+    virtual T* cachedOrNewDomain(const QDomElement& element) = 0;
+    virtual T* newCachedDomain(const QDomElement& element) = 0;
+    virtual void removeFromCachedAndDispose(domain_id_t id) = 0;
 
-    QDomNode findXmlNode(domain_id_t id);
-
+    static QDomNode findXmlNode(domain_id_t id);
     static void resetCurrentId();
 
 protected:
@@ -46,8 +47,6 @@ protected:
 
     static domain_id_t currentId;
 };
-
-template <class T, class D> inline XmlDao<T, D>::~XmlDao(){}
 
 template <class T, class D> domain_id_t XmlDao<T, D>::currentId = 0;
 

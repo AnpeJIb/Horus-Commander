@@ -79,31 +79,8 @@ void ModelParameterXmlDao::all(QList<ModelParameter *> *result)
     result->clear();
     QDomNodeList lst = dsDoc.elementsByTagName(m_tagName);
 
-    QDomElement elem;
-    ModelParameter* parameter;
-    domain_id_t id;
-
     for (int i = 0; i < lst.count(); ++i)
-    {
-        elem = lst.at(i).toElement();
-        id = idFromXmlElement(elem);
-
-        /** Try to get from cache at first */
-        parameter = cache[id];
-
-        if (parameter == NULL)
-        {
-            parameter = new ModelParameter(this);
-            parameter->id    = id;
-            parameter->title = titleFromXmlElement(elem);
-            parameter->kind  = kindFromXmlElement(elem);
-
-            /** Put to cache */
-            cache[id] = parameter;
-        }
-
-        (*result) << parameter;
-    }
+        (*result) << cachedOrNewDomain(lst.at(i).toElement());
 }
 
 ModelParameter *ModelParameterXmlDao::find(domain_id_t id)
@@ -115,17 +92,7 @@ ModelParameter *ModelParameterXmlDao::find(domain_id_t id)
 
     QDomNode node = findXmlNode(id);
     if (node.isNull() == false)
-    {
-        QDomElement elem = node.toElement();
-
-        result = new ModelParameter(this);
-        result->id    = id;
-        result->title = titleFromXmlElement(elem);
-        result->kind  = kindFromXmlElement(elem);
-
-        /** Put to cache */
-        cache[id] = result;
-    }
+        result = newCachedDomain(node.toElement());
 
     return result;
 }
@@ -194,6 +161,38 @@ void ModelParameterXmlDao::loadSimpleParameter(ModelParameter *domain)
     }
 
     domain->setSimpleParameter(parameter);
+}
+
+ModelParameter *ModelParameterXmlDao::cachedOrNewDomain(const QDomElement &element)
+{
+    domain_id_t id = idFromXmlElement(element);
+    ModelParameter* result = cache[id];
+
+    if (result == NULL)
+        result = newCachedDomain(element);
+
+    return result;
+}
+
+ModelParameter *ModelParameterXmlDao::newCachedDomain(const QDomElement &element)
+{
+    ModelParameter* result = new ModelParameter(this);
+
+    result->id    = idFromXmlElement(element);
+    result->title = titleFromXmlElement(element);
+    result->kind  = kindFromXmlElement(element);
+
+    cache[result->id] = result;
+}
+
+void ModelParameterXmlDao::removeFromCachedAndDispose(domain_id_t id)
+{
+    ModelParameter* cached = cache[id];
+    if (cached != NULL)
+    {
+        cache.remove(id);
+        delete cached;
+    }
 }
 
 QString ModelParameterXmlDao::tagNameRaw()

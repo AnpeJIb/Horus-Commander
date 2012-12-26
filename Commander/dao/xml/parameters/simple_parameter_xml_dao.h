@@ -29,6 +29,10 @@ public:
     void update(const SimpleParameter* domain);
     void remove(const SimpleParameter* domain);
 
+    SimpleParameter* cachedOrNewDomain(const QDomElement &element);
+    SimpleParameter* newCachedDomain(const QDomElement& element);
+    void removeFromCachedAndDispose(domain_id_t id);
+
     static QString tagNameRaw();
 
 private:
