@@ -32,20 +32,26 @@ inline XmlDaoBase::~XmlDaoBase(){}
 template <class T, class D> class XmlDao: public XmlDaoBase
 {
 public:
-    virtual T* cachedOrNewDomain(const QDomElement& element) = 0;
-    virtual T* newCachedDomain(const QDomElement& element) = 0;
-    virtual void domainToXmlElement(T* domain, QDomElement* element) = 0;
-
     static QDomNode findXmlNode(domain_id_t id);
     static void resetCurrentId();
 
 protected:
-    virtual QDomNode parentNode(T *domain) = 0;
-
-    static QString tagName() { return D::tagNameRaw(); }
-
     static domain_id_t newId();
     static void initId();
+
+    virtual T* newDomain() = 0;
+    virtual void domainToXmlElement(T* domain, QDomElement* element) = 0;
+    virtual void domainFromXmlElement(const QDomElement& element, T* domain) = 0;
+    virtual QDomNode parentNode(T *domain) = 0;
+
+    void doSave(T *domain);
+    void doAll(QList<T *> *result);
+    T*   doFind(domain_id_t id);
+    void doUpdate(T *domain);
+    void doRemove(T *domain);
+
+    T* cachedOrNewDomain(const QDomElement& element);
+    T* newCachedDomain(const QDomElement& element);
 
     static domain_id_t currentId;
 };
@@ -67,7 +73,7 @@ template <class T, class D> domain_id_t XmlDao<T, D>::newId()
 
 template <class T, class D> void XmlDao<T, D>::initId()
 {
-    QDomNodeList lst = dsDoc.elementsByTagName(tagName());
+    QDomNodeList lst = dsDoc.elementsByTagName(D::tagName());
 
     domain_id_t tmp_id;
 
@@ -87,7 +93,7 @@ template <class T, class D> QDomNode XmlDao<T, D>::findXmlNode(domain_id_t id)
     QDomNode result;
     result.clear();
 
-    QDomNodeList lst = dsDoc.elementsByTagName(tagName());
+    QDomNodeList lst = dsDoc.elementsByTagName(D::tagName());
 
     for (int i = 0; i < lst.count(); ++i)
     {
@@ -102,6 +108,93 @@ template <class T, class D> QDomNode XmlDao<T, D>::findXmlNode(domain_id_t id)
     }
 
     return result;
+}
+
+template <class T, class D> T* XmlDao<T, D>::cachedOrNewDomain(const QDomElement &element)
+{
+    domain_id_t id = idFromXmlElement(element);
+    T* result = D::cacheGet(id);
+
+    if (result == NULL)
+        result = newCachedDomain(element);
+
+    return result;
+}
+
+template <class T, class D> T* XmlDao<T, D>::newCachedDomain(const QDomElement& element)
+{
+    T* result = newDomain();
+    domainFromXmlElement(element, result);
+    D::cachePut(result);
+    return result;
+}
+
+template <class T, class D> void XmlDao<T, D>::doSave(T *domain)
+{
+    if (D::cacheGet(domain->id) != NULL) return;
+
+    QDomNode root = parentNode(domain);
+    if (root.isNull()) return;
+
+    QDomElement elem = dsDoc.createElement(D::tagName());
+
+    domain->id = newId();
+    domainToXmlElement(domain, &elem);
+
+    root.appendChild(elem);
+
+    D::cachePut(domain);
+}
+
+template <class T, class D> void XmlDao<T, D>::doAll(QList<T *> *result)
+{
+    result->clear();
+    QDomNodeList lst = dsDoc.elementsByTagName(D::tagName());
+
+    for (int i = 0; i < lst.count(); ++i)
+        (*result) << cachedOrNewDomain(lst.at(i).toElement());
+}
+
+template <class T, class D> T* XmlDao<T, D>::doFind(domain_id_t id)
+{
+    T* result = D::cacheGet(id);
+
+    if (result != NULL) return result;
+
+    QDomNode node = findXmlNode(id);
+    if (node.isNull() == false)
+        result = newCachedDomain(node.toElement());
+
+    return result;
+}
+
+template <class T, class D> void XmlDao<T, D>::doUpdate(T *domain)
+{
+    QDomNode node = findXmlNode(domain->id);
+    if (node.isNull() == false)
+    {
+        QDomNode root = parentNode(domain);
+        if (root.isNull()) return;
+
+        if (node.parentNode() != root)
+        {
+            node.parentNode().removeChild(node);
+            root.appendChild(node);
+        }
+
+        QDomElement elem = node.toElement();
+        domainToXmlElement(domain, &elem);
+    }
+}
+
+template <class T, class D> void XmlDao<T, D>::doRemove(T *domain)
+{
+    QDomNode node = findXmlNode(domain->id);
+    if (node.isNull() == false)
+    {
+        node.parentNode().removeChild(node);
+        D::cacheRemoveAndDispose(domain->id);
+    }
 }
 
 }

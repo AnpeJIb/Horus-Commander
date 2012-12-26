@@ -18,32 +18,31 @@ class ModelParameterXmlDao:
         public ModelParameterDao
 {
 public:
-    ModelParameterXmlDao();
-    ~ModelParameterXmlDao();
+    ModelParameterXmlDao(){}
+    ~ModelParameterXmlDao(){}
 
-    void save(ModelParameter *domain);
+    void save(ModelParameter* domain)         { doSave(domain);    }
+    void all(QList<ModelParameter *> *result) { doAll(result);     }
+    ModelParameter* find(domain_id_t id)      { return doFind(id); }
 
-    void all(QList<ModelParameter *> *result);
-    ModelParameter* find(domain_id_t id);
+    void update(ModelParameter *domain)       { doUpdate(domain);  }
+    void remove(ModelParameter* domain)       { doRemove(domain);  }
+
     void findByTitle(const domain_title_t& title, QList<ModelParameter *> *result);
     void findByKind(domain_kind_t kind, QList<ModelParameter *> *result);
     void findByParent(const ModelParameter* parent, QList<ModelParameter *> *result);
     void findByModel(const Model* model, QList< ModelParameter* >* result);
 
-    void update(ModelParameter *domain);
-    void remove(ModelParameter* domain);
-
     void loadParent(ModelParameter* domain);
     void loadModel(ModelParameter* domain);
     void loadSimpleParameter(ModelParameter* domain);
 
-    ModelParameter* cachedOrNewDomain(const QDomElement &element);
-    ModelParameter* newCachedDomain(const QDomElement& element);
-    void domainToXmlElement(ModelParameter *domain, QDomElement* element);
-
-    static QString tagNameRaw();
+    static QString tagName();
 
 protected:
+    ModelParameter* newDomain();
+    void domainToXmlElement(ModelParameter *domain, QDomElement* element);
+    void domainFromXmlElement(const QDomElement& element, ModelParameter* domain);
     QDomNode parentNode(ModelParameter *domain);
 
 private:

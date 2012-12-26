@@ -14,26 +14,25 @@ class ModelXmlDao;
 class ModelXmlDao: public XmlDao<Model, ModelXmlDao>, public ModelDao
 {
 public:
-    ModelXmlDao();
-    ~ModelXmlDao();
+    ModelXmlDao(){}
+    ~ModelXmlDao(){}
 
-    void save(Model *domain);
+    void save(Model* domain)         { doSave(domain);    }
+    void all(QList<Model *> *result) { doAll(result);     }
+    Model* find(domain_id_t id)      { return doFind(id); }
 
-    void all(QList<Model *> *result);
-    Model* find(domain_id_t id);
+    void update(Model* domain)       { doUpdate(domain);  }
+    void remove(Model* domain)       { doRemove(domain);  }
+
     void findByTitle(const domain_title_t& title, QList<Model *> *result);
     void findByKind(domain_kind_t kind, QList<Model *> *result);
 
-    void update(Model* domain);
-    void remove(Model* domain);
-
-    Model* cachedOrNewDomain(const QDomElement& element);
-    Model* newCachedDomain(const QDomElement& element);
-    void domainToXmlElement(Model* domain, QDomElement* element);
-
-    static QString tagNameRaw();
+    static QString tagName();
 
 protected:
+    Model* newDomain();
+    void domainToXmlElement(Model* domain, QDomElement* element);
+    void domainFromXmlElement(const QDomElement& element, Model* domain);
     QDomNode parentNode(Model *domain);
 
 private:

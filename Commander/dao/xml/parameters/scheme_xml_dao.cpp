@@ -4,54 +4,6 @@ using namespace Dao::Parameters;
 
 QString SchemeXmlDao::m_tagName = "ParameterScheme";
 
-
-SchemeXmlDao::SchemeXmlDao()
-{
-}
-
-SchemeXmlDao::~SchemeXmlDao()
-{
-}
-
-void SchemeXmlDao::save(Scheme *domain)
-{
-    if (cacheGet(domain->id) != NULL) return;
-
-    QDomNode root = parentNode(domain);
-    if (root.isNull()) return;
-
-    QDomElement elem = dsDoc.createElement(m_tagName);
-
-    domain->id = newId();
-    domainToXmlElement(domain, &elem);
-
-    root.appendChild(elem);
-
-    cachePut(domain);
-}
-
-void SchemeXmlDao::all(QList<Scheme *> *result)
-{
-    result->clear();
-    QDomNodeList lst = dsDoc.elementsByTagName(m_tagName);
-
-    for (int i = 0; i < lst.count(); ++i)
-        (*result) << cachedOrNewDomain(lst.at(i).toElement());
-}
-
-Scheme *SchemeXmlDao::find(domain_id_t id)
-{
-    Scheme* result = cacheGet(id);
-
-    if (result != NULL) return result;
-
-    QDomNode node = findXmlNode(id);
-    if (node.isNull() == false)
-        result = newCachedDomain(node.toElement());
-
-    return result;
-}
-
 void SchemeXmlDao::findByTitle(const domain_title_t &title, QList<Scheme *> *result)
 {
     result->clear();
@@ -105,35 +57,6 @@ void SchemeXmlDao::findByModel(const Model *model, QList<Scheme *> *result)
     }
 }
 
-void SchemeXmlDao::update(Scheme *domain)
-{
-    QDomNode node = findXmlNode(domain->id);
-    if (node.isNull() == false)
-    {
-        QDomNode root = parentNode(domain);
-        if (root.isNull()) return;
-
-        if (node.parentNode() != root)
-        {
-            node.parentNode().removeChild(node);
-            root.appendChild(node);
-        }
-
-        QDomElement elem = node.toElement();
-        domainToXmlElement(domain, &elem);
-    }
-}
-
-void SchemeXmlDao::remove(Scheme *domain)
-{
-    QDomNode node = findXmlNode(domain->id);
-    if (node.isNull() == false)
-    {
-        node.parentNode().removeChild(node);
-        cacheRemoveAndDispose(domain->id);
-    }
-}
-
 void SchemeXmlDao::loadModel(Scheme *domain)
 {
     Model* model = NULL;
@@ -148,28 +71,9 @@ void SchemeXmlDao::loadModel(Scheme *domain)
     domain->setModel(model);
 }
 
-Scheme *SchemeXmlDao::cachedOrNewDomain(const QDomElement &element)
+Scheme *SchemeXmlDao::newDomain()
 {
-    domain_id_t id = idFromXmlElement(element);
-    Scheme* result = cacheGet(id);
-
-    if (result == NULL)
-        result = newCachedDomain(element);
-
-    return result;
-}
-
-Scheme *SchemeXmlDao::newCachedDomain(const QDomElement &element)
-{
-    Scheme* result = new Scheme(this);
-
-    result->id    = idFromXmlElement(element);
-    result->title = titleFromXmlElement(element);
-    result->description = descriptionFromXmlElement(element);
-
-    cachePut(result);
-
-    return result;
+    return new Scheme(this);
 }
 
 void SchemeXmlDao::domainToXmlElement(Scheme *domain, QDomElement *element)
@@ -178,6 +82,13 @@ void SchemeXmlDao::domainToXmlElement(Scheme *domain, QDomElement *element)
     titleToXmlElement(domain->title, element);
     descriptionToXmlElement(domain->description, element);
     modelIdToXmlElement(domain->model()->id, element);
+}
+
+void SchemeXmlDao::domainFromXmlElement(const QDomElement &element, Scheme *domain)
+{
+    domain->id    = idFromXmlElement(element);
+    domain->title = titleFromXmlElement(element);
+    domain->description = descriptionFromXmlElement(element);
 }
 
 QDomNode SchemeXmlDao::parentNode(Scheme *domain)
@@ -201,7 +112,7 @@ QDomNode SchemeXmlDao::parentNode(Scheme *domain)
     return result;
 }
 
-QString SchemeXmlDao::tagNameRaw()
+QString SchemeXmlDao::tagName()
 {
     return m_tagName;
 }

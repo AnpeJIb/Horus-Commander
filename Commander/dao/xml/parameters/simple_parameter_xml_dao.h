@@ -14,26 +14,25 @@ class SimpleParameterXmlDao;
 class SimpleParameterXmlDao: public XmlDao<SimpleParameter, SimpleParameterXmlDao>, public SimpleParameterDao
 {
 public:
-    SimpleParameterXmlDao();
-    ~SimpleParameterXmlDao();
+    SimpleParameterXmlDao(){}
+    ~SimpleParameterXmlDao(){}
 
-    void save(SimpleParameter *domain);
+    void save(SimpleParameter* domain)          { doSave(domain);    }
+    void all(QList<SimpleParameter *> *result)  { doAll(result);     }
+    SimpleParameter* find(domain_id_t id)       { return doFind(id); }
 
-    void all(QList<SimpleParameter *> *result);
-    SimpleParameter* find(domain_id_t id);
+    void update(SimpleParameter* domain)        { doUpdate(domain);  }
+    void remove(SimpleParameter* domain)        { doRemove(domain);  }
+
     void findByTitle(const domain_title_t& title, QList<SimpleParameter *> *result);
     void findByCodeName(const domain_codeName_t& codeName, QList<SimpleParameter *> *result);
 
-    void update(SimpleParameter* domain);
-    void remove(SimpleParameter* domain);
-
-    SimpleParameter* cachedOrNewDomain(const QDomElement &element);
-    SimpleParameter* newCachedDomain(const QDomElement& element);
-    void domainToXmlElement(SimpleParameter* domain, QDomElement* element);
-
-    static QString tagNameRaw();
+    static QString tagName();
 
 protected:
+    SimpleParameter* newDomain();
+    void domainToXmlElement(SimpleParameter* domain, QDomElement* element);
+    void domainFromXmlElement(const QDomElement& element, SimpleParameter* domain);
     QDomNode parentNode(SimpleParameter *domain);
 
 private:

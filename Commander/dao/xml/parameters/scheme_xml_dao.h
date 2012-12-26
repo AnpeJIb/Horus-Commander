@@ -17,29 +17,28 @@ class SchemeXmlDao:
         public SchemeDao
 {
 public:
-    SchemeXmlDao();
-    ~SchemeXmlDao();
+    SchemeXmlDao(){}
+    ~SchemeXmlDao(){}
 
-    void save(Scheme *domain);
+    void save(Scheme* domain)         { doSave(domain);    }
+    void all(QList<Scheme *> *result) { doAll(result);     }
+    Scheme* find(domain_id_t id)      { return doFind(id); }
 
-    void all(QList<Scheme *> *result);
-    Scheme* find(domain_id_t id);
+    void update(Scheme *domain)       { doUpdate(domain);  }
+    void remove(Scheme* domain)       { doRemove(domain);  }
+
     void findByTitle(const domain_title_t& title, QList<Scheme *> *result);
     void findByDescription(const domain_descr_t& descr, QList<Scheme *> *result);
     void findByModel(const Model* model, QList< Scheme* >* result);
 
-    void update(Scheme *domain);
-    void remove(Scheme* domain);
-
     void loadModel(Scheme* domain);
 
-    Scheme* cachedOrNewDomain(const QDomElement &element);
-    Scheme* newCachedDomain(const QDomElement& element);
-    void domainToXmlElement(Scheme *domain, QDomElement* element);
-
-    static QString tagNameRaw();
+    static QString tagName();
 
 protected:
+    Scheme* newDomain();
+    void domainToXmlElement(Scheme *domain, QDomElement* element);
+    void domainFromXmlElement(const QDomElement& element, Scheme* domain);
     QDomNode parentNode(Scheme *domain);
 
 private:
