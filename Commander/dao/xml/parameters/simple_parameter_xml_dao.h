@@ -5,8 +5,6 @@
 #include "simple_parameter.h"
 #include "simple_parameter_dao.h"
 
-#include <QMap>
-
 namespace Dao { namespace Parameters {
 
 using namespace Domain::Parameters;

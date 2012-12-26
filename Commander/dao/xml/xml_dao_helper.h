@@ -4,6 +4,7 @@
 #include <QDomElement>
 #include "generic_domain.h"
 #include "title_carrier.h"
+#include "description_carrier.h"
 #include "kind_carrier.h"
 #include "code_name_carrier.h"
 #include "xml_dao.h"
@@ -12,6 +13,7 @@
 
 #define XML_ATTR_ID        "id"
 #define XML_ATTR_TITLE     "title"
+#define XML_ATTR_DESCR     "description"
 #define XML_ATTR_KIND      "kind"
 #define XML_ATTR_CODE_NAME "codeName"
 #define XML_ATTR_PARENT_ID "parent_id"
@@ -40,6 +42,18 @@ inline domain_title_t titleFromXmlElement(const QDomElement& element)
 inline void titleToXmlElement(const domain_title_t& title, QDomElement* element)
 {
     element->setAttribute(XML_ATTR_TITLE, title);
+}
+
+/** Description helpers */
+
+inline domain_descr_t descriptionFromXmlElement(const QDomElement& element)
+{
+    return element.attribute(XML_ATTR_DESCR, "No description");
+}
+
+inline void descriptionToXmlElement(const domain_descr_t& title, QDomElement* element)
+{
+    element->setAttribute(XML_ATTR_DESCR, title);
 }
 
 /** Kind helpers */

@@ -3,6 +3,8 @@
 
 #include <QString>
 
+typedef QString domain_descr_t;
+
 namespace Domain {
 
 class DescriptionCarrier
@@ -10,7 +12,7 @@ class DescriptionCarrier
 public:
     virtual ~DescriptionCarrier() = 0;
 
-    QString description;
+    domain_descr_t description;
 };
 
 inline DescriptionCarrier::~DescriptionCarrier(){}
