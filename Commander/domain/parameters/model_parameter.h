@@ -8,6 +8,7 @@
 #include "model_carrier.h"
 #include "simple_parameter.h"
 #include "logical_operation_types.h"
+#include "model_parameter_helper.h"
 
 namespace Domain { namespace Parameters {
 
@@ -21,7 +22,7 @@ class ModelParameter:
         public ParentCarrier<ModelParameter>
 {
 public:
-    ModelParameter();
+    explicit ModelParameter(ModelParameterHelper* helper);
     ~ModelParameter();
 
     ModelParameter* parent();
@@ -34,6 +35,7 @@ public:
 
 private:
     SimpleParameter* m_simpleParameter;
+    ModelParameterHelper* m_helper;
 };
 
 }}

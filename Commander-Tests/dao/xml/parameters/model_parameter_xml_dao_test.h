@@ -21,6 +21,14 @@ private slots:
     void initTestCase();
     void testFindNone();
     void testSave();
+    void testAll();
+    void testFindById();
+//    void testReferentialIntegrity();
+//    void testFindByCodeName();
+//    void testFindByTitle();
+//    void testFindXmlNode();
+//    void testUpdate();
+//    void testRemove();
     void cleanupTestCase();
 
 private:

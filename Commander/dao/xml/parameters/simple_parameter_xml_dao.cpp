@@ -155,9 +155,9 @@ void SimpleParameterXmlDao::findByCodeName(const domain_codeName_t &codeName, QL
             {
                 parameter = new SimpleParameter;
 
-                parameter->id        = id;
-                parameter->title     = titleFromXmlElement(elem);
-                parameter->codeName  = codeName;
+                parameter->id       = id;
+                parameter->title    = titleFromXmlElement(elem);
+                parameter->codeName = codeName;
 
                 /** Put to cache */
                 cache[id] = parameter;

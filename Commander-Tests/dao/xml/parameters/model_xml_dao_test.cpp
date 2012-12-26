@@ -165,6 +165,9 @@ void ModelXmlDaoTest::testRemove()
 
 void ModelXmlDaoTest::cleanupTestCase()
 {
+    ModelXmlDao::clearCacheAndDisposeDomains();
+    ModelXmlDao::resetCurrentId();
+
     delete (ModelXmlDao*) dao;
 
     XmlDaoBase::clearUp();

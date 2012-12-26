@@ -28,15 +28,27 @@ public:
     virtual void remove(const T* domain) = 0;
 
     static void clearCache();
+    static void clearCacheAndDisposeDomains();
 
 protected:
     static QMap<domain_id_t, T*> cache;
 };
 
 template <class T> QMap<domain_id_t, T*> GenericDao<T>::cache;
+
 template <class T> void GenericDao<T>::clearCache()
 {
     cache.clear();
+}
+
+template <class T> void GenericDao<T>::clearCacheAndDisposeDomains()
+{
+    QList< T* > lst = cache.values();
+
+    clearCache();
+
+    foreach (T* domain, lst)
+        delete domain;
 }
 
 }

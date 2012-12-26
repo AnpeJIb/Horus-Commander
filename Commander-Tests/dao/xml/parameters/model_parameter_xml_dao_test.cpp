@@ -71,7 +71,7 @@ void ModelParameterXmlDaoTest::testSave()
 
     /** Save model parameters */
 
-    ModelParameter* mp1 = new ModelParameter;
+    ModelParameter* mp1 = new ModelParameter(modelParameterDao);
     mp1->kind  = Domain::LOGICAL_NONE;
     mp1->title = "Server name";
     mp1->setModel(m1);
@@ -79,7 +79,7 @@ void ModelParameterXmlDaoTest::testSave()
     modelParameterDao->save(mp1);
     QVERIFY(mp1->id > nullId);
 
-    ModelParameter* mp2 = new ModelParameter;
+    ModelParameter* mp2 = new ModelParameter(modelParameterDao);
     mp2->kind  = Domain::LOGICAL_NONE;
     mp2->title = "Server description";
     mp2->setModel(m1);
@@ -87,14 +87,14 @@ void ModelParameterXmlDaoTest::testSave()
     modelParameterDao->save(mp2);
     QVERIFY(mp2->id > nullId);
 
-    ModelParameter* mp3 = new ModelParameter;
+    ModelParameter* mp3 = new ModelParameter(modelParameterDao);
     mp3->kind  = Domain::LOGICAL_OR;
     mp3->title = "Kill enemy aircrafts or cars";
     mp3->setModel(m2);
     modelParameterDao->save(mp3);
     QVERIFY(mp3->id > nullId);
 
-    ModelParameter* mp4 = new ModelParameter;
+    ModelParameter* mp4 = new ModelParameter(modelParameterDao);
     mp4->kind  = Domain::LOGICAL_NONE;
     mp4->title = "Kill enemy aircrafts";
     mp4->setParent(mp3);
@@ -102,7 +102,7 @@ void ModelParameterXmlDaoTest::testSave()
     modelParameterDao->save(mp4);
     QVERIFY(mp4->id > nullId);
 
-    ModelParameter* mp5 = new ModelParameter;
+    ModelParameter* mp5 = new ModelParameter(modelParameterDao);
     mp5->kind  = Domain::LOGICAL_NONE;
     mp5->title = "Kill enemy cars";
     mp5->setParent(mp3);
@@ -111,6 +111,63 @@ void ModelParameterXmlDaoTest::testSave()
     QVERIFY(mp5->id > nullId);
 
     XmlDaoBase::sync();
+
+    delete mp1;
+    delete mp2;
+    delete mp3;
+    delete mp4;
+    delete mp5;
+
+    delete sp1;
+    delete sp2;
+    delete sp3;
+    delete sp4;
+
+    delete m1;
+    delete m2;
+
+    ModelParameterXmlDao::clearCache();
+    ModelXmlDao::clearCache();
+    SimpleParameterDao::clearCache();
+}
+
+void ModelParameterXmlDaoTest::testAll()
+{
+    QList< ModelParameter* > lst;
+    modelParameterDao->all(&lst);
+    QVERIFY(lst.count() == 5);
+}
+
+void ModelParameterXmlDaoTest::testFindById()
+{
+    /** Test Model Parameter 1 */
+
+    ModelParameter* mp1 = modelParameterDao->find(Q_UINT64_C(1));
+
+    QVERIFY(mp1 != NULL);
+    QVERIFY(mp1->id    == Q_UINT64_C(1));
+    QVERIFY(mp1->title == "Server name");
+    QVERIFY(mp1->kind  == Domain::LOGICAL_NONE);
+
+    Model* m1 = mp1->model();
+
+    QVERIFY(m1 != NULL);
+    QVERIFY(m1->id    == Q_UINT64_C(1));
+    QVERIFY(m1->kind  == Model::MODEL_SETTINGS);
+    QVERIFY(m1->title == "Foo settings model");
+
+    SimpleParameter* sp1 = mp1->simpleParameter();
+
+    QVERIFY(sp1 != NULL);
+    QVERIFY(sp1->id       == Q_UINT64_C(1));
+    QVERIFY(sp1->title    == "Server name");
+    QVERIFY(sp1->codeName == "SRV_NAME");
+
+    QVERIFY(mp1->parent() == NULL);
+
+    /** Test Model Parameter 2 */
+
+    // TODO:
 }
 
 void ModelParameterXmlDaoTest::cleanupTestCase()
@@ -122,3 +179,4 @@ void ModelParameterXmlDaoTest::cleanupTestCase()
     XmlDaoBase::clearUp();
     QVERIFY(QFile::exists(m_path)==false);
 }
+

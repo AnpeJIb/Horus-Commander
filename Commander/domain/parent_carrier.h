@@ -1,6 +1,8 @@
 #ifndef PARENT_CARRIER_H
 #define PARENT_CARRIER_H
 
+#include <QtCore>
+
 namespace Domain {
 
 template <class T> class ParentCarrier

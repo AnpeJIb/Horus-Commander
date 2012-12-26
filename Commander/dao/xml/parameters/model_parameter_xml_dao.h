@@ -3,6 +3,7 @@
 
 #include "xml_dao.h"
 #include "model_xml_dao.h"
+#include "simple_parameter_xml_dao.h"
 #include "model_parameter.h"
 #include "model_parameter_dao.h"
 
@@ -14,7 +15,9 @@ using namespace Domain::Parameters;
 
 class ModelParameterXmlDao;
 
-class ModelParameterXmlDao: public XmlDao<ModelParameter, ModelParameterXmlDao>, public ModelParameterDao
+class ModelParameterXmlDao:
+        public XmlDao<ModelParameter, ModelParameterXmlDao>,
+        public ModelParameterDao
 {
 public:
     ModelParameterXmlDao();
@@ -32,12 +35,17 @@ public:
     void update(const ModelParameter* domain);
     void remove(const ModelParameter* domain);
 
+    void loadParent(ModelParameter* domain);
+    void loadModel(ModelParameter* domain);
+    void loadSimpleParameter(ModelParameter* domain);
+
     static QString tagNameRaw();
 
 private:
     static QString m_tagName;
 
     ModelXmlDao modelDao;
+    SimpleParameterXmlDao simpleParameterDao;
 };
 
 }}

@@ -164,6 +164,9 @@ void SimpleParameterXmlDaoTest::testRemove()
 
 void SimpleParameterXmlDaoTest::cleanupTestCase()
 {
+    SimpleParameterXmlDao::clearCacheAndDisposeDomains();
+    SimpleParameterXmlDao::resetCurrentId();
+
     delete (SimpleParameterXmlDao*) dao;
 
     XmlDaoBase::clearUp();

@@ -36,6 +36,8 @@ public:
 
     QDomNode findXmlNode(domain_id_t id);
 
+    static void resetCurrentId();
+
 protected:
     static QString tagName() { return D::tagNameRaw(); }
 
@@ -48,6 +50,11 @@ protected:
 template <class T, class D> inline XmlDao<T, D>::~XmlDao(){}
 
 template <class T, class D> domain_id_t XmlDao<T, D>::currentId = 0;
+
+template <class T, class D> void XmlDao<T, D>::resetCurrentId()
+{
+    currentId = 0;
+}
 
 template <class T, class D> domain_id_t XmlDao<T, D>::newId()
 {

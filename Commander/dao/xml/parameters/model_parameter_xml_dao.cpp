@@ -76,6 +76,34 @@ void ModelParameterXmlDao::save(ModelParameter *domain)
 
 void ModelParameterXmlDao::all(QList<ModelParameter *> *result)
 {
+    result->clear();
+    QDomNodeList lst = dsDoc.elementsByTagName(m_tagName);
+
+    QDomElement elem;
+    ModelParameter* parameter;
+    domain_id_t id;
+
+    for (int i = 0; i < lst.count(); ++i)
+    {
+        elem = lst.at(i).toElement();
+        id = idFromXmlElement(elem);
+
+        /** Try to get from cache at first */
+        parameter = cache[id];
+
+        if (parameter == NULL)
+        {
+            parameter = new ModelParameter(this);
+            parameter->id    = id;
+            parameter->title = titleFromXmlElement(elem);
+            parameter->kind  = kindFromXmlElement(elem);
+
+            /** Put to cache */
+            cache[id] = parameter;
+        }
+
+        (*result) << parameter;
+    }
 }
 
 ModelParameter *ModelParameterXmlDao::find(domain_id_t id)
@@ -85,7 +113,19 @@ ModelParameter *ModelParameterXmlDao::find(domain_id_t id)
 
     if (result != NULL) return result;
 
-    // TODO:
+    QDomNode node = findXmlNode(id);
+    if (node.isNull() == false)
+    {
+        QDomElement elem = node.toElement();
+
+        result = new ModelParameter(this);
+        result->id    = id;
+        result->title = titleFromXmlElement(elem);
+        result->kind  = kindFromXmlElement(elem);
+
+        /** Put to cache */
+        cache[id] = result;
+    }
 
     return result;
 }
@@ -112,6 +152,48 @@ void ModelParameterXmlDao::update(const ModelParameter *domain)
 
 void ModelParameterXmlDao::remove(const ModelParameter *domain)
 {
+}
+
+void ModelParameterXmlDao::loadParent(ModelParameter *domain)
+{
+    ModelParameter* parent = NULL;
+
+    QDomNode node = findXmlNode(domain->id);
+    if (node.isNull() == false)
+    {
+        domain_id_t id = parentIdFromXmlElement(node.toElement());
+        parent = find(id);
+    }
+
+    domain->setParent(parent);
+}
+
+void ModelParameterXmlDao::loadModel(ModelParameter *domain)
+{
+    Model* model = NULL;
+
+    QDomNode node = findXmlNode(domain->id);
+    if (node.isNull() == false)
+    {
+        domain_id_t id =  modelIdFromXmlElement(node.toElement());
+        model = modelDao.find(id);
+    }
+
+    domain->setModel(model);
+}
+
+void ModelParameterXmlDao::loadSimpleParameter(ModelParameter *domain)
+{
+    SimpleParameter* parameter = NULL;
+
+    QDomNode node = findXmlNode(domain->id);
+    if (node.isNull() == false)
+    {
+        domain_id_t id =  simpleParameterIdFromXmlElement(node.toElement());
+        parameter = simpleParameterDao.find(id);
+    }
+
+    domain->setSimpleParameter(parameter);
 }
 
 QString ModelParameterXmlDao::tagNameRaw()
