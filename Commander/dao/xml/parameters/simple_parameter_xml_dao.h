@@ -26,11 +26,12 @@ public:
     void findByTitle(const domain_title_t& title, QList<SimpleParameter *> *result);
     void findByCodeName(const domain_codeName_t& codeName, QList<SimpleParameter *> *result);
 
-    void update(const SimpleParameter* domain);
-    void remove(const SimpleParameter* domain);
+    void update(SimpleParameter* domain);
+    void remove(SimpleParameter* domain);
 
     SimpleParameter* cachedOrNewDomain(const QDomElement &element);
     SimpleParameter* newCachedDomain(const QDomElement& element);
+    void domainToXmlElement(SimpleParameter* domain, QDomElement* element);
     void removeFromCachedAndDispose(domain_id_t id);
 
     static QString tagNameRaw();

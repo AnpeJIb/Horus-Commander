@@ -34,6 +34,7 @@ template <class T, class D> class XmlDao: public XmlDaoBase
 public:
     virtual T* cachedOrNewDomain(const QDomElement& element) = 0;
     virtual T* newCachedDomain(const QDomElement& element) = 0;
+    virtual void domainToXmlElement(T* domain, QDomElement* element) = 0;
     virtual void removeFromCachedAndDispose(domain_id_t id) = 0;
 
     static QDomNode findXmlNode(domain_id_t id);

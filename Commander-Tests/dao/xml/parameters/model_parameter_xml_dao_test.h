@@ -23,12 +23,14 @@ private slots:
     void testSave();
     void testAll();
     void testFindById();
-//    void testReferentialIntegrity();
-//    void testFindByCodeName();
-//    void testFindByTitle();
-//    void testFindXmlNode();
-//    void testUpdate();
-//    void testRemove();
+    void testReferentialIntegrity();
+    void testFindByTitle();
+    void testFindByKind();
+    void testFindByParent();
+    void testFindByModel();
+    void testFindXmlNode();
+    void testUpdate();
+    void testRemove();
     void cleanupTestCase();
 
 private:

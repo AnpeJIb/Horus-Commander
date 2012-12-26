@@ -24,11 +24,12 @@ public:
     void findByTitle(const domain_title_t& title, QList<Model *> *result);
     void findByKind(domain_kind_t kind, QList<Model *> *result);
 
-    void update(const Model* domain);
-    void remove(const Model* domain);
+    void update(Model* domain);
+    void remove(Model* domain);
 
     Model* cachedOrNewDomain(const QDomElement& element);
     Model* newCachedDomain(const QDomElement& element);
+    void domainToXmlElement(Model* domain, QDomElement* element);
     void removeFromCachedAndDispose(domain_id_t id);
 
     static QString tagNameRaw();

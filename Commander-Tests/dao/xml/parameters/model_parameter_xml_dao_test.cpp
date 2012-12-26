@@ -254,8 +254,167 @@ void ModelParameterXmlDaoTest::testFindById()
     QVERIFY(mp5->parent() == mp3);
 }
 
+void ModelParameterXmlDaoTest::testReferentialIntegrity()
+{
+    domain_id_t id = Q_UINT64_C(1);
+
+    ModelParameter* mp1;
+    mp1 = modelParameterDao->find(id);
+
+    ModelParameter* mp2;
+    mp2 = modelParameterDao->find(id);
+
+    QVERIFY(mp1 == mp2);
+}
+
+void ModelParameterXmlDaoTest::testFindByTitle()
+{
+    domain_id_t id = Q_UINT64_C(1);
+    QList< ModelParameter* > lst;
+
+    modelParameterDao->findByTitle("Server name", &lst);
+    QVERIFY(lst.count() == 1);
+
+    ModelParameter* mp1 = lst.at(0);
+
+    QVERIFY(mp1->id    == id);
+    QVERIFY(mp1->kind  == Domain::LOGICAL_NONE);
+    QVERIFY(mp1->title == "Server name");
+
+    ModelParameter* mp2 = modelParameterDao->find(id);
+    QVERIFY(mp1 == mp2);
+}
+
+void ModelParameterXmlDaoTest::testFindByKind()
+{
+    domain_id_t id = Q_UINT64_C(1);
+    QList< ModelParameter* > lst;
+
+    modelParameterDao->findByKind(Domain::LOGICAL_NONE, &lst);
+    QVERIFY(lst.count() == 4);
+
+    ModelParameter* mp1 = lst.at(0);
+
+    QVERIFY(mp1->id    == id);
+    QVERIFY(mp1->kind  == Domain::LOGICAL_NONE);
+    QVERIFY(mp1->title == "Server name");
+
+    ModelParameter* mp2 = modelParameterDao->find(id);
+    QVERIFY(mp1 == mp2);
+}
+
+void ModelParameterXmlDaoTest::testFindByParent()
+{
+    ModelParameterXmlDao::clearCacheAndDisposeDomains();
+
+    ModelParameter* parent = modelParameterDao->find(Q_UINT64_C(3));
+    QVERIFY(parent != NULL);
+
+    QList< ModelParameter* > lst;
+    modelParameterDao->findByParent(parent, &lst);
+    QVERIFY(lst.count() == 2);
+
+    ModelParameter* child = modelParameterDao->find(Q_UINT64_C(4));
+
+    QVERIFY(child == lst.at(0));
+    QVERIFY(child->parent() == parent);
+}
+
+void ModelParameterXmlDaoTest::testFindByModel()
+{
+    Model* m = modelDao->find(Q_UINT64_C(1));
+    QVERIFY(m != NULL);
+
+    QList< ModelParameter* > lst;
+    modelParameterDao->findByModel(m, &lst);
+    QVERIFY(lst.count() == 2);
+
+    ModelParameter* mp1 = lst.at(0);
+    ModelParameter* mp2 = modelParameterDao->find(Q_UINT64_C(1));
+
+    QVERIFY(mp2 != NULL);
+    QVERIFY(mp1 == mp2);
+}
+
+void ModelParameterXmlDaoTest::testFindXmlNode()
+{
+    QDomNode node;
+
+    node = ((ModelParameterXmlDao*) modelParameterDao)->findXmlNode(Q_UINT64_C(0));
+    QVERIFY(node.isNull());
+
+    node = ((ModelParameterXmlDao*) modelParameterDao)->findXmlNode(Q_UINT64_C(1));
+    QVERIFY(node.isNull()==false);
+
+    node = ((ModelParameterXmlDao*) modelParameterDao)->findXmlNode(Q_UINT64_C(2));
+    QVERIFY(node.isNull()==false);
+
+    node = ((ModelParameterXmlDao*) modelParameterDao)->findXmlNode(Q_UINT64_C(3));
+    QVERIFY(node.isNull()==false);
+
+    node = ((ModelParameterXmlDao*) modelParameterDao)->findXmlNode(Q_UINT64_C(4));
+    QVERIFY(node.isNull()==false);
+
+    node = ((ModelParameterXmlDao*) modelParameterDao)->findXmlNode(Q_UINT64_C(5));
+    QVERIFY(node.isNull()==false);
+}
+
+void ModelParameterXmlDaoTest::testUpdate()
+{
+    domain_id_t id = Q_UINT64_C(1);
+
+    ModelParameter* mp1 = modelParameterDao->find(id);
+    QVERIFY(mp1 != NULL);
+
+    ModelParameter* mp2 = modelParameterDao->find(Q_UINT64_C(3));
+    QVERIFY(mp2 != NULL);
+
+    mp1->setParent(mp2);
+    mp1->title = "Modified server name";
+    modelParameterDao->update(mp1);
+
+    XmlDaoBase::sync();
+    ModelParameterXmlDao::clearCache();
+    QList<ModelParameter* > lst;
+    modelParameterDao->all(&lst);
+
+    ModelParameter* mp3 = modelParameterDao->find(id);
+
+    QVERIFY(mp3 != NULL);
+    QVERIFY(mp3->title != "Server name");
+
+    QVERIFY(mp1->id    == mp3->id);
+    QVERIFY(mp1->kind  == mp3->kind);
+    QVERIFY(mp1->title == mp3->title);
+    QVERIFY(mp1->parent()->id == mp3->parent()->id);
+    QVERIFY(mp1->model()      == mp3->model());
+    QVERIFY(mp1->simpleParameter() == mp3->simpleParameter());
+}
+
+void ModelParameterXmlDaoTest::testRemove()
+{
+    domain_id_t id = Q_UINT64_C(1);
+
+    ModelParameter* mp1 = modelParameterDao->find(id);
+    QVERIFY(mp1 != NULL);
+
+    modelParameterDao->remove(mp1);
+    XmlDaoBase::sync();
+
+    ModelParameter* mp2 = modelParameterDao->find(id);
+    QVERIFY(mp2 == NULL);
+}
+
 void ModelParameterXmlDaoTest::cleanupTestCase()
 {
+    ModelXmlDao::clearCacheAndDisposeDomains();
+    SimpleParameterXmlDao::clearCacheAndDisposeDomains();
+    ModelParameterXmlDao::clearCacheAndDisposeDomains();
+
+    ModelXmlDao::resetCurrentId();
+    SimpleParameterXmlDao::resetCurrentId();
+    ModelParameterXmlDao::resetCurrentId();
+
     delete (SimpleParameterXmlDao*) simpleParameterDao;
     delete (ModelParameterXmlDao*)  modelParameterDao;
     delete (ModelXmlDao*) modelDao;

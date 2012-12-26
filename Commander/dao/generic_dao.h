@@ -22,10 +22,10 @@ public:
     virtual T* find(domain_id_t id) = 0;
 
     /** Update domain object existing in data source */
-    virtual void update(const T* domain) = 0;
+    virtual void update(T* domain) = 0;
 
     /** Remove existing domain object from data source */
-    virtual void remove(const T* domain) = 0;
+    virtual void remove(T* domain) = 0;
 
     static void clearCache();
     static void clearCacheAndDisposeDomains();
@@ -45,10 +45,10 @@ template <class T> void GenericDao<T>::clearCacheAndDisposeDomains()
 {
     QList< T* > lst = cache.values();
 
-    clearCache();
-
     foreach (T* domain, lst)
         delete domain;
+
+    clearCache();
 }
 
 }

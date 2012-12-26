@@ -144,6 +144,7 @@ void ModelXmlDaoTest::testUpdate()
     Model* m2 = dao->find(id);
 
     QVERIFY(m2 != NULL);
+    QVERIFY(m2->title != "Foo settings model");
     QVERIFY(m1->id    == m2->id);
     QVERIFY(m1->kind  == m2->kind);
     QVERIFY(m1->title == m2->title);

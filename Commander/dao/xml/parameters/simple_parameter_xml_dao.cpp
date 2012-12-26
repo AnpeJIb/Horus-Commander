@@ -23,10 +23,7 @@ void SimpleParameterXmlDao::save(SimpleParameter *domain)
     QDomElement root = dsDoc.documentElement();
     QDomElement elem = dsDoc.createElement(m_tagName);
 
-    idToXmlElement(       domain->id,       &elem);
-    titleToXmlElement(    domain->title,    &elem);
-    codeNameToXmlElement( domain->codeName, &elem);
-
+    domainToXmlElement(domain, &elem);
     root.appendChild(elem);
 
     /** Put to cache */
@@ -91,19 +88,17 @@ void SimpleParameterXmlDao::findByCodeName(const domain_codeName_t &codeName, QL
     }
 }
 
-void SimpleParameterXmlDao::update(const SimpleParameter *domain)
+void SimpleParameterXmlDao::update(SimpleParameter *domain)
 {
     QDomNode node = findXmlNode(domain->id);
     if (node.isNull() == false)
     {
         QDomElement elem = node.toElement();
-
-        titleToXmlElement(   domain->title,    &elem);
-        codeNameToXmlElement(domain->codeName, &elem);
+        domainToXmlElement(domain, &elem);
     }
 }
 
-void SimpleParameterXmlDao::remove(const SimpleParameter *domain)
+void SimpleParameterXmlDao::remove(SimpleParameter *domain)
 {
     QDomNode node = findXmlNode(domain->id);
     if (node.isNull() == false)
@@ -135,6 +130,13 @@ SimpleParameter *SimpleParameterXmlDao::newCachedDomain(const QDomElement &eleme
     cache[result->id] = result;
 
     return result;
+}
+
+void SimpleParameterXmlDao::domainToXmlElement(SimpleParameter *domain, QDomElement *element)
+{
+    idToXmlElement(domain->id, element);
+    titleToXmlElement(domain->title, element);
+    codeNameToXmlElement(domain->codeName, element);
 }
 
 void SimpleParameterXmlDao::removeFromCachedAndDispose(domain_id_t id)

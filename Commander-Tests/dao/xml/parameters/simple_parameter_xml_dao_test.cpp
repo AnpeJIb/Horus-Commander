@@ -144,6 +144,7 @@ void SimpleParameterXmlDaoTest::testUpdate()
     QVERIFY(p2 != NULL);
 
     QVERIFY(p1->id       == p2->id);
+    QVERIFY(p1->title    != "Fly time");
     QVERIFY(p1->title    == p2->title);
     QVERIFY(p1->codeName == p2->codeName);
 }

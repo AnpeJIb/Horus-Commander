@@ -23,10 +23,7 @@ void ModelXmlDao::save(Model* domain)
     QDomElement root = dsDoc.documentElement();
     QDomElement elem = dsDoc.createElement(m_tagName);
 
-    idToXmlElement(domain->id, &elem);
-    titleToXmlElement(domain->title, &elem);
-    kindToXmlElement(domain->kind, &elem);
-
+    domainToXmlElement(domain, &elem);
     root.appendChild(elem);
 
     /** Put to cache */
@@ -91,19 +88,17 @@ void ModelXmlDao::findByKind(domain_kind_t kind, QList<Model *> *result)
     }
 }
 
-void ModelXmlDao::update(const Model *domain)
+void ModelXmlDao::update(Model *domain)
 {
     QDomNode node = findXmlNode(domain->id);
     if (node.isNull() == false)
     {
         QDomElement elem = node.toElement();
-
-        titleToXmlElement(domain->title, &elem);
-        kindToXmlElement(domain->kind, &elem);
+        domainToXmlElement(domain, &elem);
     }
 }
 
-void ModelXmlDao::remove(const Model *domain)
+void ModelXmlDao::remove(Model *domain)
 {
     QDomNode node = findXmlNode(domain->id);
     if (node.isNull() == false)
@@ -135,6 +130,13 @@ Model *ModelXmlDao::newCachedDomain(const QDomElement& element)
     cache[result->id] = result;
 
     return result;
+}
+
+void ModelXmlDao::domainToXmlElement(Model *domain, QDomElement *element)
+{
+    idToXmlElement(domain->id, element);
+    titleToXmlElement(domain->title, element);
+    kindToXmlElement(domain->kind, element);
 }
 
 void ModelXmlDao::removeFromCachedAndDispose(domain_id_t id)

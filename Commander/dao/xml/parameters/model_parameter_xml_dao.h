@@ -32,8 +32,8 @@ public:
     void findByParent(const ModelParameter* parent, QList<ModelParameter *> *result);
     void findByModel(const Model* model, QList< ModelParameter* >* result);
 
-    void update(const ModelParameter* domain);
-    void remove(const ModelParameter* domain);
+    void update(ModelParameter *domain);
+    void remove(ModelParameter* domain);
 
     void loadParent(ModelParameter* domain);
     void loadModel(ModelParameter* domain);
@@ -41,12 +41,15 @@ public:
 
     ModelParameter* cachedOrNewDomain(const QDomElement &element);
     ModelParameter* newCachedDomain(const QDomElement& element);
+    void domainToXmlElement(ModelParameter *domain, QDomElement* element);
     void removeFromCachedAndDispose(domain_id_t id);
 
     static QString tagNameRaw();
 
 private:
     static QString m_tagName;
+
+    QDomNode parentNode(ModelParameter *domain);
 
     ModelXmlDao modelDao;
     SimpleParameterXmlDao simpleParameterDao;
