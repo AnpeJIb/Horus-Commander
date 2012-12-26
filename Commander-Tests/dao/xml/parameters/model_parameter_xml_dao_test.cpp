@@ -89,7 +89,7 @@ void ModelParameterXmlDaoTest::testSave()
 
     ModelParameter* mp3 = new ModelParameter(modelParameterDao);
     mp3->kind  = Domain::LOGICAL_OR;
-    mp3->title = "Kill enemy aircrafts or cars";
+    mp3->title = "Foo medal requirements";
     mp3->setModel(m2);
     modelParameterDao->save(mp3);
     QVERIFY(mp3->id > nullId);
@@ -167,7 +167,91 @@ void ModelParameterXmlDaoTest::testFindById()
 
     /** Test Model Parameter 2 */
 
-    // TODO:
+    ModelParameter* mp2 = modelParameterDao->find(Q_UINT64_C(2));
+
+    QVERIFY(mp2 != NULL);
+    QVERIFY(mp2->id    == Q_UINT64_C(2));
+    QVERIFY(mp2->title == "Server description");
+    QVERIFY(mp2->kind  == Domain::LOGICAL_NONE);
+
+    Model* m2 = mp2->model();
+
+    QVERIFY(m2 != NULL);
+    QVERIFY(m2->id == Q_UINT64_C(1));
+
+    SimpleParameter* sp2 = mp2->simpleParameter();
+
+    QVERIFY(sp2 != NULL);
+    QVERIFY(sp2->id       == Q_UINT64_C(2));
+    QVERIFY(sp2->title    == "Server description");
+    QVERIFY(sp2->codeName == "SRV_DESCR");
+
+    QVERIFY(mp2->parent() == NULL);
+
+    /** Test Model Parameter 3 */
+
+    ModelParameter* mp3 = modelParameterDao->find(Q_UINT64_C(3));
+
+    QVERIFY(mp3 != NULL);
+    QVERIFY(mp3->id    == Q_UINT64_C(3));
+    QVERIFY(mp3->title == "Foo medal requirements");
+    QVERIFY(mp3->kind  == Domain::LOGICAL_OR);
+
+    Model* m3 = mp3->model();
+
+    QVERIFY(m3 != NULL);
+    QVERIFY(m3->id == Q_UINT64_C(2));
+
+    SimpleParameter* sp3 = mp3->simpleParameter();
+
+    QVERIFY(sp3 == NULL);
+    QVERIFY(mp3->parent() == NULL);
+
+    /** Test Model Parameter 4 */
+
+    ModelParameter* mp4 = modelParameterDao->find(Q_UINT64_C(4));
+
+    QVERIFY(mp4 != NULL);
+    QVERIFY(mp4->id    == Q_UINT64_C(4));
+    QVERIFY(mp4->title == "Kill enemy aircrafts");
+    QVERIFY(mp4->kind  == Domain::LOGICAL_NONE);
+
+    Model* m4 = mp4->model();
+
+    QVERIFY(m4 != NULL);
+    QVERIFY(m4->id == Q_UINT64_C(2));
+
+    SimpleParameter* sp4 = mp4->simpleParameter();
+
+    QVERIFY(sp4 != NULL);
+    QVERIFY(sp4->id       == Q_UINT64_C(3));
+    QVERIFY(sp4->title    == "Kill enemy aircrafts");
+    QVERIFY(sp4->codeName == "KILL_EAIR");
+
+    QVERIFY(mp4->parent() == mp3);
+
+    /** Test Model Parameter 5 */
+
+    ModelParameter* mp5 = modelParameterDao->find(Q_UINT64_C(5));
+
+    QVERIFY(mp5 != NULL);
+    QVERIFY(mp5->id    == Q_UINT64_C(5));
+    QVERIFY(mp5->title == "Kill enemy cars");
+    QVERIFY(mp5->kind  == Domain::LOGICAL_NONE);
+
+    Model* m5 = mp5->model();
+
+    QVERIFY(m5 != NULL);
+    QVERIFY(m5->id == Q_UINT64_C(2));
+
+    SimpleParameter* sp5 = mp5->simpleParameter();
+
+    QVERIFY(sp5 != NULL);
+    QVERIFY(sp5->id       == Q_UINT64_C(4));
+    QVERIFY(sp5->title    == "Kill enemy cars");
+    QVERIFY(sp5->codeName == "KILL_ECAR");
+
+    QVERIFY(mp5->parent() == mp3);
 }
 
 void ModelParameterXmlDaoTest::cleanupTestCase()
