@@ -110,20 +110,6 @@ void SimpleParameterXmlDaoTest::testFindByTitle()
     QVERIFY(p1 == p2);
 }
 
-void SimpleParameterXmlDaoTest::testFindXmlNode()
-{
-    QDomNode node;
-
-    node = ((SimpleParameterXmlDao*) dao)->findXmlNode(Q_UINT64_C(0));
-    QVERIFY(node.isNull());
-
-    node = ((SimpleParameterXmlDao*) dao)->findXmlNode(Q_UINT64_C(1));
-    QVERIFY(node.isNull()==false);
-
-    node = ((SimpleParameterXmlDao*) dao)->findXmlNode(Q_UINT64_C(2));
-    QVERIFY(node.isNull()==false);
-}
-
 void SimpleParameterXmlDaoTest::testUpdate()
 {
     domain_id_t id = Q_UINT64_C(1);

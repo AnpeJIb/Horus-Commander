@@ -223,26 +223,6 @@ void SchemeXmlDaoTest::testFindByModel()
     QVERIFY(mp1 == mp2);
 }
 
-void SchemeXmlDaoTest::testFindXmlNode()
-{
-    QDomNode node;
-
-    node = ((SchemeXmlDao*) schemeDao)->findXmlNode(Q_UINT64_C(0));
-    QVERIFY(node.isNull());
-
-    node = ((SchemeXmlDao*) schemeDao)->findXmlNode(Q_UINT64_C(1));
-    QVERIFY(node.isNull()==false);
-
-    node = ((SchemeXmlDao*) schemeDao)->findXmlNode(Q_UINT64_C(2));
-    QVERIFY(node.isNull()==false);
-
-    node = ((SchemeXmlDao*) schemeDao)->findXmlNode(Q_UINT64_C(3));
-    QVERIFY(node.isNull()==false);
-
-    node = ((SchemeXmlDao*) schemeDao)->findXmlNode(Q_UINT64_C(4));
-    QVERIFY(node.isNull()==false);
-}
-
 void SchemeXmlDaoTest::testUpdate()
 {
     domain_id_t id = Q_UINT64_C(1);

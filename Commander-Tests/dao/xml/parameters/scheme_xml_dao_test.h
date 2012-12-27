@@ -24,7 +24,6 @@ private slots:
     void testFindByTitle();
     void testFindByDescription();
     void testFindByModel();
-    void testFindXmlNode();
     void testUpdate();
     void testRemove();
     void cleanupTestCase();

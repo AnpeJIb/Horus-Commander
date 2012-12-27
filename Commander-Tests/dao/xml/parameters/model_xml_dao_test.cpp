@@ -112,20 +112,6 @@ void ModelXmlDaoTest::testFindByTitle()
     QVERIFY(m1 == m2);
 }
 
-void ModelXmlDaoTest::testFindXmlNode()
-{
-    QDomNode node;
-
-    node = ((ModelXmlDao*) dao)->findXmlNode(Q_UINT64_C(0));
-    QVERIFY(node.isNull());
-
-    node = ((ModelXmlDao*) dao)->findXmlNode(Q_UINT64_C(1));
-    QVERIFY(node.isNull()==false);
-
-    node = ((ModelXmlDao*) dao)->findXmlNode(Q_UINT64_C(2));
-    QVERIFY(node.isNull()==false);
-}
-
 void ModelXmlDaoTest::testUpdate()
 {
     domain_id_t id = Q_UINT64_C(1);

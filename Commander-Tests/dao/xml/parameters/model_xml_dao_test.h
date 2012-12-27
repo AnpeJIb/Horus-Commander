@@ -23,7 +23,6 @@ private slots:
     void testReferentialIntegrity();
     void testFindByKind();
     void testFindByTitle();
-    void testFindXmlNode();
     void testUpdate();
     void testRemove();
     void cleanupTestCase();
