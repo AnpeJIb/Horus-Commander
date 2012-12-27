@@ -23,6 +23,8 @@ public:
     ModelXmlDao(){}
     ~ModelXmlDao(){}
 
+    static QString tagName()         { return m_tagName;  }
+
     void save(Model* domain)         { doSave(domain);    }
     void all(QList<Model *> *result) { doAll(result);     }
     Model* find(domain_id_t id)      { return doFind(id); }
@@ -32,8 +34,6 @@ public:
 
     void findByTitle(const domain_title_t& title, QList<Model *> *result);
     void findByKind(domain_kind_t kind, QList<Model *> *result);
-
-    static QString tagName();
 
 protected:
     Model* newDomain();

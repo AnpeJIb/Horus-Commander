@@ -36,10 +36,7 @@ void ModelParameterXmlDao::loadParent(ModelParameter *domain)
 
     QDomNode node = findXmlNode(domain->id);
     if (node.isNull() == false)
-    {
-        domain_id_t id = parentIdFromXmlElement(node.toElement());
-        parent = find(id);
-    }
+        parent = find(parentIdFromXmlElement(node.toElement()));
 
     domain->setParent(parent);
 }
@@ -50,10 +47,7 @@ void ModelParameterXmlDao::loadModel(ModelParameter *domain)
 
     QDomNode node = findXmlNode(domain->id);
     if (node.isNull() == false)
-    {
-        domain_id_t id =  modelIdFromXmlElement(node.toElement());
-        model = modelDao.find(id);
-    }
+        model = modelDao.find(modelIdFromXmlElement(node.toElement()));
 
     domain->setModel(model);
 }
@@ -64,10 +58,7 @@ void ModelParameterXmlDao::loadSimpleParameter(ModelParameter *domain)
 
     QDomNode node = findXmlNode(domain->id);
     if (node.isNull() == false)
-    {
-        domain_id_t id =  simpleParameterIdFromXmlElement(node.toElement());
-        parameter = simpleParameterDao.find(id);
-    }
+        parameter = simpleParameterDao.find(simpleParameterIdFromXmlElement(node.toElement()));
 
     domain->setSimpleParameter(parameter);
 }
@@ -98,11 +89,6 @@ void ModelParameterXmlDao::domainFromXmlElement(const QDomElement &element, Mode
     domain->id    = idFromXmlElement(element);
     domain->title = titleFromXmlElement(element);
     domain->kind  = kindFromXmlElement(element);
-}
-
-QString ModelParameterXmlDao::tagName()
-{
-    return m_tagName;
 }
 
 QDomNode ModelParameterXmlDao::parentNode(ModelParameter *domain)

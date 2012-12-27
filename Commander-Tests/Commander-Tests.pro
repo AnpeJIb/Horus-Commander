@@ -35,7 +35,6 @@ SOURCES += \
     ../Commander/domain/commander_info.cpp \
     ../Commander/domain/belligerent.cpp \
     ../Commander/domain/parameters/scheme.cpp \
-    ../Commander/domain/parameters/parameter_value.cpp \
     ../Commander/domain/parameters/model_parameter.cpp \
     ../Commander/domain/parameters/model.cpp \
     ../Commander/dao/xml/parameters/model_parameter_xml_dao.cpp \
@@ -43,7 +42,10 @@ SOURCES += \
     ../Commander/dao/xml/parameters/simple_parameter_xml_dao.cpp \
     dao/xml/parameters/simple_parameter_xml_dao_test.cpp \
     ../Commander/dao/xml/parameters/scheme_xml_dao.cpp \
-    dao/xml/parameters/scheme_xml_dao_test.cpp
+    dao/xml/parameters/scheme_xml_dao_test.cpp \
+    ../Commander/dao/xml/parameters/model_parameter_value_xml_dao.cpp \
+    dao/xml/parameters/model_parameter_value_xml_dao_test.cpp \
+    ../Commander/domain/parameters/model_parameter_value.cpp
 
 HEADERS += \
     ../Commander/util/status_print.h \
@@ -112,7 +114,13 @@ HEADERS += \
     ../Commander/dao/xml/code_name_carrier_xml_dao.h \
     ../Commander/dao/parent_carrier_dao.h \
     ../Commander/dao/xml/parent_carrier_xml_dao.h \
-    ../Commander/dao/xml/parameters/model_carrier_xml_dao.h
+    ../Commander/dao/xml/parameters/model_carrier_xml_dao.h \
+    ../Commander/dao/parameters/model_parameter_value_dao.h \
+    ../Commander/domain/parameters/model_parameter_value_helper.h \
+    ../Commander/dao/parameters/scheme_carrier_dao.h \
+    ../Commander/dao/xml/parameters/scheme_carrier_xml_dao.h \
+    ../Commander/dao/xml/parameters/model_parameter_value_xml_dao.h \
+    dao/xml/parameters/model_parameter_value_xml_dao_test.h
 
 INCLUDEPATH += util \
   config \

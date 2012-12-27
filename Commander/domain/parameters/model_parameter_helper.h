@@ -17,5 +17,4 @@ public:
 
 }}
 
-
 #endif // MODEL_PARAMETER_HELPER_H

@@ -26,6 +26,8 @@ public:
     SchemeXmlDao(){}
     ~SchemeXmlDao(){}
 
+    static QString tagName()          { return m_tagName;  }
+
     void save(Scheme* domain)         { doSave(domain);    }
     void all(QList<Scheme *> *result) { doAll(result);     }
     Scheme* find(domain_id_t id)      { return doFind(id); }
@@ -38,8 +40,6 @@ public:
     void findByModel(const Model* model, QList< Scheme* >* result);
 
     void loadModel(Scheme* domain);
-
-    static QString tagName();
 
 protected:
     Scheme* newDomain();

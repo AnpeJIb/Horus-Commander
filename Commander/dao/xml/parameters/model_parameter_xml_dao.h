@@ -31,6 +31,8 @@ public:
     ModelParameterXmlDao(){}
     ~ModelParameterXmlDao(){}
 
+    static QString tagName()                  { return m_tagName;  }
+
     void save(ModelParameter* domain)         { doSave(domain);    }
     void all(QList<ModelParameter *> *result) { doAll(result);     }
     ModelParameter* find(domain_id_t id)      { return doFind(id); }
@@ -47,8 +49,6 @@ public:
     void loadParent(ModelParameter* domain);
     void loadModel(ModelParameter* domain);
     void loadSimpleParameter(ModelParameter* domain);
-
-    static QString tagName();
 
 protected:
     ModelParameter* newDomain();

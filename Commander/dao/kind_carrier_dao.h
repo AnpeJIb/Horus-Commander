@@ -9,7 +9,7 @@ namespace Dao {
 template <class T> class KindCarrierDao
 {
 public:
-    /** Find domain object in data source by kind */
+    /** Find domain objects in data source by kind */
     virtual void findByKind(domain_kind_t kind, QList< T* >* result) = 0;
 };
 

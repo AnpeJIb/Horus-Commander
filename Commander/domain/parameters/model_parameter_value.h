@@ -5,13 +5,14 @@
 #include "generic_domain.h"
 #include "model_parameter.h"
 #include "scheme_carrier.h"
+#include "model_parameter_value_helper.h"
 
 namespace Domain { namespace Parameters {
 
 class ModelParameterValue: public GenericDomain, public SchemeCarrier
 {
 public:
-    ModelParameterValue();
+    explicit ModelParameterValue(ModelParameterValueHelper* helper);
     ~ModelParameterValue();
 
     Scheme* scheme();
@@ -24,6 +25,7 @@ public:
 
 private:
     ModelParameter* m_parameter;
+    ModelParameterValueHelper* m_helper;
 };
 
 }}

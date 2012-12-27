@@ -9,7 +9,7 @@ namespace Dao {
 template <class T> class TitleCarrierDao
 {
 public:
-    /** Find domain object in data source by title */
+    /** Find domain objects in data source by title */
     virtual void findByTitle(const domain_title_t& title, QList< T* >* result) = 0;
 };
 

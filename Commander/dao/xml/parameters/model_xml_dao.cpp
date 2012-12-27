@@ -33,11 +33,6 @@ void ModelXmlDao::domainFromXmlElement(const QDomElement &element, Model *domain
     domain->title = titleFromXmlElement(element);
 }
 
-QString ModelXmlDao::tagName()
-{
-    return m_tagName;
-}
-
 QDomNode ModelXmlDao::parentNode(Model *domain)
 {
     Q_UNUSED(domain)

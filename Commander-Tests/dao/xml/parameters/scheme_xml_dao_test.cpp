@@ -162,11 +162,8 @@ void SchemeXmlDaoTest::testReferentialIntegrity()
 {
     domain_id_t id = Q_UINT64_C(1);
 
-    Scheme* sch1;
-    sch1 = schemeDao->find(id);
-
-    Scheme* sch2;
-    sch2 = schemeDao->find(id);
+    Scheme* sch1 = schemeDao->find(id);
+    Scheme* sch2 = schemeDao->find(id);
 
     QVERIFY(sch1 == sch2);
 }

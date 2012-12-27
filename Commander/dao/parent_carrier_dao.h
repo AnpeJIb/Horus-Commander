@@ -8,7 +8,7 @@ namespace Dao {
 template <class T> class ParentCarrierDao
 {
 public:
-    /** Find domain object in data source by its parent */
+    /** Find domain objects in data source by its parent */
     virtual void findByParent(const T* parent, QList< T* >* result) = 0;
 };
 

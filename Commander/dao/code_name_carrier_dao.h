@@ -9,7 +9,7 @@ namespace Dao {
 template <class T> class CodeNameCarrierDao
 {
 public:
-    /** Find domain object in data source by code name */
+    /** Find domain objects in data source by code name */
     virtual void findByCodeName(const domain_codeName_t& codeName, QList< T* >* result) = 0;
 };
 

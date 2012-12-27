@@ -33,11 +33,6 @@ SimpleParameter *SimpleParameterXmlDao::newDomain()
     return new SimpleParameter;
 }
 
-QString SimpleParameterXmlDao::tagName()
-{
-    return m_tagName;
-}
-
 QDomNode SimpleParameterXmlDao::parentNode(SimpleParameter *domain)
 {
     Q_UNUSED(domain)

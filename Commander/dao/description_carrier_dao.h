@@ -9,7 +9,7 @@ namespace Dao {
 template <class T> class DescriptionCarrierDao
 {
 public:
-    /** Find domain object in data source by description */
+    /** Find domain objects in data source by description */
     virtual void findByDescription(const domain_descr_t& descr, QList< T* >* result) = 0;
 };
 

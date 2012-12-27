@@ -23,6 +23,8 @@ public:
     SimpleParameterXmlDao(){}
     ~SimpleParameterXmlDao(){}
 
+    static QString tagName()                    { return m_tagName;  }
+
     void save(SimpleParameter* domain)          { doSave(domain);    }
     void all(QList<SimpleParameter *> *result)  { doAll(result);     }
     SimpleParameter* find(domain_id_t id)       { return doFind(id); }
@@ -32,8 +34,6 @@ public:
 
     void findByTitle(const domain_title_t& title, QList<SimpleParameter *> *result);
     void findByCodeName(const domain_codeName_t& codeName, QList<SimpleParameter *> *result);
-
-    static QString tagName();
 
 protected:
     SimpleParameter* newDomain();

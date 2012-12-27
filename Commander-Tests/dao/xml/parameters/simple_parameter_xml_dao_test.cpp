@@ -65,11 +65,8 @@ void SimpleParameterXmlDaoTest::testReferentialIntegrity()
 {
     domain_id_t id = Q_UINT64_C(1);
 
-    SimpleParameter* p1;
-    p1 = dao->find(id);
-
-    SimpleParameter* p2;
-    p2 = dao->find(id);
+    SimpleParameter* p1 = dao->find(id);
+    SimpleParameter* p2 = dao->find(id);
 
     QVERIFY(p1 == p2);
 }

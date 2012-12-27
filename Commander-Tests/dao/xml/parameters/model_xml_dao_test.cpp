@@ -67,11 +67,8 @@ void ModelXmlDaoTest::testReferentialIntegrity()
 {
     domain_id_t id = Q_UINT64_C(1);
 
-    Model* m1;
-    m1 = dao->find(id);
-
-    Model* m2;
-    m2 = dao->find(id);
+    Model* m1 = dao->find(id);
+    Model* m2 = dao->find(id);
 
     QVERIFY(m1 == m2);
 }

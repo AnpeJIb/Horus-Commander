@@ -23,7 +23,7 @@ class ModelParameterDao:
         public ModelParameterHelper
 {
 public:
-    /** Find domain object in data source by simple paramter */
+    /** Find domain objects in data source by simple paramter */
     virtual void findBySimpleParameter(const SimpleParameter* parameter, QList< ModelParameter* >* result) = 0;
 };
 

@@ -25,10 +25,7 @@ void SchemeXmlDao::loadModel(Scheme *domain)
 
     QDomNode node = findXmlNode(domain->id);
     if (node.isNull() == false)
-    {
-        domain_id_t id =  modelIdFromXmlElement(node.toElement());
-        model = modelDao.find(id);
-    }
+        model = modelDao.find(modelIdFromXmlElement(node.toElement()));
 
     domain->setModel(model);
 }
@@ -72,9 +69,4 @@ QDomNode SchemeXmlDao::parentNode(Scheme *domain)
     }
 
     return result;
-}
-
-QString SchemeXmlDao::tagName()
-{
-    return m_tagName;
 }

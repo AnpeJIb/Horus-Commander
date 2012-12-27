@@ -258,11 +258,8 @@ void ModelParameterXmlDaoTest::testReferentialIntegrity()
 {
     domain_id_t id = Q_UINT64_C(1);
 
-    ModelParameter* mp1;
-    mp1 = modelParameterDao->find(id);
-
-    ModelParameter* mp2;
-    mp2 = modelParameterDao->find(id);
+    ModelParameter* mp1 = modelParameterDao->find(id);
+    ModelParameter* mp2 = modelParameterDao->find(id);
 
     QVERIFY(mp1 == mp2);
 }
