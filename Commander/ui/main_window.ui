@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>564</width>
-    <height>337</height>
+    <width>565</width>
+    <height>379</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -242,7 +242,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>564</width>
+     <width>565</width>
      <height>20</height>
     </rect>
    </property>
@@ -250,11 +250,18 @@
     <property name="title">
      <string>&amp;Tools</string>
     </property>
-    <addaction name="actionConfiguration"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>&amp;Configuration</string>
+    </property>
+    <addaction name="actionConfigurationPrimary"/>
+    <addaction name="actionConfigurationMain"/>
+   </widget>
    <addaction name="menuTools"/>
+   <addaction name="menuSettings"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionQuit">
@@ -303,6 +310,19 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+C</string>
+   </property>
+  </action>
+  <action name="actionConfigurationPrimary">
+   <property name="text">
+    <string>&amp;Primary</string>
+   </property>
+  </action>
+  <action name="actionConfigurationMain">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Main</string>
    </property>
   </action>
  </widget>

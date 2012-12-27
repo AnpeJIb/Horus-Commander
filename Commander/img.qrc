@@ -29,11 +29,17 @@
         <file>img/MLE.png</file>
         <file>img/timer_clock.png</file>
         <file>img/more.png</file>
-        <file>img/searchFolder.png</file>
         <file>img/general.png</file>
         <file>img/langEn.png</file>
         <file>img/langRu.png</file>
         <file>img/net.png</file>
         <file>img/diff.png</file>
+        <file>img/add.png</file>
+        <file>img/delete.png</file>
+        <file>img/copy.png</file>
+        <file>img/edit.png</file>
+        <file>img/search.png</file>
+        <file>img/connected.png</file>
+        <file>img/disconnected.png</file>
     </qresource>
 </RCC>

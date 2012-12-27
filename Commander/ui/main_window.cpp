@@ -9,7 +9,7 @@
 #include <QCheckBox>
 
 #include "extra_mission_management_dialog.h"
-#include "config_dialog.h"
+#include "primary_config_dialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -170,8 +170,8 @@ void MainWindow::on_timeLeft_timeChanged(const QTime &date)
     // TODO:
 }
 
-void MainWindow::on_actionConfiguration_triggered()
+void MainWindow::on_actionConfigurationPrimary_triggered()
 {
-    ConfigDialog d;
+    PrimaryConfigDialog d;
     d.exec();
 }

@@ -61,7 +61,7 @@ SOURCES += main.cpp\
     config/ui/difficulty_weapons_page.cpp \
     domain/parameters/model.cpp \
     domain/parameters/scheme.cpp \
-    domain/parameters/parameter_value.cpp \
+    domain/parameters/model_parameter_value.cpp \
     domain/commander_info.cpp \
     domain/gameflow/mission_set.cpp \
     domain/gameflow/mission_definition.cpp \
@@ -73,7 +73,8 @@ SOURCES += main.cpp\
     dao/xml/parameters/model_xml_dao.cpp \
     dao/xml/parameters/model_parameter_xml_dao.cpp \
     domain/parameters/model_parameter.cpp \
-    dao/xml/parameters/simple_parameter_xml_dao.cpp
+    dao/xml/parameters/simple_parameter_xml_dao.cpp \
+    config/ui/primary_config_dialog.cpp
 
 HEADERS  += \
     config/config.h \
@@ -155,7 +156,8 @@ HEADERS  += \
     domain/parameters/simple_parameter.h \
     dao/parameters/simple_parameter_dao.h \
     dao/parameters/model_carrier_dao.h \
-    dao/xml/parameters/simple_parameter_xml_dao.h
+    dao/xml/parameters/simple_parameter_xml_dao.h \
+    config/ui/primary_config_dialog.h
 
 FORMS    += \
     config/ui/config_dialog.ui \
@@ -168,7 +170,8 @@ FORMS    += \
     config/ui/difficulty_view_page.ui \
     config/ui/difficulty_map_icons_page.ui \
     config/ui/difficulty_var_page.ui \
-    config/ui/difficulty_weapons_page.ui
+    config/ui/difficulty_weapons_page.ui \
+    config/ui/primary_config_dialog.ui
 
 unix {
     DEFINES += _UNIX_
