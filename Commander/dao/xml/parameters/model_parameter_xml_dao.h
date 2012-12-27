@@ -6,6 +6,12 @@
 #include "simple_parameter_xml_dao.h"
 #include "model_parameter.h"
 #include "model_parameter_dao.h"
+#include "title_carrier_xml_dao.h"
+#include "kind_carrier_xml_dao.h"
+#include "parent_carrier_xml_dao.h"
+#include "model_carrier_xml_dao.h"
+
+#define XML_ATTR_SIMPLE_PARAMETER_ID "simple_parameter_id"
 
 namespace Dao { namespace Parameters {
 
@@ -15,7 +21,11 @@ class ModelParameterXmlDao;
 
 class ModelParameterXmlDao:
         public XmlDao<ModelParameter, ModelParameterXmlDao>,
-        public ModelParameterDao
+        public ModelParameterDao,
+        public TitleCarrierXmlDao,
+        public KindCarrierXmlDao,
+        public ParentCarrierXmlDao,
+        public ModelCarrierXmlDao
 {
 public:
     ModelParameterXmlDao(){}
@@ -47,6 +57,16 @@ protected:
 
 private:
     static QString m_tagName;
+
+    inline domain_id_t simpleParameterIdFromXmlElement(const QDomElement& element)
+    {
+        return element.attribute(XML_ATTR_SIMPLE_PARAMETER_ID, "0").toULongLong();
+    }
+
+    inline void simpleParameterIdToXmlElement(domain_id_t id, QDomElement* element)
+    {
+        element->setAttribute(XML_ATTR_SIMPLE_PARAMETER_ID, QString::number(id));
+    }
 
     ModelXmlDao modelDao;
     SimpleParameterXmlDao simpleParameterDao;

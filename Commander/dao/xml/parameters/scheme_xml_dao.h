@@ -5,6 +5,9 @@
 #include "scheme.h"
 #include "scheme_dao.h"
 #include "model_xml_dao.h"
+#include "title_carrier_xml_dao.h"
+#include "description_carrier_xml_dao.h"
+#include "model_carrier_xml_dao.h"
 
 namespace Dao { namespace Parameters {
 
@@ -14,7 +17,10 @@ class SchemeXmlDao;
 
 class SchemeXmlDao:
         public XmlDao<Scheme, SchemeXmlDao>,
-        public SchemeDao
+        public SchemeDao,
+        public TitleCarrierXmlDao,
+        public DescriptionCarrierXmlDao,
+        public ModelCarrierXmlDao
 {
 public:
     SchemeXmlDao(){}

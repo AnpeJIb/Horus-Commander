@@ -4,6 +4,8 @@
 #include "xml_dao.h"
 #include "simple_parameter.h"
 #include "simple_parameter_dao.h"
+#include "title_carrier_xml_dao.h"
+#include "code_name_carrier_xml_dao.h"
 
 namespace Dao { namespace Parameters {
 
@@ -11,7 +13,11 @@ using namespace Domain::Parameters;
 
 class SimpleParameterXmlDao;
 
-class SimpleParameterXmlDao: public XmlDao<SimpleParameter, SimpleParameterXmlDao>, public SimpleParameterDao
+class SimpleParameterXmlDao:
+        public XmlDao<SimpleParameter, SimpleParameterXmlDao>,
+        public SimpleParameterDao,
+        public TitleCarrierXmlDao,
+        public CodeNameCarrierXmlDao
 {
 public:
     SimpleParameterXmlDao(){}

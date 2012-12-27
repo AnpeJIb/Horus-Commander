@@ -6,55 +6,17 @@ QString SchemeXmlDao::m_tagName = "ParameterScheme";
 
 void SchemeXmlDao::findByTitle(const domain_title_t &title, QList<Scheme *> *result)
 {
-    result->clear();
-    QDomNodeList lst = dsDoc.elementsByTagName(m_tagName);
-
-    QDomElement elem;
-    domain_title_t tmp_title;
-
-    for (int i = 0; i < lst.count(); ++i)
-    {
-        elem = lst.at(i).toElement();
-        tmp_title = titleFromXmlElement(elem);
-        if (tmp_title == title)
-            (*result) << cachedOrNewDomain(elem);
-    }
+    findByAttribute((const void*)&title, &isTitleSuitable, result);
 }
 
 void SchemeXmlDao::findByDescription(const domain_descr_t &descr, QList<Scheme *> *result)
 {
-    result->clear();
-    QDomNodeList lst = dsDoc.elementsByTagName(m_tagName);
-
-    QDomElement elem;
-    domain_descr_t tmp_descr;
-
-    for (int i = 0; i < lst.count(); ++i)
-    {
-        elem = lst.at(i).toElement();
-        tmp_descr = descriptionFromXmlElement(elem);
-        if (tmp_descr == descr)
-            (*result) << cachedOrNewDomain(elem);
-    }
+    findByAttribute((const void*)&descr, &isDescriptionSuitable, result);
 }
 
 void SchemeXmlDao::findByModel(const Model *model, QList<Scheme *> *result)
 {
-    result->clear();
-    QDomNodeList lst = dsDoc.elementsByTagName(m_tagName);
-
-    QDomElement elem;
-    domain_id_t tmp_id;
-    domain_id_t model_id = model->id;
-
-    for (int i = 0; i < lst.count(); ++i)
-    {
-        elem = lst.at(i).toElement();
-        tmp_id = modelIdFromXmlElement(elem);
-
-        if (tmp_id == model_id)
-            (*result) << cachedOrNewDomain(elem);
-    }
+    findByAttribute((const void*)&model->id, &isModelIdSuitable, result);
 }
 
 void SchemeXmlDao::loadModel(Scheme *domain)

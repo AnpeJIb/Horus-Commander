@@ -88,7 +88,6 @@ HEADERS += \
     ../Commander/domain/parameters/scheme.h \
     ../Commander/domain/parameters/model_parameter.h \
     ../Commander/domain/parameters/model.h \
-    ../Commander/dao/xml/xml_dao_helper.h \
     ../Commander/dao/code_name_carrier_dao.h \
     ../Commander/dao/xml/parameters/model_parameter_xml_dao.h \
     ../Commander/domain/parent_carrier.h \
@@ -106,7 +105,14 @@ HEADERS += \
     ../Commander/domain/parameters/scheme_helper.h \
     ../Commander/dao/xml/parameters/scheme_xml_dao.h \
     dao/xml/parameters/scheme_xml_dao_test.h \
-    ../Commander/domain/parameters/model_parameter_value.h
+    ../Commander/domain/parameters/model_parameter_value.h \
+    ../Commander/dao/xml/title_carrier_xml_dao.h \
+    ../Commander/dao/xml/description_carrier_xml_dao.h \
+    ../Commander/dao/xml/kind_carrier_xml_dao.h \
+    ../Commander/dao/xml/code_name_carrier_xml_dao.h \
+    ../Commander/dao/parent_carrier_dao.h \
+    ../Commander/dao/xml/parent_carrier_xml_dao.h \
+    ../Commander/dao/xml/parameters/model_carrier_xml_dao.h
 
 INCLUDEPATH += util \
   config \

@@ -6,9 +6,9 @@
 #include <QTextStream>
 
 #include "status_print.h"
-#include "xml_dao_helper.h"
 
 #define XML_ROOT    "root"
+#define XML_ATTR_ID "id"
 
 QDomDocument Dao::XmlDaoBase::dsDoc;
 QString Dao::XmlDaoBase::dsPath;
@@ -87,4 +87,14 @@ void Dao::XmlDaoBase::sync()
     ts.setCodec("UTF-8");
     ts << dsDoc.toString();
     file.close();
+}
+
+domain_id_t Dao::XmlDaoBase::idFromXmlElement(const QDomElement &element)
+{
+    return element.attribute(XML_ATTR_ID, "0").toULongLong();
+}
+
+void Dao::XmlDaoBase::idToXmlElement(domain_id_t id, QDomElement *element)
+{
+    element->setAttribute(XML_ATTR_ID, QString::number(id));
 }

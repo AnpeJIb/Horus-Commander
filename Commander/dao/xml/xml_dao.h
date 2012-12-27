@@ -2,11 +2,11 @@
 #define XML_DAO_H
 
 #include <QString>
+#include <QDomElement>
 #include <QDomDocument>
 
 #include "generic_domain.h"
 #include "generic_dao.h"
-#include "xml_dao_helper.h"
 
 namespace Dao {
 
@@ -21,6 +21,9 @@ public:
 
 protected:
     static QDomDocument dsDoc;
+
+    static domain_id_t idFromXmlElement(const QDomElement &element);
+    static void idToXmlElement(domain_id_t id, QDomElement *element);
 
 private:
     static void createNew();
@@ -43,6 +46,10 @@ protected:
     virtual void domainToXmlElement(T* domain, QDomElement* element) = 0;
     virtual void domainFromXmlElement(const QDomElement& element, T* domain) = 0;
     virtual QDomNode parentNode(T *domain) = 0;
+
+    void findByAttribute(const void* attribute,
+                         bool (*isAttributeSuitable)(const void* attribute, const QDomElement& element),
+                         QList<T *> *result);
 
     void doSave(T *domain);
     void doAll(QList<T *> *result);
@@ -108,6 +115,25 @@ template <class T, class D> QDomNode XmlDao<T, D>::findXmlNode(domain_id_t id)
     }
 
     return result;
+}
+
+template <class T, class D>
+void XmlDao<T, D>::findByAttribute(const void* attribute,
+                                   bool (*isAttributeSuitable)(const void*, const QDomElement &),
+                                   QList<T *> *result)
+{
+    result->clear();
+    QDomNodeList lst = dsDoc.elementsByTagName(D::tagName());
+
+    QDomElement elem;
+
+    for (int i = 0; i < lst.count(); ++i)
+    {
+        elem = lst.at(i).toElement();
+
+        if ((*isAttributeSuitable)(attribute, elem))
+            (*result) << cachedOrNewDomain(elem);
+    }
 }
 
 template <class T, class D> T* XmlDao<T, D>::cachedOrNewDomain(const QDomElement &element)

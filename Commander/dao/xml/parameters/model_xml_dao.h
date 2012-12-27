@@ -4,6 +4,8 @@
 #include "xml_dao.h"
 #include "model.h"
 #include "model_dao.h"
+#include "title_carrier_xml_dao.h"
+#include "kind_carrier_xml_dao.h"
 
 namespace Dao { namespace Parameters {
 
@@ -11,7 +13,11 @@ using namespace Domain::Parameters;
 
 class ModelXmlDao;
 
-class ModelXmlDao: public XmlDao<Model, ModelXmlDao>, public ModelDao
+class ModelXmlDao:
+        public XmlDao<Model, ModelXmlDao>,
+        public ModelDao,
+        public TitleCarrierXmlDao,
+        public KindCarrierXmlDao
 {
 public:
     ModelXmlDao(){}
