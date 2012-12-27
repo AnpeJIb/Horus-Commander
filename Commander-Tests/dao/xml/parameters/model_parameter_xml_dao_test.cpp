@@ -336,6 +336,22 @@ void ModelParameterXmlDaoTest::testFindByModel()
     QVERIFY(mp1 == mp2);
 }
 
+void ModelParameterXmlDaoTest::testFindBySimpleParameter()
+{
+    SimpleParameter* sp = simpleParameterDao->find(Q_UINT64_C(1));
+    QVERIFY(sp != NULL);
+
+    QList< ModelParameter* > lst;
+    modelParameterDao->findBySimpleParameter(sp, &lst);
+    QVERIFY(lst.count() == 1);
+
+    ModelParameter* mp1 = lst.at(0);
+    ModelParameter* mp2 = modelParameterDao->find(Q_UINT64_C(1));
+
+    QVERIFY(mp2 != NULL);
+    QVERIFY(mp1 == mp2);
+}
+
 void ModelParameterXmlDaoTest::testFindXmlNode()
 {
     QDomNode node;

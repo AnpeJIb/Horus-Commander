@@ -28,6 +28,7 @@ private slots:
     void testFindByKind();
     void testFindByParent();
     void testFindByModel();
+    void testFindBySimpleParameter();
     void testFindXmlNode();
     void testUpdate();
     void testRemove();

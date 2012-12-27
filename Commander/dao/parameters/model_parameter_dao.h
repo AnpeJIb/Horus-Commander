@@ -22,6 +22,9 @@ class ModelParameterDao:
         public ParentCarrierDao<ModelParameter>,
         public ModelParameterHelper
 {
+public:
+    /** Find domain object in data source by simple paramter */
+    virtual void findBySimpleParameter(const SimpleParameter* parameter, QList< ModelParameter* >* result) = 0;
 };
 
 }}

@@ -25,6 +25,11 @@ void ModelParameterXmlDao::findByModel(const Model *model, QList<ModelParameter 
     findByAttribute((const void*)&model->id, &isModelIdSuitable, result);
 }
 
+void ModelParameterXmlDao::findBySimpleParameter(const SimpleParameter *parameter, QList<ModelParameter *> *result)
+{
+    findByAttribute((const void*)&parameter->id, &isSimpleParameterIdSuitable, result);
+}
+
 void ModelParameterXmlDao::loadParent(ModelParameter *domain)
 {
     ModelParameter* parent = NULL;

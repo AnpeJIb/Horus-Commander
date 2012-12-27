@@ -42,6 +42,7 @@ public:
     void findByKind(domain_kind_t kind, QList<ModelParameter *> *result);
     void findByParent(const ModelParameter* parent, QList<ModelParameter *> *result);
     void findByModel(const Model* model, QList< ModelParameter* >* result);
+    void findBySimpleParameter(const SimpleParameter* parameter, QList< ModelParameter* >* result);
 
     void loadParent(ModelParameter* domain);
     void loadModel(ModelParameter* domain);
@@ -58,14 +59,19 @@ protected:
 private:
     static QString m_tagName;
 
-    inline domain_id_t simpleParameterIdFromXmlElement(const QDomElement& element)
+    static domain_id_t simpleParameterIdFromXmlElement(const QDomElement& element)
     {
         return element.attribute(XML_ATTR_SIMPLE_PARAMETER_ID, "0").toULongLong();
     }
 
-    inline void simpleParameterIdToXmlElement(domain_id_t id, QDomElement* element)
+    static void simpleParameterIdToXmlElement(domain_id_t id, QDomElement* element)
     {
         element->setAttribute(XML_ATTR_SIMPLE_PARAMETER_ID, QString::number(id));
+    }
+
+    static bool isSimpleParameterIdSuitable(const void* id, const QDomElement &element)
+    {
+        return (*(domain_id_t*)(id)) == simpleParameterIdFromXmlElement(element);
     }
 
     ModelXmlDao modelDao;
