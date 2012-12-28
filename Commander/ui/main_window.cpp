@@ -45,7 +45,6 @@ void MainWindow::createTrayIcon()
     m_trayIconMenu->addAction(ui->actionShow);
     m_trayIconMenu->addAction(ui->actionMinimize);
     m_trayIconMenu->addSeparator();
-    m_trayIconMenu->addAction(ui->actionConfiguration);
     m_trayIconMenu->addSeparator();
     m_trayIconMenu->addAction(ui->actionQuit);
 
@@ -109,12 +108,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
 void MainWindow::on_actionQuit_triggered()
 {
     qApp->quit();
-}
-
-void MainWindow::on_timeLeft_timeChanged(const QTime &date)
-{
-    Q_UNUSED(date)
-    // TODO:
 }
 
 void MainWindow::on_actionConfigurationPrimary_triggered()

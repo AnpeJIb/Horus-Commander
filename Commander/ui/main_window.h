@@ -28,7 +28,6 @@ private slots:
     void onAboutToQuit();
     
     void on_actionQuit_triggered();
-    void on_timeLeft_timeChanged(const QTime &date);
     void on_actionConfigurationPrimary_triggered();
 
 private:
