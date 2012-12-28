@@ -32,7 +32,7 @@ void ModelParameterXmlDaoTest::testSave()
     /** Save models */
 
     Model* m1 = new Model;
-    m1->kind  = Model::MODEL_SETTINGS;
+    m1->kind  = Model::MODEL_PRIMARY_SETTINGS;
     m1->title = "Foo settings model";
     modelDao->save(m1);
     QVERIFY(m1->id > nullId);
@@ -153,7 +153,7 @@ void ModelParameterXmlDaoTest::testFindById()
 
     QVERIFY(m1 != NULL);
     QVERIFY(m1->id    == Q_UINT64_C(1));
-    QVERIFY(m1->kind  == Model::MODEL_SETTINGS);
+    QVERIFY(m1->kind  == Model::MODEL_PRIMARY_SETTINGS);
     QVERIFY(m1->title == "Foo settings model");
 
     SimpleParameter* sp1 = mp1->simpleParameter();

@@ -12,7 +12,7 @@ namespace Domain { namespace Parameters {
 class Scheme: public GenericDomain, public TitleCarrier, public DescriptionCarrier, public ModelCarrier
 {
 public:
-    explicit Scheme(SchemeHelper* helper);
+    explicit Scheme(SchemeHelper *helper);
     ~Scheme();
 
     Model* model();

@@ -25,10 +25,6 @@ SOURCES += \
     util/status_print_test.cpp \
     util/status_tester.cpp \
     util/str_test.cpp \
-    config/general_config_test.cpp \
-    ../Commander/config/config.cpp \
-    ../Commander/gs_path.cpp \
-    ../Commander/sc_path.cpp \
     dao/xml/parameters/model_xml_dao_test.cpp \
     ../Commander/dao/xml/xml_dao.cpp \
     ../Commander/dao/xml/parameters/model_xml_dao.cpp \
@@ -45,17 +41,14 @@ SOURCES += \
     dao/xml/parameters/scheme_xml_dao_test.cpp \
     ../Commander/dao/xml/parameters/model_parameter_value_xml_dao.cpp \
     dao/xml/parameters/model_parameter_value_xml_dao_test.cpp \
-    ../Commander/domain/parameters/model_parameter_value.cpp
+    ../Commander/domain/parameters/model_parameter_value.cpp \
+    config/primary_config_helper_test.cpp \
+    ../Commander/config/primary_config_helper.cpp \
+    ../Commander/dao/xml/xml_dao_helper.cpp
 
 HEADERS += \
     ../Commander/util/status_print.h \
     ../Commander/util/status_file_logger.h \
-    ../Commander/config/general_config.h \
-    ../Commander/config/config_module.h \
-    ../Commander/config/config.h \
-    ../Commander/config/common_log_config.h \
-    ../Commander/config/log_config.h \
-    ../Commander/config/window_config.h \
     ../Commander/util/str.h \
     util/file_util.h \
     ../Commander/util/file.h \
@@ -65,10 +58,6 @@ HEADERS += \
     util/status_print_test.h \
     util/status_tester.h \
     util/str_test.h \
-    ../Commander/config/net_config.h \
-    config/general_config_test.h \
-    ../Commander/gs_path.h \
-    ../Commander/sc_path.h \
     dao/xml/parameters/model_xml_dao_test.h \
     ../Commander/dao/title_carrier_dao.h \
     ../Commander/dao/kind_carrier_dao.h \
@@ -120,7 +109,9 @@ HEADERS += \
     ../Commander/dao/parameters/scheme_carrier_dao.h \
     ../Commander/dao/xml/parameters/scheme_carrier_xml_dao.h \
     ../Commander/dao/xml/parameters/model_parameter_value_xml_dao.h \
-    dao/xml/parameters/model_parameter_value_xml_dao_test.h
+    dao/xml/parameters/model_parameter_value_xml_dao_test.h \
+    config/primary_config_helper_test.h \
+    ../Commander/dao/xml/xml_dao_helper.h
 
 INCLUDEPATH += util \
   config \

@@ -30,6 +30,11 @@ void SchemeXmlDao::loadModel(Scheme *domain)
     domain->setModel(model);
 }
 
+SchemeXmlDao *SchemeXmlDao::clone() const
+{
+    return new SchemeXmlDao;
+}
+
 Scheme *SchemeXmlDao::newDomain()
 {
     return new Scheme(this);

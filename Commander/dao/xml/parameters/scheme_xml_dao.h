@@ -40,6 +40,7 @@ public:
     void findByModel(const Model* model, QList< Scheme* >* result);
 
     void loadModel(Scheme* domain);
+    SchemeXmlDao* clone() const;
 
 protected:
     Scheme* newDomain();

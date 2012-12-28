@@ -50,6 +50,8 @@ public:
     void loadModel(ModelParameter* domain);
     void loadSimpleParameter(ModelParameter* domain);
 
+    ModelParameterXmlDao* clone() const;
+
 protected:
     ModelParameter* newDomain();
     void domainToXmlElement(ModelParameter *domain, QDomElement* element);

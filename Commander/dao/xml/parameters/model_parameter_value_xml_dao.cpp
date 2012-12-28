@@ -42,6 +42,11 @@ void ModelParameterValueXmlDao::loadModelParameter(ModelParameterValue *domain)
     domain->setParameter(parameter);
 }
 
+ModelParameterValueXmlDao *ModelParameterValueXmlDao::clone() const
+{
+    return new ModelParameterValueXmlDao;
+}
+
 ModelParameterValue *ModelParameterValueXmlDao::newDomain()
 {
     return new ModelParameterValue(this);

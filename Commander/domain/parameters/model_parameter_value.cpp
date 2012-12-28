@@ -5,12 +5,13 @@ using namespace Domain::Parameters;
 
 ModelParameterValue::ModelParameterValue(ModelParameterValueHelper *helper)
     : m_parameter(NULL),
-      m_helper(helper)
+      m_helper(helper->clone())
 {
 }
 
 ModelParameterValue::~ModelParameterValue()
 {
+    delete m_helper;
 }
 
 Scheme *ModelParameterValue::scheme()

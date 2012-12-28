@@ -3,13 +3,14 @@
 using namespace Domain;
 using namespace Domain::Parameters;
 
-Scheme::Scheme(SchemeHelper *helper)
-    : m_helper(helper)
+Scheme::Scheme(SchemeHelper* helper)
+    : m_helper(helper->clone())
 {
 }
 
 Scheme::~Scheme()
 {
+    delete m_helper;
 }
 
 Model *Scheme::model()

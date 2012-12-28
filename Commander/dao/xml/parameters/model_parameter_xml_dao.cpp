@@ -63,6 +63,11 @@ void ModelParameterXmlDao::loadSimpleParameter(ModelParameter *domain)
     domain->setSimpleParameter(parameter);
 }
 
+ModelParameterXmlDao *ModelParameterXmlDao::clone() const
+{
+    return new ModelParameterXmlDao;
+}
+
 ModelParameter *ModelParameterXmlDao::newDomain()
 {
     return new ModelParameter(this);

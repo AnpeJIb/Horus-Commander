@@ -32,7 +32,7 @@ void ModelParameterValueXmlDaoTest::testSave()
     domain_id_t nullId = Q_UINT64_C(0);
 
     Model* m = new Model;
-    m->kind = Model::MODEL_SETTINGS;
+    m->kind = Model::MODEL_PRIMARY_SETTINGS;
     m->title = "Initial settings";
     modelDao->save(m);
     QVERIFY(m->id > nullId);

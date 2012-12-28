@@ -22,7 +22,8 @@ INCLUDEPATH += config \
   domain/parameters \
   dao \
   dao/parameters \
-  dao/xml
+  dao/xml \
+  dao/xml/parameters
 
 SOURCES += main.cpp\
     util/file.cpp \
@@ -52,7 +53,10 @@ SOURCES += main.cpp\
     domain/parameters/model_parameter.cpp \
     dao/xml/parameters/simple_parameter_xml_dao.cpp \
     config/ui/primary_config_dialog.cpp \
-    ui/listed_stack.cpp
+    ui/listed_stack.cpp \
+    config/primary_config_helper.cpp \
+    dao/xml/parameters/scheme_xml_dao.cpp \
+    dao/xml/xml_dao_helper.cpp
 
 HEADERS  += \
     util/file.h \
@@ -106,7 +110,16 @@ HEADERS  += \
     dao/parameters/model_carrier_dao.h \
     dao/xml/parameters/simple_parameter_xml_dao.h \
     config/ui/primary_config_dialog.h \
-    ui/listed_stack.h
+    ui/listed_stack.h \
+    dao/xml/xml_dao_helper.h \
+    config/primary_config_helper.h \
+    domain/parameters/model_parameter_value.h \
+    domain/parameters/scheme_helper.h \
+    domain/parameters/model_parameter_helper.h \
+    domain/parameters/model_parameter_value_helper.h \
+    domain/domain_helper.h \
+    dao/xml/parameters/scheme_carrier_xml_dao.h \
+    dao/xml/parameters/scheme_xml_dao.h
 
 FORMS    += \
     config/ui/general_page.ui \

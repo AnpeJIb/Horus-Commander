@@ -44,6 +44,8 @@ public:
     void loadScheme(ModelParameterValue* domain);
     void loadModelParameter(ModelParameterValue* domain);
 
+    ModelParameterValueXmlDao* clone() const;
+
 protected:
     ModelParameterValue* newDomain();
     void domainToXmlElement(ModelParameterValue *domain, QDomElement* element);

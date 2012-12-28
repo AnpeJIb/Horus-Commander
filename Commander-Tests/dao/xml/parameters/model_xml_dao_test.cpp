@@ -30,7 +30,7 @@ void ModelXmlDaoTest::testSave()
     domain_id_t nullId = Q_UINT64_C(0);
 
     Model* m1 = new Model;
-    m1->kind  = Model::MODEL_SETTINGS;
+    m1->kind  = Model::MODEL_PRIMARY_SETTINGS;
     m1->title = "Foo settings model";
     dao->save(m1);
     QVERIFY(m1->id > nullId);
@@ -59,7 +59,7 @@ void ModelXmlDaoTest::testFindById()
 
     QVERIFY(m != NULL);
     QVERIFY(m->id    == Q_UINT64_C(1));
-    QVERIFY(m->kind  == Model::MODEL_SETTINGS);
+    QVERIFY(m->kind  == Model::MODEL_PRIMARY_SETTINGS);
     QVERIFY(m->title == "Foo settings model");
 }
 
@@ -78,13 +78,13 @@ void ModelXmlDaoTest::testFindByKind()
     domain_id_t id = Q_UINT64_C(1);
     QList< Model* > lst;
 
-    dao->findByKind(Model::MODEL_SETTINGS, &lst);
+    dao->findByKind(Model::MODEL_PRIMARY_SETTINGS, &lst);
     QVERIFY(lst.count() == 1);
 
     Model* m1 = lst.at(0);
 
     QVERIFY(m1->id    == id);
-    QVERIFY(m1->kind  == Model::MODEL_SETTINGS);
+    QVERIFY(m1->kind  == Model::MODEL_PRIMARY_SETTINGS);
     QVERIFY(m1->title == "Foo settings model");
 
     Model* m2 = dao->find(id);
