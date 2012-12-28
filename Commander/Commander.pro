@@ -25,40 +25,19 @@ INCLUDEPATH += config \
   dao/xml
 
 SOURCES += main.cpp\
-    config/config.cpp \
-    util/logs.cpp \
     util/file.cpp \
     util/str.cpp \
-    config/ui/config_dialog.cpp \
     config/ui/general_page.cpp \
     config/ui/named_page.cpp \
     config/ui/uiconfig_module.cpp \
-    config/gs_config.cpp \
-    ui/extra_mission_management_dialog.cpp \
     ui/main_window.cpp \
     util/status_file_logger.cpp \
     util/status_print.cpp \
     util/status_widget.cpp \
-    gs_command.cpp \
-    gs_console.cpp \
-    gs_path.cpp \
-    gs_scripts.cpp \
-    mission_manager.cpp \
-    server_process.cpp \
-    config/ui/net_page.cpp \
-    parser/common_parser.cpp \
-    parser/console_parser.cpp \
     domain/belligerent.cpp \
     domain/territory/node.cpp \
     domain/territory/battleground.cpp \
     domain/gameflow/weather_report.cpp \
-    config/ui/difficulty_page.cpp \
-    config/ui/difficulty_subpage.cpp \
-    config/ui/difficulty_flight_model_page.cpp \
-    config/ui/difficulty_view_page.cpp \
-    config/ui/difficulty_map_icons_page.cpp \
-    config/ui/difficulty_var_page.cpp \
-    config/ui/difficulty_weapons_page.cpp \
     domain/parameters/model.cpp \
     domain/parameters/scheme.cpp \
     domain/parameters/model_parameter_value.cpp \
@@ -67,47 +46,25 @@ SOURCES += main.cpp\
     domain/gameflow/mission_definition.cpp \
     domain/gameflow/mission_cycle.cpp \
     domain/gameflow/mission_execution.cpp \
-    sc.cpp \
-    sc_path.cpp \
     dao/xml/xml_dao.cpp \
     dao/xml/parameters/model_xml_dao.cpp \
     dao/xml/parameters/model_parameter_xml_dao.cpp \
     domain/parameters/model_parameter.cpp \
     dao/xml/parameters/simple_parameter_xml_dao.cpp \
-    config/ui/primary_config_dialog.cpp
+    config/ui/primary_config_dialog.cpp \
+    ui/listed_stack.cpp
 
 HEADERS  += \
-    config/config.h \
-    util/logs.h \
     util/file.h \
     util/str.h \
-    config/ui/config_dialog.h \
     config/ui/general_page.h \
     config/ui/named_page.h \
     config/ui/uiconfig_module.h \
-    config/common_log_config.h \
-    config/general_config.h \
-    config/gs_config.h \
-    config/log_config.h \
-    config/window_config.h \
-    ui/extra_mission_management_dialog.h \
     ui/main_window.h \
     util/file_ext.h \
     util/status_file_logger.h \
     util/status_print.h \
     util/status_widget.h \
-    gs_command.h \
-    gs_console.h \
-    gs_path.h \
-    gs_scripts.h \
-    mission_manager.h \
-    server_process.h \
-    config/gs_config_group.h \
-    config/gs_config_key.h \
-    config/ui/net_page.h \
-    config/net_config.h \
-    parser/common_parser.h \
-    parser/console_parser.h \
     domain/generic_domain.h \
     domain/belligerent.h \
     domain/territory/node.h \
@@ -115,13 +72,6 @@ HEADERS  += \
     domain/territory/battleground.h \
     util/bitwise.h \
     domain/gameflow/weather_report.h \
-    config/ui/difficulty_page.h \
-    config/ui/difficulty_subpage.h \
-    config/ui/difficulty_flight_model_page.h \
-    config/ui/difficulty_view_page.h \
-    config/ui/difficulty_map_icons_page.h \
-    config/ui/difficulty_var_page.h \
-    config/ui/difficulty_weapons_page.h \
     domain/pointF2D.h \
     domain/belligerent_carrier.h \
     domain/title_carrier.h \
@@ -139,8 +89,6 @@ HEADERS  += \
     domain/gameflow/mission_cycle.h \
     domain/gameflow/mission_execution.h \
     domain/kind_carrier.h \
-    sc.h \
-    sc_path.h \
     dao/generic_dao.h \
     dao/xml/xml_dao.h \
     dao/title_carrier_dao.h \
@@ -157,21 +105,14 @@ HEADERS  += \
     dao/parameters/simple_parameter_dao.h \
     dao/parameters/model_carrier_dao.h \
     dao/xml/parameters/simple_parameter_xml_dao.h \
-    config/ui/primary_config_dialog.h
+    config/ui/primary_config_dialog.h \
+    ui/listed_stack.h
 
 FORMS    += \
-    config/ui/config_dialog.ui \
     config/ui/general_page.ui \
-    ui/extra_mission_management_dialog.ui \
     ui/main_window.ui \
-    config/ui/net_page.ui \
-    config/ui/difficulty_page.ui \
-    config/ui/difficulty_flight_model_page.ui \
-    config/ui/difficulty_view_page.ui \
-    config/ui/difficulty_map_icons_page.ui \
-    config/ui/difficulty_var_page.ui \
-    config/ui/difficulty_weapons_page.ui \
-    config/ui/primary_config_dialog.ui
+    config/ui/primary_config_dialog.ui \
+    ui/listed_stack.ui
 
 unix {
     DEFINES += _UNIX_

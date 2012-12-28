@@ -1,14 +1,10 @@
 #include "main_window.h"
 #include "ui_main_window.h"
-#include "config.h"
-#include "logs.h"
-#include "sc.h"
 
 #include <QDesktopWidget>
 #include <QMessageBox>
 #include <QCheckBox>
 
-#include "extra_mission_management_dialog.h"
 #include "primary_config_dialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -22,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent) :
     initWindowState();
 
     connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(onAboutToQuit()));
-    connect(ui->btnStart, SIGNAL(clicked()), &(SC::MSSN), SLOT(start()));
 }
 
 MainWindow::~MainWindow()
@@ -36,30 +31,11 @@ void MainWindow::initLogger()
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(m_logger);
     ui->tLog->setLayout(layout);
-
-    LOGS::SET_GUI_LOGGER(m_logger);
-    LOGS::UPDATE_GUI_LOGGER();
 }
 
 void MainWindow::initWindowState()
 {
-    QRect geom = CONFIG::WINDOW.geometry();
-
-    if ((geom.x()>=0) && (geom.y()>=0))
-    {
-        setGeometry(geom);
-    } else {
-        setGeometry(QStyle::alignedRect(
-                        Qt::LeftToRight,
-                        Qt::AlignCenter,
-                        size(),
-                        QApplication::desktop()->availableGeometry()));
-    }
-
-    if (CONFIG::WINDOW.isMinimized())
-        hide();
-    else
-        showNormal();
+    // TODO:
 }
 
 void MainWindow::createTrayIcon()
@@ -98,10 +74,7 @@ void MainWindow::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
 
 void MainWindow::onAboutToQuit()
 {
-    SC::SP.stop();
-    CONFIG::WINDOW.setGeometry(geometry());
-    CONFIG::WINDOW.setMinimized(isMinimized() || (isVisible()==false));
-    CONFIG::SAVE();
+    // TODO:
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -109,26 +82,26 @@ void MainWindow::closeEvent(QCloseEvent *event)
     Q_UNUSED(event)
     disconnect(qApp, SIGNAL(aboutToQuit()), this, SLOT(onAboutToQuit()));
 
-    if (CONFIG::WINDOW.promtClose())
-    {
-        QMessageBox msgBox(QMessageBox::Warning,
-                           tr("Closing window"),
-                           tr("Do you wish to quit? Otherwise window will be minimized to tray"), 0, this);
-        QCheckBox dontPrompt(tr("Do not prompt again"), &msgBox);
-        dontPrompt.blockSignals(true);
+//    if (CONFIG::WINDOW.promtClose())
+//    {
+//        QMessageBox msgBox(QMessageBox::Warning,
+//                           tr("Closing window"),
+//                           tr("Do you wish to quit? Otherwise window will be minimized to tray"), 0, this);
+//        QCheckBox dontPrompt(tr("Do not prompt again"), &msgBox);
+//        dontPrompt.blockSignals(true);
 
-        msgBox.addButton(&dontPrompt, QMessageBox::ActionRole);
-        msgBox.addButton(QMessageBox::Yes);
-        msgBox.addButton(QMessageBox::No);
+//        msgBox.addButton(&dontPrompt, QMessageBox::ActionRole);
+//        msgBox.addButton(QMessageBox::Yes);
+//        msgBox.addButton(QMessageBox::No);
 
-        int res = msgBox.exec();
+//        int res = msgBox.exec();
 
-        CONFIG::WINDOW.setPromtClose(dontPrompt.isChecked()==false);
-        CONFIG::WINDOW.setQuitOnClose(res == 16384);
-    }
+//        CONFIG::WINDOW.setPromtClose(dontPrompt.isChecked()==false);
+//        CONFIG::WINDOW.setQuitOnClose(res == 16384);
+//    }
 
-    if (CONFIG::WINDOW.quitOnClose())
-        qApp->quit();
+//    if (CONFIG::WINDOW.quitOnClose())
+//        qApp->quit();
 
     onAboutToQuit();
 }
@@ -136,32 +109,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
 void MainWindow::on_actionQuit_triggered()
 {
     qApp->quit();
-}
-
-void MainWindow::on_btnStop_clicked()
-{
-    // TODO:
-}
-
-void MainWindow::on_btnRestart_clicked()
-{
-    // TODO:
-}
-
-void MainWindow::on_btnPrevious_clicked()
-{
-    // TODO:
-}
-
-void MainWindow::on_btnNext_clicked()
-{
-    // TODO:
-}
-
-void MainWindow::on_btnExtra_clicked()
-{
-    ExtraMissionManagementDialog d;
-    d.exec();
 }
 
 void MainWindow::on_timeLeft_timeChanged(const QTime &date)

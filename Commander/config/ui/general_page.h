@@ -24,7 +24,7 @@ public:
     QString pageName();
 
 private slots:
-    void on_serverPathBrowse_clicked();
+    void on_serverPathSearch_clicked();
 
 private:
     void populateLangs();

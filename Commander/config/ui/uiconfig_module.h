@@ -8,8 +8,6 @@ class UIConfigModule;
 class UIConfigModule
 {
 public:
-    UIConfigModule();
-
     void addChild(UIConfigModule* child);
     void rmChild(UIConfigModule* child);
 

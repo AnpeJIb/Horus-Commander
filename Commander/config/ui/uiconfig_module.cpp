@@ -1,9 +1,5 @@
 #include "uiconfig_module.h"
 
-UIConfigModule::UIConfigModule()
-{
-}
-
 void UIConfigModule::addChild(UIConfigModule *child)
 {
     if (children.contains(child)) return;
