@@ -5,13 +5,18 @@
 
 #include "generic_domain.h"
 #include "title_carrier.h"
+#include "description_carrier.h"
 #include "scheme_carrier.h"
 
 using namespace Domain::Parameters;
 
 namespace Domain {
 
-class CommanderInfo: public GenericDomain, public TitleCarrier, public SchemeCarrier
+class CommanderInfo:
+        public GenericDomain,
+        public TitleCarrier,
+        public DescriptionCarrier,
+        public SchemeCarrier
 {
 public:
     CommanderInfo();
