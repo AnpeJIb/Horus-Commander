@@ -17,9 +17,11 @@ public:
     explicit GeneralPage(QWidget *parent = 0);
     ~GeneralPage();
     
-    bool save();
+    bool isValid();
+    void save();
     void load();
     void loadDefaults();
+    void setConfigEnabled(bool value);
 
     QString pageName();
 

@@ -8,6 +8,7 @@
 #include "title_carrier_dao.h"
 #include "description_carrier_dao.h"
 #include "model_carrier_dao.h"
+#include "scheme_judge.h"
 
 using namespace Domain::Parameters;
 
@@ -18,7 +19,8 @@ class SchemeDao:
         public TitleCarrierDao<Scheme>,
         public DescriptionCarrierDao<Scheme>,
         public ModelCarrierDao<Scheme>,
-        public SchemeHelper
+        public SchemeHelper,
+        public SchemeJudge
 {
 public:
     virtual void findByModelKind(domain_kind_t kind, QList<Scheme* >* result) = 0;

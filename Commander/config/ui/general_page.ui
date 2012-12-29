@@ -59,6 +59,9 @@
           </item>
           <item>
            <widget class="QToolButton" name="serverPathSearch">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="icon">
              <iconset resource="../../img.qrc">
               <normaloff>:/img/search.png</normaloff>:/img/search.png</iconset>
@@ -70,10 +73,17 @@
         <item row="1" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QComboBox" name="dbBox"/>
+           <widget class="QComboBox" name="dbBox">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QToolButton" name="dbEdit">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="icon">
              <iconset resource="../../img.qrc">
               <normaloff>:/img/edit.png</normaloff>:/img/edit.png</iconset>
@@ -82,6 +92,9 @@
           </item>
           <item>
            <widget class="QToolButton" name="dbConnectionState">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="icon">
              <iconset resource="../../img.qrc">
               <normaloff>:/img/disconnected.png</normaloff>:/img/disconnected.png</iconset>
@@ -91,7 +104,11 @@
          </layout>
         </item>
         <item row="2" column="1">
-         <widget class="QComboBox" name="langBox"/>
+         <widget class="QComboBox" name="langBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label">

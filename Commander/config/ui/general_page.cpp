@@ -18,7 +18,12 @@ GeneralPage::~GeneralPage()
     delete ui;
 }
 
-bool GeneralPage::save()
+bool GeneralPage::isValid()
+{
+    return true;
+}
+
+void GeneralPage::save()
 {
     //    if (ui->serverPath->text().isEmpty())
     //    {
@@ -54,8 +59,6 @@ bool GeneralPage::save()
     //    CONFIG::GENERAL.setServerDescr( ui->serverDescr->text());
 
     //    return true;
-
-    return false;
 }
 
 void GeneralPage::load()
@@ -71,7 +74,12 @@ void GeneralPage::loadDefaults()
 //    ui->serverPath->setText(    DEFAULT_SERVER_PATH);
 //    ui->serverName->setText(    DEFAULT_SERVER_NAME);
 //    ui->serverDescr->setText(   DEFAULT_SERVER_DESCR);
-//    selectLangInBox(            DEFAULT_LANG_CODE);
+    //    selectLangInBox(            DEFAULT_LANG_CODE);
+}
+
+void GeneralPage::setConfigEnabled(bool value)
+{
+    // TODO:
 }
 
 void GeneralPage::populateLangs()

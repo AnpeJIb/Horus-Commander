@@ -60,7 +60,8 @@ SOURCES += main.cpp \
     dao/xml/parameters/scheme_xml_dao.cpp \
     dao/xml/xml_dao_helper.cpp \
     service/config/primary_config_service.cpp \
-    path/system_path.cpp
+    path/system_path.cpp \
+    util/scheme_editor.cpp
 
 HEADERS  += \
     util/file.h \
@@ -123,13 +124,20 @@ HEADERS  += \
     dao/xml/parameters/scheme_carrier_xml_dao.h \
     dao/xml/parameters/scheme_xml_dao.h \
     service/config/primary_config_service.h \
-    path/system_path.h
+    path/system_path.h \
+    util/scheme_editor.h \
+    domain/title_judge.h \
+    dao/parameters/scheme_carrier_dao.h \
+    dao/parameters/scheme_dao.h \
+    dao/parameters/model_parameter_value_dao.h \
+    domain/parameters/scheme_judge.h
 
 FORMS    += \
     config/ui/general_page.ui \
     ui/main_window.ui \
     config/ui/primary_config_dialog.ui \
-    ui/listed_stack.ui
+    ui/listed_stack.ui \
+    util/scheme_editor.ui
 
 unix {
     DEFINES += _UNIX_

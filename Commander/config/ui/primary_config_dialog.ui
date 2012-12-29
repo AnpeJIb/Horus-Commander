@@ -45,6 +45,9 @@
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <widget class="QComboBox" name="schemeBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -55,6 +58,9 @@
          </item>
          <item>
           <widget class="QToolButton" name="schemeCopy">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="icon">
             <iconset resource="../../img.qrc">
              <normaloff>:/img/copy.png</normaloff>:/img/copy.png</iconset>
@@ -69,6 +75,9 @@
          </item>
          <item>
           <widget class="QToolButton" name="schemeEdit">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="icon">
             <iconset resource="../../img.qrc">
              <normaloff>:/img/edit.png</normaloff>:/img/edit.png</iconset>
@@ -77,6 +86,9 @@
          </item>
          <item>
           <widget class="QToolButton" name="schemeDelete">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="icon">
             <iconset resource="../../img.qrc">
              <normaloff>:/img/delete.png</normaloff>:/img/delete.png</iconset>
@@ -87,6 +99,9 @@
        </item>
        <item>
         <widget class="QLabel" name="schemeDescr">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="font">
           <font>
            <pointsize>8</pointsize>

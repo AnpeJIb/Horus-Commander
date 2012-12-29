@@ -20,16 +20,31 @@ public:
     explicit PrimaryConfigDialog(QWidget *parent = 0);
     ~PrimaryConfigDialog();
 
-    bool save();
+    bool isValid();
+    void save();
     void load();
     void loadDefaults();
+    void setConfigEnabled(bool value);
 
 private slots:
     void on_buttonBox_clicked(QAbstractButton *button);
 
+    void on_schemeCopy_clicked();
+
+    void on_schemeDelete_clicked();
+
+    void on_schemeBox_currentIndexChanged(int index);
+
+    void on_schemeEdit_clicked();
+
 private:
     void addListedStack();
     void addPages();
+
+    void reload();
+    void loadSchemes();
+    void updateSchemeControlsState();
+    void updateSchemeDescription();
 
     Ui::PrimaryConfigDialog *ui;
     ListedStack* listedStack;

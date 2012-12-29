@@ -12,14 +12,20 @@ void UIConfigModule::rmChild(UIConfigModule *child)
     children.removeOne(child);
 }
 
-bool UIConfigModule::saveChildren()
+bool UIConfigModule::areChildrenValid()
 {
     bool result = true;
 
     foreach (UIConfigModule * ch, children)
-        result &= ch->save();
+        result &= ch->isValid();
 
     return result;
+}
+
+void UIConfigModule::saveChildren()
+{
+    foreach (UIConfigModule * ch, children)
+        ch->save();
 }
 
 void UIConfigModule::loadChildren()
@@ -32,4 +38,10 @@ void UIConfigModule::loadChildrenDefaults()
 {
     foreach (UIConfigModule * ch, children)
         ch->loadDefaults();
+}
+
+void UIConfigModule::setConfigChildrenEnabled(bool value)
+{
+    foreach (UIConfigModule * ch, children)
+        ch->setConfigEnabled(value);
 }

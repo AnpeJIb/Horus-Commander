@@ -116,6 +116,11 @@ void PrimaryConfigService::updateCurrentScheme()
     Dao::XmlDaoBase::sync();
 }
 
+SchemeJudge *PrimaryConfigService::newSchemeJudge()
+{
+    return new Dao::Parameters::SchemeXmlDao;
+}
+
 void PrimaryConfigService::loadCurrentScheme(domain_id_t id)
 {
     Dao::Parameters::SchemeXmlDao schemeDao;

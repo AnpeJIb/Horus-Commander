@@ -6,6 +6,7 @@
 #include <QSettings>
 
 #include "scheme.h"
+#include "scheme_judge.h"
 
 namespace Config
 {
@@ -23,6 +24,7 @@ public:
     static void copyCurrentSchemeAndSelect();
     static void removeCurrentScheme();
     static void updateCurrentScheme();
+    static Domain::Parameters::SchemeJudge* newSchemeJudge();
 
 protected:
     static bool m_initialized;

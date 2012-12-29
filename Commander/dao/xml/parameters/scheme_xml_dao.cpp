@@ -35,6 +35,19 @@ void SchemeXmlDao::findByModelKind(domain_kind_t kind, QList<Scheme *> *result)
     }
 }
 
+bool SchemeXmlDao::isTitleAcceptable(const Scheme *carrier, const domain_title_t &title)
+{
+    if (carrier->title == title) return true;
+
+    QList<Scheme*> schemes;
+    findByTitle(title, &schemes);
+
+    foreach (Scheme* sch, schemes)
+        if ((sch != carrier) && (sch->title == title)) return false;
+
+    return true;
+}
+
 void SchemeXmlDao::loadModel(Scheme *domain)
 {
     Model* model = NULL;
