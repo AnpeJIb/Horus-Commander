@@ -32,13 +32,13 @@ void ModelParameterXmlDaoTest::testSave()
     /** Save models */
 
     Model* m1 = new Model;
-    m1->kind  = Model::MODEL_PRIMARY_SETTINGS;
+    m1->kind  = Model::SETTINGS_PRIMARY;
     m1->title = "Foo settings model";
     modelDao->save(m1);
     QVERIFY(m1->id > nullId);
 
     Model* m2 = new Model;
-    m2->kind  = Model::MODEL_AWARD_ASSIGN;
+    m2->kind  = Model::AWARD_ASSIGN;
     m2->title = "Foo assignment model";
     modelDao->save(m2);
     QVERIFY(m2->id > nullId);
@@ -153,7 +153,7 @@ void ModelParameterXmlDaoTest::testFindById()
 
     QVERIFY(m1 != NULL);
     QVERIFY(m1->id    == Q_UINT64_C(1));
-    QVERIFY(m1->kind  == Model::MODEL_PRIMARY_SETTINGS);
+    QVERIFY(m1->kind  == Model::SETTINGS_PRIMARY);
     QVERIFY(m1->title == "Foo settings model");
 
     SimpleParameter* sp1 = mp1->simpleParameter();

@@ -54,7 +54,7 @@ void PrimaryConfigServiceTest::testSchemeFind()
 
     Model* m = sch->model();
     QVERIFY(m != NULL);
-    QVERIFY(m->kind  == Model::MODEL_PRIMARY_SETTINGS);
+    QVERIFY(m->kind  == Model::SETTINGS_PRIMARY);
     QVERIFY(m->title == "Primary config model");
 }
 

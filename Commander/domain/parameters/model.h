@@ -12,10 +12,10 @@ class Model: public GenericDomain, public TitleCarrier, public KindCarrier
 public:
     enum MODEL_TYPE
     {
-        MODEL_PRIMARY_SETTINGS = 0,
-        MODEL_MAIN_SETTINGS    = 1,
-        MODEL_MISSION_FINISH   = 2,
-        MODEL_AWARD_ASSIGN     = 3
+        SETTINGS_PRIMARY = 0,
+        SETTINGS_MAIN    = 1,
+        MISSION_FINISH   = 2,
+        AWARD_ASSIGN     = 3
     };
 
     Model();

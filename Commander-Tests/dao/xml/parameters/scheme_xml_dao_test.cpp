@@ -31,13 +31,13 @@ void SchemeXmlDaoTest::testSave()
     /** Save models */
 
     Model* m1 = new Model;
-    m1->kind  = Model::MODEL_PRIMARY_SETTINGS;
+    m1->kind  = Model::SETTINGS_PRIMARY;
     m1->title = "Foo settings model";
     modelDao->save(m1);
     QVERIFY(m1->id > nullId);
 
     Model* m2 = new Model;
-    m2->kind  = Model::MODEL_AWARD_ASSIGN;
+    m2->kind  = Model::AWARD_ASSIGN;
     m2->title = "Foo assignment model";
     modelDao->save(m2);
 
@@ -110,7 +110,7 @@ void SchemeXmlDaoTest::testFindById()
 
     QVERIFY(m1 != NULL);
     QVERIFY(m1->id    == Q_UINT64_C(1));
-    QVERIFY(m1->kind  == Model::MODEL_PRIMARY_SETTINGS);
+    QVERIFY(m1->kind  == Model::SETTINGS_PRIMARY);
     QVERIFY(m1->title == "Foo settings model");
 
     /** Test Scheme 2 */
@@ -140,7 +140,7 @@ void SchemeXmlDaoTest::testFindById()
 
     QVERIFY(m3 != NULL);
     QVERIFY(m3->id    == Q_UINT64_C(2));
-    QVERIFY(m3->kind  == Model::MODEL_AWARD_ASSIGN);
+    QVERIFY(m3->kind  == Model::AWARD_ASSIGN);
     QVERIFY(m3->title == "Foo assignment model");
 
     /** Test Scheme 4 */
@@ -223,7 +223,7 @@ void SchemeXmlDaoTest::testFindByModel()
 void SchemeXmlDaoTest::testFindByModelKind()
 {
     QList< Scheme* > lst;
-    schemeDao->findByModelKind(Model::MODEL_PRIMARY_SETTINGS, &lst);
+    schemeDao->findByModelKind(Model::SETTINGS_PRIMARY, &lst);
     QVERIFY(lst.count() == 2);
 }
 

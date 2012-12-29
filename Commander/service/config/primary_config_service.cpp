@@ -58,7 +58,7 @@ bool PrimaryConfigService::isInitialized()
 void PrimaryConfigService::shemes(QList<Domain::Parameters::Scheme *> *result)
 {
     Dao::Parameters::SchemeXmlDao schemeDao;
-    schemeDao.findByModelKind(Model::MODEL_PRIMARY_SETTINGS, result);
+    schemeDao.findByModelKind(Model::SETTINGS_PRIMARY, result);
 }
 
 void PrimaryConfigService::loadCurrentScheme(domain_id_t id)
@@ -69,7 +69,7 @@ void PrimaryConfigService::loadCurrentScheme(domain_id_t id)
 
     Scheme* sch = schemeDao.find(id);
 
-    if ((sch != NULL) && (sch->model()->kind == Model::MODEL_PRIMARY_SETTINGS))
+    if ((sch != NULL) && (sch->model()->kind == Model::SETTINGS_PRIMARY))
     {
         m_scheme = sch;
         return;
@@ -91,7 +91,7 @@ void PrimaryConfigService::loadCurrentScheme(domain_id_t id)
     Dao::Parameters::ModelXmlDao modelDao;
 
     QList<Model*> modelLst;
-    modelDao.findByKind(Model::MODEL_PRIMARY_SETTINGS, &modelLst);
+    modelDao.findByKind(Model::SETTINGS_PRIMARY, &modelLst);
 
     Model* model = NULL;
 
@@ -105,7 +105,7 @@ void PrimaryConfigService::loadCurrentScheme(domain_id_t id)
 
         model = new Model;
         model->title = QObject::tr("Primary config model");
-        model->kind  = Model::MODEL_PRIMARY_SETTINGS;
+        model->kind  = Model::SETTINGS_PRIMARY;
         modelDao.save(model);
     }
 
