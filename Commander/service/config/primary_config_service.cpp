@@ -42,10 +42,14 @@ void PrimaryConfigService::selectCurrentScheme(domain_id_t id)
     if ((m_scheme != NULL) && (m_scheme->id == id)) return;
 
     loadCurrentScheme(id);
+    saveCurrentSchemeId();
+}
 
+void PrimaryConfigService::saveCurrentSchemeId()
+{
     if (m_scheme != NULL)
     {
-        m_settings->setValue(CURRENT_SCHEME_ID_KEY, QString::number(id));
+        m_settings->setValue(CURRENT_SCHEME_ID_KEY, QString::number(m_scheme->id));
         m_settings->sync();
     }
 }
@@ -55,10 +59,61 @@ bool PrimaryConfigService::isInitialized()
     return m_initialized;
 }
 
-void PrimaryConfigService::shemes(QList<Domain::Parameters::Scheme *> *result)
+void PrimaryConfigService::schemes(QList<Domain::Parameters::Scheme *> *result)
 {
     Dao::Parameters::SchemeXmlDao schemeDao;
     schemeDao.findByModelKind(Model::SETTINGS_PRIMARY, result);
+}
+
+Scheme *PrimaryConfigService::currentScheme()
+{
+    return m_scheme;
+}
+
+void PrimaryConfigService::copyCurrentSchemeAndSelect()
+{
+    if (m_scheme == NULL) return;
+
+    Dao::Parameters::SchemeXmlDao schemeDao;
+    Scheme* copy = new Scheme(&schemeDao);
+
+    copy->title = QString(m_scheme->title).append(" (").append(QObject::tr("copy")).append(")");
+    copy->description = QObject::tr("Copy of").append(" ").append(m_scheme->description);
+    copy->setModel(m_scheme->model());
+    schemeDao.save(copy);
+
+    m_scheme = copy;
+
+    Dao::XmlDaoBase::sync();
+    saveCurrentSchemeId();
+}
+
+void PrimaryConfigService::removeCurrentScheme()
+{
+    if (m_scheme == NULL) return;
+
+    Dao::Parameters::SchemeXmlDao schemeDao;
+    QList<Scheme*> lst;
+    schemeDao.all(&lst);
+
+    if (lst.count() <= 1) return;
+
+    lst.removeOne(m_scheme);
+    schemeDao.remove(m_scheme);
+
+    m_scheme = lst.at(0);
+
+    Dao::XmlDaoBase::sync();
+    saveCurrentSchemeId();
+}
+
+void PrimaryConfigService::updateCurrentScheme()
+{
+    if (m_scheme == NULL) return;
+
+    Dao::Parameters::SchemeXmlDao schemeDao;
+    schemeDao.update(m_scheme);
+    Dao::XmlDaoBase::sync();
 }
 
 void PrimaryConfigService::loadCurrentScheme(domain_id_t id)

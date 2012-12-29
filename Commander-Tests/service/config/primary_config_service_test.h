@@ -12,9 +12,12 @@ public:
 
 private slots:
     void initTestCase();
+    void testCurrentScheme();
     void testGetAllSchemes();
-    void cleanupConfig();
-    void testSchemeFind();
+    void testCopyCurrentSchemeAndSelect();
+    void testSelectCurrentScheme();
+    void testRemoveCurrentScheme();
+    void testUpdateCurrentScheme();
     void cleanupTestCase();
 
 private:
