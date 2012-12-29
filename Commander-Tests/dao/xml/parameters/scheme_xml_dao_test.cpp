@@ -220,6 +220,13 @@ void SchemeXmlDaoTest::testFindByModel()
     QVERIFY(mp1 == mp2);
 }
 
+void SchemeXmlDaoTest::testFindByModelKind()
+{
+    QList< Scheme* > lst;
+    schemeDao->findByModelKind(Model::MODEL_PRIMARY_SETTINGS, &lst);
+    QVERIFY(lst.count() == 2);
+}
+
 void SchemeXmlDaoTest::testUpdate()
 {
     domain_id_t id = Q_UINT64_C(1);

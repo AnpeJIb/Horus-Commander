@@ -1,6 +1,9 @@
 #include "primary_config_service.h"
 #include "xml_dao_helper.h"
 
+#include "model_xml_dao.h"
+#include "scheme_xml_dao.h"
+
 namespace Config
 {
 
@@ -52,15 +55,21 @@ bool PrimaryConfigService::isInitialized()
     return m_initialized;
 }
 
+void PrimaryConfigService::shemes(QList<Domain::Parameters::Scheme *> *result)
+{
+    Dao::Parameters::SchemeXmlDao schemeDao;
+    schemeDao.findByModelKind(Model::MODEL_PRIMARY_SETTINGS, result);
+}
+
 void PrimaryConfigService::loadCurrentScheme(domain_id_t id)
 {
-    Dao::Parameters::SchemeXmlDao m_schemeDao;
+    Dao::Parameters::SchemeXmlDao schemeDao;
 
     /** Try to load specified scheme */
 
-    Scheme* sch = m_schemeDao.find(id);
+    Scheme* sch = schemeDao.find(id);
 
-    if (sch != NULL)
+    if ((sch != NULL) && (sch->model()->kind == Model::MODEL_PRIMARY_SETTINGS))
     {
         m_scheme = sch;
         return;
@@ -69,7 +78,7 @@ void PrimaryConfigService::loadCurrentScheme(domain_id_t id)
     /** Try to load any scheme */
 
     QList<Scheme*> schemeLst;
-    m_schemeDao.all(&schemeLst);
+    schemeDao.all(&schemeLst);
 
     if (schemeLst.count() > 0)
     {
@@ -82,13 +91,13 @@ void PrimaryConfigService::loadCurrentScheme(domain_id_t id)
     Dao::Parameters::ModelXmlDao modelDao;
 
     QList<Model*> modelLst;
-    modelDao.all(&modelLst);
+    modelDao.findByKind(Model::MODEL_PRIMARY_SETTINGS, &modelLst);
 
-    Model* model;
+    Model* model = NULL;
 
     if (modelLst.count() > 0)
     {
-        /** Try to load any model */
+        /** Load any model */
 
         model = modelLst.at(0);
     } else {
@@ -100,11 +109,11 @@ void PrimaryConfigService::loadCurrentScheme(domain_id_t id)
         modelDao.save(model);
     }
 
-    sch = new Scheme(&m_schemeDao);
+    sch = new Scheme(&schemeDao);
     sch->title = QObject::tr("Default");
     sch->description = QObject::tr("Default primary config scheme");
     sch->setModel(model);
-    m_schemeDao.save(sch);
+    schemeDao.save(sch);
     m_scheme = sch;
 
     Dao::XmlDaoBase::sync();

@@ -2,12 +2,10 @@
 #define PRIMARY_CONFIG_SERVICE_H
 
 #include <QString>
+#include <QList>
 #include <QSettings>
 
 #include "scheme.h"
-
-#include "model_xml_dao.h"
-#include "scheme_xml_dao.h"
 
 namespace Config
 {
@@ -19,11 +17,12 @@ public:
     static void cleanUp();
     static void selectCurrentScheme(domain_id_t id);
     static bool isInitialized();
+    static void shemes(QList<Domain::Parameters::Scheme *> *result);
 
 protected:
     static bool m_initialized;
     static QSettings* m_settings;
-    static Dao::Parameters::Scheme* m_scheme;
+    static Domain::Parameters::Scheme* m_scheme;
 
 private:
     static void loadCurrentScheme(domain_id_t id);

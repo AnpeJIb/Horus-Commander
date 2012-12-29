@@ -19,6 +19,22 @@ void SchemeXmlDao::findByModel(const Model *model, QList<Scheme *> *result)
     findByAttribute((const void*)&model->id, &isModelIdSuitable, result);
 }
 
+void SchemeXmlDao::findByModelKind(domain_kind_t kind, QList<Scheme *> *result)
+{
+    result->clear();
+
+    QList<Model*> models;
+    modelDao.findByKind(kind, &models);
+
+    QList<Scheme*> schemes;
+
+    foreach (Model* model, models)
+    {
+        findByModel(model, &schemes);
+        result->append(schemes);
+    }
+}
+
 void SchemeXmlDao::loadModel(Scheme *domain)
 {
     Model* model = NULL;

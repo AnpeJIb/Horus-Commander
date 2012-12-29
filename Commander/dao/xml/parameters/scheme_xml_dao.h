@@ -38,6 +38,7 @@ public:
     void findByTitle(const domain_title_t& title, QList<Scheme *> *result);
     void findByDescription(const domain_descr_t& descr, QList<Scheme *> *result);
     void findByModel(const Model* model, QList< Scheme* >* result);
+    void findByModelKind(domain_kind_t kind, QList<Scheme *> *result);
 
     void loadModel(Scheme* domain);
     SchemeXmlDao* clone() const;

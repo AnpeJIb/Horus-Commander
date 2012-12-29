@@ -20,6 +20,8 @@ class SchemeDao:
         public ModelCarrierDao<Scheme>,
         public SchemeHelper
 {
+public:
+    virtual void findByModelKind(domain_kind_t kind, QList<Scheme* >* result) = 0;
 };
 
 }}
