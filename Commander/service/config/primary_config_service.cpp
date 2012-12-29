@@ -1,4 +1,4 @@
-#include "primary_config_helper.h"
+#include "primary_config_service.h"
 #include "xml_dao_helper.h"
 
 namespace Config
@@ -6,11 +6,11 @@ namespace Config
 
 const QString CURRENT_SCHEME_ID_KEY = "Schemes/primary";
 
-bool PrimaryConfigHelper::m_initialized = false;
-QSettings* PrimaryConfigHelper::m_settings = NULL;
-Dao::Parameters::Scheme* PrimaryConfigHelper::m_scheme = NULL;
+bool PrimaryConfigService::m_initialized = false;
+QSettings* PrimaryConfigService::m_settings = NULL;
+Dao::Parameters::Scheme* PrimaryConfigService::m_scheme = NULL;
 
-void PrimaryConfigHelper::init(const QString& configPath, const QString& dataSrcPath)
+void PrimaryConfigService::init(const QString& configPath, const QString& dataSrcPath)
 {
     if (m_initialized) return;
 
@@ -21,17 +21,18 @@ void PrimaryConfigHelper::init(const QString& configPath, const QString& dataSrc
     m_initialized = true;
 }
 
-void PrimaryConfigHelper::cleanUp()
+void PrimaryConfigService::cleanUp()
 {
     m_initialized = false;
 
+    m_scheme = NULL;
     m_settings->sync();
     delete m_settings;
 
     Dao::XmlDaoHelper::tearDown();
 }
 
-void PrimaryConfigHelper::selectCurrentScheme(domain_id_t id)
+void PrimaryConfigService::selectCurrentScheme(domain_id_t id)
 {
     if (id == Q_UINT64_C(0)) return;
 
@@ -46,12 +47,12 @@ void PrimaryConfigHelper::selectCurrentScheme(domain_id_t id)
     }
 }
 
-bool PrimaryConfigHelper::isInitialized()
+bool PrimaryConfigService::isInitialized()
 {
     return m_initialized;
 }
 
-void PrimaryConfigHelper::loadCurrentScheme(domain_id_t id)
+void PrimaryConfigService::loadCurrentScheme(domain_id_t id)
 {
     Dao::Parameters::SchemeXmlDao m_schemeDao;
 

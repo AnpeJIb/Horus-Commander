@@ -42,9 +42,9 @@ SOURCES += \
     ../Commander/dao/xml/parameters/model_parameter_value_xml_dao.cpp \
     dao/xml/parameters/model_parameter_value_xml_dao_test.cpp \
     ../Commander/domain/parameters/model_parameter_value.cpp \
-    config/primary_config_helper_test.cpp \
-    ../Commander/config/primary_config_helper.cpp \
-    ../Commander/dao/xml/xml_dao_helper.cpp
+    ../Commander/service/config/primary_config_service.cpp \
+    ../Commander/dao/xml/xml_dao_helper.cpp \
+    service/config/primary_config_service_test.cpp
 
 HEADERS += \
     ../Commander/util/status_print.h \
@@ -110,13 +110,15 @@ HEADERS += \
     ../Commander/dao/xml/parameters/scheme_carrier_xml_dao.h \
     ../Commander/dao/xml/parameters/model_parameter_value_xml_dao.h \
     dao/xml/parameters/model_parameter_value_xml_dao_test.h \
-    config/primary_config_helper_test.h \
-    ../Commander/dao/xml/xml_dao_helper.h
+    ../Commander/dao/xml/xml_dao_helper.h \
+    service/config/primary_config_service_test.h
 
 INCLUDEPATH += util \
   config \
   dao \
   dao/xml/parameters \
+  service \
+  service/config \
   ../Commander \
   ../Commander/util \
   ../Commander/config \
@@ -125,7 +127,9 @@ INCLUDEPATH += util \
   ../Commander/dao \
   ../Commander/dao/parameters \
   ../Commander/dao/xml \
-  ../Commander/dao/xml/parameters
+  ../Commander/dao/xml/parameters \
+  ../Commander/service \
+  ../Commander/service/config
 
 win32 {
     DEFINES += _WIN32_

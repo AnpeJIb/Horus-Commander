@@ -23,9 +23,11 @@ INCLUDEPATH += config \
   dao \
   dao/parameters \
   dao/xml \
-  dao/xml/parameters
+  dao/xml/parameters \
+  service \
+  service/config
 
-SOURCES += main.cpp\
+SOURCES += main.cpp \
     util/file.cpp \
     util/str.cpp \
     config/ui/general_page.cpp \
@@ -54,9 +56,9 @@ SOURCES += main.cpp\
     dao/xml/parameters/simple_parameter_xml_dao.cpp \
     config/ui/primary_config_dialog.cpp \
     ui/listed_stack.cpp \
-    config/primary_config_helper.cpp \
     dao/xml/parameters/scheme_xml_dao.cpp \
-    dao/xml/xml_dao_helper.cpp
+    dao/xml/xml_dao_helper.cpp \
+    service/config/primary_config_service.cpp
 
 HEADERS  += \
     util/file.h \
@@ -85,7 +87,6 @@ HEADERS  += \
     domain/logical_operation_types.h \
     domain/parameters/scheme.h \
     domain/parameters/scheme_carrier.h \
-    domain/parameters/parameter_value.h \
     domain/commander_info.h \
     domain/gameflow/mission_set.h \
     domain/gameflow/mission_definition.h \
@@ -112,14 +113,14 @@ HEADERS  += \
     config/ui/primary_config_dialog.h \
     ui/listed_stack.h \
     dao/xml/xml_dao_helper.h \
-    config/primary_config_helper.h \
     domain/parameters/model_parameter_value.h \
     domain/parameters/scheme_helper.h \
     domain/parameters/model_parameter_helper.h \
     domain/parameters/model_parameter_value_helper.h \
     domain/domain_helper.h \
     dao/xml/parameters/scheme_carrier_xml_dao.h \
-    dao/xml/parameters/scheme_xml_dao.h
+    dao/xml/parameters/scheme_xml_dao.h \
+    service/config/primary_config_service.h
 
 FORMS    += \
     config/ui/general_page.ui \

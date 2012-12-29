@@ -1,5 +1,5 @@
-#ifndef PRIMARY_CONFIG_HELPER_H
-#define PRIMARY_CONFIG_HELPER_H
+#ifndef PRIMARY_CONFIG_SERVICE_H
+#define PRIMARY_CONFIG_SERVICE_H
 
 #include <QString>
 #include <QSettings>
@@ -12,7 +12,7 @@
 namespace Config
 {
 
-class PrimaryConfigHelper
+class PrimaryConfigService
 {
 public:
     static void init(const QString& configPath, const QString& dataSrcPath);
@@ -31,4 +31,4 @@ private:
 
 }
 
-#endif // PRIMARY_CONFIG_HELPER_H
+#endif // PRIMARY_CONFIG_SERVICE_H
