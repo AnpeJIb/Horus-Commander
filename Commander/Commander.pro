@@ -16,6 +16,7 @@ INCLUDEPATH += config \
   config/ui \
   ui \
   parser \
+  path \
   domain \
   domain/territory \
   domain/gameflow \
@@ -58,7 +59,8 @@ SOURCES += main.cpp \
     ui/listed_stack.cpp \
     dao/xml/parameters/scheme_xml_dao.cpp \
     dao/xml/xml_dao_helper.cpp \
-    service/config/primary_config_service.cpp
+    service/config/primary_config_service.cpp \
+    path/system_path.cpp
 
 HEADERS  += \
     util/file.h \
@@ -120,7 +122,8 @@ HEADERS  += \
     domain/domain_helper.h \
     dao/xml/parameters/scheme_carrier_xml_dao.h \
     dao/xml/parameters/scheme_xml_dao.h \
-    service/config/primary_config_service.h
+    service/config/primary_config_service.h \
+    path/system_path.h
 
 FORMS    += \
     config/ui/general_page.ui \
