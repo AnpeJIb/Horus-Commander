@@ -8,8 +8,7 @@
 #include "scheme.h"
 #include "scheme_judge.h"
 
-namespace Config
-{
+namespace Service { namespace ConfigService {
 
 class PrimaryConfigService
 {
@@ -37,6 +36,6 @@ private:
     static Domain::Parameters::Scheme* m_scheme;
 };
 
-}
+}}
 
 #endif // PRIMARY_CONFIG_SERVICE_H

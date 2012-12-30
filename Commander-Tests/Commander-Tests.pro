@@ -46,7 +46,10 @@ SOURCES += \
     ../Commander/dao/xml/xml_dao_helper.cpp \
     service/config/primary_config_service_test.cpp \
     path/system_path_test.cpp \
-    ../Commander/path/system_path.cpp
+    ../Commander/path/system_path.cpp \
+    service/config/general_config_service_test.cpp \
+    ../Commander/config/general_config.cpp \
+    ../Commander/service/config/general_config_service.cpp
 
 HEADERS += \
     ../Commander/util/status_print.h \
@@ -115,7 +118,10 @@ HEADERS += \
     ../Commander/dao/xml/xml_dao_helper.h \
     service/config/primary_config_service_test.h \
     path/system_path_test.h \
-    ../Commander/path/system_path.h
+    ../Commander/path/system_path.h \
+    service/config/general_config_service_test.h \
+    ../Commander/config/general_config.h \
+    ../Commander/service/config/general_config_service.h
 
 INCLUDEPATH += util \
   config \

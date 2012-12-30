@@ -3,12 +3,12 @@
 
 #include <QVariant>
 
-#include "general_page.h"
+#include "general_config_page.h"
 #include "primary_config_service.h"
 #include "scheme.h"
 #include "scheme_editor.h"
 
-using namespace Config;
+using namespace Service::ConfigService;
 using namespace Domain::Parameters;
 
 PrimaryConfigDialog::PrimaryConfigDialog(QWidget *parent) :
@@ -36,7 +36,7 @@ void PrimaryConfigDialog::addListedStack()
 
 void PrimaryConfigDialog::addPages()
 {
-    GeneralPage* general = new GeneralPage;
+    GeneralConfigPage* general = new GeneralConfigPage;
     listedStack->addPage(general->pageName(), QIcon(":/img/general.png"), general);
     addChild(general);
 

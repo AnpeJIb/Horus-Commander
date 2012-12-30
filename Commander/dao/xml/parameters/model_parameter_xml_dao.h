@@ -45,6 +45,7 @@ public:
     void findByParent(const ModelParameter* parent, QList<ModelParameter *> *result);
     void findByModel(const Model* model, QList< ModelParameter* >* result);
     void findBySimpleParameter(const SimpleParameter* parameter, QList< ModelParameter* >* result);
+    void findByCodeName(const domain_codeName_t &codemane, QList<ModelParameter *> *result);
 
     void loadParent(ModelParameter* domain);
     void loadModel(ModelParameter* domain);

@@ -31,7 +31,6 @@ INCLUDEPATH += config \
 SOURCES += main.cpp \
     util/file.cpp \
     util/str.cpp \
-    config/ui/general_page.cpp \
     config/ui/named_page.cpp \
     config/ui/uiconfig_module.cpp \
     ui/main_window.cpp \
@@ -61,12 +60,15 @@ SOURCES += main.cpp \
     dao/xml/xml_dao_helper.cpp \
     service/config/primary_config_service.cpp \
     path/system_path.cpp \
-    util/scheme_editor.cpp
+    util/scheme_editor.cpp \
+    service/config/general_config_service.cpp \
+    config/general_config.cpp \
+    dao/xml/parameters/model_parameter_value_xml_dao.cpp \
+    config/ui/general_config_page.cpp
 
 HEADERS  += \
     util/file.h \
     util/str.h \
-    config/ui/general_page.h \
     config/ui/named_page.h \
     config/ui/uiconfig_module.h \
     ui/main_window.h \
@@ -130,7 +132,10 @@ HEADERS  += \
     dao/parameters/scheme_carrier_dao.h \
     dao/parameters/scheme_dao.h \
     dao/parameters/model_parameter_value_dao.h \
-    domain/parameters/scheme_judge.h
+    domain/parameters/scheme_judge.h \
+    service/config/general_config_service.h \
+    config/general_config.h \
+    config/ui/general_config_page.h
 
 FORMS    += \
     config/ui/general_page.ui \

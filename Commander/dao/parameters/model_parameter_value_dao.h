@@ -22,6 +22,10 @@ public:
 
     /** Find domain objects in data source by value */
     virtual void findByValue(const QString& value, QList< ModelParameterValue* >* result) = 0;
+
+    /** Find domain objects in data source by simple paramter codename for model scheme */
+    virtual void findByCodeNameForScheme(
+            const domain_codeName_t& codemane, const Scheme* scheme, QList< ModelParameterValue* >* result) = 0;
 };
 
 }}

@@ -1,21 +1,24 @@
-#ifndef GENERALPAGE_H
-#define GENERALPAGE_H
+#ifndef GENERAL_CONFIG_PAGE_H
+#define GENERAL_CONFIG_PAGE_H
 
 #include <QWidget>
 #include "uiconfig_module.h"
 #include "named_page.h"
 
+#include "general_config.h"
+#include "general_config_service.h"
+
 namespace Ui {
 class GeneralPage;
 }
 
-class GeneralPage : public QWidget, public UIConfigModule, public NamedPage
+class GeneralConfigPage : public QWidget, public UIConfigModule, public NamedPage
 {
     Q_OBJECT
     
 public:
-    explicit GeneralPage(QWidget *parent = 0);
-    ~GeneralPage();
+    explicit GeneralConfigPage(QWidget *parent = 0);
+    ~GeneralConfigPage();
     
     bool isValid();
     void save();
@@ -33,6 +36,8 @@ private:
     void selectLangInBox(QString lang);
 
     Ui::GeneralPage *ui;
+
+    Service::ConfigService::GeneralConfigService service;
 };
 
-#endif // GENERALPAGE_H
+#endif // GENERAL_CONFIG_PAGE_H

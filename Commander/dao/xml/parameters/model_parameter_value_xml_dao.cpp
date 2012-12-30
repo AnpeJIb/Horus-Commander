@@ -20,6 +20,31 @@ void ModelParameterValueXmlDao::findByValue(const QString &value, QList<ModelPar
     findByAttribute((const void*)&value, &isValueSuitable, result);
 }
 
+void ModelParameterValueXmlDao::findByCodeNameForScheme(
+        const domain_codeName_t &codemane, const Scheme *scheme, QList<ModelParameterValue *> *result)
+{
+    result->clear();
+
+    QList<ModelParameter *> mParams;
+    parameterDao.findByCodeName(codemane, &mParams);
+
+    if (mParams.count() == 0) return;
+
+    QList<ModelParameterValue *> values;
+
+    foreach (ModelParameter* mp, mParams)
+    {
+        findByModelParameter(mp, &values);
+        if (values.count() == 0) continue;
+
+        foreach (ModelParameterValue* value, values)
+        {
+            if (value->scheme() == scheme)
+                (*result) << value;
+        }
+    }
+}
+
 void ModelParameterValueXmlDao::loadScheme(ModelParameterValue *domain)
 {
     Scheme* scheme = NULL;

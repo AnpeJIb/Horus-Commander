@@ -40,6 +40,7 @@ public:
     void findByScheme(const Scheme *scheme, QList<ModelParameterValue *> *result);
     void findByModelParameter(const ModelParameter *parameter, QList<ModelParameterValue *> *result);
     void findByValue(const QString &value, QList<ModelParameterValue *> *result);
+    void findByCodeNameForScheme(const domain_codeName_t &codemane, const Scheme *scheme, QList<ModelParameterValue *> *result);
 
     void loadScheme(ModelParameterValue* domain);
     void loadModelParameter(ModelParameterValue* domain);

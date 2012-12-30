@@ -1,10 +1,13 @@
 #include "model_parameter_value.h"
 
+#include <QObject>
+
 using namespace Domain;
 using namespace Domain::Parameters;
 
 ModelParameterValue::ModelParameterValue(ModelParameterValueHelper *helper)
-    : m_parameter(NULL),
+    : value(QObject::tr("No value")),
+      m_parameter(NULL),
       m_helper(helper->clone())
 {
 }

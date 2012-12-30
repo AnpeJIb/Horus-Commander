@@ -20,12 +20,12 @@ void PrimaryConfigServiceTest::initTestCase()
     QVERIFY(QFile::exists(configPath) == false);
     QVERIFY(QFile::exists(dsPath)     == false);
 
-    Config::PrimaryConfigService::init(configPath, dsPath);
+    Service::ConfigService::PrimaryConfigService::init(configPath, dsPath);
 }
 
 void PrimaryConfigServiceTest::testCurrentScheme()
 {
-    Scheme* sch = Config::PrimaryConfigService::currentScheme();
+    Scheme* sch = Service::ConfigService::PrimaryConfigService::currentScheme();
     QVERIFY(sch != NULL);
     QVERIFY(sch->id == Q_UINT64_C(1));
     QVERIFY(sch->title == "Default");
@@ -35,23 +35,23 @@ void PrimaryConfigServiceTest::testCurrentScheme()
 void PrimaryConfigServiceTest::testGetAllSchemes()
 {
     QList<Scheme*> lst;
-    Config::PrimaryConfigService::schemes(&lst);
+    Service::ConfigService::PrimaryConfigService::schemes(&lst);
     QVERIFY(lst.count() == 1);
 }
 
 void PrimaryConfigServiceTest::testCopyCurrentSchemeAndSelect()
 {
-    Config::PrimaryConfigService::copyCurrentSchemeAndSelect();
+    Service::ConfigService::PrimaryConfigService::copyCurrentSchemeAndSelect();
 
     QList<Scheme*> lst;
-    Config::PrimaryConfigService::schemes(&lst);
+    Service::ConfigService::PrimaryConfigService::schemes(&lst);
     QVERIFY(lst.count() == 2);
 
     Scheme* original = lst.at(0);
     Scheme* copied = lst.at(1);
 
     QVERIFY(copied->id != original->id);
-    QVERIFY(copied == Config::PrimaryConfigService::currentScheme());
+    QVERIFY(copied == Service::ConfigService::PrimaryConfigService::currentScheme());
     QVERIFY(copied->title == "Default (copy)");
     QVERIFY(copied->description == "Copy of Default primary config scheme");
     QVERIFY(copied->model() == original->model());
@@ -59,9 +59,9 @@ void PrimaryConfigServiceTest::testCopyCurrentSchemeAndSelect()
 
 void PrimaryConfigServiceTest::testSelectCurrentScheme()
 {
-    Config::PrimaryConfigService::selectCurrentScheme(Q_UINT64_C(1));
+    Service::ConfigService::PrimaryConfigService::selectCurrentScheme(Q_UINT64_C(1));
 
-    Scheme* sch = Config::PrimaryConfigService::currentScheme();
+    Scheme* sch = Service::ConfigService::PrimaryConfigService::currentScheme();
     QVERIFY(sch != NULL);
     QVERIFY(sch->id == Q_UINT64_C(1));
     QVERIFY(sch->title == "Default");
@@ -70,31 +70,31 @@ void PrimaryConfigServiceTest::testSelectCurrentScheme()
 
 void PrimaryConfigServiceTest::testRemoveCurrentScheme()
 {
-    Config::PrimaryConfigService::removeCurrentScheme();
+    Service::ConfigService::PrimaryConfigService::removeCurrentScheme();
 
     QList<Scheme*> lst;
-    Config::PrimaryConfigService::schemes(&lst);
+    Service::ConfigService::PrimaryConfigService::schemes(&lst);
     QVERIFY(lst.count() == 1);
 
-    Scheme* sch = Config::PrimaryConfigService::currentScheme();
+    Scheme* sch = Service::ConfigService::PrimaryConfigService::currentScheme();
     QVERIFY(sch->id == Q_UINT64_C(2));
     QVERIFY(sch->title == "Default (copy)");
 }
 
 void PrimaryConfigServiceTest::testUpdateCurrentScheme()
 {
-    Scheme* sch = Config::PrimaryConfigService::currentScheme();
+    Scheme* sch = Service::ConfigService::PrimaryConfigService::currentScheme();
     QVERIFY(sch != NULL);
 
     sch->title = "Modified";
     sch->description = "Modified copy of default primary config scheme";
 
-    Config::PrimaryConfigService::updateCurrentScheme();
+    Service::ConfigService::PrimaryConfigService::updateCurrentScheme();
 
-    Config::PrimaryConfigService::cleanUp();
-    Config::PrimaryConfigService::init(configPath, dsPath);
+    Service::ConfigService::PrimaryConfigService::cleanUp();
+    Service::ConfigService::PrimaryConfigService::init(configPath, dsPath);
 
-    sch = Config::PrimaryConfigService::currentScheme();
+    sch = Service::ConfigService::PrimaryConfigService::currentScheme();
     QVERIFY(sch != NULL);
     QVERIFY(sch->id == Q_UINT64_C(2));
     QVERIFY(sch->title == "Modified");
@@ -108,7 +108,7 @@ void PrimaryConfigServiceTest::testUpdateCurrentScheme()
 
 void PrimaryConfigServiceTest::cleanupTestCase()
 {
-    Config::PrimaryConfigService::cleanUp();
+    Service::ConfigService::PrimaryConfigService::cleanUp();
 
     QVERIFY(QFile::exists(configPath));
     QVERIFY(QFile::exists(dsPath));

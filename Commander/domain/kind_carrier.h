@@ -10,6 +10,9 @@ namespace Domain {
 class KindCarrier
 {
 public:
+    KindCarrier(){}
+    KindCarrier(domain_kind_t value) : kind(value) {}
+
     virtual ~KindCarrier() = 0;
 
     domain_kind_t kind;

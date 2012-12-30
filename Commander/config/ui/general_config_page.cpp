@@ -1,11 +1,12 @@
-#include "general_page.h"
+#include "general_config_page.h"
 #include "ui_general_page.h"
 
 #include <QFileDialog>
 #include <QDir>
+#include <QList>
 #include <QMessageBox>
 
-GeneralPage::GeneralPage(QWidget *parent) :
+GeneralConfigPage::GeneralConfigPage(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::GeneralPage)
 {
@@ -13,18 +14,20 @@ GeneralPage::GeneralPage(QWidget *parent) :
     populateLangs();
 }
 
-GeneralPage::~GeneralPage()
+GeneralConfigPage::~GeneralConfigPage()
 {
     delete ui;
 }
 
-bool GeneralPage::isValid()
+bool GeneralConfigPage::isValid()
 {
     return true;
 }
 
-void GeneralPage::save()
+void GeneralConfigPage::save()
 {
+    service.setLanguageCode(ui->langBox->itemData(ui->langBox->currentIndex()).toString());
+
     //    if (ui->serverPath->text().isEmpty())
     //    {
     //        QMessageBox::critical(this,
@@ -53,53 +56,55 @@ void GeneralPage::save()
     //                              QMessageBox::Ok);
     //    }
 
-    //    CONFIG::GENERAL.setLangCode(    langCode);
     //    CONFIG::GENERAL.setServerPath(  ui->serverPath->text());
-    //    CONFIG::GENERAL.setServerName(  ui->serverName->text());
-    //    CONFIG::GENERAL.setServerDescr( ui->serverDescr->text());
 
     //    return true;
 }
 
-void GeneralPage::load()
+void GeneralConfigPage::load()
 {
 //    ui->serverPath->setText(    CONFIG::GENERAL.serverPath());
-//    ui->serverName->setText(    CONFIG::GENERAL.serverName());
-//    ui->serverDescr->setText(   CONFIG::GENERAL.serverDescr());
-//    selectLangInBox(            CONFIG::GENERAL.langCode());
+
+    selectLangInBox(service.languageCode());
 }
 
-void GeneralPage::loadDefaults()
+void GeneralConfigPage::loadDefaults()
 {
 //    ui->serverPath->setText(    DEFAULT_SERVER_PATH);
-//    ui->serverName->setText(    DEFAULT_SERVER_NAME);
-//    ui->serverDescr->setText(   DEFAULT_SERVER_DESCR);
-    //    selectLangInBox(            DEFAULT_LANG_CODE);
+
+    ui->langBox->setCurrentIndex(0);
 }
 
-void GeneralPage::setConfigEnabled(bool value)
+void GeneralConfigPage::setConfigEnabled(bool value)
 {
-    // TODO:
+    ui->langBox->setEnabled(value);
+    ui->serverPath->setEnabled(value);
+    ui->serverPathSearch->setEnabled(value);
+    // TODO: DB
 }
 
-void GeneralPage::populateLangs()
+void GeneralConfigPage::populateLangs()
 {
-    //ui->langBox->addItem(QIcon(":/img/langEn.png"), tr("English"), LANG_CODE_EN);
-    //ui->langBox->addItem(QIcon(":/img/langRu.png"), tr("Russian"), LANG_CODE_RU);
+    QList<Config::General::AvailableLanguage> lst = Config::General::availableLanguages();
+
+    foreach (Config::General::AvailableLanguage lang, lst)
+    {
+        ui->langBox->addItem(lang.icon, lang.title, lang.codeName);
+    }
 }
 
-void GeneralPage::selectLangInBox(QString lang)
+void GeneralConfigPage::selectLangInBox(QString lang)
 {
     int id = ui->langBox->findData(lang);
     ui->langBox->setCurrentIndex((id<0)?0:id);
 }
 
-QString GeneralPage::pageName()
+QString GeneralConfigPage::pageName()
 {
     return ui->pageName->text();
 }
 
-void GeneralPage::on_serverPathSearch_clicked()
+void GeneralConfigPage::on_serverPathSearch_clicked()
 {
     QString currentPath = ui->serverPath->text();
     QString startDir = (currentPath.isEmpty())?QDir::currentPath():currentPath;

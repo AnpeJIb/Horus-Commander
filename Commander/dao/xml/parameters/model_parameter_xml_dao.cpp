@@ -30,6 +30,15 @@ void ModelParameterXmlDao::findBySimpleParameter(const SimpleParameter *paramete
     findByAttribute((const void*)&parameter->id, &isSimpleParameterIdSuitable, result);
 }
 
+void ModelParameterXmlDao::findByCodeName(const domain_codeName_t &codemane, QList<ModelParameter *> *result)
+{
+    result->clear();
+    QList<SimpleParameter*> sParams;
+    simpleParameterDao.findByCodeName(codemane, &sParams);
+    if (sParams.count() > 0)
+        findBySimpleParameter(sParams.first(), result);
+}
+
 void ModelParameterXmlDao::loadParent(ModelParameter *domain)
 {
     ModelParameter* parent = NULL;

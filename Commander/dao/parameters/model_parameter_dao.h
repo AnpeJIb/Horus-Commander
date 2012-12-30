@@ -25,6 +25,9 @@ class ModelParameterDao:
 public:
     /** Find domain objects in data source by simple paramter */
     virtual void findBySimpleParameter(const SimpleParameter* parameter, QList< ModelParameter* >* result) = 0;
+
+    /** Find domain objects in data source by simple paramter codename */
+    virtual void findByCodeName(const domain_codeName_t& codemane, QList< ModelParameter* >* result) = 0;
 };
 
 }}

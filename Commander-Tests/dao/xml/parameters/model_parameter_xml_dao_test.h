@@ -29,6 +29,7 @@ private slots:
     void testFindByParent();
     void testFindByModel();
     void testFindBySimpleParameter();
+    void testFindByCodeName();
     void testUpdate();
     void testRemove();
     void cleanupTestCase();

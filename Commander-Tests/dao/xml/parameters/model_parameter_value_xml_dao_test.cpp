@@ -219,6 +219,16 @@ void ModelParameterValueXmlDaoTest::testFindByValue()
     QVERIFY(v1 == v2);
 }
 
+void ModelParameterValueXmlDaoTest::testFindByCodeNameForScheme()
+{
+    Scheme* sch = schemeDao->find(Q_UINT64_C(1));
+    QVERIFY(sch != NULL);
+
+    QList< ModelParameterValue* > lst;
+    valueDao->findByCodeNameForScheme("SRV_NAME", sch, &lst);
+    QCOMPARE(lst.count(), 1);
+}
+
 void ModelParameterValueXmlDaoTest::testUpdate()
 {
     domain_id_t id = Q_UINT64_C(1);

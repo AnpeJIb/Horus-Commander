@@ -349,6 +349,14 @@ void ModelParameterXmlDaoTest::testFindBySimpleParameter()
     QVERIFY(mp1 == mp2);
 }
 
+void ModelParameterXmlDaoTest::testFindByCodeName()
+{
+    QList< ModelParameter* > lst;
+    modelParameterDao->findByCodeName("KILL_ECAR", &lst);
+    QCOMPARE(lst.count(), 1);
+    QCOMPARE(lst.first()->title, QString("Kill enemy cars"));
+}
+
 void ModelParameterXmlDaoTest::testUpdate()
 {
     domain_id_t id = Q_UINT64_C(1);

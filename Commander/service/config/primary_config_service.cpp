@@ -4,8 +4,7 @@
 #include "model_xml_dao.h"
 #include "scheme_xml_dao.h"
 
-namespace Config
-{
+namespace Service { namespace ConfigService {
 
 const QString CURRENT_SCHEME_ID_KEY = "Schemes/primary";
 
@@ -179,4 +178,4 @@ void PrimaryConfigService::loadCurrentScheme(domain_id_t id)
     Dao::XmlDaoBase::sync();
 }
 
-}
+}}

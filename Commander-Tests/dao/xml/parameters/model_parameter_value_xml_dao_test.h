@@ -29,6 +29,7 @@ private slots:
     void testFindByScheme();
     void testFindByParameter();
     void testFindByValue();
+    void testFindByCodeNameForScheme();
     void testUpdate();
     void testRemove();
     void cleanupTestCase();

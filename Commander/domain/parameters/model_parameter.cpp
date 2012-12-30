@@ -4,7 +4,8 @@ using namespace Domain;
 using namespace Domain::Parameters;
 
 ModelParameter::ModelParameter(ModelParameterHelper *helper)
-    : m_simpleParameter(NULL),
+    : KindCarrier(Domain::LOGICAL_NONE),
+      m_simpleParameter(NULL),
       m_helper(helper->clone())
 {
 }
