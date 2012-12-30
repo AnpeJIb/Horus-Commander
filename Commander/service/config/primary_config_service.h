@@ -8,6 +8,10 @@
 #include "scheme.h"
 #include "scheme_judge.h"
 
+#include "model_parameter_value_xml_dao.h"
+#include "model_parameter_xml_dao.h"
+#include "simple_parameter_xml_dao.h"
+
 namespace Service { namespace ConfigService {
 
 class PrimaryConfigService
@@ -28,6 +32,10 @@ public:
 protected:
     static bool m_initialized;
     static QSettings* m_settings;
+
+    Dao::Parameters::ModelParameterValueXmlDao m_valuesDao;
+    Dao::Parameters::ModelParameterXmlDao m_mParamsDao;
+    Dao::Parameters::SimpleParameterXmlDao m_sParamsDao;
 
 private:
     static void loadCurrentScheme(domain_id_t id);

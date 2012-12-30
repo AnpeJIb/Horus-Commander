@@ -35,7 +35,23 @@ void MainWindow::initLogger()
 
 void MainWindow::initWindowState()
 {
-    // TODO:
+    QRect geom = m_winService.geometry();
+
+    if ((geom.x()>=0) && (geom.y()>=0))
+    {
+        setGeometry(geom);
+    } else {
+        setGeometry(QStyle::alignedRect(
+                        Qt::LeftToRight,
+                        Qt::AlignCenter,
+                        size(),
+                        QApplication::desktop()->availableGeometry()));
+    }
+
+    if (m_winService.isMinimized())
+        hide();
+    else
+        showNormal();
 }
 
 void MainWindow::createTrayIcon()
@@ -73,7 +89,8 @@ void MainWindow::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
 
 void MainWindow::onAboutToQuit()
 {
-    // TODO:
+    m_winService.setGeometry(geometry());
+    m_winService.setMinimized(isMinimized() || (isVisible()==false));
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -81,26 +98,26 @@ void MainWindow::closeEvent(QCloseEvent *event)
     Q_UNUSED(event)
     disconnect(qApp, SIGNAL(aboutToQuit()), this, SLOT(onAboutToQuit()));
 
-//    if (CONFIG::WINDOW.promtClose())
-//    {
-//        QMessageBox msgBox(QMessageBox::Warning,
-//                           tr("Closing window"),
-//                           tr("Do you wish to quit? Otherwise window will be minimized to tray"), 0, this);
-//        QCheckBox dontPrompt(tr("Do not prompt again"), &msgBox);
-//        dontPrompt.blockSignals(true);
+    if (m_winService.askQuitConfirmation())
+    {
+        QMessageBox msgBox(QMessageBox::Warning,
+                           tr("Closing window"),
+                           tr("Do you wish to quit? Otherwise window will be minimized to tray"), 0, this);
+        QCheckBox dontAsk(tr("Do not ask again"), &msgBox);
+        dontAsk.blockSignals(true);
 
-//        msgBox.addButton(&dontPrompt, QMessageBox::ActionRole);
-//        msgBox.addButton(QMessageBox::Yes);
-//        msgBox.addButton(QMessageBox::No);
+        msgBox.addButton(&dontAsk, QMessageBox::ActionRole);
+        msgBox.addButton(QMessageBox::Yes);
+        msgBox.addButton(QMessageBox::No);
 
-//        int res = msgBox.exec();
+        int res = msgBox.exec();
 
-//        CONFIG::WINDOW.setPromtClose(dontPrompt.isChecked()==false);
-//        CONFIG::WINDOW.setQuitOnClose(res == 16384);
-//    }
+        m_winService.setAskQuitConfirmation(dontAsk.isChecked()==false);
+        m_winService.setQuitOnClose(res == 16384);
+    }
 
-//    if (CONFIG::WINDOW.quitOnClose())
-//        qApp->quit();
+    if (m_winService.quitOnClose())
+        qApp->quit();
 
     onAboutToQuit();
 }
