@@ -1,7 +1,7 @@
 #include "general_config_service_test.h"
 
 #include <QFile>
-#include <QList>
+#include <QDir>
 #include <QtTest/QtTest>
 
 #include "primary_config_service.h"
@@ -27,6 +27,14 @@ void GeneralConfigServiceTest::testLanguageCode()
 
     service.setLanguageCode("ru");
     QCOMPARE(service.languageCode(), QString("ru"));
+}
+
+void GeneralConfigServiceTest::testServerPath()
+{
+    QCOMPARE(service.serverPath(), QDir::currentPath());
+
+    service.setServerPath("/some/path/to/server");
+    QCOMPARE(service.serverPath(), QString("/some/path/to/server"));
 }
 
 void GeneralConfigServiceTest::cleanupTestCase()

@@ -27,6 +27,7 @@ bool GeneralConfigPage::isValid()
 void GeneralConfigPage::save()
 {
     service.setLanguageCode(ui->langBox->itemData(ui->langBox->currentIndex()).toString());
+    service.setServerPath(ui->serverPath->text());
 
     //    if (ui->serverPath->text().isEmpty())
     //    {
@@ -55,24 +56,18 @@ void GeneralConfigPage::save()
     //                              tr("Restart application to apply new language."),
     //                              QMessageBox::Ok);
     //    }
-
-    //    CONFIG::GENERAL.setServerPath(  ui->serverPath->text());
-
-    //    return true;
 }
 
 void GeneralConfigPage::load()
 {
-//    ui->serverPath->setText(    CONFIG::GENERAL.serverPath());
-
+    ui->serverPath->setText(service.serverPath());
     selectLangInBox(service.languageCode());
 }
 
 void GeneralConfigPage::loadDefaults()
 {
-//    ui->serverPath->setText(    DEFAULT_SERVER_PATH);
-
-    ui->langBox->setCurrentIndex(0);
+    ui->serverPath->setText(Config::General::defaultServerPath());
+    selectLangInBox(Config::General::defaultLanguageCode());
 }
 
 void GeneralConfigPage::setConfigEnabled(bool value)

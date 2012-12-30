@@ -4,45 +4,63 @@
 #include <QList>
 #include <QString>
 
-#include "model_parameter_value_xml_dao.h"
-#include "model_parameter_xml_dao.h"
-#include "simple_parameter_xml_dao.h"
 #include "general_config.h"
-
-using namespace Dao::Parameters;
 
 namespace Service { namespace ConfigService {
 
-const QString CODE_NAME_LANG = "LANG_CODE";
-const QString CODE_NAME_ROOT = "GENERAL_CONFIG";
+const QString CODE_NAME_ROOT      = "GENERAL_CONFIG";
+const QString CODE_NAME_LANG      = "LANG_CODE";
+const QString CODE_NAME_SERV_PATH = "SERV_PATH";
 
-GeneralConfigService::GeneralConfigService()
+QString GeneralConfigService::languageCode()
 {
+    return (currentScheme() == NULL)?QObject::tr("unknown"):langCodeValue()->value;
+}
+
+QString GeneralConfigService::serverPath()
+{
+    return (currentScheme() == NULL)?QObject::tr("no path"):serverPathValue()->value;
 }
 
 void GeneralConfigService::setLanguageCode(const QString &value)
 {
-    if (currentScheme() == NULL) return;
-
-    ModelParameterValueXmlDao valuesDao;
-    ModelParameterValue* mpValue = langCodeValue();
-    mpValue->value = value;
-    valuesDao.update(mpValue);
-
-    Dao::XmlDaoBase::sync();
+    setValue(langCodeValue(), value);
 }
 
-QString GeneralConfigService::languageCode()
+void GeneralConfigService::setServerPath(const QString &value)
 {
-    if (currentScheme() == NULL) return "unknown";
-    return langCodeValue()->value;
+    setValue(serverPathValue(), value);
+}
+
+void GeneralConfigService::setValue(ModelParameterValue *modelParameterValue, const QString &value)
+{
+    if (currentScheme() == NULL) return;
+
+    modelParameterValue->value = value;
+    valuesDao.update(modelParameterValue);
+    Dao::XmlDaoBase::sync();
 }
 
 ModelParameterValue *GeneralConfigService::langCodeValue()
 {
-    ModelParameterValueXmlDao valuesDao;
+    return getValue(CODE_NAME_LANG,
+                    Config::General::defaultLanguageCode(),
+                    &GeneralConfigService::langCodeModelParameter);
+}
+
+ModelParameterValue *GeneralConfigService::serverPathValue()
+{
+    return getValue(CODE_NAME_SERV_PATH,
+                    Config::General::defaultServerPath(),
+                    &GeneralConfigService::servPathModelParameter);
+}
+
+ModelParameterValue * GeneralConfigService::getValue(
+        const domain_codeName_t &codeName, const QString &defaultValue,
+        ModelParameter* (GeneralConfigService::*parameterGetter)())
+{
     QList<ModelParameterValue *> values;
-    valuesDao.findByCodeNameForScheme(CODE_NAME_LANG, currentScheme(), &values);
+    valuesDao.findByCodeNameForScheme(codeName, currentScheme(), &values);
 
     ModelParameterValue* mpValue = NULL;
 
@@ -51,9 +69,9 @@ ModelParameterValue *GeneralConfigService::langCodeValue()
         mpValue = values.first();
     } else {
         mpValue = new ModelParameterValue(&valuesDao);
-        mpValue->setParameter(langCodeModelParameter());
+        mpValue->setParameter((this->*parameterGetter)());
         mpValue->setScheme(currentScheme());
-        mpValue->value = Config::General::defaultLanguageCode();
+        mpValue->value = defaultValue;
         valuesDao.save(mpValue);
         Dao::XmlDaoBase::sync();
     }
@@ -63,35 +81,23 @@ ModelParameterValue *GeneralConfigService::langCodeValue()
 
 ModelParameter *GeneralConfigService::langCodeModelParameter()
 {
-    ModelParameterXmlDao mParamsDao;
-    QList<ModelParameter *> mParams;
-    mParamsDao.findByCodeName(CODE_NAME_LANG, &mParams);
+    return modelParameter(CODE_NAME_LANG, QObject::tr("Language code"), rootModelParameter());
+}
 
-    ModelParameter* mParam = NULL;
-
-    if (mParams.count() != 0)
-    {
-        mParam = mParams.first();
-    } else {
-        SimpleParameter* sParam = langCodeSimpleParameter();
-
-        mParam = new ModelParameter(&mParamsDao);
-        mParam->title = sParam->title;
-        mParam->setSimpleParameter(sParam);
-        mParam->setModel(currentScheme()->model());
-        mParam->setParent(rootModelParameter());
-        mParamsDao.save(mParam);
-        Dao::XmlDaoBase::sync();
-    }
-
-    return mParam;
+ModelParameter *GeneralConfigService::servPathModelParameter()
+{
+    return modelParameter(CODE_NAME_SERV_PATH, QObject::tr("Server path"), rootModelParameter());
 }
 
 ModelParameter *GeneralConfigService::rootModelParameter()
 {
-    ModelParameterXmlDao mParamsDao;
+    return modelParameter(CODE_NAME_ROOT, QObject::tr("General configuration"));
+}
+
+ModelParameter *GeneralConfigService::modelParameter(const domain_codeName_t &codeName, const domain_title_t &title, ModelParameter *parent)
+{
     QList<ModelParameter *> mParams;
-    mParamsDao.findByCodeName(CODE_NAME_ROOT, &mParams);
+    mParamsDao.findByCodeName(codeName, &mParams);
 
     ModelParameter* mParam = NULL;
 
@@ -99,12 +105,13 @@ ModelParameter *GeneralConfigService::rootModelParameter()
     {
         mParam = mParams.first();
     } else {
-        SimpleParameter* sParam = rootSimpleParameter();
+        SimpleParameter* sParam = simpleParameter(codeName, title);
 
         mParam = new ModelParameter(&mParamsDao);
         mParam->title = sParam->title;
         mParam->setSimpleParameter(sParam);
         mParam->setModel(currentScheme()->model());
+        mParam->setParent(parent);
         mParamsDao.save(mParam);
         Dao::XmlDaoBase::sync();
     }
@@ -112,19 +119,8 @@ ModelParameter *GeneralConfigService::rootModelParameter()
     return mParam;
 }
 
-SimpleParameter *GeneralConfigService::rootSimpleParameter()
-{
-    return simpleParameter(CODE_NAME_ROOT, QObject::tr("General configuration"));
-}
-
-SimpleParameter *GeneralConfigService::langCodeSimpleParameter()
-{
-    return simpleParameter(CODE_NAME_LANG, QObject::tr("Language code"));
-}
-
 SimpleParameter *GeneralConfigService::simpleParameter(const domain_codeName_t &codeName, const domain_title_t &title)
 {
-    SimpleParameterXmlDao sParamsDao;
     QList<SimpleParameter *> sParams;
     sParamsDao.findByCodeName(codeName, &sParams);
 

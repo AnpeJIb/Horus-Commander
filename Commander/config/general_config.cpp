@@ -1,6 +1,7 @@
 #include "general_config.h"
 
 #include <QObject>
+#include <QDir>
 
 namespace Config { namespace General {
 
@@ -33,6 +34,11 @@ QList<AvailableLanguage> &availableLanguages()
 QString& defaultLanguageCode()
 {
     return availableLanguages().first().codeName;
+}
+
+QString defaultServerPath()
+{
+    return QDir::currentPath();
 }
 
 }}

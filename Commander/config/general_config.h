@@ -32,7 +32,9 @@ typedef struct
 } GeneralConfig;
 
 QList<AvailableLanguage>& availableLanguages();
+
 QString& defaultLanguageCode();
+QString defaultServerPath();
 
 }}
 
