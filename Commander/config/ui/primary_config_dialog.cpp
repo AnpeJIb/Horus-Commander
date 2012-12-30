@@ -4,6 +4,8 @@
 #include <QVariant>
 
 #include "general_config_page.h"
+#include "window_config_page.h"
+
 #include "primary_config_service.h"
 #include "scheme.h"
 #include "scheme_editor.h"
@@ -39,6 +41,10 @@ void PrimaryConfigDialog::addPages()
     GeneralConfigPage* general = new GeneralConfigPage;
     listedStack->addPage(general->pageName(), QIcon(":/img/general.png"), general);
     addChild(general);
+
+    WindowConfigPage* window = new WindowConfigPage;
+    listedStack->addPage(window->pageName(), QIcon(":/img/window.png"), window);
+    addChild(window);
 
     listedStack->setCurrentIndex(0);
 }

@@ -1,6 +1,7 @@
 #include "main_window.h"
 
 #include <QApplication>
+#include <QMessageBox>
 #include <QTranslator>
 #include <QLibraryInfo>
 
@@ -12,6 +13,7 @@ using namespace Service::ConfigService;
 
 void init();
 void initLanguage();
+void checkSystemTray();
 void cleanUp();
 
 int main(int argc, char *argv[])
@@ -21,15 +23,16 @@ int main(int argc, char *argv[])
 
     init();
 
+    // TODO: check deamon mode
+
+    checkSystemTray();
     QApplication::setQuitOnLastWindowClosed(false);
 
     MainWindow w;
     Q_UNUSED(w)
 
     int result = a.exec();
-
     cleanUp();
-
     return result;
 }
 
@@ -55,6 +58,18 @@ void initLanguage()
     QTranslator myappTranslator;
     myappTranslator.load(QString("l10n/").append(lCode));
     qApp->installTranslator(&myappTranslator);
+}
+
+void checkSystemTray()
+{
+    if (QSystemTrayIcon::isSystemTrayAvailable()==false)
+    {
+        QMessageBox::critical(
+                    0,
+                    QObject::tr("Systray"),
+                    QObject::tr("I couldn't detect any system tray on this system."));
+        exit(EXIT_FAILURE);
+    }
 }
 
 void cleanUp()

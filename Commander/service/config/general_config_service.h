@@ -4,19 +4,18 @@
 #include <QString>
 
 #include "general_config.h"
-#include "primary_config_service.h"
-#include "model_parameter_value.h"
 
-#include "model_parameter_value_xml_dao.h"
-#include "model_parameter_xml_dao.h"
-#include "simple_parameter_xml_dao.h"
+#include "config_service_base.h"
+#include "primary_config_service.h"
+
+#include "model_parameter_value.h"
 
 using namespace Domain::Parameters;
 using namespace Dao::Parameters;
 
 namespace Service { namespace ConfigService {
 
-class GeneralConfigService: public PrimaryConfigService
+class GeneralConfigService: public PrimaryConfigService, public ConfigServiceBase
 {
 public:
     GeneralConfigService(){}
@@ -31,12 +30,15 @@ public:
     void setDbKind(Config::General::DB_KIND value);
     void setDbConnectionString(Config::General::DB_KIND dbKind, const QString& value);
 
-private:
-    void setValue(ModelParameterValue* modelParameterValue, const QString& value);
-    ModelParameterValue* getValue(
-            const domain_codeName_t& codeName, const QString& defaultValue,
-            ModelParameter* (GeneralConfigService::*parameterGetter)());
+protected:
+    ModelParameterValueDao* valuesDao()   { return &m_valuesDao;  }
+    ModelParameterDao* modelParamsDao()   { return &m_mParamsDao; }
+    SimpleParameterDao* simpleParamsDao() { return &m_sParamsDao; }
 
+    Scheme* getCurrentScheme() { return currentScheme(); }
+    void syncDao() {Dao::XmlDaoBase::sync();}
+
+private:
     ModelParameterValue* langCodeValue();
     ModelParameterValue* serverPathValue();
     ModelParameterValue* dbRootValue();
@@ -48,14 +50,7 @@ private:
     ModelParameter *dbRootModelParameter();
     ModelParameter *dbSQLiteModelParameter();
 
-    ModelParameter*  modelParameter(const domain_codeName_t& codeName, const domain_title_t& title, ModelParameter* parent = NULL);
-    SimpleParameter* simpleParameter(const domain_codeName_t& codeName, const domain_title_t& title);
-
     QString defaultDbConnectionString() const;
-
-    ModelParameterValueXmlDao valuesDao;
-    ModelParameterXmlDao mParamsDao;
-    SimpleParameterXmlDao sParamsDao;
 };
 
 }}

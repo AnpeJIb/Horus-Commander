@@ -2,6 +2,7 @@
 #define GENERAL_CONFIG_PAGE_H
 
 #include <QWidget>
+
 #include "uiconfig_module.h"
 #include "named_page.h"
 

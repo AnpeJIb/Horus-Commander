@@ -78,6 +78,9 @@
          <property name="enabled">
           <bool>false</bool>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background: transparent;</string>
+         </property>
          <property name="icon">
           <iconset resource="../img.qrc">
            <normaloff>:/img/previous.png</normaloff>:/img/previous.png</iconset>
@@ -98,6 +101,9 @@
          <property name="enabled">
           <bool>true</bool>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background: transparent;</string>
+         </property>
          <property name="icon">
           <iconset resource="../img.qrc">
            <normaloff>:/img/play.png</normaloff>:/img/play.png</iconset>
@@ -115,6 +121,9 @@
          <property name="enabled">
           <bool>false</bool>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background: transparent;</string>
+         </property>
          <property name="icon">
           <iconset resource="../img.qrc">
            <normaloff>:/img/stop.png</normaloff>:/img/stop.png</iconset>
@@ -131,6 +140,9 @@
         <widget class="QToolButton" name="missionNext">
          <property name="enabled">
           <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: transparent;</string>
          </property>
          <property name="icon">
           <iconset resource="../img.qrc">
@@ -170,6 +182,9 @@
        </item>
        <item>
         <widget class="QToolButton" name="serverState">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <property name="icon">
           <iconset resource="../img.qrc">
            <normaloff>:/img/serverOff.png</normaloff>:/img/serverOff.png</iconset>
@@ -241,6 +256,9 @@
         <widget class="QToolButton" name="missionTimeEdit">
          <property name="enabled">
           <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
          </property>
          <property name="icon">
           <iconset resource="../img.qrc">

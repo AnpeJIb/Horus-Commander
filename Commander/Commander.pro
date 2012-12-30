@@ -55,7 +55,6 @@ SOURCES += main.cpp \
     dao/xml/parameters/model_parameter_xml_dao.cpp \
     domain/parameters/model_parameter.cpp \
     dao/xml/parameters/simple_parameter_xml_dao.cpp \
-    config/ui/primary_config_dialog.cpp \
     ui/listed_stack.cpp \
     dao/xml/parameters/scheme_xml_dao.cpp \
     dao/xml/xml_dao_helper.cpp \
@@ -67,7 +66,11 @@ SOURCES += main.cpp \
     dao/xml/parameters/model_parameter_value_xml_dao.cpp \
     config/ui/general_config_page.cpp \
     config/sqlite_connection_string_composer.cpp \
-    config/ui/sqlite_connection_string_editor.cpp
+    config/ui/sqlite_connection_string_editor.cpp \
+    config/ui/window_config_page.cpp \
+    config/ui/primary_config_dialog.cpp \
+    service/config/window_config_service.cpp \
+    service/config/config_service_base.cpp
 
 HEADERS  += \
     util/file.h \
@@ -143,7 +146,11 @@ HEADERS  += \
     config/sqlite_connection_string_composer.h \
     config/ui/db_connection_string_editor.h \
     config/ui/sqlite_connection_string_editor.h \
-    config/ui/db_connection_string_editor_factory.h
+    config/ui/db_connection_string_editor_factory.h \
+    config/ui/window_config_page.h \
+    service/config/window_config_service.h \
+    config/window_config.h \
+    service/config/config_service_base.h
 
 FORMS    += \
     ui/main_window.ui \
@@ -151,7 +158,8 @@ FORMS    += \
     ui/listed_stack.ui \
     util/ui/scheme_editor.ui \
     config/ui/sqlite_connection_string_editor.ui \
-    config/ui/general_config_page.ui
+    config/ui/general_config_page.ui \
+    config/ui/window_config_page.ui
 
 unix {
     DEFINES += _UNIX_

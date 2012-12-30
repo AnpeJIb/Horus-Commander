@@ -7,6 +7,7 @@
 #include <QIcon>
 
 #include "status_widget.h"
+#include "window_config_service.h"
 
 namespace Ui {
 class MainWindow;
@@ -43,6 +44,7 @@ private:
     StatusWidget* m_logger;
 
     QIcon* m_iconStopped;
+    Service::ConfigService::WindowConfigService m_winService;
 };
 
 #endif // MAINWINDOW_H
