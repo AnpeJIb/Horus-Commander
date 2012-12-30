@@ -7,33 +7,39 @@
 #include <QIcon>
 
 #include "title_carrier.h"
+#include "kind_carrier.h"
 #include "code_name_carrier.h"
 
 using namespace Domain;
 
 namespace Config { namespace General {
 
-enum DB_TYPE
+enum DB_KIND
 {
-    DB_SQLITE = 0
+    DB_NONE   = 0,
+    DB_SQLITE = 1
 };
 
-class AvailableLanguage: public TitleCarrier, public CodeNameCarrier
+typedef struct
+{
+    QString path;
+} SQLiteConfig;
+
+class SupportedLanguage: public TitleCarrier, public CodeNameCarrier
 {
 public:
     QIcon icon;
 };
 
-typedef struct
+class SupportedDB: public TitleCarrier, public KindCarrier
 {
-    QString serverPath;
-    QString langCode;
-    QMap<DB_TYPE, QString> connectionStrings;
-} GeneralConfig;
+};
 
-QList<AvailableLanguage>& availableLanguages();
+QList<SupportedLanguage>& supportedLanguages();
+QList<SupportedDB>& supportedDatabases();
 
-QString& defaultLanguageCode();
+SupportedLanguage& defaultLanguage();
+SupportedDB& defaultDB();
 QString defaultServerPath();
 
 }}

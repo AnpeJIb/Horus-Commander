@@ -15,6 +15,7 @@ private slots:
     void initTestCase();
     void testLanguageCode();
     void testServerPath();
+    void testDBstrings();
     void cleanupTestCase();
 
 private:

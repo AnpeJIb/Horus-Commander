@@ -9,7 +9,7 @@
 #include "general_config_service.h"
 
 namespace Ui {
-class GeneralPage;
+class GeneralConfigPage;
 }
 
 class GeneralConfigPage : public QWidget, public UIConfigModule, public NamedPage
@@ -30,14 +30,20 @@ public:
 
 private slots:
     void on_serverPathSearch_clicked();
+    void on_dbEdit_clicked();
 
 private:
+    void populateBoxes();
     void populateLangs();
+    void populateDBs();
+
     void selectLangInBox(QString lang);
+    void selectDBInBox(Config::General::DB_KIND dbKind);
 
-    Ui::GeneralPage *ui;
+    Config::General::DB_KIND selectedDBkind();
 
-    Service::ConfigService::GeneralConfigService service;
+    Ui::GeneralConfigPage *ui;
+    Service::ConfigService::GeneralConfigService m_service;
 };
 
 #endif // GENERAL_CONFIG_PAGE_H

@@ -64,7 +64,9 @@ SOURCES += main.cpp \
     service/config/general_config_service.cpp \
     config/general_config.cpp \
     dao/xml/parameters/model_parameter_value_xml_dao.cpp \
-    config/ui/general_config_page.cpp
+    config/ui/general_config_page.cpp \
+    config/sqlite_connection_string_composer.cpp \
+    config/ui/sqlite_connection_string_editor.cpp
 
 HEADERS  += \
     util/file.h \
@@ -135,14 +137,20 @@ HEADERS  += \
     domain/parameters/scheme_judge.h \
     service/config/general_config_service.h \
     config/general_config.h \
-    config/ui/general_config_page.h
+    config/ui/general_config_page.h \
+    util/string_composer.h \
+    config/sqlite_connection_string_composer.h \
+    config/ui/db_connection_string_editor.h \
+    config/ui/sqlite_connection_string_editor.h \
+    config/ui/db_connection_string_editor_factory.h
 
 FORMS    += \
-    config/ui/general_page.ui \
     ui/main_window.ui \
     config/ui/primary_config_dialog.ui \
     ui/listed_stack.ui \
-    util/scheme_editor.ui
+    util/scheme_editor.ui \
+    config/ui/sqlite_connection_string_editor.ui \
+    config/ui/general_config_page.ui
 
 unix {
     DEFINES += _UNIX_

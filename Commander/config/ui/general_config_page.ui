@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>GeneralPage</class>
- <widget class="QWidget" name="GeneralPage">
+ <class>GeneralConfigPage</class>
+ <widget class="QWidget" name="GeneralConfigPage">
   <property name="geometry">
    <rect>
     <x>0</x>

@@ -3,6 +3,7 @@
 
 #include <QString>
 
+#include "general_config.h"
 #include "primary_config_service.h"
 #include "model_parameter_value.h"
 
@@ -22,9 +23,13 @@ public:
 
     QString languageCode();
     QString serverPath();
+    Config::General::DB_KIND dbKind();
+    QString dbConnectionString(Config::General::DB_KIND dbKind);
 
     void setLanguageCode(const QString& value);
     void setServerPath(const QString& value);
+    void setDbKind(Config::General::DB_KIND value);
+    void setDbConnectionString(Config::General::DB_KIND dbKind, const QString& value);
 
 private:
     void setValue(ModelParameterValue* modelParameterValue, const QString& value);
@@ -34,13 +39,19 @@ private:
 
     ModelParameterValue* langCodeValue();
     ModelParameterValue* serverPathValue();
+    ModelParameterValue* dbRootValue();
+    ModelParameterValue* dbConnectionValue(Config::General::DB_KIND dbKind);
 
     ModelParameter *rootModelParameter();
     ModelParameter *langCodeModelParameter();
     ModelParameter *servPathModelParameter();
+    ModelParameter *dbRootModelParameter();
+    ModelParameter *dbSQLiteModelParameter();
 
     ModelParameter*  modelParameter(const domain_codeName_t& codeName, const domain_title_t& title, ModelParameter* parent = NULL);
     SimpleParameter* simpleParameter(const domain_codeName_t& codeName, const domain_title_t& title);
+
+    QString defaultDbConnectionString() const;
 
     ModelParameterValueXmlDao valuesDao;
     ModelParameterXmlDao mParamsDao;

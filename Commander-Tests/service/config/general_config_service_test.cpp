@@ -5,6 +5,7 @@
 #include <QtTest/QtTest>
 
 #include "primary_config_service.h"
+#include "general_config.h"
 
 GeneralConfigServiceTest::GeneralConfigServiceTest(QObject *parent)
     : QObject(parent)
@@ -23,10 +24,15 @@ void GeneralConfigServiceTest::initTestCase()
 
 void GeneralConfigServiceTest::testLanguageCode()
 {
-    QCOMPARE(service.languageCode(), QString("en"));
+    QList<Config::General::SupportedLanguage> langs = Config::General::supportedLanguages();
+    QCOMPARE(langs.count(), 2);
+    QCOMPARE(langs.at(0).codeName, QString("en"));
+    QCOMPARE(langs.at(1).codeName, QString("ru"));
 
-    service.setLanguageCode("ru");
-    QCOMPARE(service.languageCode(), QString("ru"));
+    QCOMPARE(service.languageCode(), langs.at(0).codeName);
+
+    service.setLanguageCode(langs.at(1).codeName);
+    QCOMPARE(service.languageCode(), langs.at(1).codeName);
 }
 
 void GeneralConfigServiceTest::testServerPath()
@@ -35,6 +41,17 @@ void GeneralConfigServiceTest::testServerPath()
 
     service.setServerPath("/some/path/to/server");
     QCOMPARE(service.serverPath(), QString("/some/path/to/server"));
+}
+
+void GeneralConfigServiceTest::testDBstrings()
+{
+    QList<Config::General::SupportedDB> DBs = Config::General::supportedDatabases();
+    QCOMPARE(DBs.count(), 1);
+
+    QCOMPARE(DBs.at(0).title, QString("SQLite"));
+    QVERIFY (DBs.at(0).kind == Config::General::DB_SQLITE);
+
+    QCOMPARE(service.dbKind(), Config::General::DB_SQLITE);
 }
 
 void GeneralConfigServiceTest::cleanupTestCase()

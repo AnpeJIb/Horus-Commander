@@ -5,35 +5,58 @@
 
 namespace Config { namespace General {
 
-QList<AvailableLanguage> m_availableLanguages;
+QList<SupportedLanguage> m_supportedLanguages;
+QList<SupportedDB> m_supportedDBs;
 
-void populateAvailableLanguages()
+void populateSupportedLanguages()
 {
-    AvailableLanguage en;
+    SupportedLanguage en;
     en.codeName = "en";
     en.title = QObject::tr("English");
     en.icon = QIcon(":/img/langEn.png");
 
-    AvailableLanguage ru;
+    SupportedLanguage ru;
     ru.codeName = "ru";
     ru.title = QObject::tr("Russian");
     ru.icon = QIcon(":/img/langRu.png");
 
-    m_availableLanguages << en;
-    m_availableLanguages << ru;
+    m_supportedLanguages << en;
+    m_supportedLanguages << ru;
 }
 
-QList<AvailableLanguage> &availableLanguages()
+void populateSupportedDatabases()
 {
-    if (m_availableLanguages.isEmpty())
-        populateAvailableLanguages();
+    SupportedDB SQLite;
+    SQLite.kind  = DB_SQLITE;
+    SQLite.title = "SQLite";
 
-    return m_availableLanguages;
+    m_supportedDBs << SQLite;
 }
 
-QString& defaultLanguageCode()
+QList<SupportedLanguage>& supportedLanguages()
 {
-    return availableLanguages().first().codeName;
+    if (m_supportedLanguages.isEmpty())
+        populateSupportedLanguages();
+
+    return m_supportedLanguages;
+}
+
+QList<SupportedDB>& supportedDatabases()
+{
+    if (m_supportedDBs.isEmpty())
+        populateSupportedDatabases();
+
+    return m_supportedDBs;
+}
+
+SupportedLanguage& defaultLanguage()
+{
+    return supportedLanguages().first();
+}
+
+SupportedDB& defaultDB()
+{
+    return supportedDatabases().first();
 }
 
 QString defaultServerPath()
