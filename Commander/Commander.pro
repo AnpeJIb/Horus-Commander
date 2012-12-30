@@ -13,6 +13,7 @@ TEMPLATE = app
 
 INCLUDEPATH += config \
   util \
+  util/ui \
   config/ui \
   ui \
   parser \
@@ -60,7 +61,7 @@ SOURCES += main.cpp \
     dao/xml/xml_dao_helper.cpp \
     service/config/primary_config_service.cpp \
     path/system_path.cpp \
-    util/scheme_editor.cpp \
+    util/ui/scheme_editor.cpp \
     service/config/general_config_service.cpp \
     config/general_config.cpp \
     dao/xml/parameters/model_parameter_value_xml_dao.cpp \
@@ -129,7 +130,7 @@ HEADERS  += \
     dao/xml/parameters/scheme_xml_dao.h \
     service/config/primary_config_service.h \
     path/system_path.h \
-    util/scheme_editor.h \
+    util/ui/scheme_editor.h \
     domain/title_judge.h \
     dao/parameters/scheme_carrier_dao.h \
     dao/parameters/scheme_dao.h \
@@ -148,7 +149,7 @@ FORMS    += \
     ui/main_window.ui \
     config/ui/primary_config_dialog.ui \
     ui/listed_stack.ui \
-    util/scheme_editor.ui \
+    util/ui/scheme_editor.ui \
     config/ui/sqlite_connection_string_editor.ui \
     config/ui/general_config_page.ui
 
