@@ -37,7 +37,7 @@ SOURCES += main.cpp \
     ui/main_window.cpp \
     util/status_file_logger.cpp \
     util/status_print.cpp \
-    util/status_widget.cpp \
+    util/ui/status_widget.cpp \
     domain/belligerent.cpp \
     domain/territory/node.cpp \
     domain/territory/battleground.cpp \
@@ -84,7 +84,7 @@ HEADERS  += \
     util/file_ext.h \
     util/status_file_logger.h \
     util/status_print.h \
-    util/status_widget.h \
+    util/ui/status_widget.h \
     domain/generic_domain.h \
     domain/belligerent.h \
     domain/territory/node.h \
