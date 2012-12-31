@@ -31,6 +31,8 @@ private slots:
     void on_actionQuit_triggered();
     void on_actionConfigurationPrimary_triggered();
 
+    void on_action_Online_help_triggered();
+
 private:
     void initLogger();
     void initWindowState();

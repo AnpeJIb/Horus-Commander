@@ -4,6 +4,7 @@
 #include <QDesktopWidget>
 #include <QMessageBox>
 #include <QCheckBox>
+#include <QDesktopServices>
 
 #include "primary_config_dialog.h"
 #include "log_config_service.h"
@@ -138,4 +139,9 @@ void MainWindow::on_actionConfigurationPrimary_triggered()
 {
     PrimaryConfigDialog d;
     d.exec();
+}
+
+void MainWindow::on_action_Online_help_triggered()
+{
+    QDesktopServices::openUrl(QUrl("http://il2-horus-system.wikia.com"));
 }

@@ -1,6 +1,8 @@
 #include "window_config_page.h"
 #include "ui_window_config_page.h"
 
+#include <QDesktopServices>
+
 #include "window_config.h"
 
 WindowConfigPage::WindowConfigPage(QWidget *parent) :
@@ -55,4 +57,9 @@ void WindowConfigPage::setConfigEnabled(bool value)
 QString WindowConfigPage::pageName() const
 {
     return ui->pageName->text();
+}
+
+void WindowConfigPage::on_aboutDaemonMode_clicked()
+{
+    QDesktopServices::openUrl(QUrl("http://il2-horus-system.wikia.com/wiki/Commander_modes#Daemon_mode"));
 }

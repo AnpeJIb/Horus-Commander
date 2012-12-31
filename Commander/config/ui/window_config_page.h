@@ -28,6 +28,9 @@ public:
 
     QString pageName() const;
 
+private slots:
+    void on_aboutDaemonMode_clicked();
+
 private:
     Ui::WindowConfigPage *ui;
     Service::ConfigService::WindowConfigService m_service;
