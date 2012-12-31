@@ -8,7 +8,7 @@ class NamedPage
 public:
     NamedPage();
 
-    virtual QString pageName() = 0;
+    virtual QString pageName() const = 0;
 };
 
 #endif // NAMEDPAGE_H

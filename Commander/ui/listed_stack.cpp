@@ -14,6 +14,15 @@ ListedStack::~ListedStack()
     delete ui;
 }
 
+void ListedStack::addPage(const QString &name, QWidget *page)
+{
+    new QListWidgetItem(
+                name,
+                ui->list,
+                QListWidgetItem::UserType);
+    ui->stack->addWidget(page);
+}
+
 void ListedStack::addPage(const QString &name, const QIcon &icon, QWidget *page)
 {
     new QListWidgetItem(

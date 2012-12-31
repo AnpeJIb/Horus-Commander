@@ -9,13 +9,13 @@ class StatusPrinter
 public:
     enum Level
     {
-        LEVEL_ALL     = (1 << 0),
-        LEVEL_TASKS   = (1 << 1),
-        LEVEL_DEBUG   = (1 << 2),
-        LEVEL_INFO    = (1 << 3),
-        LEVEL_WARNING = (1 << 4),
-        LEVEL_ERROR   = (1 << 5),
-        LEVEL_NONE    = (1 << 6)
+        LEVEL_NONE    = 0,
+        LEVEL_ALL     = 0x1F,
+        LEVEL_TASKS   = (1 << 0),
+        LEVEL_DEBUG   = (1 << 1),
+        LEVEL_INFO    = (1 << 2),
+        LEVEL_WARNING = (1 << 3),
+        LEVEL_ERROR   = (1 << 4)
     };
 
 public:
@@ -28,7 +28,7 @@ public:
     virtual void msgWarn(QString str) = 0;
     virtual void msgError(QString str) = 0;
 
-    void setLevel(quint8 value){this->level = (value==LEVEL_ALL)?0x7F:value;}
+    void setLevel(quint8 value){this->level = value;}
 
 protected:
     quint8 level;

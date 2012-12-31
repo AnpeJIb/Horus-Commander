@@ -70,7 +70,10 @@ SOURCES += main.cpp \
     config/ui/window_config_page.cpp \
     config/ui/primary_config_dialog.cpp \
     service/config/window_config_service.cpp \
-    service/config/config_service_base.cpp
+    service/config/config_service_base.cpp \
+    config/ui/common_log_config_page.cpp \
+    config/ui/log_config_page.cpp \
+    service/config/log_config_service.cpp
 
 HEADERS  += \
     util/file.h \
@@ -150,7 +153,11 @@ HEADERS  += \
     config/ui/window_config_page.h \
     service/config/window_config_service.h \
     config/window_config.h \
-    service/config/config_service_base.h
+    service/config/config_service_base.h \
+    config/ui/common_log_config_page.h \
+    config/log_config.h \
+    config/ui/log_config_page.h \
+    service/config/log_config_service.h
 
 FORMS    += \
     ui/main_window.ui \
@@ -159,7 +166,9 @@ FORMS    += \
     util/ui/scheme_editor.ui \
     config/ui/sqlite_connection_string_editor.ui \
     config/ui/general_config_page.ui \
-    config/ui/window_config_page.ui
+    config/ui/window_config_page.ui \
+    config/ui/common_log_config_page.ui \
+    config/ui/log_config_page.ui
 
 unix {
     DEFINES += _UNIX_

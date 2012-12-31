@@ -112,7 +112,7 @@ Config::General::DB_KIND GeneralConfigPage::selectedDBkind()
     return (Config::General::DB_KIND) ui->dbBox->itemData(ui->dbBox->currentIndex()).toUInt();
 }
 
-QString GeneralConfigPage::pageName()
+QString GeneralConfigPage::pageName() const
 {
     return ui->pageName->text();
 }

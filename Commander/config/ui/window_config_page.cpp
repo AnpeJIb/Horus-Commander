@@ -52,7 +52,7 @@ void WindowConfigPage::setConfigEnabled(bool value)
     ui->runAsDaemon->setEnabled(value);
 }
 
-QString WindowConfigPage::pageName()
+QString WindowConfigPage::pageName() const
 {
     return ui->pageName->text();
 }

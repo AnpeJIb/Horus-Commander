@@ -26,7 +26,7 @@ public:
     void loadDefaults();
     void setConfigEnabled(bool value);
 
-    QString pageName();
+    QString pageName() const;
 
 private:
     Ui::WindowConfigPage *ui;

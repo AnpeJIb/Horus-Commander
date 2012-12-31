@@ -4,6 +4,7 @@
 #include <QVariant>
 
 #include "general_config_page.h"
+#include "log_config_page.h"
 #include "window_config_page.h"
 
 #include "primary_config_service.h"
@@ -41,6 +42,10 @@ void PrimaryConfigDialog::addPages()
     GeneralConfigPage* general = new GeneralConfigPage;
     listedStack->addPage(general->pageName(), QIcon(":/img/general.png"), general);
     addChild(general);
+
+    LogConfigPage* log = new LogConfigPage;
+    listedStack->addPage(log->pageName(), QIcon(":/img/log.png"), log);
+    addChild(log);
 
     WindowConfigPage* window = new WindowConfigPage;
     listedStack->addPage(window->pageName(), QIcon(":/img/window.png"), window);
@@ -95,6 +100,7 @@ void PrimaryConfigDialog::loadDefaults()
 
 void PrimaryConfigDialog::setConfigEnabled(bool value)
 {
+    listedStack->setEnabled(value);
     ui->schemeBox->setEnabled(value);
     ui->schemeDescr->setEnabled(value);
     updateSchemeControlsState();

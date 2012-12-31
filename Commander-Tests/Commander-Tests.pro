@@ -49,7 +49,10 @@ SOURCES += \
     ../Commander/path/system_path.cpp \
     service/config/general_config_service_test.cpp \
     ../Commander/config/general_config.cpp \
-    ../Commander/service/config/general_config_service.cpp
+    ../Commander/service/config/general_config_service.cpp \
+    ../Commander/service/config/window_config_service.cpp \
+    ../Commander/service/config/log_config_service.cpp \
+    ../Commander/service/config/config_service_base.cpp
 
 HEADERS += \
     ../Commander/util/status_print.h \
@@ -121,7 +124,11 @@ HEADERS += \
     ../Commander/path/system_path.h \
     service/config/general_config_service_test.h \
     ../Commander/config/general_config.h \
-    ../Commander/service/config/general_config_service.h
+    ../Commander/service/config/general_config_service.h \
+    ../Commander/service/config/window_config_service.h \
+    ../Commander/service/config/primary_config_service.h \
+    ../Commander/service/config/log_config_service.h \
+    ../Commander/service/config/config_service_base.h
 
 INCLUDEPATH += util \
   config \

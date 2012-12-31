@@ -27,7 +27,7 @@ public:
     void loadDefaults();
     void setConfigEnabled(bool value);
 
-    QString pageName();
+    QString pageName() const;
 
 private slots:
     void on_serverPathSearch_clicked();

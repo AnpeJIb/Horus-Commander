@@ -15,6 +15,7 @@ public:
     explicit ListedStack(int percentPos, int minPos, QWidget *parent = 0);
     ~ListedStack();
     
+    void addPage(const QString& name, QWidget* page);
     void addPage(const QString& name, const QIcon& icon, QWidget* page);
     void setCurrentIndex(int value);
 
