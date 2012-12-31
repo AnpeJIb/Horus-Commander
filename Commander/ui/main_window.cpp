@@ -6,6 +6,8 @@
 #include <QCheckBox>
 
 #include "primary_config_dialog.h"
+#include "log_config_service.h"
+#include "log_service.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -27,10 +29,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::initLogger()
 {
-    m_logger = new StatusWidget;
+    Service::ConfigService::LogConfigService service;
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(m_logger);
+
+    m_treeLogger = new LoggerTreeWidget;
+    m_treeLogger->setLevel(service.logLevel(m_treeLogger->logKind()));
+    layout->addWidget(m_treeLogger);
     ui->tLog->setLayout(layout);
+
+    Service::LOGGER::registerLogger(m_treeLogger);
 }
 
 void MainWindow::initWindowState()

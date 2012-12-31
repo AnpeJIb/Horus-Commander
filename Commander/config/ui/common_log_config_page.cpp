@@ -1,6 +1,8 @@
 #include "common_log_config_page.h"
 #include "ui_common_log_config_page.h"
+
 #include "bitwise.h"
+#include "log_service.h"
 
 CommonLogConfigPage::CommonLogConfigPage(const QString& name, Config::Log::LOG_KIND kind, QWidget *parent) :
     QWidget(parent),
@@ -23,7 +25,8 @@ bool CommonLogConfigPage::isValid()
 
 void CommonLogConfigPage::save()
 {
-    m_service.setLogLevel(m_kind, (StatusPrinter::Level) m_currentLevel);
+    m_service.setLogLevel(m_kind, (Config::Log::LOG_LEVEL) m_currentLevel);
+    Service::LOGGER::setLoggersLevel(m_kind, (Config::Log::LOG_LEVEL) m_currentLevel);
 }
 
 void CommonLogConfigPage::load()
@@ -55,7 +58,7 @@ QString CommonLogConfigPage::pageName() const
 
 void CommonLogConfigPage::on_ch_disabled_clicked()
 {
-    m_currentLevel = StatusPrinter::LEVEL_NONE;
+    m_currentLevel = Config::Log::LEVEL_NONE;
 
     bool value = ui->ch_disabled->isChecked();
 
@@ -73,7 +76,7 @@ void CommonLogConfigPage::on_ch_disabled_clicked()
 
 void CommonLogConfigPage::on_ch_all_clicked()
 {
-    m_currentLevel = StatusPrinter::LEVEL_ALL;
+    m_currentLevel = Config::Log::LEVEL_ALL;
 
     bool value = ui->ch_all->isChecked();
 
@@ -83,16 +86,16 @@ void CommonLogConfigPage::on_ch_all_clicked()
     setGroupEnabled(!value);
 }
 
-void CommonLogConfigPage::loadLevel(StatusPrinter::Level level)
+void CommonLogConfigPage::loadLevel(Config::Log::LOG_LEVEL level)
 {
-    if (level == StatusPrinter::LEVEL_NONE)
+    if (level == Config::Log::LEVEL_NONE)
     {
         ui->ch_disabled->setChecked(true);
         on_ch_disabled_clicked();
         return;
     }
 
-    if (level == StatusPrinter::LEVEL_ALL)
+    if (level == Config::Log::LEVEL_ALL)
     {
         ui->ch_all->setChecked(true);
         on_ch_all_clicked();
@@ -101,23 +104,23 @@ void CommonLogConfigPage::loadLevel(StatusPrinter::Level level)
 
     m_currentLevel = level;
 
-    ui->ch_tasks->setChecked(BIT_CHECK_RAW(level, StatusPrinter::LEVEL_TASKS));
-    ui->ch_info->setChecked( BIT_CHECK_RAW(level, StatusPrinter::LEVEL_INFO));
-    ui->ch_warn->setChecked( BIT_CHECK_RAW(level, StatusPrinter::LEVEL_WARNING));
-    ui->ch_err->setChecked(  BIT_CHECK_RAW(level, StatusPrinter::LEVEL_ERROR));
-    ui->ch_dbg->setChecked(  BIT_CHECK_RAW(level, StatusPrinter::LEVEL_DEBUG));
+    ui->ch_tasks->setChecked(BIT_CHECK_RAW(level, Config::Log::LEVEL_TASKS));
+    ui->ch_info->setChecked( BIT_CHECK_RAW(level, Config::Log::LEVEL_INFO));
+    ui->ch_warn->setChecked( BIT_CHECK_RAW(level, Config::Log::LEVEL_WARNING));
+    ui->ch_err->setChecked(  BIT_CHECK_RAW(level, Config::Log::LEVEL_ERROR));
+    ui->ch_dbg->setChecked(  BIT_CHECK_RAW(level, Config::Log::LEVEL_DEBUG));
 }
 
 void CommonLogConfigPage::checkLevel()
 {
-    if (m_currentLevel == StatusPrinter::LEVEL_NONE)
+    if (m_currentLevel == Config::Log::LEVEL_NONE)
     {
         ui->ch_disabled->setChecked(true);
         on_ch_disabled_clicked();
         return;
     }
 
-    if (m_currentLevel == StatusPrinter::LEVEL_ALL)
+    if (m_currentLevel == Config::Log::LEVEL_ALL)
     {
         ui->ch_all->setChecked(true);
         on_ch_all_clicked();
@@ -144,30 +147,30 @@ void CommonLogConfigPage::setGroupChecked(bool value)
 
 void CommonLogConfigPage::on_ch_tasks_clicked()
 {
-    BIT_SET_RAW(m_currentLevel, StatusPrinter::LEVEL_TASKS, ui->ch_tasks->isChecked());
+    BIT_SET_RAW(m_currentLevel, Config::Log::LEVEL_TASKS, ui->ch_tasks->isChecked());
     checkLevel();
 }
 
 void CommonLogConfigPage::on_ch_info_clicked()
 {
-    BIT_SET_RAW(m_currentLevel, StatusPrinter::LEVEL_INFO, ui->ch_info->isChecked());
+    BIT_SET_RAW(m_currentLevel, Config::Log::LEVEL_INFO, ui->ch_info->isChecked());
     checkLevel();
 }
 
 void CommonLogConfigPage::on_ch_warn_clicked()
 {
-    BIT_SET_RAW(m_currentLevel, StatusPrinter::LEVEL_WARNING, ui->ch_warn->isChecked());
+    BIT_SET_RAW(m_currentLevel, Config::Log::LEVEL_WARNING, ui->ch_warn->isChecked());
     checkLevel();
 }
 
 void CommonLogConfigPage::on_ch_err_clicked()
 {
-    BIT_SET_RAW(m_currentLevel, StatusPrinter::LEVEL_ERROR, ui->ch_err->isChecked());
+    BIT_SET_RAW(m_currentLevel, Config::Log::LEVEL_ERROR, ui->ch_err->isChecked());
     checkLevel();
 }
 
 void CommonLogConfigPage::on_ch_dbg_clicked()
 {
-    BIT_SET_RAW(m_currentLevel, StatusPrinter::LEVEL_DEBUG, ui->ch_dbg->isChecked());
+    BIT_SET_RAW(m_currentLevel, Config::Log::LEVEL_DEBUG, ui->ch_dbg->isChecked());
     checkLevel();
 }

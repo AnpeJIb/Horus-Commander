@@ -3,8 +3,8 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include "status_print_test.h"
-#include "status_file_logger_test.h"
+#include "log_service_test.h"
+#include "file_logger_test.h"
 #include "str_test.h"
 #include "file_test.h"
 
@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QTest::qExec(new StatusPrintTest, argc, argv);
-    QTest::qExec(new StatusFileLoggerTest, argc, argv);
+    QTest::qExec(new LogServiceTest, argc, argv);
+    QTest::qExec(new FileLoggerTest, argc, argv);
     QTest::qExec(new StrTest, argc, argv);
     QTest::qExec(new FileTest, argc, argv);
 

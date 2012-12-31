@@ -6,7 +6,7 @@
 #include <QMenu>
 #include <QIcon>
 
-#include "status_widget.h"
+#include "logger_tree_widget.h"
 #include "window_config_service.h"
 
 namespace Ui {
@@ -41,7 +41,7 @@ private:
     QMenu *m_trayIconMenu;
 
     Ui::MainWindow *ui;
-    StatusWidget* m_logger;
+    LoggerTreeWidget* m_treeLogger;
 
     QIcon* m_iconStopped;
     Service::ConfigService::WindowConfigService m_winService;

@@ -4,7 +4,7 @@
 #include <QString>
 
 #include "log_config.h"
-#include "status_print.h"
+#include "logger.h"
 
 #include "config_service_base.h"
 #include "primary_config_service.h"
@@ -21,8 +21,8 @@ class LogConfigService: public PrimaryConfigService, public ConfigServiceBase
 public:
     LogConfigService();
 
-    StatusPrinter::Level logLevel(Config::Log::LOG_KIND logKind);
-    void setLogLevel(Config::Log::LOG_KIND logKind, StatusPrinter::Level value);
+    Config::Log::LOG_LEVEL logLevel(Config::Log::LOG_KIND logKind);
+    void setLogLevel(Config::Log::LOG_KIND logKind, Config::Log::LOG_LEVEL value);
 
 protected:
     ModelParameterValueDao* valuesDao()   { return &m_valuesDao;  }

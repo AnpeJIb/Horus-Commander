@@ -5,7 +5,7 @@
 
 #include "uiconfig_module.h"
 #include "named_page.h"
-#include "status_print.h"
+#include "logger.h"
 #include "log_config.h"
 #include "log_config_service.h"
 
@@ -40,7 +40,7 @@ private slots:
     void on_ch_dbg_clicked();
 
 private:
-    void loadLevel(StatusPrinter::Level level);
+    void loadLevel(Config::Log::LOG_LEVEL level);
     void checkLevel();
     void setGroupEnabled(bool value);
     void setGroupChecked(bool value);

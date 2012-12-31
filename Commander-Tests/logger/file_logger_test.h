@@ -1,18 +1,18 @@
-#ifndef STATUSFILELOGGERTEST_H
-#define STATUSFILELOGGERTEST_H
+#ifndef LOGGER_FILE_LOGGER_TEST_H
+#define LOGGER_FILE_LOGGER_TEST_H
 
 #include <QObject>
-#include "status_file_logger.h"
-#include "status_tester.h"
+#include "file_logger.h"
+#include "logger_tester.h"
 
-class StatusFileLoggerTest: public QObject, public StatusTester
+class FileLoggerTest: public QObject, public LoggerTester
 {
     Q_OBJECT
 public:
-    explicit StatusFileLoggerTest(QObject *parent = 0);
+    explicit FileLoggerTest(QObject *parent = 0);
 
 protected:
-    StatusPrinter* getPrinter();
+    Logger* getLogger();
 
 private slots:
     void initTestCase();
@@ -31,8 +31,8 @@ private slots:
     void cleanupTestCase();
 
 private:
-    StatusFileLogger* logger;
+    FileLogger* m_logger;
     QString filepath;
 };
 
-#endif // STATUSFILELOGGERTEST_H
+#endif // LOGGER_FILE_LOGGER_TEST_H

@@ -1,8 +1,6 @@
 #ifndef LOG_CONFIG_H
 #define LOG_CONFIG_H
 
-#include "status_print.h"
-
 namespace Config { namespace Log {
 
 enum LOG_KIND
@@ -12,7 +10,19 @@ enum LOG_KIND
     LOG_GUI  = 2
 };
 
-const StatusPrinter::Level defaultLogLevel = StatusPrinter::LEVEL_ALL;
+enum LOG_LEVEL
+{
+    LEVEL_NONE    = 0,
+    LEVEL_ALL     = 0x1F,
+    LEVEL_TASKS   = (1 << 0),
+    LEVEL_DEBUG   = (1 << 1),
+    LEVEL_INFO    = (1 << 2),
+    LEVEL_WARNING = (1 << 3),
+    LEVEL_ERROR   = (1 << 4)
+};
+
+
+const LOG_LEVEL defaultLogLevel = LEVEL_ALL;
 
 }}
 

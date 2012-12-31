@@ -10,14 +10,14 @@ LogConfigService::LogConfigService()
 {
 }
 
-StatusPrinter::Level LogConfigService::logLevel(Config::Log::LOG_KIND logKind)
+Config::Log::LOG_LEVEL LogConfigService::logLevel(Config::Log::LOG_KIND logKind)
 {
     return (currentScheme() == NULL)
-            ? StatusPrinter::LEVEL_NONE
-            : (StatusPrinter::Level) logLevelValue(logKind)->value.toUInt();
+            ?  Config::Log::LEVEL_NONE
+            : (Config::Log::LOG_LEVEL) logLevelValue(logKind)->value.toUInt();
 }
 
-void LogConfigService::setLogLevel(Config::Log::LOG_KIND logKind, StatusPrinter::Level value)
+void LogConfigService::setLogLevel(Config::Log::LOG_KIND logKind, Config::Log::LOG_LEVEL value)
 {
     setValue(logLevelValue(logKind), QString::number(value));
 }

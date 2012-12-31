@@ -1,19 +1,19 @@
-#ifndef STATUSPRINTTEST_H
-#define STATUSPRINTTEST_H
+#ifndef LOGGER_LOGGER_SERVICE_TEST_H
+#define LOGGER_LOGGER_SERVICE_TEST_H
 
 #include <QObject>
-#include "status_print.h"
-#include "status_tester.h"
-#include "foo_status_printer.h"
+#include "logger.h"
+#include "logger_tester.h"
+#include "foo_logger.h"
 
-class StatusPrintTest : public QObject, public StatusTester
+class LogServiceTest : public QObject, public LoggerTester
 {
     Q_OBJECT
 public:
-    explicit StatusPrintTest(QObject *parent = 0);
+    explicit LogServiceTest(QObject *parent = 0);
     
 protected:
-    StatusPrinter* getPrinter();
+    Logger* getLogger();
 
 private slots:
     void initTestCase();
@@ -32,7 +32,7 @@ private slots:
     void cleanupTestCase();
 
 private:
-    FooStatusPrinter printer;
+    FooLogger m_logger;
 };
 
-#endif // STATUSPRINTTEST_H
+#endif // LOGGER_LOGGER_SERVICE_TEST_H

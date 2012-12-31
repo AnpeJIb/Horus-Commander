@@ -1,26 +1,26 @@
-#ifndef STATUSFILELOGGER_H
-#define STATUSFILELOGGER_H
+#ifndef LOGGER_FILE_LOGGER_H
+#define LOGGER_FILE_LOGGER_H
 
-#include "status_print.h"
+#include "logger.h"
 #include <QFile>
 #include <QTextStream>
 #include <QStack>
 
-class StatusFileLogger : public QObject, public StatusPrinter
+class FileLogger : public QObject, public Logger
 {
     Q_OBJECT
 public:
-    StatusFileLogger(QString filename);
-    ~StatusFileLogger();
+    FileLogger(QString filename);
+    ~FileLogger();
 
 public slots:
-    void statusNew(QString str);
-    void statusDone();
-    void statusFail();
+    void taskNew(QString str);
+    void taskDone();
+    void taskFail();
 
     void msgDebug(QString str);
     void msgInfo(QString str);
-    void msgWarn(QString str);
+    void msgWarning(QString str);
     void msgError(QString str);
 
 private:
@@ -32,4 +32,4 @@ private:
     QString outFormat;
 };
 
-#endif // STATUSFILELOGGER_H
+#endif // LOGGER_FILE_LOGGER_H

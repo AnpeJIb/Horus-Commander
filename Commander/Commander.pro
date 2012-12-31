@@ -14,6 +14,8 @@ TEMPLATE = app
 INCLUDEPATH += config \
   util \
   util/ui \
+  logger \
+  logger/ui \
   config/ui \
   ui \
   parser \
@@ -35,9 +37,6 @@ SOURCES += main.cpp \
     config/ui/named_page.cpp \
     config/ui/uiconfig_module.cpp \
     ui/main_window.cpp \
-    util/status_file_logger.cpp \
-    util/status_print.cpp \
-    util/ui/status_widget.cpp \
     domain/belligerent.cpp \
     domain/territory/node.cpp \
     domain/territory/battleground.cpp \
@@ -73,7 +72,10 @@ SOURCES += main.cpp \
     service/config/config_service_base.cpp \
     config/ui/common_log_config_page.cpp \
     config/ui/log_config_page.cpp \
-    service/config/log_config_service.cpp
+    service/config/log_config_service.cpp \
+    logger/file_logger.cpp \
+    logger/ui/logger_tree_widget.cpp \
+    service/log_service.cpp
 
 HEADERS  += \
     util/file.h \
@@ -82,9 +84,6 @@ HEADERS  += \
     config/ui/uiconfig_module.h \
     ui/main_window.h \
     util/file_ext.h \
-    util/status_file_logger.h \
-    util/status_print.h \
-    util/ui/status_widget.h \
     domain/generic_domain.h \
     domain/belligerent.h \
     domain/territory/node.h \
@@ -157,7 +156,11 @@ HEADERS  += \
     config/ui/common_log_config_page.h \
     config/log_config.h \
     config/ui/log_config_page.h \
-    service/config/log_config_service.h
+    service/config/log_config_service.h \
+    logger/logger.h \
+    logger/file_logger.h \
+    logger/ui/logger_tree_widget.h \
+    service/log_service.h
 
 FORMS    += \
     ui/main_window.ui \

@@ -14,16 +14,12 @@ TEMPLATE = app
 
 SOURCES += \
     main.cpp \
-    ../Commander/util/status_print.cpp \
-    ../Commander/util/status_file_logger.cpp \
+    ../Commander/logger/logger.cpp \
+    ../Commander/logger/file_logger.cpp \
     ../Commander/util/str.cpp \
     util/file_util.cpp \
     ../Commander/util/file.cpp \
     util/file_test.cpp \
-    util/foo_status_printer.cpp \
-    util/status_file_logger_test.cpp \
-    util/status_print_test.cpp \
-    util/status_tester.cpp \
     util/str_test.cpp \
     dao/xml/parameters/model_xml_dao_test.cpp \
     ../Commander/dao/xml/xml_dao.cpp \
@@ -52,19 +48,20 @@ SOURCES += \
     ../Commander/service/config/general_config_service.cpp \
     ../Commander/service/config/window_config_service.cpp \
     ../Commander/service/config/log_config_service.cpp \
-    ../Commander/service/config/config_service_base.cpp
+    ../Commander/service/config/config_service_base.cpp \
+    logger/file_logger_test.cpp \
+    logger/foo_logger.cpp \
+    logger/logger_tester.cpp \
+    ../Commander/service/log_service.cpp \
+    service/log_service_test.cpp
 
 HEADERS += \
-    ../Commander/util/status_print.h \
-    ../Commander/util/status_file_logger.h \
+    ../Commander/logger/logger.h \
+    ../Commander/logger/file_logger.h \
     ../Commander/util/str.h \
     util/file_util.h \
     ../Commander/util/file.h \
     util/file_test.h \
-    util/foo_status_printer.h \
-    util/status_file_logger_test.h \
-    util/status_print_test.h \
-    util/status_tester.h \
     util/str_test.h \
     dao/xml/parameters/model_xml_dao_test.h \
     ../Commander/dao/title_carrier_dao.h \
@@ -128,10 +125,16 @@ HEADERS += \
     ../Commander/service/config/window_config_service.h \
     ../Commander/service/config/primary_config_service.h \
     ../Commander/service/config/log_config_service.h \
-    ../Commander/service/config/config_service_base.h
+    ../Commander/service/config/config_service_base.h \
+    logger/file_logger_test.h \
+    logger/foo_logger.h \
+    logger/logger_tester.h \
+    ../Commander/service/log_service.h \
+    service/log_service_test.h
 
 INCLUDEPATH += util \
   config \
+  logger \
   dao \
   dao/xml/parameters \
   service \
@@ -139,6 +142,7 @@ INCLUDEPATH += util \
   path \
   ../Commander \
   ../Commander/util \
+  ../Commander/logger \
   ../Commander/config \
   ../Commander/domain \
   ../Commander/domain/parameters \

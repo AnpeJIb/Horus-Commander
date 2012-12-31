@@ -1,16 +1,16 @@
-#ifndef STATUSWIDGET_H
-#define STATUSWIDGET_H
+#ifndef LOGGER_LOGGER_TREE_WIDGET_H
+#define LOGGER_LOGGER_TREE_WIDGET_H
 
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QIcon>
-#include "status_print.h"
+#include "logger.h"
 
 namespace Ui {
 class StatusWidget;
 }
 
-class StatusWidget : public QTreeWidget, public StatusPrinter
+class LoggerTreeWidget : public QTreeWidget, public Logger
 {
     Q_OBJECT
 
@@ -23,16 +23,16 @@ private:
     };
 
 public:
-    StatusWidget();
+    LoggerTreeWidget();
 
 public slots:
-    void statusNew(QString str);
-    void statusDone();
-    void statusFail();
+    void taskNew(QString str);
+    void taskDone();
+    void taskFail();
 
     void msgDebug(QString str);
     void msgInfo(QString str);
-    void msgWarn(QString str);
+    void msgWarning(QString str);
     void msgError(QString str);
 
     void clearAll();
@@ -53,4 +53,4 @@ private:
     QIcon* iconErr;
 };
 
-#endif // STATUSWIDGET_H
+#endif // LOGGER_LOGGER_TREE_WIDGET_H

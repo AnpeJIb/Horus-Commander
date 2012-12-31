@@ -5,16 +5,24 @@
 #include <QTranslator>
 #include <QLibraryInfo>
 
+#include "system_path.h"
 #include "primary_config_service.h"
 #include "general_config_service.h"
-#include "system_path.h"
+#include "log_config_service.h"
+#include "log_service.h"
+#include "file_logger.h"
+
+FileLogger* fileLogger = NULL;
 
 using namespace Service::ConfigService;
 
 void init();
+void initLog();
 void initLanguage();
+void updateLog();
 void checkSystemTray();
 void cleanUp();
+void cleanUpLogger();
 
 int main(int argc, char *argv[])
 {
@@ -38,11 +46,27 @@ int main(int argc, char *argv[])
 
 void init()
 {
+    initLog();
+
     PrimaryConfigService::init(
                 Path::System::config(),
                 Path::System::dataSource());
 
+    updateLog();
     initLanguage();
+}
+
+void initLog()
+{
+    fileLogger = new FileLogger(Path::System::log());
+    fileLogger->setLevel(Config::Log::LEVEL_ALL);
+    Service::LOGGER::registerLogger(fileLogger);
+}
+
+void updateLog()
+{
+    Service::ConfigService::LogConfigService service;
+    fileLogger->setLevel(service.logLevel(fileLogger->logKind()));
 }
 
 void initLanguage()
@@ -74,5 +98,12 @@ void checkSystemTray()
 
 void cleanUp()
 {
+    cleanUpLogger();
     PrimaryConfigService::cleanUp();
+}
+
+void cleanUpLogger()
+{
+    Service::LOGGER::unregisterLogger(fileLogger);
+    delete fileLogger;
 }

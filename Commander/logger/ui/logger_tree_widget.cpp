@@ -1,9 +1,14 @@
-#include "status_widget.h"
+#include "logger_tree_widget.h"
+
 #include <QTime>
 #include <QHeaderView>
 
-StatusWidget::StatusWidget()
-    : last(NULL),
+#include "log_config.h"
+#include "bitwise.h"
+
+LoggerTreeWidget::LoggerTreeWidget()
+    : Logger(Config::Log::LOG_GUI),
+      last(NULL),
       iconBuzy(new QIcon(":/img/bullet_yellow.png")),
       iconDone(new QIcon(":/img/bullet_green.png")),
       iconFail(new QIcon(":/img/bullet_red.png")),
@@ -17,7 +22,7 @@ StatusWidget::StatusWidget()
     headerNames.append(tr("Time"));
     setHeaderLabels(headerNames);
 
-    setLevel(StatusPrinter::LEVEL_ALL);    
+    setLevel(Config::Log::LEVEL_ALL);
 
     header()->setStretchLastSection(false);
     header()->setResizeMode(0, QHeaderView::Stretch);
@@ -25,15 +30,15 @@ StatusWidget::StatusWidget()
     header()->resizeSection(1, 120);
 }
 
-void StatusWidget::statusNew(QString str)
+void LoggerTreeWidget::taskNew(QString str)
 {
-    if ((level & StatusPrinter::LEVEL_TASKS)==0) return;
+    if (BIT_CHECK_RAW(level, Config::Log::LEVEL_TASKS)==0) return;
 
     QTreeWidgetItem* item;
 
     if ((last==NULL)
     || ((last->parent()==NULL)
-        && ((StatusWidget::NodeType)(last->data(0, Qt::UserRole).toInt())==StatusWidget::TASK_FINISHED)))
+        && ((LoggerTreeWidget::NodeType)(last->data(0, Qt::UserRole).toInt())==LoggerTreeWidget::TASK_FINISHED)))
 
         item = new QTreeWidgetItem(this);
     else
@@ -41,7 +46,7 @@ void StatusWidget::statusNew(QString str)
 
     item->setText(0, str);
     item->setText(1, QTime::currentTime().toString());
-    item->setData(0, Qt::UserRole, QVariant(StatusWidget::TASK_NEW));
+    item->setData(0, Qt::UserRole, QVariant(LoggerTreeWidget::TASK_NEW));
     item->setData(1, Qt::UserRole, QVariant(0)); // msg count
     item->setExpanded(true);
 
@@ -49,46 +54,46 @@ void StatusWidget::statusNew(QString str)
     last->setIcon(0, *iconBuzy);
 }
 
-void StatusWidget::statusDone() {statusFinish(iconDone);}
-void StatusWidget::statusFail() {statusFinish(iconFail);}
+void LoggerTreeWidget::taskDone() {statusFinish(iconDone);}
+void LoggerTreeWidget::taskFail() {statusFinish(iconFail);}
 
-void StatusWidget::statusFinish(QIcon *icon)
+void LoggerTreeWidget::statusFinish(QIcon *icon)
 {
-    if (((level & StatusPrinter::LEVEL_TASKS)==0) || (last==NULL)) return;
+    if ((BIT_CHECK_RAW(level, Config::Log::LEVEL_TASKS)==0) || (last==NULL)) return;
 
     if (last->data(1, Qt::UserRole).toInt()==0) // no messages
         last->setExpanded(false);
 
     last->setIcon(0, *icon);
-    last->setData(0, Qt::UserRole, QVariant(StatusWidget::TASK_FINISHED));
+    last->setData(0, Qt::UserRole, QVariant(LoggerTreeWidget::TASK_FINISHED));
     last = last->parent();
 }
 
-void StatusWidget::msgDebug(QString str)
+void LoggerTreeWidget::msgDebug(QString str)
 {
-    if ((level & StatusPrinter::LEVEL_DEBUG)==0) return;
+    if (BIT_CHECK_RAW(level, Config::Log::LEVEL_DEBUG)==0) return;
     msg(str, iconDbg);
 }
 
-void StatusWidget::msgInfo(QString str)
+void LoggerTreeWidget::msgInfo(QString str)
 {
-    if ((level & StatusPrinter::LEVEL_INFO)==0) return;
+    if (BIT_CHECK_RAW(level, Config::Log::LEVEL_INFO)==0) return;
     msg(str, iconInfo);
 }
 
-void StatusWidget::msgWarn(QString str)
+void LoggerTreeWidget::msgWarning(QString str)
 {
-    if ((level & StatusPrinter::LEVEL_WARNING)==0) return;
+    if (BIT_CHECK_RAW(level, Config::Log::LEVEL_WARNING)==0) return;
     msg(str, iconWarn);
 }
 
-void StatusWidget::msgError(QString str)
+void LoggerTreeWidget::msgError(QString str)
 {
-    if ((level & StatusPrinter::LEVEL_ERROR)==0) return;
+    if (BIT_CHECK_RAW(level, Config::Log::LEVEL_ERROR)==0) return;
     msg(str, iconErr);
 }
 
-void StatusWidget::msg(const QString &str, QIcon *icon)
+void LoggerTreeWidget::msg(const QString &str, QIcon *icon)
 {
     QTreeWidgetItem* item;
 
@@ -99,7 +104,7 @@ void StatusWidget::msg(const QString &str, QIcon *icon)
 
     item->setText(0, str);
     item->setText(1, QTime::currentTime().toString());
-    item->setData(0, Qt::UserRole, QVariant(StatusWidget::MSG));
+    item->setData(0, Qt::UserRole, QVariant(LoggerTreeWidget::MSG));
     item->setIcon(0, *icon);
 
     QTreeWidgetItem* curr;
@@ -112,7 +117,7 @@ void StatusWidget::msg(const QString &str, QIcon *icon)
     }
 }
 
-void StatusWidget::clearAll()
+void LoggerTreeWidget::clearAll()
 {
     clear();
     last = NULL;

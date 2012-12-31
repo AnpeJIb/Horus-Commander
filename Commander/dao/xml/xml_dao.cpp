@@ -5,7 +5,7 @@
 #include <QFileInfo>
 #include <QTextStream>
 
-#include "status_print.h"
+#include "log_service.h"
 
 #define XML_ROOT    "root"
 #define XML_ATTR_ID "id"
@@ -28,7 +28,7 @@ void Dao::XmlDaoBase::init(const QString& path)
     if(file.open (QIODevice::ReadWrite) == false)
     {
         QString str = QObject::tr("Could not open config file \"%1\" for reading").arg(dsPath);
-        STATUS_PRINT::ERROR_(str);
+        Service::LOGGER::msgError(str);
         return;
     }
 
@@ -43,14 +43,14 @@ void Dao::XmlDaoBase::init(const QString& path)
 
         if(root.tagName() != XML_ROOT)
         {
-            STATUS_PRINT::ERROR_(QObject::tr("Wrong config root"));
+            Service::LOGGER::msgError(QObject::tr("Wrong config root"));
             loadOk = false;
         }
     }
 
     if (loadOk == false)
     {
-        STATUS_PRINT::DEBUG_(QObject::tr("Creating data source file"));
+        Service::LOGGER::msgDebug(QObject::tr("Creating data source file"));
         createNew();
         sync();
     }
@@ -79,7 +79,7 @@ void Dao::XmlDaoBase::sync()
     if(file.open(QIODevice::WriteOnly) == false)
     {
         QString str = QObject::tr("Could not open config file \"%1\" for writing").arg(dsPath);
-        STATUS_PRINT::ERROR_(str);
+        Service::LOGGER::msgError(str);
         return;
     }
 
