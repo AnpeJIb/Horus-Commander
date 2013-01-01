@@ -39,5 +39,6 @@
         <file>img/info.png</file>
         <file>img/help.png</file>
         <file>img/settingsAdvanced.png</file>
+        <file>img/connectionTest.png</file>
     </qresource>
 </RCC>

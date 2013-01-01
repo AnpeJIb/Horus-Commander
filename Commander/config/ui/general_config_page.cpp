@@ -92,7 +92,7 @@ void GeneralConfigPage::setConfigEnabled(bool value)
     bool dbValue = value && (ui->dbBox->count() > 0);
     ui->dbBox->setEnabled(dbValue);
     ui->dbEdit->setEnabled(dbValue);
-    ui->dbConnectionState->setEnabled(dbValue);
+    ui->dbTestConnection->setEnabled(dbValue);
 }
 
 void GeneralConfigPage::selectLangInBox(QString lang)

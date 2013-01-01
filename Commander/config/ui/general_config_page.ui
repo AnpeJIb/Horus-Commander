@@ -95,13 +95,13 @@
            </widget>
           </item>
           <item>
-           <widget class="QToolButton" name="dbConnectionState">
+           <widget class="QToolButton" name="dbTestConnection">
             <property name="enabled">
              <bool>false</bool>
             </property>
             <property name="icon">
              <iconset resource="../../img.qrc">
-              <normaloff>:/img/disconnected.png</normaloff>:/img/disconnected.png</iconset>
+              <normaloff>:/img/connectionTest.png</normaloff>:/img/connectionTest.png</iconset>
             </property>
            </widget>
           </item>
