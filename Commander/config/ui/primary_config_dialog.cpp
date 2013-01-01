@@ -100,7 +100,6 @@ void PrimaryConfigDialog::loadDefaults()
 
 void PrimaryConfigDialog::setConfigEnabled(bool value)
 {
-    listedStack->setEnabled(value);
     ui->schemeBox->setEnabled(value);
     ui->schemeDescr->setEnabled(value);
     updateSchemeControlsState();

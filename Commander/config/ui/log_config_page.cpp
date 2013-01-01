@@ -41,7 +41,6 @@ void LogConfigPage::loadDefaults()
 
 void LogConfigPage::setConfigEnabled(bool value)
 {
-    listedStack->setEnabled(value);
     setConfigChildrenEnabled(value);
 }
 
