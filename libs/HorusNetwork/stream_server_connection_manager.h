@@ -1,0 +1,44 @@
+#ifndef STREAM_SERVER_CONNECTION_MANAGER_H
+#define STREAM_SERVER_CONNECTION_MANAGER_H
+
+#include "horus_network_global.h"
+
+#include <QtCore>
+
+#include <boost/noncopyable.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/enable_shared_from_this.hpp>
+
+#include "stream_server_connection.h"
+
+class StreamServerConnection;
+class StreamServerConnectionManager;
+
+class HORUS_NETWORK_SHARED_EXPORT StreamServerConnectionManager
+    : public boost::enable_shared_from_this<StreamServerConnectionManager>,
+      private boost::noncopyable
+{
+public:
+    StreamServerConnectionManager();
+    StreamServerConnectionManager(uint max_connections);
+    virtual ~StreamServerConnectionManager(){}
+
+    void setMaxConnections(uint value);
+    bool isNewConnectionAvailable();
+
+    virtual void join(boost::shared_ptr<StreamServerConnection> connection) = 0;
+    virtual void leave(boost::shared_ptr<StreamServerConnection> connection) = 0;
+    virtual void kickAll() = 0;
+
+    virtual StreamServerConnection* getNewConnection(
+            boost::asio::io_service &io_service, const boost::shared_ptr<StreamServerConnectionManager>& manager) = 0;
+
+protected:
+    void increaseConnections();
+    void decreaseConnections();
+
+    uint m_max_connections;
+    uint m_current_connections;
+};
+
+#endif // STREAM_SERVER_CONNECTION_MANAGER_H
