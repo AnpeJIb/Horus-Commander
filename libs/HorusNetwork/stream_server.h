@@ -17,9 +17,16 @@ class HORUS_NETWORK_SHARED_EXPORT StreamServer: private boost::noncopyable
 public:
     typedef boost::shared_ptr<StreamServer> pointer;
 
-    StreamServer(const boost::shared_ptr<StreamServerConnectionManager>& manager);
-    StreamServer(const QString& address, const boost::shared_ptr<StreamServerConnectionManager> &manager);
-    StreamServer(const QString& address, const QString& port, const boost::shared_ptr<StreamServerConnectionManager>& manager);
+    StreamServer(boost::asio::io_service& io_service,
+                 const boost::shared_ptr<StreamServerConnectionManager>& manager);
+    StreamServer(const QString& address,
+                 boost::asio::io_service& io_service,
+                 const boost::shared_ptr<StreamServerConnectionManager> &manager);
+    StreamServer(const QString& address,
+                 const QString& port,
+                 boost::asio::io_service& io_service,
+                 const boost::shared_ptr<StreamServerConnectionManager>& manager);
+
     ~StreamServer(){}
 
     void setAddress(const QString& value);
@@ -38,7 +45,6 @@ private:
 
     const boost::shared_ptr<StreamServerConnectionManager>& m_manager;
 
-    boost::asio::io_service m_io_service;
     boost::asio::signal_set m_signals;
     boost::asio::ip::tcp::acceptor m_acceptor;
     boost::shared_ptr<StreamServerConnection> m_new_connection;

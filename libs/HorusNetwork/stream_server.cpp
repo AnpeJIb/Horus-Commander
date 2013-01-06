@@ -6,11 +6,11 @@
 const QString c_address = "localhost";
 const QString c_port = "20001";
 
-StreamServer::StreamServer(const boost::shared_ptr<StreamServerConnectionManager> &manager)
+StreamServer::StreamServer(boost::asio::io_service &io_service,
+                           const boost::shared_ptr<StreamServerConnectionManager> &manager)
     : m_manager(manager),
-      m_io_service(),
-      m_signals(m_io_service),
-      m_acceptor(m_io_service),
+      m_signals(io_service),
+      m_acceptor(io_service),
       m_new_connection(),
       m_address(c_address),
       m_port(c_port),
@@ -19,13 +19,12 @@ StreamServer::StreamServer(const boost::shared_ptr<StreamServerConnectionManager
     initSignals();
 }
 
-StreamServer::StreamServer(
-        const QString &address,
-        const boost::shared_ptr<StreamServerConnectionManager>& manager)
+StreamServer::StreamServer(const QString &address,
+                           boost::asio::io_service &io_service,
+                           const boost::shared_ptr<StreamServerConnectionManager> &manager)
     : m_manager(manager),
-      m_io_service(),
-      m_signals(m_io_service),
-      m_acceptor(m_io_service),
+      m_signals(io_service),
+      m_acceptor(io_service),
       m_new_connection(),
       m_address(address),
       m_port(c_port),
@@ -35,12 +34,12 @@ StreamServer::StreamServer(
 }
 
 StreamServer::StreamServer(const QString &address,
-        const QString &port,
-        const boost::shared_ptr<StreamServerConnectionManager> &manager)
+                           const QString &port,
+                           boost::asio::io_service &io_service,
+                           const boost::shared_ptr<StreamServerConnectionManager> &manager)
     : m_manager(manager),
-      m_io_service(),
-      m_signals(m_io_service),
-      m_acceptor(m_io_service),
+      m_signals(io_service),
+      m_acceptor(io_service),
       m_new_connection(),
       m_address(address),
       m_port(port),
@@ -88,7 +87,7 @@ void StreamServer::start()
     if (m_running) return;
     m_running = true;
 
-    boost::asio::ip::tcp::resolver resolver(m_io_service);
+    boost::asio::ip::tcp::resolver resolver(m_acceptor.get_io_service());
     boost::asio::ip::tcp::resolver::query query(m_address.toStdString(), m_port.toStdString());
     boost::asio::ip::tcp::endpoint endpoint = *resolver.resolve(query);
     m_acceptor.open(endpoint.protocol());
@@ -96,21 +95,18 @@ void StreamServer::start()
     m_acceptor.bind(endpoint);
     m_acceptor.listen();
     startAccept();
-
-    m_io_service.run();    
 }
 
 void StreamServer::stop()
 {
     if (m_running == false) return;
     m_manager->kickAll();
-    m_io_service.stop();
     m_running = false;
 }
 
 void StreamServer::startAccept()
 {
-    m_new_connection.reset(m_manager->getNewConnection(m_io_service, m_manager));
+    m_new_connection.reset(m_manager->getNewConnection(m_acceptor.get_io_service(), m_manager));
     m_acceptor.async_accept(m_new_connection->socket(),
                             boost::bind(&StreamServer::handleAccept, this,
                                         boost::asio::placeholders::error));
