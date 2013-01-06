@@ -19,11 +19,13 @@ class HORUS_NETWORK_SHARED_EXPORT StreamServerConnectionManager
       private boost::noncopyable
 {
 public:
+    typedef boost::shared_ptr<StreamServerConnectionManager> pointer;
+
     StreamServerConnectionManager();
     StreamServerConnectionManager(uint max_connections);
     virtual ~StreamServerConnectionManager(){}
 
-    void setMaxConnections(uint value);
+    virtual void setMaxConnections(uint value);
     bool isNewConnectionAvailable();
 
     virtual void join(boost::shared_ptr<StreamServerConnection> connection) = 0;

@@ -9,6 +9,7 @@ StreamServerSingleEchoConnectionManager::StreamServerSingleEchoConnectionManager
 void StreamServerSingleEchoConnectionManager::join(boost::shared_ptr<StreamServerConnection> connection)
 {
     if (isNewConnectionAvailable() == false) return;
+
     m_connection = connection;
     m_connection->start();
     increaseConnections();
@@ -33,4 +34,9 @@ StreamServerConnection *StreamServerSingleEchoConnectionManager::getNewConnectio
         boost::asio::io_service &io_service, const boost::shared_ptr<StreamServerConnectionManager> &manager)
 {
     return new StreamServerEchoConnection(io_service, manager);
+}
+
+void StreamServerSingleEchoConnectionManager::setMaxConnections(uint value)
+{
+    Q_UNUSED(value)
 }

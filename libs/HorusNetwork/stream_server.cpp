@@ -3,8 +3,7 @@
 #include <QDebug>
 #include <boost/bind.hpp>
 
-const QString c_address = "localhost";
-const QString c_port = "20001";
+#include "stream_defaults.h"
 
 StreamServer::StreamServer(boost::asio::io_service &io_service,
                            const boost::shared_ptr<StreamServerConnectionManager> &manager)
@@ -12,8 +11,8 @@ StreamServer::StreamServer(boost::asio::io_service &io_service,
       m_signals(io_service),
       m_acceptor(io_service),
       m_new_connection(),
-      m_address(c_address),
-      m_port(c_port),
+      m_address(StreamDefaults::default_address),
+      m_port(StreamDefaults::default_port),
       m_running(false)
 {
     initSignals();
@@ -27,7 +26,7 @@ StreamServer::StreamServer(const QString &address,
       m_acceptor(io_service),
       m_new_connection(),
       m_address(address),
-      m_port(c_port),
+      m_port(StreamDefaults::default_port),
       m_running(false)
 {
     initSignals();
@@ -101,6 +100,7 @@ void StreamServer::stop()
 {
     if (m_running == false) return;
     m_manager->kickAll();
+    m_acceptor.close();
     m_running = false;
 }
 
@@ -116,7 +116,7 @@ void StreamServer::handleAccept(const boost::system::error_code &e)
 {
     if (m_manager->isNewConnectionAvailable() == false)
     {
-        m_new_connection->socket().cancel();
+        m_new_connection->socket().close();
         return;
     }
 

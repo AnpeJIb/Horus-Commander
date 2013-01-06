@@ -27,3 +27,4 @@ Makefile
 ui_*.h
 *.directory
 *.autosave
+bin

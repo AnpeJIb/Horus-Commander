@@ -6,6 +6,8 @@
 class StreamServerSingleEchoConnectionManager: public StreamServerConnectionManager
 {
 public:
+    typedef boost::shared_ptr<StreamServerSingleEchoConnectionManager> pointer;
+
     StreamServerSingleEchoConnectionManager();
 
     void join(boost::shared_ptr<StreamServerConnection> connection);
@@ -13,6 +15,7 @@ public:
     void kickAll();
     StreamServerConnection* getNewConnection(boost::asio::io_service &io_service,
                                              const boost::shared_ptr<StreamServerConnectionManager> &manager);
+    void setMaxConnections(uint value);
 
 private:
     boost::shared_ptr<StreamServerConnection> m_connection;
