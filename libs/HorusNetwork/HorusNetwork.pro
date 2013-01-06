@@ -33,6 +33,7 @@ TARGET = $$qtLibraryTarget(HorusNetwork)
 VERSION = 0.0.1
 DEFINES += LIB_VERSION=\\\"$$VERSION\\\"
 
-LIBS += -lboost_system -lboost_thread
+unix:LIBS += -lboost_system -lboost_thread
+win32:LIBS += boost_system.dll boost_thread.dll
 
 DESTDIR = $$NETWORK_LIB_BUILD_DIR

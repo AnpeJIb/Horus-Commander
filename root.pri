@@ -8,13 +8,8 @@ DEFINES += _WIN32_
 }
 
 # Boost libs
-unix {
-LIBS += -L/usr/lib/
-}
-
-win32 {
-LIBS += -L/path/to/boost
-}
+unix:LIBS += -L/usr/lib/
+win32:LIBS += drive:/path/to/boost
 
 # Build paths
 ROOT_BUILD_DIR = $$PWD/bin
