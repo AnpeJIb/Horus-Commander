@@ -1,8 +1,6 @@
 #ifndef STREAM_SERVER_CONNECTION_H
 #define STREAM_SERVER_CONNECTION_H
 
-#include "horus_network_global.h"
-
 #include <QObject>
 
 #include <boost/asio.hpp>
@@ -18,7 +16,7 @@
 class StreamServerConnection;
 class StreamServerConnectionManager;
 
-class HORUS_NETWORK_SHARED_EXPORT StreamServerConnection
+class StreamServerConnection
     : public StreamConnection,
       public boost::enable_shared_from_this<StreamServerConnection>,
       private boost::noncopyable

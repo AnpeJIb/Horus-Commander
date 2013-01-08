@@ -5,6 +5,9 @@
 TEMPLATE = subdirs
 CONFIG += ordered
 SUBDIRS += \
-    HorusNetwork
+    HorusNetwork \
+    HorusNetworkTest
+
+HorusNetworkTest.depends += HorusNetwork
 
 DESTDIR = $$LIBS_BUILD_DIR

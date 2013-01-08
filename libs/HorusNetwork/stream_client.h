@@ -1,8 +1,6 @@
 #ifndef STREAM_CLIENT_H
 #define STREAM_CLIENT_H
 
-#include "horus_network_global.h"
-
 #include <QObject>
 #include <QString>
 
@@ -18,7 +16,7 @@ using boost::asio::ip::tcp;
 
 class StreamClient;
 
-class HORUS_NETWORK_SHARED_EXPORT StreamClient
+class StreamClient
     : public StreamConnection,
       public boost::enable_shared_from_this<StreamClient>,
       private boost::noncopyable

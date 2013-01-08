@@ -1,8 +1,6 @@
 #ifndef STREAM_SERVER_H
 #define STREAM_SERVER_H
 
-#include "horus_network_global.h"
-
 #include <QString>
 
 #include <boost/asio.hpp>
@@ -12,7 +10,7 @@
 #include "stream_server_connection.h"
 #include "stream_server_connection_manager.h"
 
-class HORUS_NETWORK_SHARED_EXPORT StreamServer: private boost::noncopyable
+class StreamServer: private boost::noncopyable
 {
 public:
     typedef boost::shared_ptr<StreamServer> pointer;

@@ -5,9 +5,6 @@
 TEMPLATE = subdirs
 CONFIG += ordered
 SUBDIRS += \
-    libs \
-    HorusTests
-
-HorusTests.depends = libs
+    libs
 
 DESTDIR = $$ROOT_BUILD_DIR

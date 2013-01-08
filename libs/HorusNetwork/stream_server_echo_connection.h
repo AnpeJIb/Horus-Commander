@@ -1,10 +1,9 @@
 #ifndef STREAM_SERVER_ECHO_CONNECTION_H
 #define STREAM_SERVER_ECHO_CONNECTION_H
 
-#include "horus_network_global.h"
 #include "stream_server_connection.h"
 
-class HORUS_NETWORK_SHARED_EXPORT StreamServerEchoConnection: public StreamServerConnection
+class StreamServerEchoConnection: public StreamServerConnection
 {
     Q_OBJECT
 public:

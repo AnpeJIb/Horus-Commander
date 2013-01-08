@@ -1,8 +1,6 @@
 #ifndef STREAM_SERVER_CONNECTION_MANAGER_H
 #define STREAM_SERVER_CONNECTION_MANAGER_H
 
-#include "horus_network_global.h"
-
 #include <QtCore>
 
 #include <boost/noncopyable.hpp>
@@ -14,7 +12,7 @@
 class StreamServerConnection;
 class StreamServerConnectionManager;
 
-class HORUS_NETWORK_SHARED_EXPORT StreamServerConnectionManager
+class StreamServerConnectionManager
     : public boost::enable_shared_from_this<StreamServerConnectionManager>,
       private boost::noncopyable
 {

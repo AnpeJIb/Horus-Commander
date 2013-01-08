@@ -5,8 +5,16 @@
 QT -= gui
 
 TEMPLATE = lib
+TARGET = HorusNetwork
+CONFIG += staticlib
 
-DEFINES += HORUS_NETWORK_LIBRARY
+
+DESTDIR = $$NETWORK_LIB_BUILD_DIR
+
+VERSION = 1.0.0
+DEFINES += LIB_VERSION=\\\"$$VERSION\\\"
+
+LIBS += $$HORUS_NETWORK_LIBS
 
 SOURCES += \
     stream_server.cpp \
@@ -18,7 +26,6 @@ SOURCES += \
     stream_connection.cpp
 
 HEADERS += \
-    horus_network_global.h \
     stream_server.h \
     stream_server_connection.h \
     stream_server_connection_manager.h \
@@ -27,13 +34,3 @@ HEADERS += \
     stream_client.h \
     stream_connection.h \
     stream_defaults.h
-
-TARGET = $$qtLibraryTarget(HorusNetwork)
-
-VERSION = 0.0.1
-DEFINES += LIB_VERSION=\\\"$$VERSION\\\"
-
-unix:LIBS += -lboost_system -lboost_thread
-win32:LIBS += boost_system.dll boost_thread.dll
-
-DESTDIR = $$NETWORK_LIB_BUILD_DIR
