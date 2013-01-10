@@ -8,7 +8,6 @@ TEMPLATE = lib
 TARGET = HorusNetwork
 CONFIG += staticlib
 
-
 DESTDIR = $$NETWORK_LIB_BUILD_DIR
 
 VERSION = 1.0.0

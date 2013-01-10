@@ -18,7 +18,7 @@ void StreamClient::connect(const QString &address, const QString &port)
 {
     if (m_socket.is_open()) return;
 
-    m_exit_code = UNDEFINED;
+    m_exit_result = UNDEFINED;
 
     tcp::resolver resolver(m_signals.get_io_service());
     tcp::resolver::query query(address.toStdString(), port.toStdString());
@@ -44,7 +44,7 @@ void StreamClient::handleConnect(const boost::system::error_code& error,
                               boost::bind(&StreamClient::handleConnect, this,
                                           boost::asio::placeholders::error, ++endpoint_iterator));
     } else {
-        m_exit_code = CONNECTION_FAILED;
+        m_exit_result = CONNECTION_FAILED;
         m_socket.close();
         emit connectionFailure();
     }
@@ -54,7 +54,7 @@ void StreamClient::disconnect()
 {
     if (m_socket.is_open() == false) return;
     stop();
-    m_exit_code = STOPPED_NORMALLY;
+    m_exit_result = STOPPED_NORMALLY;
     emit disconnected();
 }
 
@@ -67,11 +67,11 @@ void StreamClient::handleInterrupt()
 {
     if (m_socket.is_open() == false) return;
     stop();
-    m_exit_code = CONNECTION_LOST;
+    m_exit_result = CONNECTION_LOST;
     emit connectionLost();
 }
 
-StreamClient::EXIT_RESULT StreamClient::exitCode()
+StreamClient::EXIT_RESULT StreamClient::exitResult()
 {
-    return m_exit_code;
+    return (StreamClient::EXIT_RESULT) m_exit_result;
 }

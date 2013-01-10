@@ -83,25 +83,35 @@ void StreamServer::start(const QString &address, const QString &port)
 
 void StreamServer::start()
 {
-    if (m_running) return;
-    m_running = true;
+    if (m_running) return;    
 
     boost::asio::ip::tcp::resolver resolver(m_acceptor.get_io_service());
     boost::asio::ip::tcp::resolver::query query(m_address.toStdString(), m_port.toStdString());
-    boost::asio::ip::tcp::endpoint endpoint = *resolver.resolve(query);
-    m_acceptor.open(endpoint.protocol());
-    m_acceptor.set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
-    m_acceptor.bind(endpoint);
-    m_acceptor.listen();
-    startAccept();
+
+    try
+    {
+        boost::asio::ip::tcp::endpoint endpoint = *resolver.resolve(query);
+        m_acceptor.open(endpoint.protocol());
+        m_acceptor.set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
+        m_acceptor.bind(endpoint);
+        m_acceptor.listen();
+
+        m_running = true;
+
+        emit startSuccess();
+        startAccept();
+
+    } catch (std::exception& e) {
+        Q_UNUSED(e);
+        emit startFailure();
+    }
 }
 
 void StreamServer::stop()
 {
     if (m_running == false) return;
-    m_manager->kickAll();
-    m_acceptor.close();
-    m_running = false;
+    doStop();
+    emit stoppedNormally();
 }
 
 void StreamServer::startAccept()
@@ -131,6 +141,14 @@ void StreamServer::handleAccept(const boost::system::error_code &e)
 
 void StreamServer::handleStop()
 {
+    if (m_running == false) return;
+    doStop();
+    emit interrupted();
+}
+
+void StreamServer::doStop()
+{
+    m_manager->kickAll();
     m_acceptor.close();
-    stop();
+    m_running = false;
 }

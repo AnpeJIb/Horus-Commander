@@ -1,6 +1,7 @@
 #ifndef STREAM_SERVER_H
 #define STREAM_SERVER_H
 
+#include <QObject>
 #include <QString>
 
 #include <boost/asio.hpp>
@@ -10,8 +11,11 @@
 #include "stream_server_connection.h"
 #include "stream_server_connection_manager.h"
 
-class StreamServer: private boost::noncopyable
+class StreamServer
+    : public QObject,
+      private boost::noncopyable
 {
+    Q_OBJECT
 public:
     typedef boost::shared_ptr<StreamServer> pointer;
 
@@ -35,11 +39,18 @@ public:
     void start();
     void stop();
 
+signals:
+    void startSuccess();
+    void startFailure();
+    void stoppedNormally();
+    void interrupted();
+
 private:
     void initSignals();
     void startAccept();
     void handleAccept(const boost::system::error_code& e);
     void handleStop();
+    void doStop();
 
     const boost::shared_ptr<StreamServerConnectionManager>& m_manager;
 

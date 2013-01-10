@@ -15,8 +15,6 @@ void SingleConnectionedEchoStreamServerTest::initTestCase()
 
     manager.reset(new StreamServerSingleEchoConnectionManager);
     server.reset(new StreamServer(address, port, io_service, manager));
-    server->start();
-
     client.reset(new StreamClient(io_service));
 
     connect(client.get(), SIGNAL(connectionSuccess()),
@@ -33,9 +31,11 @@ void SingleConnectionedEchoStreamServerTest::initTestCase()
 
 void SingleConnectionedEchoStreamServerTest::testWrongConnection()
 {
+    server->start();
     client->connect("127.0.0.1", "11111");
+
     io_service.run();
-    QCOMPARE(client->exitCode(), StreamClient::CONNECTION_FAILED);
+    QCOMPARE(client->exitResult(), StreamClient::CONNECTION_FAILED);
 
     io_service.reset();
 }
@@ -44,7 +44,8 @@ void SingleConnectionedEchoStreamServerTest::testGoodConnection()
 {
     client->connect("127.0.0.1", "10500");
     io_service.run();
-    QCOMPARE(client->exitCode(), StreamClient::STOPPED_NORMALLY);
+
+    QCOMPARE(client->exitResult(), StreamClient::STOPPED_NORMALLY);
 }
 
 void SingleConnectionedEchoStreamServerTest::cleanupTestCase()

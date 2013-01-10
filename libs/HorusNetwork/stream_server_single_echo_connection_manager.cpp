@@ -38,5 +38,5 @@ StreamServerConnection *StreamServerSingleEchoConnectionManager::getNewConnectio
 
 void StreamServerSingleEchoConnectionManager::setMaxConnections(uint value)
 {
-    Q_UNUSED(value)
+    Q_UNUSED(value);
 }

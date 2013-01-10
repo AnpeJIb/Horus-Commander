@@ -40,7 +40,7 @@ public:
                  const QString& port = StreamDefaults::default_port);
     void disconnect();
 
-    EXIT_RESULT exitCode();
+    EXIT_RESULT exitResult();
 
 signals:
     void connectionSuccess();
@@ -55,7 +55,7 @@ protected:
     void onErrorOccured();
 
     boost::asio::signal_set m_signals;
-    EXIT_RESULT m_exit_code;
+    EXIT_RESULT m_exit_result;
 };
 
 #endif // STREAM_CLIENT_H
