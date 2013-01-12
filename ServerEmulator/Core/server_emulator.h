@@ -6,6 +6,9 @@
 
 #include "stream_server.h"
 #include "emulator_connection_manager.h"
+#include "console_prints_collector.h"
+#include "event_file_logger.h"
+#include "input_parser.h"
 
 class ServerEmulator: public QThread
 {
@@ -31,20 +34,31 @@ signals:
     void startFailure();
     void stoppedNormally();
     void interrupted();
+    void printToConsoleCalled(QString);
+
+public slots:
+    void processExternalInput(const QString& msg);
 
 protected:
     void run();
 
 private slots:
-    void onStartSuccess();
     void onStartFailure();
     void onStoppedNormally();
     void onInterrupted();
 
 private:
+    void connectParser();
+    void connectServer();
+
+    void printGreetings();
+
     boost::asio::io_service* m_io_service;
     EmulatorConnectionManager::pointer m_manager;
     StreamServer* m_server;
+    ConsolePrintsCollector* m_console_prints_collector;
+    EventFileLogger* m_event_file_logger;
+    InputParser* m_input_parser;
 
     QString m_address;
     QString m_port;

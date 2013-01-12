@@ -2,10 +2,12 @@
 #define SERVER_EMULATOR_TEST_H
 
 #include <QObject>
+#include <QString>
 #include <QWaitCondition>
 #include <QMutex>
 
 #include "server_emulator.h"
+#include "expected_strings.h"
 
 class ServerEmulatorTest : public QObject
 {
@@ -15,6 +17,7 @@ public:
 
 public slots:
     void onStartSuccess();
+    void onPrintToConsoleCalled(const QString& msg);
     
 private slots:
     void initTestCase();
@@ -26,6 +29,7 @@ private:
     ServerEmulator m_emulator;
     QWaitCondition m_condition;
     QMutex m_mutex;
+    ExpectedStrings m_console_expected_strings;
 };
 
 #endif // SERVER_EMULATOR_TEST_H

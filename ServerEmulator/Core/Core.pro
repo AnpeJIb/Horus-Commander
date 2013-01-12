@@ -24,7 +24,12 @@ message($$NETWORK_LIB_BUILD_DIR)
 message($$LIBS)
 
 SOURCES += server_emulator.cpp \
-    emulator_connection_manager.cpp
+    emulator_connection_manager.cpp \
+    input_parser.cpp \
+    event_file_logger.cpp
 
 HEADERS += server_emulator.h \
-    emulator_connection_manager.h
+    emulator_connection_manager.h \
+    input_parser.h \
+    console_prints_collector.h \
+    event_file_logger.h

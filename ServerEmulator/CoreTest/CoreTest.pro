@@ -29,7 +29,9 @@ LIBS += $$HORUS_NETWORK_LIBS
 
 SOURCES += \
     main.cpp \
-    server_emulator_test.cpp
+    server_emulator_test.cpp \
+    expected_strings.cpp
 
 HEADERS += \
-    server_emulator_test.h
+    server_emulator_test.h \
+    expected_strings.h
