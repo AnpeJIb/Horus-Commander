@@ -2,8 +2,8 @@
     error( Couldn't find the root.pri file! )
 }
 
-QT       += core testlib
-QT       -= gui
+QT += core testlib
+QT -= gui
 
 TARGET = EmulatorCoreTest
 CONFIG   += console
@@ -15,23 +15,32 @@ DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 DESTDIR = $$EMULATOR_CORE_TEST_BUILD_DIR
 
+# Emulator Core library dependency
 EMULATOR_CORE_PATH = $$PROJECT_ROOT_DIRECTORY/ServerEmulator/Core
 INCLUDEPATH += $$EMULATOR_CORE_PATH
 DEPENDPATH += $$EMULATOR_CORE_PATH
 
+LIBS += -L$$EMULATOR_CORE_BUILD_DIR -lEmulatorCore
+
+# Horus Network library dependency
 HORUS_NETWORK_PATH = $$PROJECT_ROOT_DIRECTORY/libs/HorusNetwork
 INCLUDEPATH += $$HORUS_NETWORK_PATH
 DEPENDPATH += $$HORUS_NETWORK_PATH
 
-LIBS += -L$$EMULATOR_CORE_BUILD_DIR -lEmulatorCore
 LIBS += -L$$NETWORK_LIB_BUILD_DIR -lHorusNetwork
 LIBS += $$HORUS_NETWORK_LIBS
 
+# Test Util library dependency
+TEST_UTIL_PATH = $$PROJECT_ROOT_DIRECTORY/TestUtil
+INCLUDEPATH += $$TEST_UTIL_PATH
+DEPENDPATH += $$TEST_UTIL_PATH
+
+LIBS += -L$$TEST_UTIL_BUILD_DIR -lTestUtil
+
+# Headers and sources
 SOURCES += \
     main.cpp \
-    server_emulator_test.cpp \
-    expected_strings.cpp
+    server_emulator_test.cpp
 
 HEADERS += \
-    server_emulator_test.h \
-    expected_strings.h
+    server_emulator_test.h

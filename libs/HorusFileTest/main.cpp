@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include "server_emulator_test.h"
+#include "file_line_reader_test.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,8 +12,7 @@ int main(int argc, char *argv[])
 
     int result = 0;
 
-    result += QTest::qExec(new ServerEmulatorTest, argc, argv);
+    result += QTest::qExec(new FileLineReaderTest, argc, argv);
 
     return result;
 }
-

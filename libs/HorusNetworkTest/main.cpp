@@ -8,9 +8,11 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    
-    QTest::qExec(new SingleConnectionedEchoStreamServerTest, argc, argv);
-
     Q_UNUSED(a)
-    return 0;
+
+    int result = 0;
+
+    result += QTest::qExec(new SingleConnectionedEchoStreamServerTest, argc, argv);
+
+    return result;
 }

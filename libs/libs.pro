@@ -6,7 +6,9 @@ TEMPLATE = subdirs
 CONFIG += ordered
 SUBDIRS += \
     HorusNetwork \
-    HorusNetworkTest
+    HorusNetworkTest \
+    HorusFile \
+    HorusFileTest
 
 HorusNetworkTest.depends += HorusNetwork
 

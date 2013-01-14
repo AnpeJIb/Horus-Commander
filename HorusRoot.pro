@@ -6,7 +6,8 @@ TEMPLATE = subdirs
 CONFIG += ordered
 SUBDIRS += \
     libs \
-    ServerEmulator
+    ServerEmulator \
+    TestUtil
 
 ServerEmulator.depends += libs
 
