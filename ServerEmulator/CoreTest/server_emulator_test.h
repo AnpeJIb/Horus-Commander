@@ -35,6 +35,9 @@ private slots:
     void cleanupTestCase();
 
 private:
+    void testPilotJoined(const QString& callsign, const QString& ip_addr, const QString& channel_number);
+    void testPilotLeft(const QString& callsign, const QString& ip_addr, const QString& channel_number);
+
     ServerEmulator m_emulator;
     FileLineReader m_reader;
 

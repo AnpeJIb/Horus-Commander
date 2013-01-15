@@ -56,62 +56,22 @@ void ServerEmulatorTest::testStartSuccess()
 
 void ServerEmulatorTest::testPilot1Joined()
 {
-    QString callsign = "TestPilot1";
-    QString ip_addr = "192.168.1.10";
-
-    m_console_expected_strings.reset();
-    m_console_expected_strings.append(QString("socket channel '1' start creating: ip %1:20001\n").arg(ip_addr));
-    m_console_expected_strings.append(QString("Chat: --- %1 joins the game.\n").arg(callsign));
-    m_console_expected_strings.append(
-                QString("socket channel '1', ip %1:20001, %2, is complete created.\n").arg(ip_addr, callsign));
-
-    m_emulator.pilotJoined(callsign, ip_addr);
-
-    QVERIFY(m_console_expected_strings.areAllSucceded());
+    testPilotJoined("TestPilot1", "192.168.1.10", "1");
 }
 
 void ServerEmulatorTest::testPilot2Joined()
 {
-    QString callsign = "TestPilot2";
-    QString ip_addr = "192.168.1.11";
-
-    m_console_expected_strings.reset();
-    m_console_expected_strings.append(QString("socket channel '3' start creating: ip %1:20001\n").arg(ip_addr));
-    m_console_expected_strings.append(QString("Chat: --- %1 joins the game.\n").arg(callsign));
-    m_console_expected_strings.append(
-                QString("socket channel '3', ip %1:20001, %2, is complete created.\n").arg(ip_addr, callsign));
-
-    m_emulator.pilotJoined(callsign, ip_addr);
-
-    QVERIFY(m_console_expected_strings.areAllSucceded());
+    testPilotJoined("TestPilot2", "192.168.1.11", "3");
 }
 
 void ServerEmulatorTest::testPilot1Left()
 {
-    QString callsign = "TestPilot1";
-
-    m_console_expected_strings.reset();
-    m_console_expected_strings.append("socketConnection with 192.168.1.10:20001 on channel 1 lost.  " \
-                                      "Reason: Remote user has left the game.\n");
-    m_console_expected_strings.append(QString("Chat: --- %1 has left the game.\n").arg(callsign));
-
-    m_emulator.pilotLeft(callsign);
-
-    QVERIFY(m_console_expected_strings.areAllSucceded());
+    testPilotLeft("TestPilot1", "192.168.1.10", "1");
 }
 
 void ServerEmulatorTest::testPilot2Left()
 {
-    QString callsign = "TestPilot2";
-
-    m_console_expected_strings.reset();
-    m_console_expected_strings.append("socketConnection with 192.168.1.11:20001 on channel 3 lost.  " \
-                                      "Reason: Remote user has left the game.\n");
-    m_console_expected_strings.append(QString("Chat: --- %1 has left the game.\n").arg(callsign));
-
-    m_emulator.pilotLeft(callsign);
-
-    QVERIFY(m_console_expected_strings.areAllSucceded());
+    testPilotLeft("TestPilot2", "192.168.1.11", "3");
 }
 
 void ServerEmulatorTest::cleanupTestCase()
@@ -123,6 +83,36 @@ void ServerEmulatorTest::cleanupTestCase()
     m_reader.wait();
 
     QCOMPARE(ServerEmulator::STOPPED_NORMALLY, m_emulator.exitResult());
+}
+
+void ServerEmulatorTest::testPilotJoined(
+        const QString &callsign, const QString &ip_addr, const QString &channel_number)
+{
+    m_console_expected_strings.reset();
+
+    m_console_expected_strings.append(QString("socket channel '%1' start creating: ip %2:20001\n").arg(
+        channel_number, ip_addr));
+    m_console_expected_strings.append(QString("Chat: --- %1 joins the game.\n").arg(callsign));
+    m_console_expected_strings.append(QString("socket channel '%1', ip %2:20001, %3, is complete created.\n").arg(
+        channel_number, ip_addr, callsign));
+
+    m_emulator.pilotJoined(callsign, ip_addr);
+
+    QVERIFY(m_console_expected_strings.areAllSucceded());
+}
+
+void ServerEmulatorTest::testPilotLeft(const QString &callsign, const QString &ip_addr, const QString &channel_number)
+{
+    m_console_expected_strings.reset();
+    m_console_expected_strings.append(QString("socketConnection with %1:20001 on channel %2 lost.  " \
+                                      "Reason: Remote user has left the game.\n").arg(
+                                          ip_addr,
+                                          channel_number));
+    m_console_expected_strings.append(QString("Chat: --- %1 has left the game.\n").arg(callsign));
+
+    m_emulator.pilotLeft(callsign);
+
+    QVERIFY(m_console_expected_strings.areAllSucceded());
 }
 
 void ServerEmulatorTest::onStartSuccess()
