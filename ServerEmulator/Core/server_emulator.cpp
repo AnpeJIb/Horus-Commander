@@ -3,7 +3,7 @@
 
 ServerEmulator::ServerEmulator()
     : m_address(StreamDefaults::default_address),
-      m_port(StreamDefaults::default_port),
+      m_stream_port(StreamDefaults::default_port),
       m_event_log_path("./log"),
       m_exit_code(UNDEFINED)
 {
@@ -19,16 +19,18 @@ void ServerEmulator::run()
     m_console_prints_collector = new ConsolePrintsCollector;
     m_event_file_logger = new EventFileLogger;
     m_event_file_logger->setup(m_event_log_path);
+    m_pilot_manager = new PilotManager(m_stream_port, m_console_prints_collector);
 
     connectParser();
     printGreetings();
 
-    m_server = new StreamServer(m_address, m_port, *m_io_service, m_manager);
+    m_server = new StreamServer(m_address, m_stream_port, *m_io_service, m_manager);
     connectServer();
 
     m_server->start();
     m_io_service->run();
 
+    delete m_pilot_manager;
     delete m_event_file_logger;
     delete m_console_prints_collector;
     delete m_input_parser;
@@ -45,7 +47,7 @@ void ServerEmulator::stop()
 void ServerEmulator::configure(const QString &address, const QString &port, const QString& event_log_path)
 {
     m_address = address;
-    m_port = port;
+    m_stream_port = port;
     m_event_log_path = event_log_path;
 }
 
@@ -117,22 +119,12 @@ ServerEmulator::EXIT_RESULT ServerEmulator::exitResult()
     return (ServerEmulator::EXIT_RESULT) m_exit_code;
 }
 
-void ServerEmulator::userJoined(const QString &callsign, const QString &ip_address)
+void ServerEmulator::pilotJoined(const QString &callsign, const QString &ip_address)
 {
-    int channel_number = m_pilot_manager.userJoined(callsign, ip_address);
-
-    m_console_prints_collector->printToConsole(
-                QString("socket channel '%1' start creating: ip %2:%3").arg(
-                    QString::number(channel_number), ip_address, m_port));
-    m_console_prints_collector->printToConsole(
-                QString("Chat: --- %1 joins the game.").arg(callsign));
-    m_console_prints_collector->printToConsole(
-                QString("socket channel '%1', ip %2:%3, %4, is complete created.").arg(
-                    QString::number(channel_number), ip_address, m_port, callsign));
+    m_pilot_manager->pilotJoined(callsign, ip_address);
 }
 
-void ServerEmulator::userLeft(const QString &callsign)
+void ServerEmulator::pilotLeft(const QString &callsign)
 {
-    // socketConnection with aaa.bbb.ccc.ddd:ppppp on channel N lost.  Reason: Remote user has left the game.
-    // Chat: --- Callsign has left the game.
+    m_pilot_manager->pilotLeft(callsign);
 }

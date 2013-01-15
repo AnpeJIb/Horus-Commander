@@ -26,8 +26,11 @@ private slots:
     void testStartFail();
     void testStartSuccess();
 
-    void testUser1Joined();
-    void testUser2Joined();
+    void testPilot1Joined();
+    void testPilot2Joined();
+
+    void testPilot1Left();
+    void testPilot2Left();
 
     void cleanupTestCase();
 

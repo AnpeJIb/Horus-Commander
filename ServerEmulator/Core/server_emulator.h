@@ -30,8 +30,8 @@ public:
 
     EXIT_RESULT exitResult();
 
-    void userJoined(const QString& callsign, const QString& ip_address);
-    void userLeft(const QString& callsign);
+    void pilotJoined(const QString& callsign, const QString& ip_address);
+    void pilotLeft(const QString& callsign);
 
 signals:
     void startSuccess();
@@ -64,10 +64,10 @@ private:
     EventFileLogger* m_event_file_logger;
     InputParser* m_input_parser;
 
-    PilotManager m_pilot_manager;
+    PilotManager* m_pilot_manager;
 
     QString m_address;
-    QString m_port;
+    QString m_stream_port;
     QString m_event_log_path;
 
     EXIT_RESULT m_exit_code;

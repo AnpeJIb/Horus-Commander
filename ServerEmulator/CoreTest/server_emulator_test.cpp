@@ -54,7 +54,7 @@ void ServerEmulatorTest::testStartSuccess()
     QVERIFY(m_console_expected_strings.areAllSucceded());
 }
 
-void ServerEmulatorTest::testUser1Joined()
+void ServerEmulatorTest::testPilot1Joined()
 {
     QString callsign = "TestPilot1";
     QString ip_addr = "192.168.1.10";
@@ -65,12 +65,12 @@ void ServerEmulatorTest::testUser1Joined()
     m_console_expected_strings.append(
                 QString("socket channel '1', ip %1:20001, %2, is complete created.").arg(ip_addr, callsign));
 
-    m_emulator.userJoined(callsign, ip_addr);
+    m_emulator.pilotJoined(callsign, ip_addr);
 
     QVERIFY(m_console_expected_strings.areAllSucceded());
 }
 
-void ServerEmulatorTest::testUser2Joined()
+void ServerEmulatorTest::testPilot2Joined()
 {
     QString callsign = "TestPilot2";
     QString ip_addr = "192.168.1.11";
@@ -81,7 +81,35 @@ void ServerEmulatorTest::testUser2Joined()
     m_console_expected_strings.append(
                 QString("socket channel '3', ip %1:20001, %2, is complete created.").arg(ip_addr, callsign));
 
-    m_emulator.userJoined(callsign, ip_addr);
+    m_emulator.pilotJoined(callsign, ip_addr);
+
+    QVERIFY(m_console_expected_strings.areAllSucceded());
+}
+
+void ServerEmulatorTest::testPilot1Left()
+{
+    QString callsign = "TestPilot1";
+
+    m_console_expected_strings.reset();
+    m_console_expected_strings.append("socketConnection with 192.168.1.10:20001 on channel 1 lost.  " \
+                                      "Reason: Remote user has left the game.");
+    m_console_expected_strings.append(QString("Chat: --- %1 has left the game.").arg(callsign));
+
+    m_emulator.pilotLeft(callsign);
+
+    QVERIFY(m_console_expected_strings.areAllSucceded());
+}
+
+void ServerEmulatorTest::testPilot2Left()
+{
+    QString callsign = "TestPilot2";
+
+    m_console_expected_strings.reset();
+    m_console_expected_strings.append("socketConnection with 192.168.1.11:20001 on channel 3 lost.  " \
+                                      "Reason: Remote user has left the game.");
+    m_console_expected_strings.append(QString("Chat: --- %1 has left the game.").arg(callsign));
+
+    m_emulator.pilotLeft(callsign);
 
     QVERIFY(m_console_expected_strings.areAllSucceded());
 }
