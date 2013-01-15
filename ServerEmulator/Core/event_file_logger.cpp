@@ -31,6 +31,6 @@ void EventFileLogger::setup(const QString& file_name)
 
 void EventFileLogger::tearDown()
 {
-    m_file.remove();
     m_file.close();
+    m_file.remove();
 }

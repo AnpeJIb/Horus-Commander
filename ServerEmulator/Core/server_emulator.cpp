@@ -116,3 +116,23 @@ ServerEmulator::EXIT_RESULT ServerEmulator::exitResult()
 {
     return (ServerEmulator::EXIT_RESULT) m_exit_code;
 }
+
+void ServerEmulator::userJoined(const QString &callsign, const QString &ip_address)
+{
+    int channel_number = m_pilot_manager.userJoined(callsign, ip_address);
+
+    m_console_prints_collector->printToConsole(
+                QString("socket channel '%1' start creating: ip %2:%3").arg(
+                    QString::number(channel_number), ip_address, m_port));
+    m_console_prints_collector->printToConsole(
+                QString("Chat: --- %1 joins the game.").arg(callsign));
+    m_console_prints_collector->printToConsole(
+                QString("socket channel '%1', ip %2:%3, %4, is complete created.").arg(
+                    QString::number(channel_number), ip_address, m_port, callsign));
+}
+
+void ServerEmulator::userLeft(const QString &callsign)
+{
+    // socketConnection with aaa.bbb.ccc.ddd:ppppp on channel N lost.  Reason: Remote user has left the game.
+    // Chat: --- Callsign has left the game.
+}

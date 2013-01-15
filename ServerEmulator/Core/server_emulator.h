@@ -9,6 +9,7 @@
 #include "console_prints_collector.h"
 #include "event_file_logger.h"
 #include "input_parser.h"
+#include "pilot_manager.h"
 
 class ServerEmulator: public QThread
 {
@@ -28,6 +29,9 @@ public:
     void configure(const QString& address, const QString& port, const QString& event_log_path);
 
     EXIT_RESULT exitResult();
+
+    void userJoined(const QString& callsign, const QString& ip_address);
+    void userLeft(const QString& callsign);
 
 signals:
     void startSuccess();
@@ -59,6 +63,8 @@ private:
     ConsolePrintsCollector* m_console_prints_collector;
     EventFileLogger* m_event_file_logger;
     InputParser* m_input_parser;
+
+    PilotManager m_pilot_manager;
 
     QString m_address;
     QString m_port;

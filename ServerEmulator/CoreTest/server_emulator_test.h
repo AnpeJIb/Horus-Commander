@@ -8,6 +8,7 @@
 
 #include "server_emulator.h"
 #include "expected_strings.h"
+#include "file_line_reader.h"
 
 class ServerEmulatorTest : public QObject
 {
@@ -18,18 +19,29 @@ public:
 public slots:
     void onStartSuccess();
     void onPrintToConsoleCalled(const QString& msg);
+    void onFileLineRead(const QString& line);
     
 private slots:
     void initTestCase();
     void testStartFail();
     void testStartSuccess();
+
+    void testUser1Joined();
+    void testUser2Joined();
+
     void cleanupTestCase();
 
 private:
     ServerEmulator m_emulator;
+    FileLineReader m_reader;
+
     QWaitCondition m_condition;
     QMutex m_mutex;
+
     ExpectedStrings m_console_expected_strings;
+    ExpectedStrings m_file_expected_strings;
+
+    QString m_file_path;
 };
 
 #endif // SERVER_EMULATOR_TEST_H
