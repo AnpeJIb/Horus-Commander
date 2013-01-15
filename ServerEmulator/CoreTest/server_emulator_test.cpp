@@ -60,10 +60,10 @@ void ServerEmulatorTest::testPilot1Joined()
     QString ip_addr = "192.168.1.10";
 
     m_console_expected_strings.reset();
-    m_console_expected_strings.append(QString("socket channel '1' start creating: ip %1:20001").arg(ip_addr));
-    m_console_expected_strings.append(QString("Chat: --- %1 joins the game.").arg(callsign));
+    m_console_expected_strings.append(QString("socket channel '1' start creating: ip %1:20001\n").arg(ip_addr));
+    m_console_expected_strings.append(QString("Chat: --- %1 joins the game.\n").arg(callsign));
     m_console_expected_strings.append(
-                QString("socket channel '1', ip %1:20001, %2, is complete created.").arg(ip_addr, callsign));
+                QString("socket channel '1', ip %1:20001, %2, is complete created.\n").arg(ip_addr, callsign));
 
     m_emulator.pilotJoined(callsign, ip_addr);
 
@@ -76,10 +76,10 @@ void ServerEmulatorTest::testPilot2Joined()
     QString ip_addr = "192.168.1.11";
 
     m_console_expected_strings.reset();
-    m_console_expected_strings.append(QString("socket channel '3' start creating: ip %1:20001").arg(ip_addr));
-    m_console_expected_strings.append(QString("Chat: --- %1 joins the game.").arg(callsign));
+    m_console_expected_strings.append(QString("socket channel '3' start creating: ip %1:20001\n").arg(ip_addr));
+    m_console_expected_strings.append(QString("Chat: --- %1 joins the game.\n").arg(callsign));
     m_console_expected_strings.append(
-                QString("socket channel '3', ip %1:20001, %2, is complete created.").arg(ip_addr, callsign));
+                QString("socket channel '3', ip %1:20001, %2, is complete created.\n").arg(ip_addr, callsign));
 
     m_emulator.pilotJoined(callsign, ip_addr);
 
@@ -92,8 +92,8 @@ void ServerEmulatorTest::testPilot1Left()
 
     m_console_expected_strings.reset();
     m_console_expected_strings.append("socketConnection with 192.168.1.10:20001 on channel 1 lost.  " \
-                                      "Reason: Remote user has left the game.");
-    m_console_expected_strings.append(QString("Chat: --- %1 has left the game.").arg(callsign));
+                                      "Reason: Remote user has left the game.\n");
+    m_console_expected_strings.append(QString("Chat: --- %1 has left the game.\n").arg(callsign));
 
     m_emulator.pilotLeft(callsign);
 
@@ -106,8 +106,8 @@ void ServerEmulatorTest::testPilot2Left()
 
     m_console_expected_strings.reset();
     m_console_expected_strings.append("socketConnection with 192.168.1.11:20001 on channel 3 lost.  " \
-                                      "Reason: Remote user has left the game.");
-    m_console_expected_strings.append(QString("Chat: --- %1 has left the game.").arg(callsign));
+                                      "Reason: Remote user has left the game.\n");
+    m_console_expected_strings.append(QString("Chat: --- %1 has left the game.\n").arg(callsign));
 
     m_emulator.pilotLeft(callsign);
 
