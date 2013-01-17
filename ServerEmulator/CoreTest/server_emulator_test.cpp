@@ -97,6 +97,21 @@ void ServerEmulatorTest::testMissionLoad()
     QVERIFY(m_console_expected_strings.areAllSucceded());
 }
 
+void ServerEmulatorTest::testMissionUnload()
+{
+    QString mission_path = "Net/dogfight/test.mis";
+
+    m_console_expected_strings.reset();
+    m_console_expected_strings.append(QString("Mission: %1 is Loaded\n").arg(mission_path));
+    m_console_expected_strings.append("Mission NOT loaded\n");
+
+    m_emulator.processExternalInput("mission\n");
+    m_emulator.processExternalInput("mission DESTROY\n");
+    m_emulator.processExternalInput("mission\n");
+
+    QVERIFY(m_console_expected_strings.areAllSucceded());
+}
+
 void ServerEmulatorTest::cleanupTestCase()
 {
     m_emulator.stop();

@@ -33,6 +33,7 @@ private slots:
     void testPilot2Left();
 
     void testMissionLoad();
+    void testMissionUnload();
 
     void cleanupTestCase();
 

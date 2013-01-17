@@ -44,3 +44,15 @@ void MissionManager::onMissionLoadReq(const QString &mission_path)
 
     m_status = MISSION_LOADED;
 }
+
+void MissionManager::onMissionEndReq()
+{
+    // TODO:
+}
+
+void MissionManager::onMissionUnloadReq()
+{
+    if (m_status == MISSION_NOT_LOADED) return;
+    if (m_status == MISSION_PLAYING) onMissionEndReq();
+    m_status = MISSION_NOT_LOADED;
+}

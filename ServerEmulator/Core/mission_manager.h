@@ -16,6 +16,8 @@ public:
 public slots:
     void onMissionStatusReq();
     void onMissionLoadReq(const QString& mission_path);
+    void onMissionEndReq();
+    void onMissionUnloadReq();
 
 private:
     enum MissionStatus

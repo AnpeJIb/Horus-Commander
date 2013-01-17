@@ -64,7 +64,9 @@ void ServerEmulator::connectMissionManager()
     connect(m_input_parser, SIGNAL(missionStatusReq()),
             m_mission_manager, SLOT(onMissionStatusReq()), Qt::DirectConnection);
     connect(m_input_parser, SIGNAL(missionLoadReq(QString)),
-            m_mission_manager, SLOT(onMissionLoadReq(QString)), Qt::DirectConnection);
+            m_mission_manager, SLOT(onMissionLoadReq(const QString&)), Qt::DirectConnection);
+    connect(m_input_parser, SIGNAL(missionUnloadReq()),
+            m_mission_manager, SLOT(onMissionUnloadReq()), Qt::DirectConnection);
 }
 
 void ServerEmulator::connectServer()
