@@ -45,9 +45,23 @@ void MissionManager::onMissionLoadReq(const QString &mission_path)
     m_status = MISSION_LOADED;
 }
 
+void MissionManager::onMissionBeginReq()
+{
+    if (m_status != MISSION_LOADED) return;
+
+    m_prints_collector->printToConsole(QString("Mission: %1 is Playing\n").arg(m_mission_path));
+    m_file_logger->logEvent(QString("Mission: %1 is Playing").arg(m_mission_path), true);
+    m_file_logger->logEvent("Mission BEGIN");
+
+    m_status = MISSION_PLAYING;
+}
+
 void MissionManager::onMissionEndReq()
 {
-    // TODO:
+    if (m_status != MISSION_PLAYING) return;
+
+    m_file_logger->logEvent("Mission END");
+    m_status = MISSION_LOADED;
 }
 
 void MissionManager::onMissionUnloadReq()

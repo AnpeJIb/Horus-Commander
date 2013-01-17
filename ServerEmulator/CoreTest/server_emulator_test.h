@@ -5,6 +5,7 @@
 #include <QString>
 #include <QWaitCondition>
 #include <QMutex>
+#include <QRegExp>
 
 #include "server_emulator.h"
 #include "expected_strings.h"
@@ -33,6 +34,8 @@ private slots:
     void testPilot2Left();
 
     void testMissionLoad();
+    void testMissionBegin();
+    void testMissionEnd();
     void testMissionUnload();
 
     void cleanupTestCase();
@@ -47,10 +50,17 @@ private:
     QWaitCondition m_condition;
     QMutex m_mutex;
 
+    QMutex m_sleep_mx;
+    QWaitCondition m_sleep_cond;
+
     ExpectedStrings m_console_expected_strings;
     ExpectedStrings m_file_expected_strings;
 
     QString m_file_path;
+    QString m_mission_path;
+
+    QRegExp m_re_short_time_log_line;
+    QRegExp m_re_long_time_log_line;
 };
 
 #endif // SERVER_EMULATOR_TEST_H

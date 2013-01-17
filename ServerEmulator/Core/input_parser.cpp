@@ -5,7 +5,7 @@
 InputParser::InputParser(QObject *parent) :
     QObject(parent)
 {
-    m_re_mission_load.setPattern("^mission LOAD ([\\w|/|.]+)");
+    m_re_mission_load.setPattern("^mission LOAD ([\\w|/|\\.]+)");
 }
 
 void InputParser::parseString(const QString &str)

@@ -16,6 +16,7 @@ public:
 public slots:
     void onMissionStatusReq();
     void onMissionLoadReq(const QString& mission_path);
+    void onMissionBeginReq();
     void onMissionEndReq();
     void onMissionUnloadReq();
 

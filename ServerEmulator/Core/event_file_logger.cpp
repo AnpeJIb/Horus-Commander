@@ -16,7 +16,7 @@ void EventFileLogger::logEvent(const QString &str, bool long_format)
     m_stream << dt.toString("h:mm:ss AP");
 
     m_stream << "] ";
-    m_stream << str;
+    m_stream << str << endl;
     m_stream.flush();
 
     m_mutex.unlock();

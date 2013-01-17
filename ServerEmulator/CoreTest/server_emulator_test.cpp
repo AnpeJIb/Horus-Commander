@@ -2,10 +2,20 @@
 
 #include <QtTest/QtTest>
 
-ServerEmulatorTest::ServerEmulatorTest(QObject *parent) :
-    QObject(parent)
+ServerEmulatorTest::ServerEmulatorTest(QObject *parent)
+    : QObject(parent),
+      m_file_path("events.log"),
+      m_mission_path("Net/dogfight/test.mis")
 {
-    m_file_path = "events.log";
+    /** For timestamps like [8:55:27 PM] */
+    QString short_format = "^\\[\\d{1,2}:\\d{2}:\\d{2} [A|P]M\\] (.+)";
+
+    /** For timestamps like [Jan 17, 2013 8:55:27 PM] */
+    QString long_format = short_format;
+    long_format.insert(3, "\\w{3} \\d{1,2}, \\d{4} ");
+
+    m_re_short_time_log_line.setPattern(short_format);
+    m_re_long_time_log_line.setPattern(long_format);
 }
 
 void ServerEmulatorTest::initTestCase()
@@ -52,6 +62,8 @@ void ServerEmulatorTest::testStartSuccess()
 
     QCOMPARE(ServerEmulator::UNDEFINED, m_emulator.exitResult());
     QVERIFY(m_console_expected_strings.areAllSucceded());
+
+    m_reader.start();
 }
 
 void ServerEmulatorTest::testPilot1Joined()
@@ -76,33 +88,69 @@ void ServerEmulatorTest::testPilot2Left()
 
 void ServerEmulatorTest::testMissionLoad()
 {
-    QString mission_path = "Net/dogfight/test.mis";
-
     m_console_expected_strings.reset();
     m_console_expected_strings.append("Mission NOT loaded\n");
 
-    m_console_expected_strings.append(QString("Loading mission %1...\n").arg(mission_path));
+    m_console_expected_strings.append(QString("Loading mission %1...\n").arg(m_mission_path));
     m_console_expected_strings.append("Load bridges\n");
     m_console_expected_strings.append("Load static objects\n");
     m_console_expected_strings.append("##### House without collision (3do/Tree/Tree2.sim)\n");
     m_console_expected_strings.append("##### House without collision (3do/Buildings/Port/Floor/live.sim)\n");
     m_console_expected_strings.append("##### House without collision (3do/Buildings/Port/BaseSegment/live.sim)\n");
-    m_console_expected_strings.append(QString("Mission: %1 is Loaded\n").arg(mission_path));
-    m_console_expected_strings.append(QString("Mission: %1 is Loaded\n").arg(mission_path));
+    m_console_expected_strings.append(QString("Mission: %1 is Loaded\n").arg(m_mission_path));
+    m_console_expected_strings.append(QString("Mission: %1 is Loaded\n").arg(m_mission_path));
 
     m_emulator.processExternalInput("mission\n");
-    m_emulator.processExternalInput(QString("mission LOAD %1\n").arg(mission_path));
+    m_emulator.processExternalInput(QString("mission LOAD %1\n").arg(m_mission_path));
     m_emulator.processExternalInput("mission\n");
 
     QVERIFY(m_console_expected_strings.areAllSucceded());
 }
 
+void ServerEmulatorTest::testMissionBegin()
+{
+    m_console_expected_strings.reset();
+    m_console_expected_strings.append(QString("Mission: %1 is Loaded\n").arg(m_mission_path));
+    m_console_expected_strings.append(QString("Mission: %1 is Playing\n").arg(m_mission_path));
+    m_console_expected_strings.append(QString("Mission: %1 is Playing\n").arg(m_mission_path));
+
+    m_file_expected_strings.reset();
+    m_file_expected_strings.append(QString("l:Mission: %1 is Playing").arg(m_mission_path));
+    m_file_expected_strings.append("s:Mission BEGIN");
+
+    m_emulator.processExternalInput("mission\n");
+    m_emulator.processExternalInput("mission BEGIN\n");
+    m_emulator.processExternalInput("mission\n");
+
+    m_sleep_cond.wait(&m_sleep_mx, 1000);
+
+    QVERIFY(m_console_expected_strings.areAllSucceded());
+    QVERIFY(m_file_expected_strings.areAllSucceded());
+}
+
+void ServerEmulatorTest::testMissionEnd()
+{
+    m_console_expected_strings.reset();
+    m_console_expected_strings.append(QString("Mission: %1 is Playing\n").arg(m_mission_path));
+    m_console_expected_strings.append(QString("Mission: %1 is Loaded\n").arg(m_mission_path));
+
+    m_file_expected_strings.reset();
+    m_file_expected_strings.append("s:Mission END");
+
+    m_emulator.processExternalInput("mission\n");
+    m_emulator.processExternalInput("mission END");
+    m_emulator.processExternalInput("mission\n");
+
+    m_sleep_cond.wait(&m_sleep_mx, 1000);
+
+    QVERIFY(m_console_expected_strings.areAllSucceded());
+    QVERIFY(m_file_expected_strings.areAllSucceded());
+}
+
 void ServerEmulatorTest::testMissionUnload()
 {
-    QString mission_path = "Net/dogfight/test.mis";
-
     m_console_expected_strings.reset();
-    m_console_expected_strings.append(QString("Mission: %1 is Loaded\n").arg(mission_path));
+    m_console_expected_strings.append(QString("Mission: %1 is Loaded\n").arg(m_mission_path));
     m_console_expected_strings.append("Mission NOT loaded\n");
 
     m_emulator.processExternalInput("mission\n");
@@ -168,6 +216,22 @@ void ServerEmulatorTest::onPrintToConsoleCalled(const QString &msg)
 
 void ServerEmulatorTest::onFileLineRead(const QString &line)
 {
-    QCOMPARE(line, m_file_expected_strings.current());
+    QString expected = m_file_expected_strings.current();
+    bool short_date = expected.startsWith("s");
+    expected = expected.remove(0, 2);
+
+    QString incoming;
+
+    if (short_date && m_re_short_time_log_line.exactMatch(line))
+    {
+        incoming = m_re_short_time_log_line.cap(1);
+    } else if ((short_date==false) && m_re_long_time_log_line.exactMatch(line))
+    {
+        incoming = m_re_long_time_log_line.cap(1);
+    } else {
+        QFAIL("Wrong date format");
+    }
+
+    QCOMPARE(incoming, expected);
     m_file_expected_strings.succedOne();
 }
