@@ -74,6 +74,29 @@ void ServerEmulatorTest::testPilot2Left()
     testPilotLeft("TestPilot2", "192.168.1.11", "3");
 }
 
+void ServerEmulatorTest::testMissionLoad()
+{
+    QString mission_path = "Net/dogfight/test.mis";
+
+    m_console_expected_strings.reset();
+    m_console_expected_strings.append("Mission NOT loaded\n");
+
+    m_console_expected_strings.append(QString("Loading mission %1...\n").arg(mission_path));
+    m_console_expected_strings.append("Load bridges\n");
+    m_console_expected_strings.append("Load static objects\n");
+    m_console_expected_strings.append("##### House without collision (3do/Tree/Tree2.sim)\n");
+    m_console_expected_strings.append("##### House without collision (3do/Buildings/Port/Floor/live.sim)\n");
+    m_console_expected_strings.append("##### House without collision (3do/Buildings/Port/BaseSegment/live.sim)\n");
+    m_console_expected_strings.append(QString("Mission: %1 is Loaded\n").arg(mission_path));
+    m_console_expected_strings.append(QString("Mission: %1 is Loaded\n").arg(mission_path));
+
+    m_emulator.processExternalInput("mission\n");
+    m_emulator.processExternalInput(QString("mission LOAD %1\n").arg(mission_path));
+    m_emulator.processExternalInput("mission\n");
+
+    QVERIFY(m_console_expected_strings.areAllSucceded());
+}
+
 void ServerEmulatorTest::cleanupTestCase()
 {
     m_emulator.stop();

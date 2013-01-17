@@ -27,11 +27,13 @@ SOURCES += server_emulator.cpp \
     emulator_connection_manager.cpp \
     input_parser.cpp \
     event_file_logger.cpp \
-    pilot_manager.cpp
+    pilot_manager.cpp \
+    mission_manager.cpp
 
 HEADERS += server_emulator.h \
     emulator_connection_manager.h \
     input_parser.h \
     console_prints_collector.h \
     event_file_logger.h \
-    pilot_manager.h
+    pilot_manager.h \
+    mission_manager.h

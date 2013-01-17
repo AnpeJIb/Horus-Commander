@@ -9,7 +9,9 @@
 #include "console_prints_collector.h"
 #include "event_file_logger.h"
 #include "input_parser.h"
+
 #include "pilot_manager.h"
+#include "mission_manager.h"
 
 class ServerEmulator: public QThread
 {
@@ -52,19 +54,25 @@ private slots:
     void onInterrupted();
 
 private:
+    void init();
+    void tearDown();
+
+    void initConnections();
     void connectParser();
+    void connectMissionManager();
     void connectServer();
 
     void printGreetings();
 
     boost::asio::io_service* m_io_service;
-    EmulatorConnectionManager::pointer m_manager;
+    EmulatorConnectionManager::pointer m_connection_manager;
     StreamServer* m_server;
     ConsolePrintsCollector* m_console_prints_collector;
     EventFileLogger* m_event_file_logger;
     InputParser* m_input_parser;
 
     PilotManager* m_pilot_manager;
+    MissionManager* m_mission_manager;
 
     QString m_address;
     QString m_stream_port;
