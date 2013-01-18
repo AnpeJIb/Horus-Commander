@@ -6,7 +6,8 @@ TEMPLATE = subdirs
 CONFIG += ordered
 SUBDIRS += \
     Core \
-    CoreTest
+    CoreTest \
+    App
 
 CoreTest.depends += Core
 

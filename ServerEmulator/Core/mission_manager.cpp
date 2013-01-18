@@ -15,13 +15,13 @@ void MissionManager::onMissionStatusReq()
     switch (m_status)
     {
         case MISSION_NOT_LOADED:
-            m_prints_collector->printToConsole("Mission NOT loaded\n");
+            m_prints_collector->printToConsole("Mission NOT loaded");
             break;
         case MISSION_LOADED:
-            m_prints_collector->printToConsole(QString("Mission: %1 is Loaded\n").arg(m_mission_path));
+            m_prints_collector->printToConsole(QString("Mission: %1 is Loaded").arg(m_mission_path));
             break;
         case MISSION_PLAYING:
-            m_prints_collector->printToConsole(QString("Mission: %1 is Playing\n").arg(m_mission_path));
+            m_prints_collector->printToConsole(QString("Mission: %1 is Playing").arg(m_mission_path));
             break;
         default:
             break;
@@ -34,13 +34,13 @@ void MissionManager::onMissionLoadReq(const QString &mission_path)
 
     m_mission_path = mission_path;
 
-    m_prints_collector->printToConsole(QString("Loading mission %1...\n").arg(m_mission_path));
-    m_prints_collector->printToConsole("Load bridges\n");
-    m_prints_collector->printToConsole("Load static objects\n");
-    m_prints_collector->printToConsole("##### House without collision (3do/Tree/Tree2.sim)\n");
-    m_prints_collector->printToConsole("##### House without collision (3do/Buildings/Port/Floor/live.sim)\n");
-    m_prints_collector->printToConsole("##### House without collision (3do/Buildings/Port/BaseSegment/live.sim)\n");
-    m_prints_collector->printToConsole(QString("Mission: %1 is Loaded\n").arg(m_mission_path));
+    m_prints_collector->printToConsole(QString("Loading mission %1...").arg(m_mission_path));
+    m_prints_collector->printToConsole("Load bridges");
+    m_prints_collector->printToConsole("Load static objects");
+    m_prints_collector->printToConsole("##### House without collision (3do/Tree/Tree2.sim)");
+    m_prints_collector->printToConsole("##### House without collision (3do/Buildings/Port/Floor/live.sim)");
+    m_prints_collector->printToConsole("##### House without collision (3do/Buildings/Port/BaseSegment/live.sim)");
+    m_prints_collector->printToConsole(QString("Mission: %1 is Loaded").arg(m_mission_path));
 
     m_status = MISSION_LOADED;
 }
@@ -49,7 +49,8 @@ void MissionManager::onMissionBeginReq()
 {
     if (m_status != MISSION_LOADED) return;
 
-    m_prints_collector->printToConsole(QString("Mission: %1 is Playing\n").arg(m_mission_path));
+    m_prints_collector->printToConsole(QString("Mission: %1 is Playing").arg(m_mission_path));
+
     m_file_logger->logEvent(QString("Mission: %1 is Playing").arg(m_mission_path), true);
     m_file_logger->logEvent("Mission BEGIN");
 

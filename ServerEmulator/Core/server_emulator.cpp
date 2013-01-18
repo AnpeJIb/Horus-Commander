@@ -29,11 +29,11 @@ void ServerEmulator::init()
     m_io_service = new boost::asio::io_service;
 
     m_connection_manager.reset(new EmulatorConnectionManager);
-    m_input_parser = new InputParser;
     m_console_prints_collector = new ConsolePrintsCollector;
     m_event_file_logger = new EventFileLogger;
     m_event_file_logger->setup(m_event_log_path);
 
+    m_input_parser = new InputParser(m_console_prints_collector);
     m_pilot_manager = new PilotManager(m_stream_port, m_console_prints_collector);
     m_mission_manager = new MissionManager(m_console_prints_collector, m_event_file_logger);
 
@@ -43,10 +43,10 @@ void ServerEmulator::init()
 void ServerEmulator::initConnections()
 {
     connect(m_console_prints_collector, SIGNAL(printToConsoleCalled(QString)),
-            m_connection_manager.get(), SLOT(sendMessage(const QString&)));
+            m_connection_manager.get(), SLOT(sendMessage(const QString&)), Qt::DirectConnection);
 
     connect(m_console_prints_collector, SIGNAL(printToConsoleCalled(QString)),
-            this, SIGNAL(printToConsoleCalled(QString)));
+            this, SIGNAL(printToConsoleCalled(QString)), Qt::DirectConnection);
 
     connectParser();
 }
@@ -54,7 +54,13 @@ void ServerEmulator::initConnections()
 void ServerEmulator::connectParser()
 {
     connect(m_connection_manager.get(), SIGNAL(messageReceived(QString)),
-            m_input_parser,  SLOT(parseString(const QString&)));
+            this,  SLOT(processMessageReceived(const QString&)), Qt::DirectConnection);
+
+    connect(m_input_parser, SIGNAL(exitReq()),
+            this, SLOT(stop()), Qt::DirectConnection);
+
+    connect(m_input_parser, SIGNAL(serverInfoReq()),
+            this, SLOT(onServerInfoReq()), Qt::DirectConnection);
 
     connectMissionManager();
 }
@@ -96,10 +102,10 @@ void ServerEmulator::tearDown()
 {
     delete m_pilot_manager;
     delete m_mission_manager;
+    delete m_input_parser;
 
     delete m_event_file_logger;
     delete m_console_prints_collector;
-    delete m_input_parser;
     delete m_server;
     m_connection_manager.reset();
     delete m_io_service;
@@ -138,6 +144,14 @@ void ServerEmulator::onInterrupted()
     emit interrupted();
 }
 
+void ServerEmulator::onServerInfoReq()
+{
+    m_console_prints_collector->printToConsole("Type: Local server");
+    m_console_prints_collector->printToConsole("Name: Server emulator");
+    m_console_prints_collector->printToConsole("Description: Emulated IL-2 FB server with limited features" \
+                                               "for IL-2 Horus Team purposes");
+}
+
 void ServerEmulator::printGreetings()
 {
     emit printToConsoleCalled("IL-2 Horus Team: IL-2 FB dedicated server emulator");
@@ -148,8 +162,22 @@ void ServerEmulator::printGreetings()
     emit printToConsoleCalled("IL2 FB dedicated server vAA.BB.CC");
 }
 
+void ServerEmulator::processMessageReceived(const QString &msg)
+{
+    QString fixedMsg = msg;
+
+    if (fixedMsg.endsWith('\n'))
+        fixedMsg.remove(fixedMsg.length()-1, 1);
+    if (fixedMsg.endsWith('\r'))
+        fixedMsg.remove(fixedMsg.length()-1, 1);
+
+    emit printToConsoleCalled(fixedMsg);
+    m_input_parser->parseString(fixedMsg);
+}
+
 void ServerEmulator::processExternalInput(const QString &msg)
 {
+    m_connection_manager->sendMessage(msg);
     m_input_parser->parseString(msg);
 }
 

@@ -38,6 +38,8 @@ private slots:
     void testMissionEnd();
     void testMissionUnload();
 
+    void testServerInfo();
+
     void cleanupTestCase();
 
 private:

@@ -26,7 +26,6 @@ public:
     };
 
     ServerEmulator();
-    void stop();
 
     void configure(const QString& address, const QString& port, const QString& event_log_path);
 
@@ -44,6 +43,7 @@ signals:
 
 public slots:
     void processExternalInput(const QString& msg);
+    void stop();
 
 protected:
     void run();
@@ -52,6 +52,9 @@ private slots:
     void onStartFailure();
     void onStoppedNormally();
     void onInterrupted();
+
+    void onServerInfoReq();
+    void processMessageReceived(const QString& msg);
 
 private:
     void init();

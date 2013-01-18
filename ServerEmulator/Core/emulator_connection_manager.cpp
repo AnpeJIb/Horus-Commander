@@ -12,9 +12,7 @@ void EmulatorConnectionManager::join(boost::shared_ptr<StreamServerConnection> c
     m_connection = connection;
 
     connect(m_connection.get(), SIGNAL(messageReceived(QString)),
-            this, SIGNAL(messageReceived(QString)));
-    connect(this, SLOT(sendMessage(const QString& msg)),
-            m_connection.get(), SLOT(sendMessage(const QString& msg)));
+            this, SIGNAL(messageReceived(QString)), Qt::DirectConnection);
 
     m_connection->start();
     increaseConnections();
@@ -29,8 +27,6 @@ void EmulatorConnectionManager::leave(boost::shared_ptr<StreamServerConnection> 
 
     disconnect(m_connection.get(), SIGNAL(messageReceived(QString)),
                this, SIGNAL(messageReceived(QString)));
-    disconnect(this, SLOT(sendMessage(const QString& msg)),
-                m_connection.get(), SLOT(sendMessage(const QString& msg)));
 
     m_connection.reset();
     decreaseConnections();
@@ -51,4 +47,10 @@ StreamServerConnection *EmulatorConnectionManager::getNewConnection(
 void EmulatorConnectionManager::setMaxConnections(uint value)
 {
     Q_UNUSED(value);
+}
+
+void EmulatorConnectionManager::sendMessage(const QString &msg)
+{
+    if (!m_connection) return;
+    m_connection->sendMessage(msg + "\\n\n");
 }

@@ -25,7 +25,7 @@ public:
     void setMaxConnections(uint value);
 
 public slots:
-    void sendMessage(const QString& msg){Q_UNUSED(msg);}
+    void sendMessage(const QString& msg);
 
 signals:
     void messageReceived(QString);

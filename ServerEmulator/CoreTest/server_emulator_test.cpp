@@ -89,20 +89,20 @@ void ServerEmulatorTest::testPilot2Left()
 void ServerEmulatorTest::testMissionLoad()
 {
     m_console_expected_strings.reset();
-    m_console_expected_strings.append("Mission NOT loaded\n");
+    m_console_expected_strings.append("Mission NOT loaded");
 
-    m_console_expected_strings.append(QString("Loading mission %1...\n").arg(m_mission_path));
-    m_console_expected_strings.append("Load bridges\n");
-    m_console_expected_strings.append("Load static objects\n");
-    m_console_expected_strings.append("##### House without collision (3do/Tree/Tree2.sim)\n");
-    m_console_expected_strings.append("##### House without collision (3do/Buildings/Port/Floor/live.sim)\n");
-    m_console_expected_strings.append("##### House without collision (3do/Buildings/Port/BaseSegment/live.sim)\n");
-    m_console_expected_strings.append(QString("Mission: %1 is Loaded\n").arg(m_mission_path));
-    m_console_expected_strings.append(QString("Mission: %1 is Loaded\n").arg(m_mission_path));
+    m_console_expected_strings.append(QString("Loading mission %1...").arg(m_mission_path));
+    m_console_expected_strings.append("Load bridges");
+    m_console_expected_strings.append("Load static objects");
+    m_console_expected_strings.append("##### House without collision (3do/Tree/Tree2.sim)");
+    m_console_expected_strings.append("##### House without collision (3do/Buildings/Port/Floor/live.sim)");
+    m_console_expected_strings.append("##### House without collision (3do/Buildings/Port/BaseSegment/live.sim)");
+    m_console_expected_strings.append(QString("Mission: %1 is Loaded").arg(m_mission_path));
+    m_console_expected_strings.append(QString("Mission: %1 is Loaded").arg(m_mission_path));
 
-    m_emulator.processExternalInput("mission\n");
-    m_emulator.processExternalInput(QString("mission LOAD %1\n").arg(m_mission_path));
-    m_emulator.processExternalInput("mission\n");
+    m_emulator.processExternalInput("mission");
+    m_emulator.processExternalInput(QString("mission LOAD %1").arg(m_mission_path));
+    m_emulator.processExternalInput("mission");
 
     QVERIFY(m_console_expected_strings.areAllSucceded());
 }
@@ -110,17 +110,17 @@ void ServerEmulatorTest::testMissionLoad()
 void ServerEmulatorTest::testMissionBegin()
 {
     m_console_expected_strings.reset();
-    m_console_expected_strings.append(QString("Mission: %1 is Loaded\n").arg(m_mission_path));
-    m_console_expected_strings.append(QString("Mission: %1 is Playing\n").arg(m_mission_path));
-    m_console_expected_strings.append(QString("Mission: %1 is Playing\n").arg(m_mission_path));
+    m_console_expected_strings.append(QString("Mission: %1 is Loaded").arg(m_mission_path));
+    m_console_expected_strings.append(QString("Mission: %1 is Playing").arg(m_mission_path));
+    m_console_expected_strings.append(QString("Mission: %1 is Playing").arg(m_mission_path));
 
     m_file_expected_strings.reset();
     m_file_expected_strings.append(QString("l:Mission: %1 is Playing").arg(m_mission_path));
     m_file_expected_strings.append("s:Mission BEGIN");
 
-    m_emulator.processExternalInput("mission\n");
-    m_emulator.processExternalInput("mission BEGIN\n");
-    m_emulator.processExternalInput("mission\n");
+    m_emulator.processExternalInput("mission");
+    m_emulator.processExternalInput("mission BEGIN");
+    m_emulator.processExternalInput("mission");
 
     m_sleep_cond.wait(&m_sleep_mx, 1000);
 
@@ -131,15 +131,15 @@ void ServerEmulatorTest::testMissionBegin()
 void ServerEmulatorTest::testMissionEnd()
 {
     m_console_expected_strings.reset();
-    m_console_expected_strings.append(QString("Mission: %1 is Playing\n").arg(m_mission_path));
-    m_console_expected_strings.append(QString("Mission: %1 is Loaded\n").arg(m_mission_path));
+    m_console_expected_strings.append(QString("Mission: %1 is Playing").arg(m_mission_path));
+    m_console_expected_strings.append(QString("Mission: %1 is Loaded").arg(m_mission_path));
 
     m_file_expected_strings.reset();
     m_file_expected_strings.append("s:Mission END");
 
-    m_emulator.processExternalInput("mission\n");
+    m_emulator.processExternalInput("mission");
     m_emulator.processExternalInput("mission END");
-    m_emulator.processExternalInput("mission\n");
+    m_emulator.processExternalInput("mission");
 
     m_sleep_cond.wait(&m_sleep_mx, 1000);
 
@@ -150,12 +150,26 @@ void ServerEmulatorTest::testMissionEnd()
 void ServerEmulatorTest::testMissionUnload()
 {
     m_console_expected_strings.reset();
-    m_console_expected_strings.append(QString("Mission: %1 is Loaded\n").arg(m_mission_path));
-    m_console_expected_strings.append("Mission NOT loaded\n");
+    m_console_expected_strings.append(QString("Mission: %1 is Loaded").arg(m_mission_path));
+    m_console_expected_strings.append("Mission NOT loaded");
 
-    m_emulator.processExternalInput("mission\n");
-    m_emulator.processExternalInput("mission DESTROY\n");
-    m_emulator.processExternalInput("mission\n");
+    m_emulator.processExternalInput("mission");
+    m_emulator.processExternalInput("mission DESTROY");
+    m_emulator.processExternalInput("mission");
+
+    QVERIFY(m_console_expected_strings.areAllSucceded());
+}
+
+void ServerEmulatorTest::testServerInfo()
+{
+    m_console_expected_strings.reset();
+
+    m_console_expected_strings.append("Type: Local server");
+    m_console_expected_strings.append("Name: Server emulator");
+    m_console_expected_strings.append("Description: Emulated IL-2 FB server with limited features" \
+                                      "for IL-2 Horus Team purposes");
+
+    m_emulator.processExternalInput("server");
 
     QVERIFY(m_console_expected_strings.areAllSucceded());
 }
@@ -176,10 +190,10 @@ void ServerEmulatorTest::testPilotJoined(
 {
     m_console_expected_strings.reset();
 
-    m_console_expected_strings.append(QString("socket channel '%1' start creating: ip %2:20001\n").arg(
+    m_console_expected_strings.append(QString("socket channel '%1' start creating: ip %2:20001").arg(
         channel_number, ip_addr));
-    m_console_expected_strings.append(QString("Chat: --- %1 joins the game.\n").arg(callsign));
-    m_console_expected_strings.append(QString("socket channel '%1', ip %2:20001, %3, is complete created.\n").arg(
+    m_console_expected_strings.append(QString("Chat: --- %1 joins the game.").arg(callsign));
+    m_console_expected_strings.append(QString("socket channel '%1', ip %2:20001, %3, is complete created.").arg(
         channel_number, ip_addr, callsign));
 
     m_emulator.pilotJoined(callsign, ip_addr);
@@ -191,10 +205,10 @@ void ServerEmulatorTest::testPilotLeft(const QString &callsign, const QString &i
 {
     m_console_expected_strings.reset();
     m_console_expected_strings.append(QString("socketConnection with %1:20001 on channel %2 lost.  " \
-                                      "Reason: Remote user has left the game.\n").arg(
+                                      "Reason: Remote user has left the game.").arg(
                                           ip_addr,
                                           channel_number));
-    m_console_expected_strings.append(QString("Chat: --- %1 has left the game.\n").arg(callsign));
+    m_console_expected_strings.append(QString("Chat: --- %1 has left the game.").arg(callsign));
 
     m_emulator.pilotLeft(callsign);
 
