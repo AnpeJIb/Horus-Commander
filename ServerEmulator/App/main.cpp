@@ -12,7 +12,8 @@ class MainTask : public QObject
 {
     Q_OBJECT
 public:
-    MainTask(QObject *parent = 0) : QObject(parent)
+    MainTask(QObject *parent = 0)
+        : QObject(parent)
     {
         connect(&m_emulator, SIGNAL(printToConsoleCalled(QString)),
                 this, SLOT(onPrintToConsoleCalled(const QString&)), Qt::DirectConnection);
@@ -47,7 +48,11 @@ signals:
 private slots:
     void onPrintToConsoleCalled(const QString& msg)
     {
-        std::cout << qPrintable(msg) << std::endl;
+        std::cout << qPrintable(msg);
+
+        if (msg.endsWith(">") == false)
+            std::cout << std::endl;
+
         std::cout.flush();
     }
 

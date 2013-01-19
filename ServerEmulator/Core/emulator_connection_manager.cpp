@@ -52,5 +52,9 @@ void EmulatorConnectionManager::setMaxConnections(uint value)
 void EmulatorConnectionManager::sendMessage(const QString &msg)
 {
     if (!m_connection) return;
-    m_connection->sendMessage(msg + "\\n\n");
+
+    if (msg.endsWith(">"))
+        m_connection->sendMessage(msg + "\n");
+    else
+        m_connection->sendMessage(msg + "\\n\n");
 }

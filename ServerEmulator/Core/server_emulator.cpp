@@ -13,6 +13,7 @@ void ServerEmulator::run()
 {
     init();
     printGreetings();
+    m_input_parser->printPrompt();
 
     m_server = new StreamServer(m_address, m_stream_port, *m_io_service, m_connection_manager);
     connectServer();
@@ -170,6 +171,8 @@ void ServerEmulator::processMessageReceived(const QString &msg)
         fixedMsg.remove(fixedMsg.length()-1, 1);
     if (fixedMsg.endsWith('\r'))
         fixedMsg.remove(fixedMsg.length()-1, 1);
+
+    if (fixedMsg == "<QUIT QUIT>") return;
 
     emit printToConsoleCalled(fixedMsg);
     m_input_parser->parseString(fixedMsg);

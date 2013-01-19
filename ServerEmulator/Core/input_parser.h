@@ -13,6 +13,8 @@ class InputParser : public QObject
 public:
     explicit InputParser(ConsolePrintsCollector* prints_collector, QObject *parent = 0);
     
+    void printPrompt();
+
 signals:
     void missionStatusReq();
     void missionLoadReq(QString mission_path);
@@ -35,11 +37,11 @@ private:
 
     bool matchServerInfo(const QString& str);
     bool matchExit(const QString& str);
-    bool matchConsoleQuit(const QString& str);
 
     QRegExp m_re_mission_load;
 
     ConsolePrintsCollector* m_prints_collector;
+    int m_commands_counter;
 };
 
 #endif // INPUT_PARSER_H

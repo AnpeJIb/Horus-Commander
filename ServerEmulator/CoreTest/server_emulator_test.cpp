@@ -38,6 +38,7 @@ void ServerEmulatorTest::initTestCase()
     m_console_expected_strings.append("Core Version Z.Z");
     m_console_expected_strings.append("Sound: Native library (build Q.Q, target - TTTT) loaded.");
     m_console_expected_strings.append("IL2 FB dedicated server vAA.BB.CC");
+    m_console_expected_strings.append("1>");
 }
 
 void ServerEmulatorTest::testStartFail()
@@ -90,6 +91,7 @@ void ServerEmulatorTest::testMissionLoad()
 {
     m_console_expected_strings.reset();
     m_console_expected_strings.append("Mission NOT loaded");
+    m_console_expected_strings.append("2>");
 
     m_console_expected_strings.append(QString("Loading mission %1...").arg(m_mission_path));
     m_console_expected_strings.append("Load bridges");
@@ -98,7 +100,9 @@ void ServerEmulatorTest::testMissionLoad()
     m_console_expected_strings.append("##### House without collision (3do/Buildings/Port/Floor/live.sim)");
     m_console_expected_strings.append("##### House without collision (3do/Buildings/Port/BaseSegment/live.sim)");
     m_console_expected_strings.append(QString("Mission: %1 is Loaded").arg(m_mission_path));
+    m_console_expected_strings.append("3>");
     m_console_expected_strings.append(QString("Mission: %1 is Loaded").arg(m_mission_path));
+    m_console_expected_strings.append("4>");
 
     m_emulator.processExternalInput("mission");
     m_emulator.processExternalInput(QString("mission LOAD %1").arg(m_mission_path));
@@ -111,8 +115,11 @@ void ServerEmulatorTest::testMissionBegin()
 {
     m_console_expected_strings.reset();
     m_console_expected_strings.append(QString("Mission: %1 is Loaded").arg(m_mission_path));
+    m_console_expected_strings.append("5>");
     m_console_expected_strings.append(QString("Mission: %1 is Playing").arg(m_mission_path));
+    m_console_expected_strings.append("6>");
     m_console_expected_strings.append(QString("Mission: %1 is Playing").arg(m_mission_path));
+    m_console_expected_strings.append("7>");
 
     m_file_expected_strings.reset();
     m_file_expected_strings.append(QString("l:Mission: %1 is Playing").arg(m_mission_path));
@@ -132,7 +139,10 @@ void ServerEmulatorTest::testMissionEnd()
 {
     m_console_expected_strings.reset();
     m_console_expected_strings.append(QString("Mission: %1 is Playing").arg(m_mission_path));
+    m_console_expected_strings.append("8>");
+    m_console_expected_strings.append("9>");
     m_console_expected_strings.append(QString("Mission: %1 is Loaded").arg(m_mission_path));
+    m_console_expected_strings.append("10>");
 
     m_file_expected_strings.reset();
     m_file_expected_strings.append("s:Mission END");
@@ -151,7 +161,10 @@ void ServerEmulatorTest::testMissionUnload()
 {
     m_console_expected_strings.reset();
     m_console_expected_strings.append(QString("Mission: %1 is Loaded").arg(m_mission_path));
+    m_console_expected_strings.append("11>");
+    m_console_expected_strings.append("12>");
     m_console_expected_strings.append("Mission NOT loaded");
+    m_console_expected_strings.append("13>");
 
     m_emulator.processExternalInput("mission");
     m_emulator.processExternalInput("mission DESTROY");
@@ -168,6 +181,7 @@ void ServerEmulatorTest::testServerInfo()
     m_console_expected_strings.append("Name: Server emulator");
     m_console_expected_strings.append("Description: Emulated IL-2 FB server with limited features" \
                                       "for IL-2 Horus Team purposes");
+    m_console_expected_strings.append("14>");
 
     m_emulator.processExternalInput("server");
 
