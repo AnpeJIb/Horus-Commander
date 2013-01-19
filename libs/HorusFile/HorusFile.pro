@@ -4,7 +4,7 @@
 
 QT -= gui
 
-TARGET = HorusFile
+TARGET = $$FILE_LIB_TARGET
 TEMPLATE = lib
 CONFIG += staticlib
 

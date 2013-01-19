@@ -5,7 +5,7 @@
 QT += core testlib
 QT -= gui
 
-TARGET = HorusFileTest
+TARGET = $$FILE_TEST_TARGET
 CONFIG += console
 CONFIG -= app_bundle
 
@@ -14,11 +14,9 @@ TEMPLATE = app
 DESTDIR = $$FILE_LIB_TEST_BUILD_DIR
 
 # Horus File library dependency
-HORUS_FILE_PATH = $$PROJECT_ROOT_DIRECTORY/libs/HorusFile
-INCLUDEPATH += $$HORUS_FILE_PATH
-DEPENDPATH += $$HORUS_FILE_PATH
-
-LIBS += -L$$FILE_LIB_BUILD_DIR -lHorusFile
+INCLUDEPATH += $$FILE_LIB_SRC_DIR
+DEPENDPATH += $$FILE_LIB_SRC_DIR
+LIBS += $$FILE_LIB_LD
 
 # Test Util library dependency
 TEST_UTIL_PATH = $$PROJECT_ROOT_DIRECTORY/TestUtil
