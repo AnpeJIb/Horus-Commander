@@ -4,7 +4,7 @@
 
 QT -= gui
 
-TARGET = EmulatorCore
+TARGET = $$EMULATOR_CORE_TARGET
 TEMPLATE = lib
 CONFIG += staticlib
 

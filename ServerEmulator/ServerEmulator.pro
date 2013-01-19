@@ -10,5 +10,6 @@ SUBDIRS += \
     App
 
 CoreTest.depends += Core
+App.depends += Core
 
 DESTDIR = $$EMULATOR_BUILD_DIR
