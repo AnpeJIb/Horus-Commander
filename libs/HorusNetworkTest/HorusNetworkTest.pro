@@ -6,18 +6,16 @@ QT       += core testlib
 QT       -= gui
 
 TEMPLATE = app
-TARGET = HorusNetworkTest
+TARGET = $$NETWORK_TEST_TARGET
 CONFIG   += console
 CONFIG   -= app_bundle
 
 DESTDIR = $$NETWORK_LIB_TEST_BUILD_DIR
 
-HORUS_NETWORK_PATH = $$PROJECT_ROOT_DIRECTORY/libs/HorusNetwork
-INCLUDEPATH += $$HORUS_NETWORK_PATH
-DEPENDPATH += $$HORUS_NETWORK_PATH
-
-LIBS += -L$$NETWORK_LIB_BUILD_DIR -lHorusNetwork
-LIBS += $$HORUS_NETWORK_LIBS
+# Horus Network library dependency
+INCLUDEPATH += $$NETWORK_LIB_SRC_DIR
+DEPENDPATH += $$NETWORK_LIB_SRC_DIR
+LIBS += $$NETWORK_LIB_LD
 
 HEADERS += \
     single_connectioned_echo_stream_server_test.h

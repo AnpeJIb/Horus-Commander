@@ -14,13 +14,25 @@ PROJECT_ROOT_DIRECTORY = $$PWD
 # Build paths
 ROOT_BUILD_DIR = $$PROJECT_ROOT_DIRECTORY/bin
 
+## Liblaries variables
 LIBS_BUILD_DIR = $$ROOT_BUILD_DIR/libs
 LIBS_SRC_DIR = $$PROJECT_ROOT_DIRECTORY/libs
 
-NETWORK_LIB_BUILD_DIR = $$LIBS_BUILD_DIR/HorusNetwork
-NETWORK_LIB_TEST_BUILD_DIR = $$LIBS_BUILD_DIR/HorusNetworkTest
+### Network lib variables
+NETWORK_LIB_TARGET = HorusNetwork
+NETWORK_TEST_TARGET = $${NETWORK_LIB_TARGET}Test
 
-# File lib variables
+NETWORK_LIB_SRC_DIR = $$LIBS_SRC_DIR/$$NETWORK_LIB_TARGET
+NETWORK_LIB_BUILD_DIR = $$LIBS_BUILD_DIR/$$NETWORK_LIB_TARGET
+NETWORK_LIB_TEST_BUILD_DIR = $$LIBS_BUILD_DIR/$$NETWORK_TEST_TARGET
+
+unix:NETWORK_LIB_DEPS  = -L/usr/lib -lboost_system -lboost_thread
+win32:NETWORK_LIB_DEPS = -lboost_system-mgw44-mt-1_52 \
+    -lboost_thread-mgw44-mt-1_52 -lws2_32 -lmswsock
+
+NETWORK_LIB_LD = -L$$NETWORK_LIB_BUILD_DIR -l$$NETWORK_LIB_TARGET $$NETWORK_LIB_DEPS
+
+### File lib variables
 FILE_LIB_TARGET = HorusFile
 FILE_TEST_TARGET = $${FILE_LIB_TARGET}Test
 
@@ -30,17 +42,11 @@ FILE_LIB_TEST_BUILD_DIR = $$LIBS_BUILD_DIR/$$FILE_TEST_TARGET
 
 FILE_LIB_LD = -L$$FILE_LIB_BUILD_DIR -l$${FILE_LIB_TARGET}
 
-# Emulator variables
+## Emulator variables
 EMULATOR_BUILD_DIR = $$ROOT_BUILD_DIR/ServerEmulator
 EMULATOR_CORE_BUILD_DIR = $$EMULATOR_BUILD_DIR/Core
 EMULATOR_CORE_TEST_BUILD_DIR = $$EMULATOR_BUILD_DIR/CoreTest
 EMULATOR_APP_BUILD_DIR = $$EMULATOR_BUILD_DIR/App
 
+## Test util variables
 TEST_UTIL_BUILD_DIR = $$ROOT_BUILD_DIR/TestUtil
-
-# Dependency libraries
-
-# Libs for HorusNetwork
-unix:HORUS_NETWORK_LIBS  = -L/usr/lib -lboost_system -lboost_thread
-win32:HORUS_NETWORK_LIBS = -lboost_system-mgw44-mt-1_52 \
-    -lboost_thread-mgw44-mt-1_52 -lws2_32 -lmswsock
