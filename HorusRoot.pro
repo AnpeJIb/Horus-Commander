@@ -6,9 +6,9 @@ TEMPLATE = subdirs
 CONFIG += ordered
 SUBDIRS += \
     libs \
-    ServerEmulator \
-    TestUtil
+    TestUtil \
+    ServerEmulator
 
-ServerEmulator.depends += libs
+ServerEmulator.depends += libs TestUtil
 
 DESTDIR = $$ROOT_BUILD_DIR
